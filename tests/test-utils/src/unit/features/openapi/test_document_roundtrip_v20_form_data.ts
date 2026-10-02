@@ -20,7 +20,7 @@ import {
  *
  * @evidence contracts/testing.md#behavioral-verification OpenApiConverter upgrades authored Swagger 2 form operations, HttpMigration.application consumes the result, and the downgrade is compared with the original form parameters; urlencoded and multipart bodies, file vendor extensions, nullable and enum form fields and migrated body types are asserted.
  * @evidence contracts/testing.md#independent-expectations The source Swagger form parameters are the oracle for the round trip, and expected emended bodies are authored literals following Swagger's formData model; the migration expectations are body-type literals.
- * @evidence contracts/testing.md#distinguishing-cases URL-encoded versus multipart operations, file fields, nullable scalars and array items, scalar and array-item enums and attributed enums each flip a conversion branch. Documents with several form operations sharing definitions are not covered.
+ * @evidence contracts/testing.md#distinguishing-cases URL-encoded versus multipart operations, file fields, nullable scalars and array items, scalar and array-item enums and attributed enums each flip a conversion branch. Invalid body/form mixtures, object fields and binary array fields require the actual TypeError constructor and independently authored diagnostic, excluding unrelated exceptions. Documents with several form operations sharing definitions are not covered.
  * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion and migration run in process on authored documents with no native build, installation or host.
  */
 export const test_document_roundtrip_v20_form_data = (): void => {
@@ -368,71 +368,89 @@ export const test_document_roundtrip_v20_form_data = (): void => {
     referencedProperty.description === "Field-specific",
   );
 
-  assertThrows("body and formData", () =>
-    OpenApiConverter.upgradeDocument({
-      ...input,
-      paths: {
-        "/invalid": {
-          post: {
-            parameters: [
-              { name: "body", in: "body", schema: { type: "string" } },
-              { name: "field", in: "formData", type: "string" },
-            ],
-            responses: {},
+  assertThrows(
+    "body and formData",
+    "SwaggerV2Upgrader: body and formData parameters cannot coexist.",
+    () =>
+      OpenApiConverter.upgradeDocument({
+        ...input,
+        paths: {
+          "/invalid": {
+            post: {
+              parameters: [
+                { name: "body", in: "body", schema: { type: "string" } },
+                { name: "field", in: "formData", type: "string" },
+              ],
+              responses: {},
+            },
           },
         },
-      },
-    }),
+      }),
   );
-  assertThrows("complex formData field", () =>
-    OpenApiConverter.upgradeDocument({
-      ...input,
-      paths: {
-        "/invalid": {
-          post: {
-            parameters: [
-              {
-                name: "nested",
-                in: "formData",
-                type: "object",
-                properties: { value: { type: "string" } },
-              },
-            ],
-            responses: {},
+  assertThrows(
+    "complex formData field",
+    "SwaggerV2Upgrader: formData parameters must use simple schemas.",
+    () =>
+      OpenApiConverter.upgradeDocument({
+        ...input,
+        paths: {
+          "/invalid": {
+            post: {
+              parameters: [
+                {
+                  name: "nested",
+                  in: "formData",
+                  type: "object",
+                  properties: { value: { type: "string" } },
+                },
+              ],
+              responses: {},
+            },
           },
         },
-      },
-    }),
+      }),
   );
-  assertThrows("binary array formData field", () =>
-    OpenApiConverter.upgradeDocument({
-      ...input,
-      paths: {
-        "/invalid": {
-          post: {
-            consumes: ["multipart/form-data"],
-            parameters: [
-              {
-                name: "files",
-                in: "formData",
-                type: "array",
-                items: { type: "string", format: "binary" },
-              },
-            ],
-            responses: {},
+  assertThrows(
+    "binary array formData field",
+    "SwaggerV2Upgrader: formData parameters must use simple schemas.",
+    () =>
+      OpenApiConverter.upgradeDocument({
+        ...input,
+        paths: {
+          "/invalid": {
+            post: {
+              consumes: ["multipart/form-data"],
+              parameters: [
+                {
+                  name: "files",
+                  in: "formData",
+                  type: "array",
+                  items: { type: "string", format: "binary" },
+                },
+              ],
+              responses: {},
+            },
           },
         },
-      },
-    }),
+      }),
   );
 };
 
-const assertThrows = (title: string, task: () => unknown): void => {
-  let thrown: boolean = false;
+const assertThrows = (
+  title: string,
+  message: string,
+  task: () => unknown,
+): void => {
+  let thrown: unknown;
   try {
     task();
-  } catch {
-    thrown = true;
+  } catch (error) {
+    thrown = error;
   }
-  TestValidator.predicate(title, thrown);
+  TestValidator.predicate(
+    title,
+    thrown instanceof TypeError &&
+      thrown.constructor === TypeError &&
+      thrown.message === message,
+  );
 };

@@ -11,22 +11,23 @@ import { _IProtobufWriter } from "./_IProtobufWriter";
  *
  * @evidence contracts/common.md#principled-implementation The sizer replays the encoder's calls to compute the exact byte length and, for each string or length-delimited message, the prefix lengths, which the writer then consumes in the same order, so the buffer is allocated once and filled without a growth step. Varint lengths follow from the value ranges, a negative int32 takes ten bytes and 64-bit values are measured after reduction to an unsigned 64-bit pattern.
  * @evidence contracts/common.md#clear-and-simple-design One class holding the total length, a position stack for open messages and the list of recorded lengths; its private varint measurers are shared by the scalar methods.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts The size rules are the protobuf wire format's, with no caller special-cased. The fork and ldelim pair throws if they are not paired.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The size rules are the protobuf wire format's, with no caller special-cased. An ldelim call without an open fork throws; callers must finish any forks they open.
  * @evidence contracts/common.md#meaningful-documentation A comment explains the two-pass role with the writer, and the fields have comments.
  */
 export class _ProtobufSizer implements _IProtobufWriter {
-  /** Total length. */
+  /** Total measured byte length, including length prefixes. */
   public len: number;
 
-  /** Position stack. */
+  /** Byte positions at which still-open messages started. */
   public readonly pos: Array<number>;
 
-  /** Variable length list. */
+  /** String and message byte lengths in the writer's consumption order. */
   public readonly varlen: Array<number>;
 
-  /** Variable length index stack. */
+  /** Reserved length-list indices for still-open messages. */
   public readonly varlenidx: Array<number>;
 
+  /** Start measuring from an optional existing byte count. */
   public constructor(length: number = 0) {
     this.len = length;
     this.pos = [];

@@ -28,6 +28,7 @@ var CompareEqualProgrammer = compareEqualProgrammerNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type CompareEqualProgrammer_IConfig struct {
+  // Cover permits absent right-side members during directional comparison.
   Cover bool
 }
 
@@ -40,10 +41,17 @@ type CompareEqualProgrammer_IConfig struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type CompareEqualProgrammer_IProps struct {
+  // Context borrows the checker and emitter for this transform.
   Context nativecontext.ITypiaContext
-  Modulo  *shimast.Node
-  Type    *shimchecker.Type
-  Config  CompareEqualProgrammer_IConfig
+
+  // Modulo supplies the public comparison method name for diagnostics.
+  Modulo *shimast.Node
+
+  // Type is the declared operand structure analyzed into comparison metadata.
+  Type *shimchecker.Type
+
+  // Config selects equality or directional covering within the shared generator.
+  Config CompareEqualProgrammer_IConfig
 }
 
 type compareEqualProgrammerGenerator struct {

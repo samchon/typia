@@ -31,7 +31,8 @@ var NumberUtil = numberUtilNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The grammar is JavaScript's, as the namespace comment explains, and not Go's float syntax.
 // @evidence contracts/common.md#meaningful-documentation Each field has a comment and the namespace comment explains the grammar difference.
 type NumberUtil_Reading struct {
-  // Value is what `Number(text)` evaluates to, with negative zero read as zero.
+  // Value is what `Number(text)` evaluates to when Numeric is true, with
+  // negative zero read as zero. A non-numeric reading leaves Value at zero.
   Value float64
 
   // Numeric is false when `Number(text)` is NaN, or when the text is blank.

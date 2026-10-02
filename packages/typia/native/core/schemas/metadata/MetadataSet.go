@@ -6,21 +6,26 @@ package metadata
 // @evidence contracts/common.md#principled-implementation A set has no shared declaration, so its JSON form holds the schema and tags.
 // @evidence contracts/common.md#clear-and-simple-design Two fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation Each field describes the set projection produced by ToJSON.
 type IMetadataSchema_ISet struct {
+  // Value is the serialized element schema.
   Value *IMetadataSchema
-  Tags  [][]IMetadataTypeTag
+  // Tags contains alternative rows of jointly applied tags.
+  Tags [][]IMetadataTypeTag
 }
 
 // MetadataSet is the global `Set` type with its element schema and the tag rows
-// of the use. The cached names are not recomputed when Tags changes later.
+// of the use. Value names and Tags must be final before the first cached name
+// lookup; later changes do not invalidate either cache.
 //
 // @evidence contracts/common.md#principled-implementation The element schema defines the set and the tags belong to the use.
 // @evidence contracts/common.md#clear-and-simple-design Two fields and two caches.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The cache limitation is stated.
 // @evidence contracts/common.md#meaningful-documentation The doc states the parts and the cache limitation.
 type MetadataSet struct {
-  Value         *MetadataSchema
+  // Value is the analyzed element schema, required before ToJSON.
+  Value *MetadataSchema
+  // Tags contains this use's alternative rows of jointly applied tags.
   Tags          [][]IMetadataTypeTag
   name_         string
   display_name_ string

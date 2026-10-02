@@ -26,7 +26,7 @@ import { TagBase } from "./TagBase";
  *
  * @template Value The minimum allowed value (inclusive)
  *
- * @evidence contracts/common.md#principled-implementation The check is `N <= $input` for numbers and `BigInt(N) <= $input` for bigint, which is the inclusive lower bound in the value's own type; `schema.minimum` carries the bound, rendered as a JSON number for bigint and therefore inexact beyond the safe-integer range. It is exclusive with ExclusiveMinimum.
+ * @evidence contracts/common.md#principled-implementation The inclusive check is N <= $input for numbers and BigInt(N) <= $input for bigint. Cast renders N as a JavaScript number literal before bigint conversion, while Numeric renders the schema bound as a number type. Both retain the accepted number-representation precision limit; no arbitrary-precision bound is promised. The tag is exclusive with ExclusiveMinimum.
  * @evidence contracts/common.md#clear-and-simple-design Private Cast and Numeric helpers mirror the other bound tags and are used once each here.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts A general comparison template without a special-cased value.
  * @evidence contracts/common.md#meaningful-documentation The comment states the inclusive meaning, the exclusion of ExclusiveMinimum and gives price and quantity examples.
@@ -42,6 +42,13 @@ export type Minimum<Value extends number | bigint> = TagBase<{
     : { minimum: Value };
 }>;
 
+// Numeric tags retain JavaScript number semantics when rendering numeric
+// literals and JSON Schema bounds. Very large values can lose precision; this
+// is an accepted representation limit, not an arbitrary-precision guarantee.
+// Do not add special-case bounds, monkey patches or a second numeric model to
+// compensate for it. Review changes against the supported representation and
+// maintainer decisions in #2351 and #2457, rather than demanding exactness for
+// values that representation cannot express.
 type Cast<Value extends number | bigint> = Value extends number
   ? Value
   : `BigInt(${Value})`;

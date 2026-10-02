@@ -25,7 +25,7 @@ const build = typia.plain.createClassify<Widget>();
  * 2. Execute the preserved inputs and assert their runtime results.
  *
  * @evidence contracts/testing.md#behavioral-verification classify copies an anonymous class without a runtime binding; the body executes real transformed callbacks and retains the original runner assertions.
- * @evidence contracts/testing.md#independent-expectations Handwritten seed field values and null termination establish the result independently; this case checks plain field contents and absence of an unbound-name exception, without claiming a class-prototype identity assertion.
+ * @evidence contracts/testing.md#independent-expectations Handwritten seed x5 establishes the result independently; this case checks field content and absence of an unbound-name exception, without asserting a particular result prototype or class identity.
  * @evidence contracts/testing.md#distinguishing-cases The factory-returned class has no reachable constructor binding; the input x value 5 survives plain field-copy without an internal-class ReferenceError.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_plain_classify_unbound_anonymous in the automated composite population; private fixture declarations and callbacks belong to this entry.
  * @evidence contracts/e2e.md#necessary-boundary Real typia native lowering must connect these TypeScript declarations to executable JavaScript; direct emitter inspection cannot detect wrong constructor identity or missing runtime bindings.

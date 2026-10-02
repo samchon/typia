@@ -9,14 +9,14 @@ import (
 
 // TestMetadataTypeTagSoleMalformedDiagnostic checks the authored operation results described below.
 //
-// Tag metadata fields have distinct contracts; invalid validation text is a validation-expression defect rather than a target-kind error.
+// Tag metadata fields have distinct contracts; a wide argument can invalidate the value and derived validation expression without invalidating the target kind.
 //
-// 1. The tag has one malformed field, isolating field ownership instead of hiding the error behind another invalid tag property.
-// 2. A malformed sole validate tag returns status three, names the expected validate failure and does not misattribute it to typia.tag.target.
+// 1. Wide tag arguments invalidate their value and derived validation fields, while their target kinds remain valid.
+// 2. Wide arguments return status three, name the expected value/validate failures and do not misattribute them to typia.tag.target; a literal argument compiles.
 //
-// @evidence contracts/testing.md#behavioral-verification A malformed sole validate tag returns status three, names the expected validate failure and does not misattribute it to typia.tag.target.
-// @evidence contracts/testing.md#independent-expectations Tag metadata fields have distinct contracts; invalid validation text is a validation-expression defect rather than a target-kind error.
-// @evidence contracts/testing.md#distinguishing-cases The tag has one malformed field, isolating field ownership instead of hiding the error behind another invalid tag property.
+// @evidence contracts/testing.md#behavioral-verification Wide arguments return status three, name the expected value/validate failures and do not misattribute them to typia.tag.target; a literal argument compiles.
+// @evidence contracts/testing.md#independent-expectations Tag metadata fields have distinct contracts; a wide argument can invalidate the value and derived validation expression without invalidating the target kind.
+// @evidence contracts/testing.md#distinguishing-cases Wide Minimum and Probability arguments contrast with a literal Minimum argument; a second valid Maximum tag must not hide the malformed fields or misattribute them to the valid target kind.
 // @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestMetadataTypeTagSoleMalformedDiagnostic as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestMetadataTypeTagSoleMalformedDiagnostic(t *testing.T) {
   dir := ttscTypiaTestFixtureDirectory(t, "sole-malformed-tag-")

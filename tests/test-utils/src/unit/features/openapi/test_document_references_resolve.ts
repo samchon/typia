@@ -11,8 +11,8 @@ import fs from "fs";
 import { TestGlobal } from "../../../TestGlobal";
 
 /**
- * Verifies every schema reference in the real-world fixtures resolves, and
- * resolves alike for every reader of the document.
+ * Verifies raw source-key references in real-world fixtures resolve alike for
+ * the document readers.
  *
  * A JSON Reference names its component by a JSON Pointer token, and documents
  * in the wild write keys the OpenAPI 3.x grammar does not allow, such as the
@@ -26,17 +26,17 @@ import { TestGlobal } from "../../../TestGlobal";
  * and was malformed for another (#2416).
  *
  * 1. Upgrade every fixture of every version.
- * 2. Walk each emended document's components, parameters, and bodies, and collect
- *    every schema reference the source defines that fails to escape to its
- *    component, or that the validator or the LLM converter reports as a
- *    reference failure.
+ * 2. Walk each emended document's components, parameters, and bodies, and check
+ *    local schema references whose raw suffix exactly matches a source
+ *    component key. Collect those that fail to reach their component or report
+ *    a reference failure in the validator or LLM converter.
  * 3. Assert the collections are empty, and that at least one fixture carried a key
  *    the URI-fragment charset forbids, so the check cannot pass on tidy inputs
  *    alone.
  *
- * @evidence contracts/testing.md#behavioral-verification Every example document is upgraded and walked with OpenApiTypeChecker, OpenApiValidator and LlmSchemaConverter; the collections of unescaped, unresolved and validator or converter rejected references must be empty, so a reader that decodes pointers differently fails.
- * @evidence contracts/testing.md#independent-expectations RFC 6901 pointer escaping defines what each reference must resolve to, computed from the source document's component keys rather than from the converters; the fixtures are real-world documents read from disk.
- * @evidence contracts/testing.md#distinguishing-cases A final assertion requires at least one fixture with a key the URI-fragment charset forbids, so tidy documents alone cannot satisfy the empty-collection assertions. Behavior for documents outside the checked-in fixtures is not covered.
+ * @evidence contracts/testing.md#behavioral-verification Every example document is upgraded and walked. For local references whose raw suffix exactly matches a source key, OpenApiTypeChecker must visit the target and OpenApiValidator and LlmSchemaConverter must report no reference-resolution failure. The two failure collections must be empty.
+ * @evidence contracts/testing.md#independent-expectations Raw suffix membership is checked against the source document's component keys, independently of converter output. Defined raw references must reach a target and avoid resolution diagnostics; decoded escaped and percent-encoded spellings are judged against authored literal verdicts in test_openapi_reference_key_escaped instead of being decoded by this fixture gate.
+ * @evidence contracts/testing.md#distinguishing-cases A final assertion requires at least one fixture with a key the URI-fragment charset forbids. References with escaped or percent-encoded suffixes that differ from their source keys are outside this raw-membership gate; the escaped peer owns their positive, negative and malformed literal matrix. Behavior outside checked-in fixtures is not covered.
  * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Fixtures are read from disk and processed in process with no native build, installation or host.
  */
 export const test_document_references_resolve = async (): Promise<void> => {

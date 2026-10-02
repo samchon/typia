@@ -9,13 +9,13 @@ import (
 
 // TestNotationPascalCaseTransform verifies Pascal spelling with normalized component case.
 //
-// Pascal notation uppercases each component head while normalizing the remainder; preserving every original uppercase character would violate that convention.
+// Pascal notation capitalizes underscore-delimited components and lowercases their tails; a key without separators retains its tail after its first character is capitalized.
 //
 // 1. Separator and uppercase source forms are paired with correct target keys and specifically forbidden unlowercased outputs.
 // 2. The output contains expected Pascal keys and excludes the authored unnormalized uppercase key spellings.
 //
 // @evidence contracts/testing.md#behavioral-verification The output contains expected Pascal keys and excludes the authored unnormalized uppercase key spellings.
-// @evidence contracts/testing.md#independent-expectations Pascal notation uppercases each component head while normalizing the remainder; preserving every original uppercase character would violate that convention.
+// @evidence contracts/testing.md#independent-expectations Pascal notation capitalizes underscore-delimited components and lowercases their tails; a key without separators retains its tail after its first character is capitalized.
 // @evidence contracts/testing.md#distinguishing-cases Separator and uppercase source forms are paired with correct target keys and specifically forbidden unlowercased outputs.
 // @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestNotationPascalCaseTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestNotationPascalCaseTransform(t *testing.T) {

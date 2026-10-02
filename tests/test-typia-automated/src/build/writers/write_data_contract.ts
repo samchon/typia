@@ -7,15 +7,10 @@ import { NamingConvention } from "@typia/utils";
  * limits. Unsupported modes receive no description. Validator cases keep their
  * separate result/path contract renderer.
  *
- * @evidence contracts/common.md#principled-implementation Module and normalized method identify a reviewed data helper. Its authored-fixture, conversion, comparison and mutation facts determine the generated explanation; unknown operation keys return no answer instead of receiving unrelated validator claims.
- * @evidence contracts/common.md#clear-and-simple-design A fixed operation table owns differing helper facts and one renderer owns shared declaration/fixture/native-boundary wording. The common script writer places the selected description beside the same executable case it already generated.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts This operation renders documentation and changes no fixture eligibility, callback, comparison or expected result. Operation keys identify real helper responsibilities, not fixture exceptions; unresolved oracle limits remain explicit.
- * @evidence contracts/common.md#meaningful-documentation Generated prose names the operation, fixture and scenario. Testing/E2E answers identify independent expectation sources, real native connection and ownership limits, separated from the ordinary description.
- * @evidence contracts/performance.md#efficient-algorithms Key normalization and lookup select one fixed description without scanning all modes. Rendering traverses the output fragments once and allocates the necessary fixture-specific comment; work and output storage grow with that comment's length.
- *
- * @evidenceExclude contracts/performance.md#reuse-equivalent-work The fixed helper facts are initialized once and shared across fixtures. This renderer coordinates no repeated completed or in-flight rendering requests; different fixture or public-method names require different output.
- *
- * @evidence contracts/performance.md#bound-retention-and-release-resources The module retains a fixed operation-description table. Request strings and fragments are local; the returned comment transfers to the writer, and no fixture history, file handle, process or task is retained here.
+ * @evidence contracts/testing.md#behavioral-verification This renderer writes descriptions for actual stringify/clone/prune/HTTP helpers without executing or changing their assertions. Its operation table identifies content, mutation or transport comparisons; write_common retains the actual typed callback binding beside the returned comment.
+ * @evidence contracts/testing.md#independent-expectations Authored fixtures/RESOLVE, pre-call platform JSON text, independent clone/prune graph snapshots and maintained transport encoders supply the helper-specific expectation facts. Shared native record checks and successful transport roundtrips retain their disclosed correlation/spelling limitations rather than becoming independent oracles through this text.
+ * @evidence contracts/testing.md#distinguishing-cases create-prefixed method normalization selects the same actual helper facts; unknown keys return empty text rather than unrelated validator claims. The table distinguishes clean-only operations from header spoiler variants and byte-aware async FormData comparisons; this renderer adds no runtime case.
+ * @evidence contracts/testing.md#execution-ownership write_common invokes this fallback after the validator renderer. The fixed FACTS table and returned fragments belong to documentation generation; generated matching exports execute their named helpers through TestServant, with async promises retained by the source writer.
  */
 export const write_data_contract = (
   props: { module: string | null; method: string },
@@ -57,9 +52,9 @@ const FACTS: Record<
 > = {
   "json.stringify": {
     behavior:
-      "_test_json_stringify prepares the built-in JSON.stringify reference before invoking the native serializer. The shared check parses the actual text and compares complete JSON-shaped data, while requiring original input state to remain unchanged. Undefined-reference behavior is judged by the shared owner; this checks semantic content rather than exact whitespace or property-order bytes.",
+      "_test_json_stringify prepares the built-in JSON.stringify reference before invoking the native serializer. The shared check parses actual text and compares complete JSON-shaped data while requiring the original input's post-call JSON representation to remain identical. Ignored-property mutations and changes undone before checking are not detected. Undefined-reference behavior is judged by the shared owner; this checks semantic content rather than exact whitespace or property-order bytes.",
     oracle:
-      "Built-in JSON serialization and parsing establish the pre-call reference projection; the shared portable check owns symmetric data comparison and original-input snapshots. Its finite ordinary-data fixture premise and authored deterministic conversion behavior remain assumptions; expected content never comes from the native output.",
+      "Built-in JSON serialization and parsing establish the pre-call reference projection; the shared portable check owns symmetric data comparison and a saved JSON text, without source-graph snapshots. Authored deterministic conversion behavior remains an assumption; expected content never comes from native output.",
     contribution:
       "The eligible JSONABLE fixture supplies a clean serialization scenario, including its nested or scalar values and declared conversion behavior. SPOILERS are not applied by this stringify helper.",
     state:

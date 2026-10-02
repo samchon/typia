@@ -8,10 +8,5 @@
  * @evidence contracts/common.md#clear-and-simple-design A zero-argument constant predicate exposes that there is no content analysis or policy configuration to coordinate.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The unrestricted verdict is the annotation contract, not a bypass for a consumer or fixture. No external password policy is substituted.
  * @evidence contracts/common.md#meaningful-documentation The doc states that any string is accepted, that the schema validator owns the type check and that strength and secrecy policy are not decided here.
- * @evidence contracts/performance.md#efficient-algorithms Returning a Boolean constant performs no input traversal, allocation or password-policy calculation; the annotation adds constant work to the consumer type check.
- *
- * @evidenceExclude contracts/performance.md#reuse-equivalent-work The predicate returns a constant without examining the value, so there is no computation to share or cache.
- *
- * @evidence contracts/performance.md#bound-retention-and-release-resources The function keeps no state and allocates nothing.
  */
 export const _isFormatPassword = (): boolean => true;

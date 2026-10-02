@@ -486,7 +486,7 @@ export namespace OpenApiV3_2 {
   }
 
   /**
-   * JSON Schema type for OpenAPI v3.1.
+   * JSON Schema type for OpenAPI v3.2.
    *
    * @evidence contracts/common.md#principled-implementation A union of variants as in 3.1, because 3.2 keeps the 2020-12 schema dialect.
    * @evidence contracts/common.md#clear-and-simple-design One alias over variants in the same-named namespace.
@@ -514,22 +514,22 @@ export namespace OpenApiV3_2 {
      * Mixed type (multiple types in array).
      *
      * @evidence contracts/common.md#principled-implementation The case where `type` is an array of type names; it inherits the keywords of every single-type variant and widens default and enum.
-     * @evidence contracts/common.md#clear-and-simple-design One interface assembled through Omit so keyword definitions stay in one place.
+     * @evidence contracts/common.md#clear-and-simple-design Omit reuses type-specific keywords without their discriminators, defaults and enums; Partial reuses optional composition and reference keywords without requiring every composition at once.
      * @evidence contracts/common.md#prohibited-implementation-shortcuts The type admits keywords that apply to only some of the listed types and does not check which type a keyword belongs to.
      * @evidence contracts/common.md#meaningful-documentation The comment says it covers multiple types in an array.
      */
     export interface IMixed
       extends
-        IConstant,
+        Partial<IConstant>,
         Omit<IBoolean, "type" | "default" | "enum">,
         Omit<INumber, "type" | "default" | "enum">,
         Omit<IString, "type" | "default" | "enum">,
         Omit<IArray, "type">,
         Omit<IObject, "type">,
-        IOneOf,
-        IAnyOf,
-        IAllOf,
-        IReference {
+        Partial<IOneOf>,
+        Partial<IAnyOf>,
+        Partial<IAllOf>,
+        Partial<IReference> {
       /** Array of type discriminators. */
       type: Array<
         | "boolean"
@@ -542,7 +542,7 @@ export namespace OpenApiV3_2 {
       >;
 
       /** Default value. */
-      default?: any[] | null;
+      default?: any;
 
       /** Allowed values. */
       enum?: any[];
@@ -748,26 +748,33 @@ export namespace OpenApiV3_2 {
     /**
      * Array type.
      *
-     * @evidence contracts/common.md#principled-implementation Items may be a schema or a list of schemas alongside `prefixItems` and `additionalItems`, so both tuple spellings are representable.
+     * @evidence contracts/common.md#principled-implementation JSON Schema 2020-12 items applies its schema after prefixItems, or to every element without a prefix. Boolean true permits those elements and false forbids them; omission is unconstrained. Legacy items arrays and additionalItems remain representable for converter compatibility, with reconciliation owned by the upgrader.
      * @evidence contracts/common.md#clear-and-simple-design Optional fields on the array attribute record.
      * @evidence contracts/common.md#prohibited-implementation-shortcuts The type accepts both spellings and leaves their reconciliation to the upgrader.
-     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     * @evidence contracts/common.md#meaningful-documentation Member comments distinguish 2020-12 items and prefix semantics from legacy tuple keywords, including boolean and omitted items behavior and independent length bounds.
      */
     export interface IArray
       extends Omit<IJsonSchemaAttribute.IArray, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
-      /** Element type (or tuple types). */
-      items?: IJsonSchema | IJsonSchema[];
+      /**
+       * Schema for elements after prefixItems, or every element without a
+       * prefix.
+       *
+       * True or omission leaves these elements unconstrained; false forbids
+       * them. A schema array is the legacy tuple spelling accepted by the
+       * converter.
+       */
+      items?: boolean | IJsonSchema | IJsonSchema[];
 
-      /** Tuple prefix items. */
+      /** Positional prefix schemas; array length is constrained separately. */
       prefixItems?: IJsonSchema[];
 
       /** Whether elements must be unique. */
       uniqueItems?: boolean;
 
-      /** Additional items schema. */
+      /** Legacy rest keyword for an items array; not the 2020-12 prefix rest. */
       additionalItems?: boolean | IJsonSchema;
 
       /** Minimum items. */

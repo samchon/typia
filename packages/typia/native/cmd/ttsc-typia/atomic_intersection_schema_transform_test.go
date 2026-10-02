@@ -21,7 +21,7 @@ import (
 //     and string, never an empty unconstrained schema.
 //
 // @evidence contracts/testing.md#behavioral-verification The three tuple references resolve to boolean, number and string schemas in authored order; missing components, wrong tuple size and unconstrained schemas fail.
-// @evidence contracts/testing.md#independent-expectations Expected primitive types, discriminator literals and member names come from the authored TypeScript type, not a previous transform snapshot. AST literal decoding interprets the emitted result but does not execute JavaScript.
+// @evidence contracts/testing.md#independent-expectations The authored tuple wraps boolean, number and string in optional-object intersections; those primitive kinds define the ordered expected schemas rather than a previous transform snapshot. AST literal decoding interprets the emitted result but does not execute JavaScript.
 // @evidence contracts/testing.md#distinguishing-cases The three tuple references resolve to boolean, number and string schemas in authored order; missing components, wrong tuple size and unconstrained schemas fail.
 // @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestAtomicIntersectionSchemaTransform as a unit test. It runs the transform in process and parses its result through the in-memory TypeScript parser; no compiler or JavaScript subprocess is launched.
 func TestAtomicIntersectionSchemaTransform(t *testing.T) {

@@ -3010,7 +3010,7 @@ void (null as unknown as [
  * 3. Propagate every failed comparison to the shared suite runner.
  *
  * @evidence contracts/testing.md#behavioral-verification Fourteen call/construct/hybrid shapes, six positions, direct/factory forms and twelve values retain parity, method/property twins, absolute anchors and four optional-member states. Compiled Same assertions establish type equivalence; parity alone cannot detect a shared bug.
- * @evidence contracts/testing.md#independent-expectations The retained literal expectations encode the authored type/value contract, not emitted-source patterns. Type-level equality assertions, where present, remain compiled independently of runtime comparisons.
+ * @evidence contracts/testing.md#independent-expectations Compiled Same/Assert aliases establish mutual TypeScript assignability of the compared spellings. Runtime spelling/member/optional rows are correlated parity checks, not independent verdicts; separate literal anchors pin the documented default/functional pure-callable option rule and the member-bearing structural boundary retained by merged #2250 and issue #2238.
  * @evidence contracts/testing.md#distinguishing-cases Fourteen call/construct/hybrid shapes, six positions, direct/factory forms and twelve values retain parity, method/property twins, absolute anchors and four optional-member states. Compiled Same assertions establish type equivalence; parity alone cannot detect a shared bug. Each invocation checks one actual transform option. The ordinary suite invokes functional mode; the separate default-option batch must invoke default mode against a project transformed with functional disabled. Both option executions are required to establish preserved coverage.
  * @evidence contracts/testing.md#execution-ownership The matching exported composite is discovered by TestServant in test-typia-automated. Private typed producers and deliberately unchecked JavaScript-style runtime inputs preserve the original test boundary.
  * @evidence contracts/e2e.md#necessary-boundary Real typia public calls are transformed and their callbacks execute in Node. Go unit assertions on metadata or emitted text cannot detect a runtime result, receiver or mutation defect.
@@ -3585,12 +3585,10 @@ export const test_native_callable_type_literal_spelling = (
     label: 123,
   });
   const indexed = Object.assign((value: any) => String(value), { extra: 1 });
-  // An object carrying every apparent member TypeScript gives a callable object
-  // type — the global Function interface's apply/call/bind/toString/prototype/
-  // length/arguments/caller plus name — beside the members each shape declares.
-  // It is the one value the structural path a member-carrying shape must keep is
-  // supposed to accept, so without it a regression that answered false everywhere
-  // would satisfy every parity assertion below.
+  // This object supplies the Function-shaped and authored members checked by
+  // the retained member-bearing structural path. Literal positive anchors keep
+  // an always-false implementation from satisfying every spelling parity check;
+  // they do not claim that this object implements a TypeScript call signature.
   const apparent: any = {
     apply: () => undefined,
     call: () => undefined,

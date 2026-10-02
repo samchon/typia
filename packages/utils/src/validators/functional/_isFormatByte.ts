@@ -9,11 +9,6 @@
  * @evidence contracts/common.md#clear-and-simple-design One private expression owns this lexical check; decoding and content interpretation remain with their consumers.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Alphabet and grouping are format rules rather than special inputs. The predicate applies the same expression to every supplied string.
  * @evidence contracts/common.md#meaningful-documentation The doc states the accepted padded Base64 spelling, that empty data is valid, and that bytes are not decoded and zero padding bits are not required to be canonical.
- * @evidence contracts/performance.md#efficient-algorithms The grammar advances over disjoint four-symbol blocks and at most one padded tail. Work grows with encoded length; the Boolean test allocates no decoded byte array or per-block record.
- *
- * @evidenceExclude contracts/performance.md#reuse-equivalent-work The verdict for one string is independent of every other, so there is no computation to share between requests, and caching results keyed by arbitrary input strings would add retention without any validity contract.
- *
- * @evidence contracts/performance.md#bound-retention-and-release-resources Only the module's pattern constant is retained; the match state of one call is local and reclaimed on return, and the input string is not kept.
  */
 export const _isFormatByte = (str: string): boolean => PATTERN.test(str);
 

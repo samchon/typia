@@ -29,10 +29,16 @@ type ProtobufFactory_IProps struct {
   // sole source of that code: composing the code here from a shorter spelling
   // let the encode and decode programmers, which already pass the whole call
   // accessor, report `typia.protobuf.typia.protobuf.encode`.
-  Method     string
-  Checker    *shimchecker.Checker
+  Method string
+
+  // Checker resolves the Type in the current compiler program.
+  Checker *shimchecker.Checker
+
+  // Components receives named analysis entries and protobuf property layouts.
   Components *schemametadata.MetadataCollection
-  Type       *shimchecker.Type
+
+  // Type is the root type, required to be a sole static object by validation.
+  Type *shimchecker.Type
 }
 
 func (protobufFactoryNamespace) Metadata(props ProtobufFactory_IProps) *schemametadata.MetadataSchema {

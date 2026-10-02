@@ -14,9 +14,9 @@ import { OpenApiConverter } from "@typia/utils";
  *    form/non-form request media.
  * 3. Attempt to downgrade request and response media entries with different
  *    schemas or unrepresentable examples.
- * 4. Assert every lossy case reports an explicit representability error.
+ * 4. Assert every lossy case reports a TypeError with its exact diagnostic.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.downgradeDocument runs on authored documents with incompatible servers, variables, media entries and examples; each lossy case is expected to throw a representability error, so silently selecting the first server or media entry fails.
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.downgradeDocument runs on authored documents with incompatible servers, variables, media entries and examples; each lossy case must throw the actual TypeError constructor and its independently authored diagnostic, so silently selecting an entry or an unrelated exception fails.
  * @evidence contracts/testing.md#independent-expectations The Swagger 2.0 model (one host and basePath with schemes, one schema per request or response) decides what is representable; documents are authored and the expected failures are not read from the converter's output.
  * @evidence contracts/testing.md#distinguishing-cases Different authorities, server variables, incomplete request media, mixed form and non-form media, schema-differing media and unrepresentable examples are rejection cases; the representable counterparts are covered by the server and media round-trip case.
  * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored documents with no native build, installation or host.
@@ -29,9 +29,15 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     "x-typia-emended-v12": true,
     ...props,
   });
-  const cases: Array<{ name: string; input: OpenApi.IDocument }> = [
+  const cases: Array<{
+    name: string;
+    message: string;
+    input: OpenApi.IDocument;
+  }> = [
     {
       name: "different server authorities",
+      message:
+        "SwaggerV2Downgrader: document servers must share one host and basePath.",
       input: document({
         servers: [
           { url: "https://api.example.com/v1" },
@@ -41,6 +47,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "server variables",
+      message:
+        "SwaggerV2Downgrader: document servers contain template variables.",
       input: document({
         servers: [
           {
@@ -52,16 +60,22 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "unsupported server scheme",
+      message:
+        "SwaggerV2Downgrader: document servers use an unsupported scheme.",
       input: document({ servers: [{ url: "ftp://api.example.com/v1" }] }),
     },
     {
       name: "server credentials",
+      message:
+        "SwaggerV2Downgrader: document servers contain user information.",
       input: document({
         servers: [{ url: "https://user:secret@api.example.com/v1" }],
       }),
     },
     {
       name: "server description",
+      message:
+        "SwaggerV2Downgrader: document servers descriptions are not representable.",
       input: document({
         servers: [
           { url: "https://api.example.com/v1", description: "Production" },
@@ -70,6 +84,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "mixed form and body media",
+      message:
+        "SwaggerV2Downgrader: form and non-form request media types cannot coexist.",
       input: document({
         paths: {
           "/items": {
@@ -91,6 +107,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "request body without content",
+      message:
+        "SwaggerV2Downgrader: request bodies require at least one media type.",
       input: document({
         paths: {
           "/items": {
@@ -103,6 +121,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "request body with empty content",
+      message:
+        "SwaggerV2Downgrader: request bodies require at least one media type.",
       input: document({
         paths: {
           "/items": {
@@ -115,6 +135,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "request media without schema",
+      message:
+        "SwaggerV2Downgrader: request media types require a shared schema.",
       input: document({
         paths: {
           "/items": {
@@ -129,6 +151,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "form body without fields",
+      message:
+        "SwaggerV2Downgrader: form request schemas require at least one defined property.",
       input: document({
         paths: {
           "/items": {
@@ -147,6 +171,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "required undefined form field",
+      message:
+        "SwaggerV2Downgrader: form request schemas require at least one defined property.",
       input: document({
         paths: {
           "/items": {
@@ -170,6 +196,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "required form body without required field",
+      message:
+        "SwaggerV2Downgrader: form request body and field requiredness must agree.",
       input: document({
         paths: {
           "/items": {
@@ -194,6 +222,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "optional form body with required field",
+      message:
+        "SwaggerV2Downgrader: form request body and field requiredness must agree.",
       input: document({
         paths: {
           "/items": {
@@ -216,6 +246,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "form object metadata",
+      message:
+        "SwaggerV2Downgrader: form request object attributes are not representable: description.",
       input: document({
         paths: {
           "/items": {
@@ -238,6 +270,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "referenced form object metadata",
+      message:
+        "SwaggerV2Downgrader: form request object attributes are not representable: description.",
       input: document({
         components: {
           schemas: {
@@ -267,6 +301,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "closed form object",
+      message:
+        "SwaggerV2Downgrader: form request additionalProperties constraints are not representable.",
       input: document({
         paths: {
           "/items": {
@@ -289,6 +325,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "request media schemas",
+      message:
+        "SwaggerV2Downgrader: request body media types must share one schema.",
       input: document({
         paths: {
           "/items": {
@@ -306,6 +344,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "response media schemas",
+      message:
+        "SwaggerV2Downgrader: response media types must share one schema.",
       input: document({
         paths: {
           "/items": {
@@ -325,6 +365,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "response media without schema or example",
+      message:
+        "SwaggerV2Downgrader: response media types require a shared schema or example.",
       input: document({
         paths: {
           "/items": {
@@ -339,6 +381,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "request body example",
+      message:
+        "SwaggerV2Downgrader: request body examples are not representable.",
       input: document({
         paths: {
           "/items": {
@@ -358,6 +402,8 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
     },
     {
       name: "named response examples",
+      message:
+        "SwaggerV2Downgrader: response named examples are not representable.",
       input: document({
         paths: {
           "/items": {
@@ -382,17 +428,26 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
   ];
 
   for (const entry of cases)
-    assertThrows(entry.name, () =>
+    assertThrows(entry.name, entry.message, () =>
       OpenApiConverter.downgradeDocument(entry.input, "2.0"),
     );
 };
 
-const assertThrows = (title: string, task: () => unknown): void => {
-  let thrown: boolean = false;
+const assertThrows = (
+  title: string,
+  message: string,
+  task: () => unknown,
+): void => {
+  let thrown: unknown;
   try {
     task();
-  } catch {
-    thrown = true;
+  } catch (error) {
+    thrown = error;
   }
-  TestValidator.predicate(title, thrown);
+  TestValidator.predicate(
+    title,
+    thrown instanceof TypeError &&
+      thrown.constructor === TypeError &&
+      thrown.message === message,
+  );
 };

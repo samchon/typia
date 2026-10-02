@@ -19,6 +19,7 @@ var FunctionalValidateFunctionProgrammer = functionalValidateFunctionProgrammerN
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type FunctionalValidateFunctionProgrammer_IConfig struct {
+  // Equals rejects surplus properties in addition to checking declared values.
   Equals bool
 }
 
@@ -32,11 +33,20 @@ type FunctionalValidateFunctionProgrammer_IConfig struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionalValidateFunctionProgrammer_IProps struct {
-  Context     nativecontext.ITypiaContext
-  Modulo      *shimast.Node
-  Config      FunctionalValidateFunctionProgrammer_IConfig
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Modulo identifies the typia call for helper naming and diagnostics.
+  Modulo *shimast.Node
+
+  // Config selects ordinary validation or rejection of surplus properties.
+  Config FunctionalValidateFunctionProgrammer_IConfig
+
+  // Declaration supplies parameter bindings and the checker return signature.
   Declaration *shimast.Node
-  Expression  *shimast.Node
+
+  // Expression is the original callable, invoked with the wrapper receiver.
+  Expression *shimast.Node
 }
 
 var functionalValidateProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

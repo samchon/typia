@@ -21,6 +21,7 @@ var FunctionalAssertParametersProgrammer = functionalAssertParametersProgrammerN
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type FunctionalAssertParametersProgrammer_IConfig struct {
+  // Equals rejects surplus properties in addition to checking declared values.
   Equals bool
 }
 
@@ -35,12 +36,23 @@ type FunctionalAssertParametersProgrammer_IConfig struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionalAssertParametersProgrammer_IProps struct {
-  Context     nativecontext.ITypiaContext
-  Modulo      *shimast.Node
-  Config      FunctionalAssertParametersProgrammer_IConfig
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Modulo identifies the typia call for helper naming and diagnostics.
+  Modulo *shimast.Node
+
+  // Config selects ordinary validation or rejection of surplus properties.
+  Config FunctionalAssertParametersProgrammer_IConfig
+
+  // Declaration supplies parameter bindings and the checker return signature.
   Declaration *shimast.Node
-  Expression  *shimast.Node
-  Init        *shimast.Node
+
+  // Expression is the original callable, invoked with the wrapper receiver.
+  Expression *shimast.Node
+
+  // Init initializes the error factory; nil selects the functional default.
+  Init *shimast.Node
 }
 
 // FunctionalAssertParametersProgrammer_IDecomposeProps is the input of Decompose
@@ -53,11 +65,20 @@ type FunctionalAssertParametersProgrammer_IProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionalAssertParametersProgrammer_IDecomposeProps struct {
-  Context    nativecontext.ITypiaContext
-  Config     FunctionalAssertParametersProgrammer_IConfig
-  Modulo     *shimast.Node
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Config selects ordinary validation or rejection of surplus properties.
+  Config FunctionalAssertParametersProgrammer_IConfig
+
+  // Modulo identifies the typia call for helper naming and diagnostics.
+  Modulo *shimast.Node
+
+  // Parameters contains runtime arguments in declaration order, excluding erased this.
   Parameters []*shimast.Node
-  Wrapper    string
+
+  // Wrapper names the shared error factory binding used to rewrite failure paths.
+  Wrapper string
 }
 
 // FunctionalAssertParametersProgrammer_IDecomposeOutput is what the generator
@@ -69,7 +90,10 @@ type FunctionalAssertParametersProgrammer_IDecomposeProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states each returned part.
 type FunctionalAssertParametersProgrammer_IDecomposeOutput struct {
-  Functions   []*shimast.Node
+  // Functions contains helper declarations placed outside the returned wrapper.
+  Functions []*shimast.Node
+
+  // Expressions contains argument assertions executed before the original call.
   Expressions []*shimast.Node
 }
 

@@ -38,7 +38,7 @@ func TestMetadataCollectionTracksUnionIndices(t *testing.T) {
   if first, second := collection.GetUnionIndex(meta), collection.GetUnionIndex(meta); first != 0 || second != 0 {
     t.Fatalf("repeated union should keep index zero: first=%d second=%d", first, second)
   }
-  if unions := collection.Clone().Unions(); len(unions) != 1 || len(unions[0]) != 2 {
+  if unions := collection.Clone().Unions(); len(unions) != 1 || len(unions[0]) != 2 || unions[0][0].Name != "A" || unions[0][1].Name != "B" {
     t.Fatalf("cloned union order was not preserved: %#v", unions)
   }
 }

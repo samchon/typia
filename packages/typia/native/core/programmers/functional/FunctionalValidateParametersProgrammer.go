@@ -21,6 +21,7 @@ var FunctionalValidateParametersProgrammer = functionalValidateParametersProgram
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type FunctionalValidateParametersProgrammer_IConfig struct {
+  // Equals rejects surplus properties in addition to checking declared values.
   Equals bool
 }
 
@@ -34,11 +35,20 @@ type FunctionalValidateParametersProgrammer_IConfig struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionalValidateParametersProgrammer_IProps struct {
-  Context     nativecontext.ITypiaContext
-  Modulo      *shimast.Node
-  Config      FunctionalValidateParametersProgrammer_IConfig
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Modulo identifies the typia call for helper naming and diagnostics.
+  Modulo *shimast.Node
+
+  // Config selects ordinary validation or rejection of surplus properties.
+  Config FunctionalValidateParametersProgrammer_IConfig
+
+  // Declaration supplies parameter bindings and the checker return signature.
   Declaration *shimast.Node
-  Expression  *shimast.Node
+
+  // Expression is the original callable, invoked with the wrapper receiver.
+  Expression *shimast.Node
 }
 
 // FunctionalValidateParametersProgrammer_IDecomposeProps is the input of
@@ -51,9 +61,16 @@ type FunctionalValidateParametersProgrammer_IProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionalValidateParametersProgrammer_IDecomposeProps struct {
-  Context     nativecontext.ITypiaContext
-  Modulo      *shimast.Node
-  Config      FunctionalValidateParametersProgrammer_IConfig
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Modulo identifies the typia call for helper naming and diagnostics.
+  Modulo *shimast.Node
+
+  // Config selects ordinary validation or rejection of surplus properties.
+  Config FunctionalValidateParametersProgrammer_IConfig
+
+  // Declaration supplies parameter bindings and the checker return signature.
   Declaration *shimast.Node
 }
 
@@ -66,7 +83,10 @@ type FunctionalValidateParametersProgrammer_IDecomposeProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states each returned part.
 type FunctionalValidateParametersProgrammer_IDecomposeOutput struct {
-  Functions  []*shimast.Node
+  // Functions contains helper declarations placed outside the returned wrapper.
+  Functions []*shimast.Node
+
+  // Statements contains ordered checks and returns inside the wrapper body.
   Statements []*shimast.Node
 }
 

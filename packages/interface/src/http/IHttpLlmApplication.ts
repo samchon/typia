@@ -8,14 +8,18 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
  *
  * `IHttpLlmApplication` is a collection of {@link IHttpLlmFunction} schemas
  * converted from {@link OpenApi.IDocument} by `HttpLlm.application()`. Each
- * OpenAPI operation becomes an LLM-callable function.
+ * eligible OpenAPI operation becomes an LLM-callable function. Operations
+ * marked with `x-samchon-human: true` are omitted from both result lists.
+ * Eligibility first follows the migration-supported methods `head`, `get`,
+ * `post`, `put`, `patch`, `delete`, and `query`; other method entries are
+ * omitted.
  *
  * Successful conversions go to {@link functions}, failed ones to {@link errors}
  * with detailed error messages. Common failure causes:
  *
  * - Unsupported schema features (tuples, `oneOf` with incompatible types)
  * - Missing required fields in OpenAPI document
- * - Operations marked with `x-samchon-human: true`
+ * - HEAD operations or multipart request/response bodies
  *
  * Configure behavior via {@link IHttpLlmApplication.IConfig}:
  *
@@ -24,9 +28,9 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
  *
  * @author Jeongho Nam - https://github.com/samchon
  *
- * @evidence contracts/common.md#principled-implementation Operations that convert become functions and those that do not become error records, so every OpenAPI operation appears in exactly one list, with the configuration that produced them and the document version when it had one.
- * @evidence contracts/common.md#clear-and-simple-design Three required lists and an optional version, with config and error types in the namespace.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts It records failures as data instead of dropping or throwing on operations that cannot be converted.
+ * @evidence contracts/common.md#principled-implementation The two lists distinguish successful conversions from reported failures among eligible operations. The composer filters human-only operations from both migration routes and errors; the config records the composition settings and the optional version records the source info.version when present.
+ * @evidence contracts/common.md#clear-and-simple-design Two required lists, a configuration record and an optional version keep conversion results and their context together; config and error types are namespaced.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Conversion failures are represented as data for eligible operations; the documented human-only filter intentionally omits those endpoints rather than fabricating callable tools.
  * @evidence contracts/common.md#meaningful-documentation The comment explains the success and error split, common failure causes and the configuration options with links.
  */
 export interface IHttpLlmApplication {

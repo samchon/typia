@@ -20,10 +20,10 @@ import { OpenApiValidator } from "../../validators/OpenApiValidator";
  *
  * Converts OpenAPI-migrated HTTP routes into LLM function calling schemas,
  * filtering out unsupported methods (HEAD) and content types
- * (multipart/form-data), and shortening function names to fit the configured
- * maximum length.
+ * (multipart/form-data), omitting human-only endpoints from both result lists,
+ * and shortening function names to fit the configured maximum length.
  *
- * @evidence contracts/common.md#principled-implementation Each migrated route becomes a function unless it is a human-only endpoint, a HEAD route or a multipart route, which become error records with a reason, and all names are made unique and then shortened to the configured length; migration errors that are not human-only are carried over, so every operation appears once as a function or an error.
+ * @evidence contracts/common.md#principled-implementation Human-only routes and migration errors are filtered from both result lists. Each remaining migrated route becomes a function or a conversion error, including HEAD and multipart rejection, and remaining migration errors are carried over. Function names are made unique and then shortened to the configured length.
  * @evidence contracts/common.md#clear-and-simple-design Public application and shorten functions with private helpers for route composition, description concatenation, name emending and abbreviation, each used once.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Rejections are by documented media type and method, and name policy follows the stated rules and not specific route names.
  * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the filtering and shortening; each exported function and helper explains its rule, including the hash abbreviation and its history.
@@ -34,8 +34,9 @@ export namespace HttpLlmApplicationComposer {
   /**
    * Builds an {@link IHttpLlmApplication} from migrated HTTP routes.
    *
-   * Iterates all routes, converts each to an {@link IHttpLlmFunction}, and
-   * collects conversion errors. Applies function name shortening at the end.
+   * Omits human-only endpoints, converts other routes to an
+   * {@link IHttpLlmFunction}, and collects conversion errors. Applies function
+   * name shortening at the end.
    *
    * @evidence contracts/common.md#principled-implementation Functions are composed route by route with the parameter groups merged into one object schema, converted to LLM parameters and output, and checked for name shape and description length; duplicate names are escaped in path and method order so the plain name does not depend on `paths` order, and a failed route is recorded with its messages. The validator combines the generated OpenAPI validator with extra checks for object parameters that are conditionally required.
    * @evidence contracts/common.md#clear-and-simple-design A long function split into private composeFunction, name and description helpers; the conditional group validator is built beside the parameters it depends on.

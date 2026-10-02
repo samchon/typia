@@ -11,9 +11,9 @@ import { HttpMigrateRouteComposer } from "./HttpMigrateRouteComposer";
 /**
  * Composes {@link IHttpMigrateApplication} from an emended OpenAPI document.
  *
- * Every path and webhook operation becomes a route or a failure record, and the
- * accessors of the successful routes are assigned together once all routes are
- * known.
+ * Supported path and webhook operations become routes or failure records, and
+ * the accessors of the successful routes are assigned together once all routes
+ * are known.
  *
  * @evidence contracts/common.md#principled-implementation Operations from paths and webhooks are listed together without merging by key, composed in path and method order and reported in document order, then the accessors are assigned over all successful routes; this ordering keeps schema and accessor name ownership independent of how the document was sorted.
  * @evidence contracts/common.md#clear-and-simple-design A single exported compose function with a method table and entry comparator; accessor naming is delegated to HttpMigrateRouteAccessor.
@@ -22,7 +22,10 @@ import { HttpMigrateRouteComposer } from "./HttpMigrateRouteComposer";
  */
 export namespace HttpMigrateApplicationComposer {
   /**
-   * Migrate every operation of the document.
+   * Migrate the supported operations of the document.
+   *
+   * The method set is HEAD, GET, POST, PUT, PATCH, DELETE and QUERY. OPTIONS,
+   * TRACE and additional operations are not selected.
    *
    * Routes are composed in path and method order so that name collisions are
    * settled independently of the order of `paths`, and are reported in document

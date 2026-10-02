@@ -3,29 +3,72 @@ import { OpenApi } from "@typia/interface";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
+/**
+ * Provides the actual qualification in the generic argument fixture.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This namespace supplies Ns.Inner to Gen; the exported generic-argument case owns descriptor-resolution and ancestry assertions.
+ * @evidence contracts/testing.md#independent-expectations The source qualification Ns.Inner is an authored naming input, not a generated component-name expectation.
+ * @evidence contracts/testing.md#distinguishing-cases Qualification inside a generic argument contrasts with the genuine Merged.Child namespace relation and the unrelated GenNs type.
+ * @evidence contracts/testing.md#execution-ownership IArguments references Gen<Ns.Inner> in the native generic-argument case under DynamicExecutor/schema start; Ns has no standalone assertions.
+ */
 export namespace Ns {
-  /** THE INNER PAYLOAD. */
+  /**
+   * THE INNER PAYLOAD.
+   *
+   * @evidence contracts/testing.md#behavioral-verification This boolean-payload fixture is the qualified argument of Gen; the generic-argument case checks that its name cannot invent a GenNs parent.
+   * @evidence contracts/testing.md#independent-expectations The declared Ns.Inner qualification and c:boolean member are source inputs independent of component naming.
+   * @evidence contracts/testing.md#distinguishing-cases A qualified argument belongs inside the generic instance, while Merged.Child is a real namespace member and GenNs is unrelated.
+   * @evidence contracts/testing.md#execution-ownership test_json_schema_openapi_component_name_generic_argument generates IArguments containing Gen<Ns.Inner> and owns every runtime assertion.
+   */
   export interface Inner {
     c: boolean;
   }
 }
 
-/** THE GENERIC WRAPPER. */
+/**
+ * THE GENERIC WRAPPER.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This fixture carries its argument in v; the generic-argument case observes flattened naming and absence of unrelated descriptor ancestry.
+ * @evidence contracts/testing.md#independent-expectations Gen's source name and v:T relationship establish native metadata inputs independently of generated naming.
+ * @evidence contracts/testing.md#distinguishing-cases Gen<Ns.Inner> contrasts with the unrelated GenNs name and genuine Merged.Child ancestry.
+ * @evidence contracts/testing.md#execution-ownership The exported generic-argument case references this fixture through IArguments and executes its descriptor assertions in the shared native suite.
+ */
 export interface Gen<T> {
   v: T;
 }
 
-/** DANGER: a completely unrelated audit-log record type. */
+/**
+ * DANGER: a completely unrelated audit-log record type.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This authored occupied-name/prose fixture makes accidental GenNs ancestry observable; the generic-argument case checks own prose and anti-leak behavior.
+ * @evidence contracts/testing.md#independent-expectations GenNs and its DANGER prose are fixed source inputs, not derived from the allocator's flattening result.
+ * @evidence contracts/testing.md#distinguishing-cases GenNs is unrelated to Gen<Ns.Inner>, whereas Merged is the actual parent of Merged.Child.
+ * @evidence contracts/testing.md#execution-ownership IArguments includes this fixture separately; test_json_schema_openapi_component_name_generic_argument owns resolution/prose comparisons under DynamicExecutor.
+ */
 export interface GenNs {
   unrelated: string;
 }
 
-/** MERGED PARENT. */
+/**
+ * MERGED PARENT.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The merged interface/namespace supplies the positive descriptor-ancestry control; its member must inherit MERGED PARENT while retaining MERGED CHILD.
+ * @evidence contracts/testing.md#independent-expectations Declaration merging and authored parent/child prose establish the expected genuine relationship independently of generated component keys.
+ * @evidence contracts/testing.md#distinguishing-cases Genuine Merged.Child inheritance contrasts with the forbidden inferred relationship between Gen<Ns.Inner> and GenNs.
+ * @evidence contracts/testing.md#execution-ownership IArguments includes both Merged and Merged.Child; the generic-argument case owns their descriptor comparisons under the native schema runner.
+ */
 export interface Merged {
   m: string;
 }
 export namespace Merged {
-  /** MERGED CHILD. */
+  /**
+   * MERGED CHILD.
+   *
+   * @evidence contracts/testing.md#behavioral-verification This real namespace member supplies the positive parent-prose inheritance observation in the generic-argument case.
+   * @evidence contracts/testing.md#independent-expectations Its actual Merged.Child qualification and authored child/parent comments establish expected ancestry independently of the allocator.
+   * @evidence contracts/testing.md#distinguishing-cases Genuine member inheritance must survive while generic argument flattening must not invent a GenNs parent.
+   * @evidence contracts/testing.md#execution-ownership test_json_schema_openapi_component_name_generic_argument references this member through IArguments and owns the runtime prose assertions.
+   */
   export interface Child {
     n: string;
   }

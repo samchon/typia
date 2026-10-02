@@ -18,7 +18,7 @@ import { IValidation } from "./IValidation";
  *
  * @template Class Source class/interface type
  *
- * @evidence contracts/common.md#principled-implementation The record holds the callable function schemas, the configuration used, an optional application description and an optional phantom `__class` that preserves the Class generic so tools can recover the source class type. The phantom member is optional and always undefined at runtime.
+ * @evidence contracts/common.md#principled-implementation The record holds callable function schemas, the configuration used, an optional description and an optional phantom __class preserving the Class generic for static inference. Generated applications omit that member; the structural type does not prevent a manually authored object from supplying it.
  * @evidence contracts/common.md#clear-and-simple-design Four members; the configuration and hook types are in the namespace, and the type parameter exists only for the phantom and the validation hook mapping.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The phantom member is declared type-level metadata and no runtime object is mutated to carry it.
  * @evidence contracts/common.md#meaningful-documentation The comment relates the application to ILlmFunction and the configuration, and the members explain the description's role and the phantom pattern.
@@ -60,9 +60,9 @@ export interface ILlmApplication<Class extends object = any> {
   /**
    * Phantom property for TypeScript generic type preservation.
    *
-   * This property exists only in the type system to preserve the `Class`
-   * generic parameter at compile time. It is always `undefined` at runtime and
-   * should not be accessed or used in application code.
+   * The generator omits this property. Its optional type preserves the `Class`
+   * generic parameter for static inference; use the function schemas for
+   * runtime application information.
    *
    * This pattern enables type inference to recover the original class type from
    * an `ILlmApplication` instance, useful for type-safe function routing.

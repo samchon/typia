@@ -20,8 +20,9 @@ type llmEvaluationProgrammerNamespace struct{}
 // LlmEvaluationProgrammer writes `typia.llm.evaluation<T>()`.
 //
 // The emitted code is one call to the `_createLlmEvaluation` runtime helper
-// with a compile-time plan: one entry per decision leaf of `T`, carrying its
-// property path, question text, and probability requirements. The helper
+// with the configured decimals and a compile-time plan: one entry per decision
+// leaf of `T`, carrying its property path, question text, and probability
+// requirements. The helper
 // derives both the question map and the checked decoder from that plan,
 // so the question-key encoding has a single owner at runtime.
 var LlmEvaluationProgrammer = llmEvaluationProgrammerNamespace{}
@@ -67,8 +68,8 @@ type LlmEvaluationProgrammer_IError struct {
 
 var llmEvaluationProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
-// Write emits `_createLlmEvaluation(plan) as ILlmEvaluation<T>`. The metadata
-// must already have passed Compose without errors.
+// Write emits `_createLlmEvaluation(plan, decimals) as ILlmEvaluation<T>`.
+// The metadata must already have passed Compose without errors.
 func (llmEvaluationProgrammerNamespace) Write(props LlmEvaluationProgrammer_IWriteProps, plan []any) *shimast.Node {
   f := nativecontext.EmitFactoryOf(llmEvaluationProgrammer_factory, props.Context.Emit)
   typeName := "unknown"

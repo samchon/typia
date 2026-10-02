@@ -8,11 +8,10 @@ import path from "path";
  * followed, so directory cycles cannot expand this fixture walk. Callers read
  * and parse each file afresh; this helper shares no mutable document state.
  *
- * @evidence contracts/common.md#principled-implementation Directory entries identify regular JSON files and child directories; a recursive walk returns sorted native paths and rejects zero selected files so fixture-based cases cannot succeed without exercising a document.
- * @evidence contracts/common.md#clear-and-simple-design One helper owns the same enumeration needed by document upgrade, downgrade and migration cases. It returns filenames rather than parsed documents, leaving each caller responsible for its fresh input and native assertions.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Selection uses entry kind and the JSON extension without fixture-name exceptions. Empty and inaccessible directories fail instead of supplying a fabricated document or accepting a vacuous run.
- * @evidence contracts/common.md#meaningful-documentation Native prose states recursive and flat selection, empty-population failure, symlink policy and fresh-document ownership.
- * @evidence contracts/portability.md#os-neutral-implementation fs directory-entry APIs classify files and path.join creates platform-native paths; the walk makes no slash-splitting or drive-letter assumption.
+ * @evidence contracts/testing.md#behavioral-verification This support operation returns regular JSON filenames for the document cases and rejects a zero-file run rather than allowing their assertions to pass vacuously. test_json_fixture_population independently exercises flat, nested, ignored-file and empty states.
+ * @evidence contracts/testing.md#independent-expectations Directory-entry kinds and the JSON extension determine enrollment; expected fixture paths are authored by the unit case rather than derived from this operation's output. Each consumer parses its own fresh document.
+ * @evidence contracts/testing.md#distinguishing-cases The reader distinguishes flat files, nested directories, non-JSON entries and empty populations. Symlinks are not followed; inaccessible directories reject through the filesystem API.
+ * @evidence contracts/testing.md#execution-ownership Document integration cases call this portable helper before native assertions. The plugin-free test_json_fixture_population unit supplies an owned temporary tree and releases it in finally, without a producer or host.
  */
 export const _readJsonFixturePaths = async (
   root: string,

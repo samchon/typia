@@ -229,6 +229,7 @@ import { test_json_schema_type_checker_cover_any } from "./features/openapi/test
 import { test_json_schema_type_checker_cover_constraints } from "./features/openapi/test_json_schema_type_checker_cover_constraints";
 import { test_json_schema_type_checker_cover_nullable } from "./features/openapi/test_json_schema_type_checker_cover_nullable";
 import { test_json_schema_type_checker_cover_number } from "./features/openapi/test_json_schema_type_checker_cover_number";
+import { test_json_schema_type_checker_cover_string_portable } from "./features/openapi/test_json_schema_type_checker_cover_string_portable";
 import { test_json_schema_upgrade_items_omitted } from "./features/openapi/test_json_schema_upgrade_items_omitted";
 import { test_json_schema_upgrade_v20_example } from "./features/openapi/test_json_schema_upgrade_v20_example";
 import { test_json_schema_upgrade_v30_example } from "./features/openapi/test_json_schema_upgrade_v30_example";
@@ -236,6 +237,7 @@ import { test_json_schema_upgrade_v31_examples } from "./features/openapi/test_j
 import { test_json_schema_upgrade_v31_mixed_type_enum } from "./features/openapi/test_json_schema_upgrade_v31_mixed_type_enum";
 import { test_json_schema_upgrade_v31_tuple_items } from "./features/openapi/test_json_schema_upgrade_v31_tuple_items";
 import { test_json_schema_upgrade_v32_examples } from "./features/openapi/test_json_schema_upgrade_v32_examples";
+import { test_openapi_converter_discriminator_portable } from "./features/openapi/test_openapi_converter_discriminator_portable";
 import { test_openapi_converter_empty_required } from "./features/openapi/test_openapi_converter_empty_required";
 import { test_openapi_converter_parameter_required } from "./features/openapi/test_openapi_converter_parameter_required";
 import { test_openapi_converter_v20_documented_enum } from "./features/openapi/test_openapi_converter_v20_documented_enum";
@@ -247,6 +249,7 @@ import { test_openapi_type_checker_escape_empty_required } from "./features/open
 import { test_openapi_type_checker_escape_error_method } from "./features/openapi/test_openapi_type_checker_escape_error_method";
 import { test_openapi_unknown_string_formats } from "./features/openapi/test_openapi_unknown_string_formats";
 import { test_openapi_unreference_alias_chains } from "./features/openapi/test_openapi_unreference_alias_chains";
+import { test_openapi_uri_template_dotted_variables } from "./features/openapi/test_openapi_uri_template_dotted_variables";
 import { test_openapi_validation_invalid_references } from "./features/openapi/test_openapi_validation_invalid_references";
 import { test_openapi_validation_path_grouping } from "./features/openapi/test_openapi_validation_path_grouping";
 import { test_openapi_validation_reference_paths } from "./features/openapi/test_openapi_validation_reference_paths";
@@ -256,9 +259,11 @@ import { test_openapi_validator_integer_bound_message } from "./features/openapi
 import { test_openapi_validator_intrinsic_object_tuple_invariants } from "./features/openapi/test_openapi_validator_intrinsic_object_tuple_invariants";
 import { test_openapi_validator_nested_discriminator } from "./features/openapi/test_openapi_validator_nested_discriminator";
 import { test_openapi_validator_object_additional_properties } from "./features/openapi/test_openapi_validator_object_additional_properties";
+import { test_openapi_validator_object_undefined_property_portable } from "./features/openapi/test_openapi_validator_object_undefined_property_portable";
 import { test_openapi_validator_report_path_boundary } from "./features/openapi/test_openapi_validator_report_path_boundary";
 import { test_openapi_validator_unicode_length } from "./features/openapi/test_openapi_validator_unicode_length";
 import { test_openapi_validator_unique_items_name } from "./features/openapi/test_openapi_validator_unique_items_name";
+import { test_schema_cover_required_properties } from "./features/openapi/test_schema_cover_required_properties";
 import { test_boolean_predicate_equals_results } from "./features/oracle/test_boolean_predicate_equals_results";
 import { test_boolean_predicate_is_prune_results } from "./features/oracle/test_boolean_predicate_is_prune_results";
 import { test_boolean_predicate_is_results } from "./features/oracle/test_boolean_predicate_is_results";
@@ -290,11 +295,28 @@ import { test_validate_unique_items_structural_helper } from "./features/schema/
 import { test_dedent_interpolation } from "./features/test_dedent_interpolation";
 import { test_equality_async_result_refusal } from "./features/test_equality_async_result_refusal";
 import { test_equality_oracle } from "./features/test_equality_oracle";
+import { test_evidence_owner_directory_failure } from "./features/test_evidence_owner_directory_failure";
 import { test_map_util_take } from "./features/test_map_util_take";
 import { test_singleton_lifecycle } from "./features/test_singleton_lifecycle";
 import { test_total_comparison_shape } from "./features/test_total_comparison_shape";
 
 test("MapUtil.take preserves map membership", test_map_util_take);
+
+test(
+  test_schema_cover_required_properties.name,
+  test_schema_cover_required_properties,
+);
+
+test(
+  test_evidence_owner_directory_failure.name,
+  test_evidence_owner_directory_failure,
+);
+
+test(
+  test_openapi_uri_template_dotted_variables.name,
+  test_openapi_uri_template_dotted_variables,
+);
+
 test("dedent preserves opaque interpolations", test_dedent_interpolation);
 test("Singleton retains the first returned value", test_singleton_lifecycle);
 test(
@@ -805,6 +827,10 @@ test(
   test_json_schema_type_checker_cover_number.name,
   test_json_schema_type_checker_cover_number,
 );
+test(
+  test_json_schema_type_checker_cover_string_portable.name,
+  test_json_schema_type_checker_cover_string_portable,
+);
 
 test(
   test_json_schema_upgrade_items_omitted.name,
@@ -1032,3 +1058,13 @@ test(
   test_unique_items_native_kind_symmetry,
 );
 test("test_random_scalar_extreme_bounds", test_random_scalar_extreme_bounds);
+
+test(
+  test_openapi_validator_object_undefined_property_portable.name,
+  test_openapi_validator_object_undefined_property_portable,
+);
+
+test(
+  test_openapi_converter_discriminator_portable.name,
+  test_openapi_converter_discriminator_portable,
+);

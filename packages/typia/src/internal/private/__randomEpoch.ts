@@ -9,7 +9,9 @@ import { _randomInteger } from "../_randomInteger";
  * @evidence contracts/common.md#meaningful-documentation A comment states the unit and the meaning of each side.
  */
 export interface __IEpochProps {
+  /** Inclusive lower epoch-millisecond bound; defaults to zero. */
   minimum?: number;
+  /** Inclusive upper bound; defaults to now or one year after a given minimum. */
   maximum?: number;
 }
 

@@ -14,20 +14,17 @@ import { _isMultipleOf } from "./_isMultipleOf";
  * Generate a number that is a multiple of a decimal step inside a range.
  *
  * The quotient range is computed exactly, nearby candidates are tested for
- * being doubles that the multiple test accepts, and representable multiples are
- * searched across exponent bands when none is found; an unsatisfiable range
- * throws.
+ * being doubles that the multiple test accepts, and further candidates are
+ * searched across exponent bands when none is found. It throws when the range
+ * is empty or its bounded search finds no accepted candidate.
  *
  * The optional source supplies draws in [0, 1); it defaults to the platform
  * source resolved when this helper is called. Nested draws use the same
  * source.
  *
- * @evidence contracts/common.md#principled-implementation The step is read as a decimal, the bounds are converted to the nearest quotient range with exact big-integer arithmetic, a quotient is drawn and several nearby candidates are checked for being valid doubles that the multiple test accepts, and, when none is representable, it searches representable multiples across integer and decimal exponent bands before throwing. A value is accepted only after the exact multiple test, so the answer does not depend on rounding assumptions.
- * @evidence contracts/performance.md#efficient-algorithms Source injection adds one callback invocation at each existing draw without adding sampling, retries or state. Existing output-size traversal and multiple search bounds are unchanged.
- * @evidence contracts/performance.md#reuse-equivalent-work Random draws are effectful and cannot be shared across calls merely because bounds match. One invocation reuses its decomposed step and quotient bounds while checking candidate multiples; no earlier draw or output is cached.
- * @evidence contracts/performance.md#bound-retention-and-release-resources Exact ratios, bigint coefficients, bounded candidate lists and exponent-band scratch values belong to this invocation. Sizes depend on finite input exponents and coefficient widths. No request history, source callback, handles or tasks are retained after return or throw; the numeric result belongs to the caller.
+ * @evidence contracts/common.md#principled-implementation The step is read as a decimal and exact bigint ratios determine inclusive or exclusive quotient bounds. Selected, boundary and nearby quotients are converted to numbers and checked against the requested bounds and exact multiple predicate. Fallbacks search integer binary exponent bands and decimal exponents -324 through 308 with coefficients limited to fifteen digits. A returned candidate passes the predicate; failure of the bounded candidate search is not a proof that every possible decimal representation was examined.
  * @evidence contracts/common.md#clear-and-simple-design One public function and many private helpers for bounds, candidates and alignment, each used by the search; the search is long because doubles cannot represent every decimal multiple.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts The final check uses the same predicate as the validator, and an unsatisfiable range throws.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The final check uses the same predicate as the validator. Empty ranges and unsuccessful bounded searches throw; no candidate is accepted merely because it was sampled or rounded.
  * @evidence contracts/common.md#meaningful-documentation The doc states the exact quotient range, the candidate search and the failure case; the private helpers are covered by this function's answer.
  */
 export const _randomMultiple = (

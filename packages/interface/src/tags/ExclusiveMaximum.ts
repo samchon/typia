@@ -24,7 +24,7 @@ import { TagBase } from "./TagBase";
  *
  * @template Value The maximum bound (exclusive - value must be less)
  *
- * @evidence contracts/common.md#principled-implementation The tag emits `$input < N` for numbers and `$input < BigInt(N)` for bigint, so the comparison runs in the value's own type, and puts the bound in `schema.exclusiveMaximum`; the bigint bound is rendered as a JSON number, which is inexact beyond the safe-integer range. Its `exclusive` list rejects combination with Maximum.
+ * @evidence contracts/common.md#principled-implementation The tag emits $input < N for numbers and $input < BigInt(N) for bigint. Cast renders N as a JavaScript number literal before bigint conversion, while Numeric renders schema.exclusiveMaximum as a number type. Both retain the accepted number-representation precision limit; no arbitrary-precision bound is promised. Its exclusivity list excludes Maximum.
  * @evidence contracts/common.md#clear-and-simple-design The Cast and Numeric helpers are private and used once each; the tag does not duplicate the validation policy that the native transform owns.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The validate string is the general comparison template, not a consumer-specific check.
  * @evidence contracts/common.md#meaningful-documentation The comment states the strict bound, the exclusivity with Maximum, where it is enforced and gives a temperature example.

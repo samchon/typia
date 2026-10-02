@@ -13,10 +13,18 @@ import { IValidation, OpenApi } from "@typia/interface";
  * @evidence contracts/common.md#meaningful-documentation The doc states the role of the context and the copy-on-descent rule, and the reporter was documented.
  */
 export interface IOpenApiValidatorContext<Schema extends OpenApi.IJsonSchema> {
+  /** Local component schemas used to resolve references. */
   components: OpenApi.IComponents;
+
+  /** Schema for this step of the validation walk. */
   schema: Schema;
+
+  /** Caller value being checked without coercion. */
   value: unknown;
+
+  /** Root-relative value path for error reporting. */
   path: string;
+
   /**
    * Report a violation.
    *
@@ -34,8 +42,16 @@ export interface IOpenApiValidatorContext<Schema extends OpenApi.IJsonSchema> {
       exceptionable: boolean;
     },
   ) => false;
+
+  /** Whether this step may retain reported errors, rather than only probe. */
   exceptionable: boolean;
+
+  /** Schema-derived type description to include in an error. */
   expected: string;
+
+  /** Whether undeclared keys on a closed object are rejected. */
   equals: boolean;
+
+  /** Whether undefined is rejected at the current value position. */
   required: boolean;
 }

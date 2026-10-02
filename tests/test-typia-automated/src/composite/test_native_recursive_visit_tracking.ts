@@ -127,7 +127,7 @@ const fixture = {
  *    assertions.
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from recursiveVisitTrackingRuntimeRunner; emitted-text presence alone cannot pass these assertions.
- * @evidence contracts/testing.md#independent-expectations Authored self/mutual/container cycles with valid leaves must terminate and accept; wrong cycle-internal leaves, surplus equality keys and cycles entering unsupported serializers must reject with their literal paths. The input graph itself determines these distinctions.
+ * @evidence contracts/testing.md#independent-expectations Authored self/mutual/container cycles with valid leaves must terminate and accept; wrong cycle-internal leaves and surplus equality keys reject. Three validation failures check literal path presence. Serializer cycles must throw, with non-circular expected text checked only for plain stringify; error identity and serializer paths are not asserted. Clone and notation checks pin cycle identity relations and literal leaf values.
  * @evidence contracts/testing.md#distinguishing-cases Preserves cyclic is; cyclic validate; cyclic assert; cyclic equals; bad is; bad validate; the rest of the original runner's assertions remain below without dropping or skipping inputs.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_recursive_visit_tracking in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed recursiveVisitTrackingSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.
@@ -248,8 +248,8 @@ export const test_native_recursive_visit_tracking = (): void => {
   graph.nodes.bad = { name: 9, nodes: {} };
   expect("graph broken is", mod.isGraph(graph), false);
 
-  // 9. DAG aliases: valid shared subtrees pass; an invalid shared subtree is
-  //    reported at every path it appears under (delete-on-fail re-walks).
+  // 9. A separately allocated subtree accepts or rejects according to its leaf.
+  //    These rows do not repeat one shared subtree under multiple graph paths.
   const shared: any = { id: 7, parent: null };
   expect("dag is", mod.isNode({ id: 1, parent: shared }), true);
   const wrongShared: any = { id: "broken", parent: null };

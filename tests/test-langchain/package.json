@@ -7,7 +7,7 @@
     "start": "pnpm run test:unit && pnpm run test:integration",
     "test:unit": "ttsx --no-plugins --project tsconfig.unit.json src/unit/index.ts",
     "test:integration": "ttsx src/index.ts",
-    "structured-output": "ttsx src/structured-output.ts",
+    "structured-output": "ttsx src/experimental/structured-output.ts",
     "tool-calling": "ttsx src/experimental/tool-calling.ts",
     "evidence": "evidence"
   },

@@ -6,10 +6,14 @@ package metadata
 // @evidence contracts/common.md#principled-implementation The shared types are serialized once here and referenced by name elsewhere.
 // @evidence contracts/common.md#clear-and-simple-design Four slices.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation Each field describes the shared definitions projected by MetadataCollection.ToJSON.
 type IMetadataComponents struct {
+  // Objects contains shared object definitions in collection discovery order.
   Objects []IMetadataSchema_IObjectType
+  // Aliases contains shared alias definitions in collection discovery order.
   Aliases []IMetadataSchema_IAliasType
-  Arrays  []IMetadataSchema_IArrayType
-  Tuples  []IMetadataSchema_ITupleType
+  // Arrays contains shared array definitions in collection discovery order.
+  Arrays []IMetadataSchema_IArrayType
+  // Tuples contains shared tuple definitions in collection discovery order.
+  Tuples []IMetadataSchema_ITupleType
 }

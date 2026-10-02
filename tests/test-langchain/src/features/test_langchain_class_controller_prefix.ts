@@ -13,7 +13,7 @@ import { Calculator } from "../structures/Calculator";
  * The case builds its input in this file and asserts tool names with prefix,
  * tool names without prefix.
  *
- * 1. Generate the value from the types declared in this file.
+ * 1. Generate a controller from the imported Calculator fixture.
  * 2. Assert the properties listed above.
  *
  * @evidence contracts/testing.md#behavioral-verification The same reflected four-method controller produces exact calculator-prefixed names when prefix is true and unprefixed names when false.

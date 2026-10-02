@@ -15,12 +15,12 @@ import typia, { IJsonSchemaCollection } from "typia";
  *
  * @evidence contracts/testing.md#behavioral-verification covers is called on natively generated object schemas and each titled comparison is asserted.
  * @evidence contracts/testing.md#independent-expectations Containment follows the declared required fields, authored in the test.
- * @evidence contracts/testing.md#distinguishing-cases Positive and negative directions for objects, nested objects and unions are separate titles.
+ * @evidence contracts/testing.md#distinguishing-cases Missing required z and extra closed-shape fields reject both unequal-shape directions for objects and unions. Equal-shape objects/unions supply positive controls; generated additional-property rows retain their required-key distinction.
  * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. the schemas are produced by typia.json.schemas in the native transform; covers runs in process.
- * @evidence contracts/e2e.md#necessary-boundary Native Plan and recursive Box schemas reach covers with authored containment verdicts, including mixed Plan/Box unions and duplicated Box branches as separate rows. Handwritten required/additionalProperties rows are portable assertions retained here; they do not establish a native boundary.
+ * @evidence contracts/e2e.md#necessary-boundary Native Plan and recursive Box schemas reach covers with authored containment verdicts, including mixed Plan/Box unions and duplicated Box branches as separate rows. Handwritten required/additionalProperties assertions execute in the plugin-free unit case; only generated-schema rows remain here.
  * @evidence contracts/e2e.md#shared-execution This case shares the test-utils integration project and native-plugin artifact lifecycle with the other src/features exports. Its runtime rows reuse emitted schemas/callbacks in this invocation instead of starting a compiler host per input; it performs no independent installation or host launch.
  * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation owns its schema/definition objects and payloads; document callers parse fresh text before conversion. Compiler-artifact reuse cannot supply a prior runtime verdict. This case opens no persistent service/process handle; fixture-reader unit temporary files are owned and released by that separate unit.
- * @evidence contracts/e2e.md#preserved-coverage The previous inputs, producer calls and behavioral assertions remain in this exported DynamicExecutor case; portable rows described above have not yet been transferred to unit coverage. Producer parity and structural acceptance retain their stated oracle limits rather than certifying semantic correctness.
+ * @evidence contracts/e2e.md#preserved-coverage All original generated pairs remain; all eight authored portable rows moved unchanged to test_schema_cover_required_properties. Missing required z changes seven wrong acceptance verdicts to rejection, and three equal-shape controls add accepted generated-object and union checks. The moved rows preserve their schemas and verdicts in the unit runner.
  */
 export const test_json_schema_type_checker_cover_object = (): void => {
   const app: IJsonSchemaCollection =
@@ -33,12 +33,12 @@ export const test_json_schema_type_checker_cover_object = (): void => {
   const box3D: OpenApi.IJsonSchema = components.schemas!.Box3D!;
 
   //----
-  // SUCCESS SCENARIOS
+  // DECLARED SHAPE COMPARISONS
   //----
   // SINGLE OBJECT TYPE
   TestEquality.equals(
-    "Plan3D covers Plan2D",
-    true,
+    "Plan3D can't cover Plan2D with missing required z",
+    false,
     OpenApiTypeChecker.covers({
       components,
       x: plan3D,
@@ -46,8 +46,8 @@ export const test_json_schema_type_checker_cover_object = (): void => {
     }),
   );
   TestEquality.equals(
-    "Box3D covers Box2D",
-    true,
+    "Box3D can't cover Box2D with missing required z",
+    false,
     OpenApiTypeChecker.covers({
       components,
       x: box3D,
@@ -57,8 +57,8 @@ export const test_json_schema_type_checker_cover_object = (): void => {
 
   // UNION TYPE
   TestEquality.equals(
-    "(Plan3D|Box3D) covers Plan2D",
-    true,
+    "(Plan3D|Box3D) can't cover Plan2D",
+    false,
     OpenApiTypeChecker.covers({
       components,
       x: { oneOf: [plan3D, box3D] },
@@ -66,8 +66,8 @@ export const test_json_schema_type_checker_cover_object = (): void => {
     }),
   );
   TestEquality.equals(
-    "(Plan3D|Box3D) covers Box2D",
-    true,
+    "(Plan3D|Box3D) can't cover Box2D",
+    false,
     OpenApiTypeChecker.covers({
       components,
       x: { oneOf: [plan3D, box3D] },
@@ -75,8 +75,8 @@ export const test_json_schema_type_checker_cover_object = (): void => {
     }),
   );
   TestEquality.equals(
-    "(Plan3D|Box3D) covers (Box2D|Box2D)",
-    true,
+    "(Plan3D|Box3D) can't cover (Box2D|Box2D)",
+    false,
     OpenApiTypeChecker.covers({
       components,
       x: { oneOf: [plan3D, box3D] },
@@ -84,8 +84,8 @@ export const test_json_schema_type_checker_cover_object = (): void => {
     }),
   );
   TestEquality.equals(
-    "(Plan3D|Box3D) covers (Plan2D|Box2D)",
-    true,
+    "(Plan3D|Box3D) can't cover (Plan2D|Box2D)",
+    false,
     OpenApiTypeChecker.covers({
       components,
       x: { oneOf: [plan3D, box3D] },
@@ -95,94 +95,8 @@ export const test_json_schema_type_checker_cover_object = (): void => {
 
   // DYNAMIC FEATURES
   TestEquality.equals(
-    "optional covers required",
-    true,
-    OpenApiTypeChecker.covers({
-      components,
-      x: {
-        type: "object",
-        properties: {
-          id: { type: "string" },
-        },
-        required: [],
-      },
-      y: {
-        type: "object",
-        properties: {
-          id: { type: "string" },
-        },
-        required: ["id"],
-      },
-    }),
-  );
-  TestEquality.equals(
-    "(additionalProperties := true) cover static",
-    true,
-    OpenApiTypeChecker.covers({
-      components,
-      x: {
-        type: "object",
-        properties: {},
-        additionalProperties: true,
-        required: [],
-      },
-      y: {
-        type: "object",
-        properties: {},
-        required: [],
-      },
-    }),
-  );
-  TestEquality.equals(
-    "(additionalProperties := object) covers static",
-    true,
-    OpenApiTypeChecker.covers({
-      components,
-      x: {
-        type: "object",
-        properties: {},
-        additionalProperties: {
-          type: "object",
-          properties: {},
-          required: [],
-        },
-        required: [],
-      },
-      y: {
-        type: "object",
-        properties: {},
-        required: [],
-      },
-    }),
-  );
-  TestEquality.equals(
-    "(additionalProperties := true) covers everything",
-    true,
-    OpenApiTypeChecker.covers({
-      components,
-      x: {
-        type: "object",
-        properties: {},
-        additionalProperties: true,
-        required: [],
-      },
-      y: {
-        type: "object",
-        properties: {},
-        additionalProperties: {
-          type: "object",
-          properties: {
-            id: { type: "string" },
-          },
-          required: ["id"],
-        },
-        required: [],
-      },
-    }),
-  );
-  TestEquality.equals(
-    "additionalProperties covers relationship",
-    true,
+    "additionalProperties can't cover a missing required z",
+    false,
     OpenApiTypeChecker.covers({
       components,
       x: {
@@ -237,92 +151,6 @@ export const test_json_schema_type_checker_cover_object = (): void => {
 
   // DYNAMIC FEATURES
   TestEquality.equals(
-    "required can't cover optional",
-    false,
-    OpenApiTypeChecker.covers({
-      components,
-      x: {
-        type: "object",
-        properties: {
-          id: { type: "string" },
-        },
-        required: ["id"],
-      },
-      y: {
-        type: "object",
-        properties: {
-          id: { type: "string" },
-        },
-        required: [],
-      },
-    }),
-  );
-  TestEquality.equals(
-    "static can't cover (additionalProperties := true)",
-    false,
-    OpenApiTypeChecker.covers({
-      components,
-      x: {
-        type: "object",
-        properties: {},
-        required: [],
-      },
-      y: {
-        type: "object",
-        properties: {},
-        additionalProperties: true,
-        required: [],
-      },
-    }),
-  );
-  TestEquality.equals(
-    "static can't cover (additionalProperties := object)",
-    false,
-    OpenApiTypeChecker.covers({
-      components,
-      x: {
-        type: "object",
-        properties: {},
-        required: [],
-      },
-      y: {
-        type: "object",
-        properties: {},
-        additionalProperties: {
-          type: "object",
-          properties: {},
-          required: [],
-        },
-        required: [],
-      },
-    }),
-  );
-  TestEquality.equals(
-    "nothing can cover (additionalProperties := true)",
-    false,
-    OpenApiTypeChecker.covers({
-      components,
-      x: {
-        type: "object",
-        properties: {},
-        additionalProperties: {
-          type: "object",
-          properties: {
-            id: { type: "string" },
-          },
-          required: [],
-        },
-        required: [],
-      },
-      y: {
-        type: "object",
-        properties: {},
-        additionalProperties: true,
-        required: [],
-      },
-    }),
-  );
-  TestEquality.equals(
     "relationship can't cover additionalProperties",
     false,
     OpenApiTypeChecker.covers({
@@ -341,6 +169,16 @@ export const test_json_schema_type_checker_cover_object = (): void => {
       },
     }),
   );
+  for (const schema of [plan3D, box3D, { oneOf: [plan3D, box3D] }])
+    TestEquality.equals(
+      "equal object shapes cover each other",
+      true,
+      OpenApiTypeChecker.covers({
+        components,
+        x: schema,
+        y: JSON.parse(JSON.stringify(schema)),
+      }),
+    );
 };
 
 type Plan2D = {

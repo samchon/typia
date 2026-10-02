@@ -29,7 +29,7 @@ const fixture = {
  *    assertions.
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from plainCloneBigIntWrapperRuntimeRunner; emitted-text presence alone cannot pass these assertions.
- * @evidence contracts/testing.md#independent-expectations Boxed and primitive bigint inputs must clone to primitive bigint with exact authored values 1n and 2n. This detects accidental numeric coercion or preservation of a boxed output; it does not require retaining the wrapper prototype.
+ * @evidence contracts/testing.md#independent-expectations Clone/assertClone inputs must yield exact primitive 1n, while camelized records require boxed2n and primitive3n to become their corresponding primitive bigValue. Separate typeof bigint and literal comparisons detect numeric coercion or boxed output; wrapper prototype retention is not required.
  * @evidence contracts/testing.md#distinguishing-cases Preserves the literal runtime assertions below; the rest of the original runner's assertions remain below without dropping or skipping inputs.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_plain_clone_bigint_wrapper in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed plainCloneBigIntWrapperSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.

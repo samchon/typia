@@ -5,7 +5,7 @@ import typia from "typia";
 
 /**
  * Verifies a native named IMember schema retains its reference, an object
- * definition, required numeric id/name and optional email field.
+ * definition, required numeric id, name presence and optional email field.
  *
  * Named reference and target object content are separately inspected. The new
  * object-kind guard prevents a wrong definition from skipping required,
@@ -15,7 +15,7 @@ import typia from "typia";
  * 2. Compare the observed schema fragments or runtime results with the stated
  *    expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification A native named IMember schema retains its reference, an object definition, required numeric id/name and optional email field.
+ * @evidence contracts/testing.md#behavioral-verification A native named IMember schema retains its reference, an object definition, required numeric id, name presence and optional email field.
  * @evidence contracts/testing.md#independent-expectations IMember required and optional declarations independently determine the expected property presence, id type and required/optional membership; the definition shape is asserted before field checks.
  * @evidence contracts/testing.md#distinguishing-cases Named reference and target object content are separately inspected. The new object-kind guard prevents a wrong definition from skipping required, optional and id-type assertions.
  * @evidence contracts/testing.md#execution-ownership test_llm_schema_object is the matching exported DynamicExecutor entry under test-typia-schema start (ttsx src/index.ts). It executes typia.llm.schema through the configured native typia plugin. Private callbacks and schema projections stay part of this case; direct utility-only semantics are not relabeled as proof of the producer.

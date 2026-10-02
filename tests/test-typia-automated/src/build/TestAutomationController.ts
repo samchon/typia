@@ -13,10 +13,10 @@ import { write_common } from "./writers/write_common";
  * The visitor receives completed families, including the authored composite
  * directory. It may collect these locations before starting a shared worker.
  *
- * @evidence contracts/common.md#principled-implementation loadMetadata binds every structure filename to its exported declaration and rejects missing exports; generateFeatureSet applies each operation's declared capability flags before writing direct and factory bindings. writeScript inserts assertion error classes without separating the generated declaration from its contract comment.
- * @evidence contracts/common.md#clear-and-simple-design Discovery, eligibility, rendering and visitation have private owners under this namespace. The visitor owns execution; generation neither starts a worker nor computes expected results.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Selection uses fixture capability flags and configured operations, not source-word scans. Existing Dynamic-name exclusion is limited to templates declaring dynamic false, currently inactive notation configuration; this controller does not certify that disabled families are covered.
- * @evidence contracts/common.md#meaningful-documentation The namespace explains generation and visitor ownership; iterate documents destructive replacement, completion and failure ordering. Generated assertions retain their individual writer documentation.
+ * @evidence contracts/testing.md#behavioral-verification This namespace prepares inputs rather than asserting product behavior. loadMetadata rejects a missing exported fixture, generateFeatureSet binds eligible authored fixtures, and writeScript preserves assertion/error callback imports; test_direct_factory_matrix checks completed enrollment and the generated helpers assert runtime results.
+ * @evidence contracts/testing.md#independent-expectations Authored operation capability flags and fixture metadata determine generation. No emitted callback result supplies an expected value; runtime helpers own their fixture, platform or reference-codec oracles and their documented limits.
+ * @evidence contracts/testing.md#distinguishing-cases createOnly, creatable and capability flags choose supported halves and fixtures; missing fixture exports and rejected writes fail preparation. The controller does not independently test each eligibility branch; the explicit direct/factory regression checks active operation enrollment.
+ * @evidence contracts/testing.md#execution-ownership generate and main invoke iterate. Private loadMetadata, generateFeatureSet and writeScript callbacks belong to this namespace's preparation path; completed generated exports and authored composites are executed by the caller's TestServant rather than here.
  */
 export namespace TestAutomationController {
   /**
@@ -26,10 +26,10 @@ export namespace TestAutomationController {
    * partially generated project as a successful matrix. Composites are
    * retained.
    *
-   * @evidence contracts/common.md#principled-implementation The entire generated tree is removed first, metadata is loaded once, and each configured direct/factory family is written before its visitor runs. createOnly avoids a direct half; creatable adds the factory half. Existing composites receive their own visit without regeneration.
-   * @evidence contracts/common.md#clear-and-simple-design One ordered orchestration delegates export binding, eligibility and rendering to private helpers. Awaited writes and visits expose failures to the caller, while the visitor permits generation-only preparation or collection for shared execution.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts Every eligible structure retains its normal writer and declaration identity. No verdict, native output or expected diagnostic is cached in this controller; filesystem replacement is restricted to the generated feature tree.
-   * @evidence contracts/common.md#meaningful-documentation The comment states replacement, visitation ordering, partial-failure behavior and preservation of composites. The namespace explains which helpers own the nonobvious selection and assertion-import work.
+   * @evidence contracts/testing.md#behavioral-verification iterate awaits generation and visitation without computing a product verdict. test_direct_factory_matrix receives its completed locations and checks supported direct/factory enrollment; later TestServant executions own actual callback assertions.
+   * @evidence contracts/testing.md#independent-expectations Fixture export metadata and configured operation flags establish the generated population before callbacks run. This operation does not create expected decoded data, schemas or diagnostic paths from emitted output.
+   * @evidence contracts/testing.md#distinguishing-cases It replaces only generated features, distinguishes create-only from direct/factory descriptors and retains authored composites. A rejected generation or visit stops preparation; partial generated output is not treated as a complete run.
+   * @evidence contracts/testing.md#execution-ownership The package generate entry supplies a no-op visitor; main collects completed directory paths before opening one worker. Private metadata, eligibility and source-rendering operations execute as this awaited preparation, while every generated case retains its separate matching export.
    */
   export const iterate = async (
     visit: (location: string) => Promise<void>,

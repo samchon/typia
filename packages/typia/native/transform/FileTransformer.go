@@ -25,11 +25,21 @@ var FileTransformer = fileTransformerNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the untyped fields and the absent-value rule, and the field comment explains the emit context.
 type FileTransformer_IEnvironments struct {
-  Program         any
+  // Program is the host's *driver.Program; other dynamic types are absent.
+  Program any
+
+  // CompilerOptions is *shimcore.CompilerOptions; other types are absent.
   CompilerOptions any
-  Checker         any
-  Options         nativecontext.ITransformOptions
-  Extras          nativecontext.ITypiaContext_Extras
+
+  // Checker is *shimchecker.Checker; other dynamic types are absent.
+  Checker any
+
+  // Options controls typia's generated runtime behavior.
+  Options nativecontext.ITransformOptions
+
+  // Extras supplies the diagnostic sink and optional cross-call cache.
+  Extras nativecontext.ITypiaContext_Extras
+
   // EmitContext, when set, puts the importer into AST-integration mode so the
   // emitted file carries namespace imports that tsgo's module-transform aliases,
   // instead of bare identifiers meant for the legacy text-splice path.
@@ -121,9 +131,14 @@ func fileTransformer_iterate_file(context nativecontext.ITypiaContext, file *shi
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the three parts.
 type FileTransformer_TryTransformNodeProps struct {
+  // Context supplies the node transform's checker, importer and diagnostic sink.
   Context nativecontext.ITypiaContext
-  File    *shimast.SourceFile
-  Node    *shimast.Node
+
+  // File supplies the source-file identity for a reported transform error.
+  File *shimast.SourceFile
+
+  // Node is the current AST node and supplies the optional diagnostic span.
+  Node *shimast.Node
 }
 
 func fileTransformer_try_transform_node(props FileTransformer_TryTransformNodeProps) (output *shimast.Node) {

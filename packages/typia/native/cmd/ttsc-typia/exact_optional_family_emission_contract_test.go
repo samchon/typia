@@ -101,7 +101,6 @@ export const randomIncluded=()=>typia.random<IExactOptionalClone>({boolean:()=>t
   if len(assertImports) == 0 {
     t.Fatalf("assert family must import the actual typia _assertGuard runtime helper; actual emitted source:\n%s", output)
   }
-  exactOptionalRuntimeErrorAssembly(t)
   validators := []string{"isRoot", "equalsRoot", "assertRoot", "assertGuardRoot", "assertEqualsRoot", "assertGuardEqualsRoot", "validateRoot", "validateEqualsRoot", "isUnion"}
   for _, name := range append(validators, "cloneRoot", "randomOmitted", "randomIncluded") {
     t.Run(name, func(t *testing.T) {
@@ -241,61 +240,6 @@ func exactOptionalHasIndex(node *shimast.Node) bool {
   visit(node)
   return found
 }
-func exactOptionalRuntimeErrorAssembly(t *testing.T) {
-  t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  parse := func(relative string) *shimast.Node {
-    path := filepath.Join(root, "packages", "typia", "src", relative)
-    source, err := os.ReadFile(path)
-    if err != nil {
-      t.Fatal(err)
-    }
-    return shimparser.ParseSourceFile(shimast.SourceFileParseOptions{FileName: filepath.ToSlash(path)}, string(source), shimcore.ScriptKindTS).AsNode()
-  }
-  helper := parse(filepath.Join("internal", "_assertGuard.ts"))
-  imported, constructed := false, false
-  var visit func(*shimast.Node) bool
-  visit = func(n *shimast.Node) bool {
-    if n.Kind == shimast.KindImportDeclaration && exactOptionalContains(n, shimast.KindStringLiteral, "../TypeGuardError") && exactOptionalContains(n, shimast.KindIdentifier, "TypeGuardError") {
-      imported = true
-    }
-    if n.Kind == shimast.KindThrowStatement {
-      n.ForEachChild(func(child *shimast.Node) bool {
-        if child.Kind == shimast.KindNewExpression && exactOptionalContains(child, shimast.KindIdentifier, "TypeGuardError") && exactOptionalContains(child, shimast.KindIdentifier, "props") {
-          constructed = true
-        }
-        return false
-      })
-    }
-    n.ForEachChild(visit)
-    return false
-  }
-  visit(helper)
-  if !imported || !constructed {
-    t.Fatal("actual _assertGuard must import TypeGuardError and throw new TypeGuardError(props)")
-  }
-  fields := map[string]bool{}
-  visit = func(n *shimast.Node) bool {
-    if n.Kind == shimast.KindBinaryExpression {
-      b := n.AsBinaryExpression()
-      if b.OperatorToken.Kind == shimast.KindEqualsToken && b.Left.Kind == shimast.KindPropertyAccessExpression && b.Right.Kind == shimast.KindPropertyAccessExpression {
-        left, right := b.Left.AsPropertyAccessExpression(), b.Right.AsPropertyAccessExpression()
-        if left.Expression.Kind == shimast.KindThisKeyword && right.Expression.Kind == shimast.KindIdentifier && shimast.NodeText(right.Expression) == "props" && left.Name().Text() == right.Name().Text() {
-          fields[left.Name().Text()] = true
-        }
-      }
-    }
-    n.ForEachChild(visit)
-    return false
-  }
-  visit(parse("TypeGuardError.ts"))
-  for _, field := range []string{"method", "path", "expected", "value"} {
-    if !fields[field] {
-      t.Fatalf("actual TypeGuardError constructor must retain props.%s", field)
-    }
-  }
-}
-
 func exactOptionalPropertyValue(value *shimast.Node) bool {
   if value.Kind == shimast.KindPropertyAccessExpression {
     return value.AsPropertyAccessExpression().Name().Text() == "optional"

@@ -12,9 +12,10 @@ import { LlmSchemaConverter } from "@typia/utils";
  * model reads. This is the inverse witness of the erasure defect — the read
  * must do nothing at all when the write did nothing.
  *
- * The whole inverted leaf is compared, unlike the sibling cases that assert a
- * keyword is present: the comparison is symmetric (#2401), so an invented
- * keyword — present and defined on one side only — fails it.
+ * The five supported string constraint fields are compared as an explicit
+ * projection, and the description is compared separately. An invented value in
+ * one of those fields fails even when the other projected fields remain
+ * undefined; this case does not certify unrelated leaf fields.
  *
  * 1. Hand-build a non-strict leaf whose prose happens to contain tag-like text.
  * 2. Invert it without `config.strict`.

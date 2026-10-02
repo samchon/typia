@@ -1,12 +1,20 @@
+/**
+ * Command-line filters for the integration runner.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This runner support namespace owns getArguments, which supplies include and exclude values to DynamicExecutor; it is not an assertion-bearing case.
+ * @evidence contracts/testing.md#independent-expectations Double-dash keys and one following value per occurrence define the runner input convention independently of test outcomes.
+ * @evidence contracts/testing.md#distinguishing-cases Absent flags yield no filters; repeated flags retain their value order. Test case assertions remain in the discovered feature exports.
+ * @evidence contracts/testing.md#execution-ownership src/index.ts calls getArguments before DynamicExecutor discovers integration cases; node:test unit registration does not use these filters.
+ */
 export namespace TestGlobal {
   /**
    * Reads one value per occurrence of the requested double-dash flag. Missing
    * flags return an empty list.
    *
-   * @evidence contracts/common.md#principled-implementation The argv scan collects one following argument for each occurrence of the requested flag, preserving occurrence order. It does not treat a sequence of unprefixed words as several filter values.
-   * @evidence contracts/common.md#clear-and-simple-design One loop owns flag recognition and the result array; advancing past each consumed value keeps it from being interpreted as another flag.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts The requested key is compared with its complete double-dash spelling; no fixture or test outcome affects parsing.
-   * @evidence contracts/common.md#meaningful-documentation Native prose explains one-value-per-occurrence filtering and the absent-flag empty result, rather than claiming this runner helper is a behavioral test.
+   * @evidence contracts/testing.md#behavioral-verification The runner consumes these returned values to select DynamicExecutor entries; this helper owns no separate behavioral assertions.
+   * @evidence contracts/testing.md#independent-expectations Exact double-dash spelling and one following value per occurrence establish the filter convention; parsing does not depend on a case's result.
+   * @evidence contracts/testing.md#distinguishing-cases The scan preserves repeated values and returns an empty list for an absent flag or a final flag without a following value.
+   * @evidence contracts/testing.md#execution-ownership src/index.ts calls this exported helper for include and exclude before running the integration population. The helper remains support code rather than a separately registered case.
    */
   export const getArguments = (key: string): string[] => {
     const values: string[] = [];

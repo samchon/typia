@@ -34,7 +34,10 @@ var CallExpressionTransformer = callExpressionTransformerNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states both fields.
 type CallExpressionTransformer_TransformProps struct {
-  Context    nativecontext.ITypiaContext
+  // Context supplies the checker used to resolve the callee's declaration.
+  Context nativecontext.ITypiaContext
+
+  // Expression is the source call whose declaration selects a transformer.
   Expression *shimast.CallExpression
 }
 
@@ -47,10 +50,17 @@ type CallExpressionTransformer_TransformProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states that the call is already known to be typia's and what selects its transformer.
 type CallExpressionTransformer_TransformKnownProps struct {
-  Context    nativecontext.ITypiaContext
+  // Context supplies type analysis, options and generated-code services.
+  Context nativecontext.ITypiaContext
+
+  // Expression is the source call to rewrite.
   Expression *shimast.CallExpression
-  Module     string
-  Method     string
+
+  // Module selects a typia operation family such as module, json or llm.
+  Module string
+
+  // Method is the exported operation name within that family.
+  Method string
 }
 
 type callExpressionTransformerTask func(props ITransformProps) *shimast.Node

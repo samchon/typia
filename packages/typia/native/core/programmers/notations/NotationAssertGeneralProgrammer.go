@@ -34,12 +34,23 @@ type NotationAssertGeneralProgrammer_IProps = NotationGeneralProgrammer_IProps
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type NotationAssertGeneralProgrammer_DecomposeProps struct {
-  Rename  NotationGeneralProgrammer_IRename
+  // Rename selects the runtime case helper and static key conversion.
+  Rename NotationGeneralProgrammer_IRename
+
+  // Context borrows the checker, emitter and importer for this transform.
   Context nativecontext.ITypiaContext
+
+  // Functor collects shared helper declarations and recursive-visit state.
   Functor *nativehelpers.FunctionProgrammer
-  Type    *shimchecker.Type
-  Name    *string
-  Init    *shimast.Node
+
+  // Type is the checker type whose input shape is analyzed.
+  Type *shimchecker.Type
+
+  // Name optionally overrides the rendered type name; nil uses the checker name.
+  Name *string
+
+  // Init optionally initializes the assertion error factory parameter.
+  Init *shimast.Node
 }
 
 var notationAssertGeneralProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

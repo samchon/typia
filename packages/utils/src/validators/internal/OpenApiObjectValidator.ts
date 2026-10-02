@@ -8,16 +8,20 @@ import { OpenApiStationValidator } from "./OpenApiStationValidator";
 /**
  * Validates a value against an object schema.
  *
- * @evidence contracts/common.md#principled-implementation A value must be a plain object by its `Object` string tag, then each declared property is validated as required or optional by the `required` list, additional properties that have a schema are validated for keys not declared, and for a closed object `equals` reports every undeclared key that has a value. A key with value `undefined` has no JSON form, so it is neither required nor superfluous. Property access goes through own-key lookup, so inherited names are not read.
+ * An ordinary Object string tag is accepted, including class instances; this
+ * does not require Object.prototype as the value's prototype. Own-property
+ * access can invoke caller-defined getters, whose exceptions propagate.
+ *
+ * @evidence contracts/common.md#principled-implementation An object with the ordinary Object string tag is accepted, including class instances. Declared properties follow the required list, schema-valued additional properties constrain undeclared own entries, and equals reports valued undeclared entries on closed objects. Undefined additional entries have no JSON form and are skipped. Own-key lookup avoids inherited values but can invoke getters; this is not a prototype-based plain-object test.
  * @evidence contracts/common.md#clear-and-simple-design One function that concatenates three groups of checks and a private equals checker; path building is the shared naming rule.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Openness is read from the boolean keyword itself and not from its type, as the comment records, and no key is special-cased.
  * @evidence contracts/common.md#meaningful-documentation The namespace comment and function doc state the contract, and the comments on additional properties and `equals` explain the rules.
  */
 export namespace OpenApiObjectValidator {
   /**
-   * Validate that the value is a plain object and check each declared property,
-   * each value of a schema-typed additional property and, for a closed object
-   * when `equals` is set, that no undeclared key has a value.
+   * Validate that the value has the ordinary Object tag and check each declared
+   * property, each value of a schema-typed additional property and, for a
+   * closed object when `equals` is set, that no undeclared key has a value.
    *
    * @param ctx Validation context
    *

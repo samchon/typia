@@ -3,10 +3,11 @@
  *
  * Accepts the hostname structure with label characters extended to the code
  * units from U+00A1 to U+FFFF. It checks characters and lengths only: IDNA
- * mapping, Punycode and the contextual and bidirectional rules are not applied,
- * and characters above U+FFFF are not accepted.
+ * mapping, Punycode and the contextual and bidirectional rules are not applied.
+ * Lengths count UTF-16 units; surrogate pairs and lone surrogate units can pass
+ * the character class, so this is not Unicode scalar-value validation.
  *
- * @evidence contracts/common.md#principled-implementation The ASCII hostname structure is reused with the label class widened to the code units from U+00A1 to U+FFFF, so every valid hostname is also a valid IDN hostname as the comment records; IDNA mapping, Punycode and the contextual rules are not applied, and astral characters are not accepted because the expression has no `u` flag.
+ * @evidence contracts/common.md#principled-implementation The ASCII hostname structure is reused with the label class widened to UTF-16 units from U+00A1 to U+FFFF, so every valid ASCII hostname is accepted. The expression counts and accepts surrogate units individually; it does not validate Unicode scalar values, IDNA mapping, Punycode or contextual rules.
  * @evidence contracts/common.md#clear-and-simple-design One predicate and one private pattern, identical to the copy in the typia package that emitted code imports.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The widening is a stated approximation of IDNA, not a fixture accommodation.
  * @evidence contracts/common.md#meaningful-documentation The doc states the character range and the checks that are absent.

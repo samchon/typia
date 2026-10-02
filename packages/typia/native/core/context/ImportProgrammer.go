@@ -34,16 +34,20 @@ type ImportProgrammer struct {
 }
 
 // ImportProgrammer_IOptions configures an ImportProgrammer: InternalPrefix is
-// inserted into the aliases of internal imports and Runtime names the runtime
-// package.
+// inserted into the aliases of internal imports. Runtime retains the forwarded
+// adapter label; internal helper imports use fixed typia paths.
 //
-// @evidence contracts/common.md#principled-implementation The prefix keeps internal import aliases from colliding with user names, and the runtime names the package behind them.
+// @evidence contracts/common.md#principled-implementation InternalPrefix forms internal import aliases. Runtime retains the caller's label but is not read when building imports; internal helpers use the fixed typia package path.
 // @evidence contracts/common.md#clear-and-simple-design Two fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states both fields.
 type ImportProgrammer_IOptions struct {
+  // InternalPrefix is inserted between the leading double underscore and the
+  // helper name in internal import aliases.
   InternalPrefix string
-  Runtime        string
+
+  // Runtime retains the forwarded adapter label without changing helper paths.
+  Runtime string
 }
 
 // ImportProgrammer_IDefault names a default import of a file; Type marks it as a
@@ -54,8 +58,13 @@ type ImportProgrammer_IOptions struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the type-only flag.
 type ImportProgrammer_IDefault struct {
+  // File is the module specifier written in the generated import.
   File string
+
+  // Name is the local binding used by the legacy emission mode.
   Name string
+
+  // Type requests a type-only binding; any value request overrides it.
   Type bool
 }
 
@@ -67,8 +76,13 @@ type ImportProgrammer_IDefault struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the alias.
 type ImportProgrammer_IInstance struct {
-  File  string
-  Name  string
+  // File is the module specifier written in the generated import.
+  File string
+
+  // Name is the exported member selected from the module.
+  Name string
+
+  // Alias is the optional legacy binding and deduplication key.
   Alias *string
 }
 
@@ -79,7 +93,10 @@ type ImportProgrammer_IInstance struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it names.
 type ImportProgrammer_INamespace struct {
+  // File is the module specifier written in the generated import.
   File string
+
+  // Name is the local namespace binding in legacy emission mode.
   Name string
 }
 
@@ -91,8 +108,14 @@ type ImportProgrammer_INamespace struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record; an unsupported qualifier type yields no qualifier.
 // @evidence contracts/common.md#meaningful-documentation The doc states the qualifier forms.
 type ImportProgrammer_TypeProps struct {
-  File      string
-  Name      any
+  // File is the module specifier carried by the import type node.
+  File string
+
+  // Name is a string identifier or an existing qualifier node; other values
+  // leave the qualifier absent.
+  Name any
+
+  // Arguments are the type arguments applied to the imported qualifier.
   Arguments []*shimast.TypeNode
 }
 

@@ -7,9 +7,10 @@ import (
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
 )
 
-// OpenApiV3Downgrader rewrites an emended (OpenAPI 3.1) schema collection into
+// OpenApiV3Downgrader rewrites an emended schema collection into
 // the OpenAPI 3.0 dialect. `json.schema`, `json.schemas`, and `json.application`
-// all build their document through json_schema_station, which speaks 3.1 only:
+// all build their document through json_schema_station, whose normalized dialect
+// uses 3.1-style schema keywords:
 // it emits `const`, `prefixItems`, and a `{"type": "null"}` union member for a
 // nullable type. None of those exist in 3.0, which spells the same three things
 // as `enum`, `items` + `minItems`/`maxItems`, and the `nullable` flag.
@@ -71,12 +72,17 @@ func OpenApiV3Downgrader_downgrade_components(input *OpenApi_IComponents) *OpenA
 // OpenApiV3Downgrader_downgrade_schema rewrites one emended schema into 3.0.
 //
 // The emended dialect expresses a union as `oneOf` and nullability as a
-// `{"type": "null"}` member of it. 3.0 has neither, so the schema is flattened
+// `{"type": "null"}` member of it. 3.0 supports oneOf but has no null type, so
+// the schema is flattened
 // into a union of concrete members, the null member is dropped, and the
 // surviving members carry `nullable: true` instead. Constants collapse into the
 // `enum` of a member of the same primitive type.
+// Tuple positions become an item union with prefix-length bounds, losing
+// positional and optional-prefix restrictions. Existing nullable companion names
+// are reused without comparing their schemas. A pure null result retains the
+// existing null-typed representation rather than acquiring a 3.0 nullable type.
 //
-// @evidence contracts/common.md#principled-implementation OpenAPI 3.0 has no `const`, null member or union nullability, so the schema is flattened into concrete members, constants are merged into the enum of a member of the same primitive type, the null member becomes a `nullable` flag, a nullable reference is redirected to an `X.Nullable` companion, and a discriminator survives only when each branch stays one member.
+// @evidence contracts/common.md#principled-implementation Constants merge into primitive enums, mixed null unions mark surviving members nullable, references may use nullable companions, and a discriminator survives only when each branch stays one member. Tuple conversion approximates positions and optional-prefix bounds. Existing nullable companion names are reused without schema comparison, and a pure null result keeps the existing null-typed representation; these are not universal lossless 3.0 mappings.
 // @evidence contracts/common.md#clear-and-simple-design One recursive function with a visitor over the schema kinds, delegating tuples, objects and nullable references to named helpers.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The rewrite follows the schema kinds and keywords of the dialect and special-cases no type name.
 // @evidence contracts/common.md#meaningful-documentation The doc states the flattening, the null handling and the constant folding.

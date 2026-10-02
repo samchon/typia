@@ -18,6 +18,7 @@ var CommentFactory = commentFactoryNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what a part is and what Merge does with it.
 type CommentFactory_SymbolDisplayPart struct {
+  // Text contributes verbatim text, apart from Merge's CRLF normalization.
   Text string
 }
 

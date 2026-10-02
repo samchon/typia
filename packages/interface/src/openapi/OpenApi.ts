@@ -432,7 +432,7 @@ export namespace OpenApi {
     /**
      * Supported content types.
      *
-     * @evidence contracts/common.md#principled-implementation Known content types are listed as literals and `string & {}` admits any other string while keeping completion for the known ones. The URL-encoded literal is spelled `x-www-form-url-encoded`, as in the existing declaration.
+     * @evidence contracts/common.md#principled-implementation Known media types are literal suggestions and string & {} admits arbitrary media types. The URL-encoded suggestion uses application/x-www-form-urlencoded, matching the HTTP migration and fetcher contract.
      * @evidence contracts/common.md#clear-and-simple-design One alias.
      * @evidence contracts/common.md#prohibited-implementation-shortcuts A literal union; no content negotiation is implemented here.
      * @evidence contracts/common.md#meaningful-documentation The one-line comment says it lists supported content types.
@@ -440,7 +440,7 @@ export namespace OpenApi {
     export type ContentType =
       | "text/plain"
       | "application/json"
-      | "application/x-www-form-url-encoded"
+      | "application/x-www-form-urlencoded"
       | "multipart/form-data"
       | "*/*"
       | (string & {});
@@ -678,7 +678,7 @@ export namespace OpenApi {
     /**
      * Tuple type.
      *
-     * @evidence contracts/common.md#principled-implementation The variant has type `array`, a required `prefixItems` list and optional rest schema as `additionalItems`, which are the 2020-12 tuple keywords, and it carries its own bounds; it extends the base attribute record because its discriminator is declared explicitly.
+     * @evidence contracts/common.md#principled-implementation The normalized tuple has an array discriminator, ordered prefixItems, optional additionalItems for its rest and its own bounds. additionalItems is typia's normalized rest field; JSON Schema 2020-12 uses items alongside prefixItems instead. Converters own that dialect mapping.
      * @evidence contracts/common.md#clear-and-simple-design Separate from IArray so a consumer distinguishes tuple from array by shape.
      * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
      * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.

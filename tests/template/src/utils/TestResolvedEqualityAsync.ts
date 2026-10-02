@@ -18,11 +18,6 @@ import {
  *
  * Synchronous codec and header/query consumers use the structural entry;
  * FormData consumers must await this byte-aware result before finishing.
- *
- * @evidence contracts/common.md#principled-implementation Compares projected structure, then awaits every collected Blob/File byte pair.
- * @evidence contracts/common.md#clear-and-simple-design One local context collects binary pairs; byte reads occur only after structural success.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Transport omission and relative numeric tolerance remain; metadata alone never certifies Blob content and arbitrary cycles are outside the supported fixture domain.
- * @evidence contracts/common.md#meaningful-documentation The comment explains awaited content ownership and why synchronous callers cannot silently omit bytes.
  */
 export const resolved_equal_to_async =
   <T>(factory: TestStructure<T>) =>

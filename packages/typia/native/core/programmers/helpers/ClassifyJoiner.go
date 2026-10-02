@@ -14,7 +14,8 @@ var ClassifyJoiner = classifyJoinerNamespace{}
 
 // ClassifyJoiner_ObjectProps is the argument record of ClassifyJoiner.Object,
 // which builds the object that `plain.classify` returns. ClassRef names the
-// class value to instantiate; when it is nil the bare object name is used.
+// runtime class value whose prototype receives the copied fields; when it is
+// nil, reconstruction falls back to a plain object.
 //
 // @evidence contracts/common.md#principled-implementation It is the argument record of ClassifyJoiner.Object, which builds the object that `plain.classify` returns; its 5 fields (Input, Entries, Object, ClassRef, Emit) are named so that a producer and a consumer cannot transpose them.
 // @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
@@ -26,7 +27,7 @@ type ClassifyJoiner_ObjectProps struct {
   Object  *nativemetadata.MetadataObjectType
   // ClassRef is the value reference to the class (a bare identifier when in
   // lexical scope, or a resolved value import for a cross-module class). When
-  // nil the bare object name is used. Resolved by the classify programmer, which
+  // nil reconstruction uses a plain object. Resolved by the classify programmer, which
   // owns the importer and the call-site file.
   ClassRef *shimast.Node
   Emit     *shimprinter.EmitContext
@@ -45,11 +46,10 @@ var classifyJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 //	for (const [key, value] of Object.entries(input)) { ...dynamic keys... }
 //	return output;
 //
-// This is the universal fallback of the design's from -> new -> field-copy
-// precedence: Object.create never calls the constructor, so it reconstructs any
-// class regardless of its constructor signature. (The from / new strategies,
-// which need the construct-signature checker APIs and per-class arity metadata,
-// land in a later slice.)
+// PlainClassifyProgrammer selects supported from/new seed construction at the
+// root before reaching this joiner. This joiner owns field-copy reconstruction,
+// including nested class values. Object.create preserves the available class
+// prototype without calling its constructor or requiring a constructor seed.
 //
 // The class is referenced by props.ClassRef: a bare identifier when the class
 // is in lexical scope at the classify() call site (the common same-file case),

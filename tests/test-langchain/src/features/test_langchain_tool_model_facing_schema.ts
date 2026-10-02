@@ -15,11 +15,11 @@ import { Calculator } from "../structures/Calculator";
  * A LangChain tool's `schema` is read for two different purposes: LangChain
  * validates arguments against it, and `toJsonSchema` turns it into the
  * parameters the model is shown. Because typia validates arguments itself, the
- * registrar declines the first role by registering Standard JSON Schema — and
- * the whole point of that shape is that it does not cost the second. Nothing
- * else asserts the model-facing artifact, so a regression that traded the
- * schema away to reclaim validation would leave the model calling tools blind,
- * with every other test still green.
+ * registrar supplies a Standard JSON Schema carrier without top-level argument
+ * constraints or a Standard Schema validator. The SDK still checks that carrier
+ * before typia validation; model-facing conversion retains the parameters.
+ * These assertions pin parameter propagation through both public SDK conversion
+ * paths so registering the carrier retains the model's argument schema.
  *
  * 1. Build a class controller and convert it to LangChain tools.
  * 2. Assert `toJsonSchema` yields typia's parameters document unchanged.

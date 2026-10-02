@@ -798,6 +798,8 @@ export namespace OpenApiTypeCheckerBase {
     x: OpenApi.IJsonSchema.IObject;
     y: OpenApi.IJsonSchema.IObject;
   }): boolean => {
+    if (p.x.required?.some((key) => p.y.required?.includes(key) !== true))
+      return false;
     if (!p.x.additionalProperties && !!p.y.additionalProperties) return false;
     else if (
       !!p.x.additionalProperties &&
@@ -821,11 +823,6 @@ export namespace OpenApiTypeCheckerBase {
         key,
       );
       if (a === undefined) return false;
-      else if (
-        p.x.required?.includes(key) === true &&
-        (p.y.required?.includes(key) ?? false) === false
-      )
-        return false;
       return coverStation({
         prefix: p.prefix,
         components: p.components,

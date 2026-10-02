@@ -27,7 +27,7 @@ import (
 // 4. Verify referenced schemas are copied into LLM `$defs`.
 // 5. Cover validation failures and fallback helper branches directly.
 //
-// @evidence contracts/testing.md#behavioral-verification LLM schema size and conversion helpers are called on JSON schema fragments and mixed metadata; size, union and reference conversion and the strict tag-to-description move are compared while other checks require a non-nil result.
+// @evidence contracts/testing.md#behavioral-verification LLM schema size and conversion helpers are called on JSON schema fragments and mixed metadata; size is checked only as nonzero, union and reference outputs only for presence, and strict minLength omission and description presence are checked. Exact attribute strings, normalization counts, bound-key omission and helper identities are also asserted; other checks require non-nil results.
 // @evidence contracts/testing.md#independent-expectations Authored fragments and expected counts or text are independent for the exact checks; non-nil checks have no oracle.
 // @evidence contracts/testing.md#distinguishing-cases Object, array, string, number, constant and reference conversions and strict versus default modes are visited once.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls programmers on constructed metadata with no checker, filesystem fixture or process.

@@ -2,6 +2,7 @@ import { IPointer } from "tstl";
 
 import { Spoiler } from "../utils/Spoiler";
 
+/** Supplies a pointer to optional fields mapped from language-code enum values. */
 export type DynamicEnumeration = IPointer<{
   [P in DynamicEnumeration.LanguageCode]?: string;
 }>;
@@ -19,6 +20,7 @@ export namespace DynamicEnumeration {
     Russian = "ru",
   }
 
+  /** Constructs a fresh pointer with four authored multilingual string fields. */
   export function generate(): DynamicEnumeration {
     return {
       value: {

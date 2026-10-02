@@ -1,5 +1,6 @@
 import { Spoiler } from "../utils/Spoiler";
 
+/** Supplies a class fixture with parameter and field initializers. */
 export class ClassPropertyAssignment {
   public constructor(
     public readonly id: number = 1,
@@ -11,6 +12,7 @@ export class ClassPropertyAssignment {
   public incremental = true;
 }
 export namespace ClassPropertyAssignment {
+  /** Constructs a fresh instance with the authored default property values. */
   export function generate(): ClassPropertyAssignment {
     return new ClassPropertyAssignment();
   }

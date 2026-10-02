@@ -14,10 +14,7 @@ const DEFAULT_RANGE = 5;
  * source resolved when this helper is called. Nested draws use the same
  * source.
  *
- * @evidence contracts/common.md#principled-implementation The length is drawn between the schema's bounds with default floor five and range five and every character is a random lowercase letter, so the result satisfies length bounds and, as a letters-only string, most formats the generator does not know.
- * @evidence contracts/performance.md#efficient-algorithms Source injection adds one callback invocation at each existing draw without adding sampling, retries or state. Existing output-size traversal and multiple search bounds are unchanged.
- * @evidence contracts/performance.md#reuse-equivalent-work Length and alphabet draws are effectful and cannot be cached across equal bounds. All characters reuse the immutable module alphabet and supplied source within this invocation; sampled outputs are not shared between requests.
- * @evidence contracts/performance.md#bound-retention-and-release-resources Arrays and string-construction scratch grow with the chosen length; the module alphabet and defaults are fixed constants. Return transfers the string to the caller. No history, source callback, handles or tasks are retained after return or throw. Large requested lengths require proportional temporary allocation, without an independent fixed byte cap.
+ * @evidence contracts/common.md#principled-implementation The length is drawn between the schema's bounds with default floor five and range five and every character is a random lowercase letter, so the result satisfies the selected length bounds. Format-specific syntax belongs to the separate format generators; this helper does not infer an unrecognized format from its lowercase alphabet.
  * @evidence contracts/common.md#clear-and-simple-design One function over the integer generator.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The alphabet and defaults are constants of the generator.
  * @evidence contracts/common.md#meaningful-documentation The doc states the alphabet and the default length.

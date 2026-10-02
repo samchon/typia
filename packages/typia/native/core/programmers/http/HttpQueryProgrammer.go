@@ -16,8 +16,9 @@ type httpQueryProgrammerNamespace struct{}
 var HttpQueryProgrammer = httpQueryProgrammerNamespace{}
 
 // HttpQueryProgrammer_IProps is the argument record of
-// HttpQueryProgrammer.Write, which builds the query decoder. AllowOptional lets
-// the query object be undefined when every property is optional.
+// HttpQueryProgrammer.Write, which builds the query decoder.
+// AllowOptional permits an optional target query type when all properties are
+// optional; it does not make the decoder input optional.
 //
 // @evidence contracts/common.md#principled-implementation It is the argument record of HttpQueryProgrammer.Write, which builds the query decoder; its 5 fields (Context, Modulo, Type, Name, AllowOptional) are named so that a producer and a consumer cannot transpose them.
 // @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
@@ -32,8 +33,9 @@ type HttpQueryProgrammer_IProps struct {
 }
 
 // HttpQueryProgrammer_DecomposeProps is the argument record of
-// HttpQueryProgrammer.Decompose, which builds the query decoder. AllowOptional
-// lets the query object be undefined when every property is optional.
+// HttpQueryProgrammer.Decompose, which builds the query decoder.
+// AllowOptional permits an optional target query type when all properties are
+// optional; it does not make the decoder input optional.
 //
 // @evidence contracts/common.md#principled-implementation It is the argument record of HttpQueryProgrammer.Decompose, which builds the query decoder; its 6 fields (Context, Functor, AllowOptional, Type, Name, Missing) are named so that a producer and a consumer cannot transpose them.
 // @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.

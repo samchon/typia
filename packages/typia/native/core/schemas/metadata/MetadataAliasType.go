@@ -6,14 +6,20 @@ package metadata
 // @evidence contracts/common.md#principled-implementation The JSON form lists what must survive serialization of an alias and leaves out the display name, which is derived at analysis time.
 // @evidence contracts/common.md#clear-and-simple-design One flat record.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation Each field describes the alias definition produced by ToJSON.
 type IMetadataSchema_IAliasType struct {
-  Name        string
-  Value       *IMetadataSchema
+  // Name identifies the shared alias definition.
+  Name string
+  // Value is the serialized aliased schema.
+  Value *IMetadataSchema
+  // Description is optional documentation attached to the alias.
   Description *string
-  JsDocTags   []IJsDocTagInfo
-  Recursive   bool
-  Nullables   []bool
+  // JsDocTags contains the alias's ordered documentation tags.
+  JsDocTags []IJsDocTagInfo
+  // Recursive marks a recursive alias definition.
+  Recursive bool
+  // Nullables records the nullability of analyzed uses.
+  Nullables []bool
 }
 
 // MetadataAliasType is a type alias shared by every use of it: the name that
@@ -25,13 +31,20 @@ type IMetadataSchema_IAliasType struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each part.
 type MetadataAliasType struct {
-  Name        string
+  // Name identifies the shared alias definition.
+  Name string
+  // DisplayName is the human-facing rendering, falling back to Name when empty.
   DisplayName string
-  Value       *MetadataSchema
+  // Value is the analyzed aliased schema; it must be set before ToJSON.
+  Value *MetadataSchema
+  // Description is optional documentation attached to the alias.
   Description *string
-  JsDocTags   []IJsDocTagInfo
-  Recursive   bool
-  Nullables   []bool
+  // JsDocTags contains the alias's ordered documentation tags.
+  JsDocTags []IJsDocTagInfo
+  // Recursive marks a recursive alias definition.
+  Recursive bool
+  // Nullables records the nullability of analyzed uses.
+  Nullables []bool
 }
 
 // MetadataAliasType_create builds an alias type from props. The JSDoc tags and

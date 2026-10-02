@@ -8,13 +8,18 @@ import nativeprotobuf "github.com/samchon/typia/packages/typia/native/core/schem
 // @evidence contracts/common.md#principled-implementation The JSON form lists the data a property needs and leaves out the protobuf assignment.
 // @evidence contracts/common.md#clear-and-simple-design Five fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation Each field describes the property projection produced by ToJSON.
 type IMetadataSchema_IProperty struct {
-  Key         *IMetadataSchema
-  Value       *IMetadataSchema
+  // Key is the serialized literal or dynamic property-key schema.
+  Key *IMetadataSchema
+  // Value is the serialized property-value schema.
+  Value *IMetadataSchema
+  // Description is optional documentation attached to this property.
   Description *string
-  JsDocTags   []IJsDocTagInfo
-  Mutability  *string
+  // JsDocTags contains the property's ordered documentation tags.
+  JsDocTags []IJsDocTagInfo
+  // Mutability records an optional modifier such as readonly.
+  Mutability *string
 }
 
 // MetadataProperty is a property of an object type: the key schema, the value
@@ -26,11 +31,17 @@ type IMetadataSchema_IProperty struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The analysis-only field is stated.
 // @evidence contracts/common.md#meaningful-documentation The doc states the analysis-only field.
 type MetadataProperty struct {
-  Key          *MetadataSchema
-  Value        *MetadataSchema
-  Description  *string
-  JsDocTags    []IJsDocTagInfo
-  Mutability   *string
+  // Key is the analyzed literal or dynamic property-key schema.
+  Key *MetadataSchema
+  // Value is the analyzed property-value schema.
+  Value *MetadataSchema
+  // Description is optional documentation attached to this property.
+  Description *string
+  // JsDocTags contains the property's ordered documentation tags.
+  JsDocTags []IJsDocTagInfo
+  // Mutability records an optional modifier such as readonly.
+  Mutability *string
+  // Of_protobuf_ is the analysis-only protobuf field assignment.
   Of_protobuf_ *nativeprotobuf.IProtobufProperty
 }
 

@@ -2,7 +2,7 @@ import { TestEquality } from "@typia/template/equality";
 import typia, { IMetadataSchemaCollection } from "typia";
 
 /**
- * Verifies three ordered array roots share exactly three components whose
+ * Verifies three array roots share exactly three ordered components whose
  * element kinds are string/number/Boolean.
  *
  * Plural native array analysis must preserve positional root identity and typed
@@ -11,7 +11,7 @@ import typia, { IMetadataSchemaCollection } from "typia";
  * 1. Invoke the reflection producer on the type arguments declared here.
  * 2. Compare emitted values with their independent source-derived expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification The exported case asserts that three ordered array roots share exactly three components whose element kinds are string/number/Boolean.
+ * @evidence contracts/testing.md#behavioral-verification The exported case asserts that three array roots each have one reference and share three components ordered by string/number/Boolean element kinds. Reference-to-component identity is not compared here.
  * @evidence contracts/testing.md#independent-expectations The declared tuple of arrays independently determines root count/order, reference counts and component element types.
  * @evidence contracts/testing.md#distinguishing-cases All original root/component/element comparisons remain, distinguishing the three homogeneous element kinds.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_reflect_schemas_array in test-typia-schema start. Actual typia.reflect call expressions are transformed in the suite project and their emitted reflection values are evaluated in the existing runner.

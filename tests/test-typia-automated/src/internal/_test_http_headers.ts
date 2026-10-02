@@ -14,10 +14,6 @@ import { resolved_equal_to } from "../utils/resolved_equal_to";
  * 1. Run the clean fixture scenario and its observable assertions.
  * 2. Retain the applicable invalid or round-trip distinctions described below.
  *
- * @evidence contracts/common.md#principled-implementation headers_to_string prepares a fresh authored value as a header record; the supplied decoder must return its resolved projection according to resolved_equal_to. The original fixture and optional authored RESOLVE supply expected data. The maintained transport encoder is not another typia decoder; comparison assumes its transport preparation is correct and does not independently test all raw transport spellings.
- * @evidence contracts/common.md#clear-and-simple-design Transport preparation and resolved comparison have shared utility owners. Fresh values and encoded representations remain local; no request history is retained.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts The actual supplied callback is executed without substituting a verdict. The enrolled fixture supplies a clean scalar/array and optional-field scenario. No SPOILERS or malformed raw-transport scenarios execute here.
- * @evidence contracts/common.md#meaningful-documentation The introduction and scenario list identify this helper's assertion responsibility; the answers state its exact comparisons, executable owner and oracle limitations.
  * @evidence contracts/testing.md#behavioral-verification headers_to_string prepares a fresh authored value as a header record; the supplied decoder must return its resolved projection according to resolved_equal_to.
  * @evidence contracts/testing.md#independent-expectations The original fixture and optional authored RESOLVE supply expected data. The maintained transport encoder is not another typia decoder; comparison assumes its transport preparation is correct and does not independently test all raw transport spellings.
  * @evidence contracts/testing.md#distinguishing-cases The enrolled fixture supplies a clean scalar/array and optional-field scenario. No SPOILERS or malformed raw-transport scenarios execute here.

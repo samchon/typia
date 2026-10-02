@@ -9,13 +9,13 @@ import (
 
 // TestTransformSingleFileJSLocatesOutputAcrossLayouts checks the authored operation results described below.
 //
-// Selected source identity must be matched through rootDir/outDir/JSX/extension layouts rather than inferred from coincident path stems.
+// Selected source identity must be matched through rootDir/outDir/rootDirs layouts and distinguished from declaration/source-map artifacts rather than inferred from coincident path stems.
 //
 // 1. The authored layout matrix retains one selected numeric shape while varying source/output identities, so layout errors cannot hide behind source changes.
 // 2. Every configured layout publishes JavaScript with its numeric validator, no diagnostic and no untransformed generic call.
 //
 // @evidence contracts/testing.md#behavioral-verification Every configured layout publishes JavaScript with its numeric validator, no diagnostic and no untransformed generic call.
-// @evidence contracts/testing.md#independent-expectations Selected source identity must be matched through rootDir/outDir/JSX/extension layouts rather than inferred from coincident path stems.
+// @evidence contracts/testing.md#independent-expectations Selected source identity must be matched through rootDir/outDir/rootDirs layouts and distinguished from declaration/source-map artifacts rather than inferred from coincident path stems.
 // @evidence contracts/testing.md#distinguishing-cases The authored layout matrix retains one selected numeric shape while varying source/output identities, so layout errors cannot hide behind source changes.
 // @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestTransformSingleFileJSLocatesOutputAcrossLayouts as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestTransformSingleFileJSLocatesOutputAcrossLayouts(t *testing.T) {

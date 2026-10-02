@@ -27,9 +27,14 @@ var CompareLessProgrammer = compareLessProgrammerNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type CompareLessProgrammer_IProps struct {
+  // Context borrows the checker and emitter for this transform.
   Context nativecontext.ITypiaContext
-  Modulo  *shimast.Node
-  Type    *shimchecker.Type
+
+  // Modulo supplies the public comparison method name for diagnostics.
+  Modulo *shimast.Node
+
+  // Type is the declared operand structure analyzed into comparison metadata.
+  Type *shimchecker.Type
 }
 
 type compareLessProgrammerGenerator struct {
@@ -246,7 +251,8 @@ func (g *compareLessProgrammerGenerator) native(name string, x string, y string)
   }
 }
 
-// bytes compares two typed arrays / buffers lexicographically by byte.
+// bytes compares Uint8Array projections lexicographically. For a typed-array
+// operand, that constructor copies element values into unsigned-byte slots.
 func (g *compareLessProgrammerGenerator) bytes(x string, y string) string {
   bx := g.local("bx")
   by := g.local("by")

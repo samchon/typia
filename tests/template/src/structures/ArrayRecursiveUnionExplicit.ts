@@ -1,18 +1,22 @@
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/** Supplies a recursive discriminated filesystem-shaped union array. */
 export type ArrayRecursiveUnionExplicit = ArrayRecursiveUnionExplicit.IBucket[];
 export namespace ArrayRecursiveUnionExplicit {
   export const RECURSIVE = true;
 
+  /** Declares all five recursively connected bucket alternatives. */
   export type IBucket =
     | IDirectory
     | IImageFile
     | ITextFile
     | IZipFile
     | IShortcut;
+  /** Names the three data-file branches used by extension spoiler casts. */
   export type IFile = IImageFile | ITextFile | IZipFile;
 
+  /** Declares the directory branch with recursively typed children. */
   export interface IDirectory {
     id: number;
     name: string;
@@ -21,6 +25,7 @@ export namespace ArrayRecursiveUnionExplicit {
     type: "directory";
   }
 
+  /** Declares the jpg file branch and required image-shaped data. */
   export interface IImageFile {
     id: number;
     name: string;
@@ -32,6 +37,7 @@ export namespace ArrayRecursiveUnionExplicit {
     type: "file";
     extension: "jpg";
   }
+  /** Declares the txt file branch with required textual content. */
   export interface ITextFile {
     id: number;
     name: string;
@@ -41,6 +47,7 @@ export namespace ArrayRecursiveUnionExplicit {
     type: "file";
     extension: "txt";
   }
+  /** Declares the zip file branch and required numeric count. */
   export interface IZipFile {
     id: number;
     name: string;
@@ -51,6 +58,7 @@ export namespace ArrayRecursiveUnionExplicit {
     extension: "zip";
   }
 
+  /** Declares the lnk branch with a recursively typed target bucket. */
   export interface IShortcut {
     id: number;
     name: string;
@@ -60,6 +68,7 @@ export namespace ArrayRecursiveUnionExplicit {
     extension: "lnk";
   }
 
+  /** Constructs a fresh finite union population with recursive directories. */
   export function generate(
     limit: number = 3,
     level: number = 0,
@@ -79,6 +88,7 @@ export namespace ArrayRecursiveUnionExplicit {
     return output;
   }
 
+  /** Appends a dormant deliberately malformed directory to the valid population. */
   export function trail() {
     const data: ArrayRecursiveUnionExplicit = generate();
     data.push({

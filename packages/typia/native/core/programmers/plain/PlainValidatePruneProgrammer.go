@@ -25,11 +25,20 @@ var PlainValidatePruneProgrammer = plainValidatePruneProgrammerNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type PlainValidatePruneProgrammer_DecomposeProps struct {
+  // Context borrows the checker, emitter and importer for this transform.
   Context nativecontext.ITypiaContext
-  Modulo  *shimast.Node
+
+  // Modulo is the call-site expression forwarded to validation generation.
+  Modulo *shimast.Node
+
+  // Functor collects shared helper declarations and recursive-visit state.
   Functor *nativehelpers.FunctionProgrammer
-  Type    *shimchecker.Type
-  Name    *string
+
+  // Type is the checker type whose input shape is analyzed.
+  Type *shimchecker.Type
+
+  // Name optionally overrides the rendered type name; nil uses the checker name.
+  Name *string
 }
 
 var plainValidatePruneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

@@ -6,13 +6,18 @@ package metadata
 // @evidence contracts/common.md#principled-implementation The JSON form lists what an array type needs to be rebuilt and leaves out the derived display name.
 // @evidence contracts/common.md#clear-and-simple-design One flat record.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation Each field describes the array definition produced by ToJSON.
 type IMetadataSchema_IArrayType struct {
-  Name      string
-  Value     *IMetadataSchema
+  // Name identifies the shared array definition.
+  Name string
+  // Value is the serialized element schema.
+  Value *IMetadataSchema
+  // Nullables records the nullability of analyzed uses.
   Nullables []bool
+  // Recursive marks a recursive array definition.
   Recursive bool
-  Index     *int
+  // Index is the optional collection-assigned recursive index.
+  Index *int
 }
 
 // MetadataArrayType is an array type shared by every use of it: its name, the
@@ -24,12 +29,18 @@ type IMetadataSchema_IArrayType struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each part.
 type MetadataArrayType struct {
-  Name        string
+  // Name identifies the shared array definition.
+  Name string
+  // DisplayName is the human-facing rendering, falling back to Name when empty.
   DisplayName string
-  Value       *MetadataSchema
-  Nullables   []bool
-  Recursive   bool
-  Index       *int
+  // Value is the analyzed element schema; it must be set before ToJSON.
+  Value *MetadataSchema
+  // Nullables records the nullability of analyzed uses.
+  Nullables []bool
+  // Recursive marks a recursive array definition.
+  Recursive bool
+  // Index is the optional collection-assigned recursive index.
+  Index *int
 }
 
 // MetadataArrayType_create builds an array type from props. The nullability list

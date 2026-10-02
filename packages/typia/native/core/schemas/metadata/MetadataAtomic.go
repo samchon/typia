@@ -8,23 +8,27 @@ import "strings"
 // @evidence contracts/common.md#principled-implementation An atomic has no shared type, so its JSON form is the type name and the tags themselves.
 // @evidence contracts/common.md#clear-and-simple-design Two fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation Each field describes the atomic projection produced by ToJSON.
 type IMetadataSchema_IAtomic struct {
+  // Type is the primitive category of this atomic.
   Type string
+  // Tags contains alternative rows whose tags apply together within each row.
   Tags [][]IMetadataTypeTag
 }
 
 // MetadataAtomic is a primitive type (`boolean`, `number`, `bigint` or `string`)
 // with the rows of type tags that constrain it. Each row is one alternative and
 // the tags inside a row apply together. The name is computed once and cached, so
-// the tags must be final before the first GetName.
+// Type and Tags must be final before the first GetName.
 //
 // @evidence contracts/common.md#principled-implementation A primitive has no shared declaration, so the record holds the type and the tag alternatives directly, and the name is cached because it is compared and used as a key often.
 // @evidence contracts/common.md#clear-and-simple-design Two fields and one cache.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The cache limitation is stated, not hidden.
 // @evidence contracts/common.md#meaningful-documentation The doc states the row meaning and the cache limitation.
 type MetadataAtomic struct {
-  Type  string
+  // Type is the primitive category: boolean, number, bigint or string.
+  Type string
+  // Tags contains alternative rows of jointly applied type tags.
   Tags  [][]IMetadataTypeTag
   name_ string
 }
@@ -57,9 +61,10 @@ func (obj *MetadataAtomic) GetName() string {
   return obj.name_
 }
 
-// ToJSON returns the JSON form of the atomic with a copy of the tag matrix.
+// ToJSON returns the JSON form with independent tag rows. References inside
+// individual tag values remain shared.
 //
-// @evidence contracts/common.md#principled-implementation The result is a projection that the caller may edit without changing the atomic.
+// @evidence contracts/common.md#principled-implementation The primitive and tag records are projected with copied matrix rows; nested tag payloads remain shared.
 // @evidence contracts/common.md#clear-and-simple-design One record construction.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The matrix is copied.
 // @evidence contracts/common.md#meaningful-documentation The doc states that the tags are copied.

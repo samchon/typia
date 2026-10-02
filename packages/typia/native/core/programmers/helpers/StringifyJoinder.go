@@ -249,7 +249,7 @@ func stringifyJoiner_entry_omittable(entry IExpressionEntry) bool {
 // such as a tuple slot, ask this one question, so a tuple slot and an object
 // member classify a value identically.
 //
-// @evidence contracts/common.md#principled-implementation A present value can still serialize to nothing, as `any`, `unknown`, a function, a symbol or a `toJSON` that returns undefined can, which an input test cannot see, so the same classifier answers for object members and for tuple slots.
+// @evidence contracts/common.md#principled-implementation The shared metadata classifier selects Any (the representation of any/unknown) or an escaped toJSON return admitting undefined. Their serialized result can disappear while input is present; direct function members are handled separately by the surrounding joiner.
 // @evidence contracts/common.md#clear-and-simple-design A one-line exported delegate over the package-private classifier.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Both positions call one classifier and the rule is not repeated.
 // @evidence contracts/common.md#meaningful-documentation The doc states the cases and cites #2253.
@@ -534,12 +534,5 @@ func stringifyJoiner_escape_template(text string) string {
 }
 
 func joinStrings(values []string, sep string) string {
-  if len(values) == 0 {
-    return ""
-  }
-  output := values[0]
-  for _, value := range values[1:] {
-    output += sep + value
-  }
-  return output
+  return strings.Join(values, sep)
 }

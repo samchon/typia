@@ -26,7 +26,8 @@ type Check_dynamic_keyProps struct {
 // Check_dynamic_key builds the condition that a dynamic key, which is a string
 // at runtime, spells a value of the index signature's key metadata: `true` for a
 // pure string key, and otherwise a disjunction of the spellings that the
-// metadata admits.
+// metadata admits. A string shortcut applies only when no runtime type-tag
+// condition is emitted, including exclusions carried by schema fragments.
 //
 // @evidence contracts/common.md#principled-implementation It builds the condition that a dynamic key, which is a string at runtime, spells a value of the index signature's key metadata: `true` for a pure string key, and otherwise a disjunction of the spellings that the metadata admits.
 // @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
@@ -196,8 +197,22 @@ func Check_dynamic_key(props Check_dynamic_keyProps) *shimast.Node {
 func check_dynamic_key_has_pure_string(metadata *nativemetadata.MetadataSchema) bool {
   if len(metadata.Atomics) != 0 {
     for _, atomic := range metadata.Atomics {
-      if atomic.Type == "string" && len(check_dynamic_key_fully_validated_tag_rows(atomic.Tags)) == 0 {
-        return true
+      if atomic.Type == "string" {
+        constrained := false
+        for _, row := range atomic.Tags {
+          for _, tag := range row {
+            if tag.Validate != "" || (tag.Kind == "exclude" && len(check_exclude_values(tag)) != 0) {
+              constrained = true
+              break
+            }
+          }
+          if constrained {
+            break
+          }
+        }
+        if !constrained {
+          return true
+        }
       }
     }
   }
@@ -209,23 +224,6 @@ func check_dynamic_key_has_pure_string(metadata *nativemetadata.MetadataSchema) 
     }
   }
   return false
-}
-
-func check_dynamic_key_fully_validated_tag_rows(rows [][]nativemetadata.IMetadataTypeTag) [][]nativemetadata.IMetadataTypeTag {
-  output := [][]nativemetadata.IMetadataTypeTag{}
-  for _, row := range rows {
-    passed := true
-    for _, tag := range row {
-      if tag.Validate == "" {
-        passed = false
-        break
-      }
-    }
-    if passed {
-      output = append(output, row)
-    }
-  }
-  return output
 }
 
 func check_dynamic_key_atomist(entry nativehelpers.ICheckEntry, emit ...*shimprinter.EmitContext) *shimast.Node {

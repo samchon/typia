@@ -13,12 +13,12 @@ import (
 //
 // Diagnostic codes identify public calls as written, not programmer-internal naming conventions. The authored call accessor list supplies an independent finite expected identity set.
 //
-// 1. All seventeen direct/factory message/encode/decode combinations reject unsupported bigint and retain their own operation code.
+// 1. All seventeen direct/factory message/encode/decode combinations reject a top-level bigint instead of a static message object and retain their own operation code.
 // 2. Every rejected protobuf operation is represented exactly by a code matching a source-written accessor, with no doubled typia.protobuf prefix.
 //
 // @evidence contracts/testing.md#behavioral-verification Every rejected protobuf operation is represented exactly by a code matching a source-written accessor, with no doubled typia.protobuf prefix.
 // @evidence contracts/testing.md#independent-expectations Diagnostic codes identify public calls as written, not programmer-internal naming conventions. The authored call accessor list supplies an independent finite expected identity set.
-// @evidence contracts/testing.md#distinguishing-cases All seventeen direct/factory message/encode/decode combinations reject unsupported bigint and retain their own operation code.
+// @evidence contracts/testing.md#distinguishing-cases All seventeen direct/factory message/encode/decode combinations reject a top-level bigint instead of a static message object and retain their own operation code.
 // @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProtobufDiagnosticCodeTransform as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestProtobufDiagnosticCodeTransform(t *testing.T) {
   methods := []string{

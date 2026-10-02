@@ -9,15 +9,16 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
-// Iterate_metadata_sort orders the buckets of every schema reachable from the
-// collection and the metadata so that the narrower members come first.
+// Iterate_metadata_sort orders buckets reached from the root and the
+// collection's array, tuple and object-property schemas.
 //
-// Objects, arrays and tuples are ordered by coverage, string and number
-// constants by value, and boolean constants with false first.
+// Objects use equal key signatures, arrays and tuples use covering-first
+// comparisons, strings use lexical order and numbers use numeric order. Bigint
+// constants use their decimal text's lexical order. Booleans place false first.
 //
-// @evidence contracts/common.md#principled-implementation Alternatives are ordered so that narrower members are tried first: objects by a key-set signature with more properties first, arrays by element coverage, tuples by coverage and constants by value, with false before true; the traversal visits each schema once through a visited set and records the union index of multi-object unions. The comparator is not a total order, so the stable sort only moves a covering member ahead of a covered one.
+// @evidence contracts/common.md#principled-implementation The visitor uses object key signatures, covering-first array/tuple comparisons, lexical string/bigint text and numeric number comparisons, plus false-first boolean ordering. It visits each directly traversed schema once and records multi-object union identities; named array/tuple/object contents are visited from collection roots. These comparisons do not define a total order over alternatives or promise narrower-first dispatch.
 // @evidence contracts/common.md#clear-and-simple-design One function with a recursive visitor, a coverage comparator for objects with a key cache, and a numeric conversion helper.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The ordering is by coverage, not by type names.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Object keys and schema coverage are structural heuristics, not fixture names or predicate evaluation. Constant ordering follows the represented primitive value/text; bigint text order is not a numeric magnitude guarantee.
 // @evidence contracts/common.md#meaningful-documentation The doc states what is ordered and the stable sort limit is explained here.
 func Iterate_metadata_sort(props struct {
   Collection *schemametadata.MetadataCollection

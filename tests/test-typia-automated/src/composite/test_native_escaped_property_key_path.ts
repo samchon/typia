@@ -46,8 +46,8 @@ const fixture = { KEYS, run };
  *    assertions.
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from escapedPropertyKeyPathRuntimeRunner; emitted-text presence alone cannot pass these assertions.
- * @evidence contracts/testing.md#independent-expectations Literal property names containing quote, backslash, empty and interpolation characters determine JSON-quoted access paths. Failed reports must carry those authored paths; a valid ordinary identifier is the accepting control.
- * @evidence contracts/testing.md#distinguishing-cases Preserves the literal runtime assertions below; the rest of the original runner's assertions remain below without dropping or skipping inputs.
+ * @evidence contracts/testing.md#independent-expectations Eight authored keys containing quote, backslash, newline, tab, bell, NUL, line separator or hyphen determine JSON-quoted access paths through JSON.stringify, independently of the native path emitter. Each expected path must occur; the helper does not reject duplicate reports or assert exact total count.
+ * @evidence contracts/testing.md#distinguishing-cases All eight invalid numeric fields must report their escaped accessor; the valid plainIdentifier field must produce no report. Empty keys and interpolation syntax are not enrolled in this fixture.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_escaped_property_key_path in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed escapedPropertyKeyPathSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.
  * @evidence contracts/e2e.md#shared-execution Uses the existing automated project and single suite worker, sharing the plugin artifact and project load with other composites instead of recreating the former temporary project.

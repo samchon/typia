@@ -13,7 +13,7 @@ import (
 // finite rejects NaN and both infinities. The Numeric producer switch can
 // deliberately suppress both additions without suppressing the number guard.
 //
-// @evidence contracts/testing.md#behavioral-verification Builds actual Check_number results for four numeric/finite combinations and both producer-switch values, inspecting guards, operators, callee names and input identity.
+// @evidence contracts/testing.md#behavioral-verification Builds actual Check_number results for five numeric/finite option rows and both producer-switch values, inspecting guards, operators, callee names and input identity.
 // @evidence contracts/testing.md#independent-expectations The authored rows require no extra predicate, !Number.isNaN or Number.isFinite according to number admission semantics. No generated snapshot supplies expectations.
 // @evidence contracts/testing.md#distinguishing-cases Finite-only must reject infinities even with numeric off; both flags use finite rather than only NaN rejection. Numeric producer false suppresses additions in every row while retaining rejection of ill-typed values through typeof.
 // @evidence contracts/testing.md#execution-ownership The native Go runner executes this same-package unit using in-memory AST nodes, with no compiler or JavaScript subprocess. Runtime NaN and infinity input verdicts remain owned by the four actual TS producer profiles.

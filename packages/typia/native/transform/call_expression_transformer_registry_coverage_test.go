@@ -45,7 +45,11 @@ func TestCallExpressionTransformerRegistryCoverage(t *testing.T) {
   if callExpressionTransformer_sourceFile(shimast.NewNodeFactory(shimast.NodeFactoryHooks{}).NewIdentifier("standalone")) != nil {
     t.Fatal("standalone nodes should not resolve a source file")
   }
-  for module, methods := range callExpressionTransformer_FUNCTORS() {
+  registry := callExpressionTransformer_FUNCTORS()
+  if len(registry) == 0 {
+    t.Fatal("transformer registry should not be empty")
+  }
+  for module, methods := range registry {
     if len(methods) == 0 {
       t.Fatalf("%s registry should not be empty", module)
     }

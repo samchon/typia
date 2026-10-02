@@ -1,14 +1,17 @@
 package metadata
 
 // MetadataObject is one use of a shared object type in a schema, with the tag
-// rows of that use. The cached names are not recomputed when Tags changes later.
+// rows of that use. Type names and Tags must be final before the first cached
+// name lookup; later changes do not invalidate either cache.
 //
 // @evidence contracts/common.md#principled-implementation Tags are per use while the object type is shared.
 // @evidence contracts/common.md#clear-and-simple-design A reference record with two caches.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The cache limitation is stated.
 // @evidence contracts/common.md#meaningful-documentation The doc states the sharing and the cache limitation.
 type MetadataObject struct {
-  Type          *MetadataObjectType
+  // Type is the shared object definition referenced by this use.
+  Type *MetadataObjectType
+  // Tags contains this use's alternative rows of jointly applied tags.
   Tags          [][]IMetadataTypeTag
   name_         string
   display_name_ string

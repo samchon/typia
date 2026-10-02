@@ -31,7 +31,10 @@ var NotationGeneralProgrammer = notationGeneralProgrammerNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names both fields.
 type NotationGeneralProgrammer_IRename struct {
+  // Name selects the runtime notation helper and public case type.
   Name string
+
+  // Func converts a static property key while emitting its object member.
   Func func(str string) string
 }
 
@@ -43,7 +46,10 @@ type NotationGeneralProgrammer_IRename struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names the embedded record and the rename.
 type NotationGeneralProgrammer_IProps struct {
+  // IProgrammerProps carries the shared call context, type and initializer.
   nativecontext.IProgrammerProps
+
+  // Rename selects the runtime case helper and static key conversion.
   Rename NotationGeneralProgrammer_IRename
 }
 
@@ -55,9 +61,14 @@ type NotationGeneralProgrammer_IProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type NotationGeneralProgrammer_ReturnTypeProps struct {
-  Rename  NotationGeneralProgrammer_IRename
+  // Rename selects the runtime case helper and static key conversion.
+  Rename NotationGeneralProgrammer_IRename
+
+  // Context borrows the checker, emitter and importer for this transform.
   Context nativecontext.ITypiaContext
-  Type    string
+
+  // Type is the rendered type name passed to the public case type.
+  Type string
 }
 
 // NotationGeneralProgrammer_DecomposeProps is the input of Decompose: the
@@ -69,12 +80,23 @@ type NotationGeneralProgrammer_ReturnTypeProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field and the meaning of Validated.
 type NotationGeneralProgrammer_DecomposeProps struct {
-  Rename    NotationGeneralProgrammer_IRename
+  // Rename selects the runtime case helper and static key conversion.
+  Rename NotationGeneralProgrammer_IRename
+
+  // Validated reuses enclosing checks instead of adding ordinary is-helper declarations.
   Validated bool
-  Context   nativecontext.ITypiaContext
-  Functor   *nativehelpers.FunctionProgrammer
-  Type      *shimchecker.Type
-  Name      *string
+
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Functor collects shared helper declarations and recursive-visit state.
+  Functor *nativehelpers.FunctionProgrammer
+
+  // Type is the checker type whose input shape is analyzed.
+  Type *shimchecker.Type
+
+  // Name optionally overrides the rendered type name; nil uses the checker name.
+  Name *string
 }
 
 const notationGeneralProgrammer_PREFIX = "_c"

@@ -9,14 +9,14 @@ import (
 
 // TestNativeNamedIntersectionUnionTransform verifies structural user-native intersections and impossible native union pruning.
 //
-// A structurally named user type can form an inhabited intersection, while incompatible primitive/native representations cannot supply values and must not become union validators.
+// User-named structural intersections retain their members; typia prunes primitive/native intersections outside its supported validation domain while retaining supported object alternatives.
 //
-// 1. Local and packaged names, real Date/boxed native controls and impossible primitive intersections distinguish identity and union-inhabitation boundaries.
+// 1. Local names, real Date/boxed native controls and unsupported primitive intersections distinguish typia's identity and supported-domain boundaries.
 // 2. User-named structural members survive without native overmatch; real native wrappers and impossible intersections are pruned while inhabited object arms remain.
 //
 // @evidence contracts/testing.md#behavioral-verification User-named structural members survive without native overmatch; real native wrappers and impossible intersections are pruned while inhabited object arms remain.
-// @evidence contracts/testing.md#independent-expectations A structurally named user type can form an inhabited intersection, while incompatible primitive/native representations cannot supply values and must not become union validators.
-// @evidence contracts/testing.md#distinguishing-cases Local and packaged names, real Date/boxed native controls and impossible primitive intersections distinguish identity and union-inhabitation boundaries.
+// @evidence contracts/testing.md#independent-expectations User-named structural intersections retain their members; typia prunes primitive/native intersections outside its supported validation domain while retaining supported object alternatives.
+// @evidence contracts/testing.md#distinguishing-cases Local names, real Date/boxed native controls and unsupported primitive intersections distinguish typia's identity and supported-domain boundaries.
 // @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestNativeNamedIntersectionUnionTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestNativeNamedIntersectionUnionTransform(t *testing.T) {
   project := nativeNamedIntersectionUnionProject(t)

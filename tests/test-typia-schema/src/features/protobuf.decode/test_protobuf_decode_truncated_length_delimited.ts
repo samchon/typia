@@ -9,7 +9,7 @@ import typia from "typia";
  *
  * 1. Exercise every direct and factory decoder with truncated strings and bytes.
  * 2. Cover optional, repeated, map, nested, packed, unknown, and fixed-width data.
- * 3. Pair every one-byte-short case with zero-length or exact-end valid input.
+ * 3. Keep zero-length, exact-end, and sliced-buffer valid controls.
  *
  * @evidence contracts/testing.md#behavioral-verification Eight variants reject truncated string/bytes; direct paths also cover optional/repeated/map/nested/packed/unknown/fixed-width truncation, exact ends, zero length and sliced-buffer bounds.
  * @evidence contracts/testing.md#independent-expectations Hand-framed field tags and declared lengths independently establish overflow or exact consumption. Literal ab/a/map and fixed-width zero values certify valid controls without typia encode output.

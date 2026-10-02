@@ -2,7 +2,7 @@ import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
- * Verifies typia.random draws every format at a length its own validator
+ * Verifies typia.random draws each tested format at a length its own validator
  * accepts, and refuses only genuinely unsatisfiable windows.
  *
  * #2192 converted part of the format set to length-aware builders and left nine

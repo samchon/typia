@@ -15,10 +15,17 @@ import (
 // @evidence contracts/common.md#prohibited-implementation-shortcuts It holds values read from the host's resolved entry and applies no environment or fixture override.
 // @evidence contracts/common.md#meaningful-documentation The doc states what each field means and why Undefined is a pointer.
 type PluginOptions struct {
+  // Functional enables function-type validation; false leaves the option unset.
   Functional bool
-  Numeric    bool
-  Finite     bool
-  Undefined  *bool
+
+  // Numeric enables NaN rejection in validators; false leaves it unset.
+  Numeric bool
+
+  // Finite enables non-finite number rejection; false leaves it unset.
+  Finite bool
+
+  // Undefined distinguishes an omitted option from explicit false or true.
+  Undefined *bool
 }
 
 // TransformOptions converts the options to the transform's option record: a

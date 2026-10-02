@@ -28,6 +28,7 @@ type Check_objectProps struct {
 // `every`. Positive is the expression that stands for success. Undefined makes
 // the key count exact and combines it with the key test by `||` instead of `&&`.
 // Halt wraps the key check, and Superfluous reports a surplus property.
+// Entries optionally replaces the built-in key visitor collection.
 //
 // @evidence contracts/common.md#principled-implementation It is the configuration of Check_object and Check_dynamic_properties, which tells how the checks of an object are combined and reported; its 9 members (Equals, Assert, Undefined, Halt, Reduce, Positive, Superfluous, InvalidKey, Entries) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
 // @evidence contracts/common.md#clear-and-simple-design A 9-member record of values and callbacks.

@@ -18,6 +18,7 @@ type IProtobufSchema interface {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type IProtobufSchema_IByte struct {
+  // Type is the internal discriminator "bytes".
   Type string
 }
 
@@ -28,6 +29,7 @@ type IProtobufSchema_IByte struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type IProtobufSchema_IBoolean struct {
+  // Type is the internal discriminator "bool".
   Type string
 }
 
@@ -39,7 +41,10 @@ type IProtobufSchema_IBoolean struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type IProtobufSchema_IBigint struct {
+  // Type is the internal discriminator "bigint".
   Type string
+
+  // Name selects the int64 or uint64 wire encoding.
   Name string
 }
 
@@ -51,7 +56,10 @@ type IProtobufSchema_IBigint struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type IProtobufSchema_INumber struct {
+  // Type is the internal discriminator "number".
   Type string
+
+  // Name selects the numeric wire encoding, such as int32 or double.
   Name string
 }
 
@@ -62,6 +70,7 @@ type IProtobufSchema_INumber struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type IProtobufSchema_IString struct {
+  // Type is the internal discriminator "string".
   Type string
 }
 
@@ -73,8 +82,13 @@ type IProtobufSchema_IString struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type IProtobufSchema_IArray struct {
-  Type  string
+  // Type is the internal discriminator "array".
+  Type string
+
+  // Array holds the analyzed MetadataArrayType used by code generation.
   Array any
+
+  // Value is the resolved schema of each repeated element.
   Value IProtobufSchema
 }
 
@@ -86,7 +100,10 @@ type IProtobufSchema_IArray struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type IProtobufSchema_IObject struct {
-  Type   string
+  // Type is the internal discriminator "object".
+  Type string
+
+  // Object holds the analyzed MetadataObjectType of the nested message.
   Object any
 }
 
@@ -98,9 +115,16 @@ type IProtobufSchema_IObject struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type IProtobufSchema_IMap struct {
-  Type  string
-  Map   any
-  Key   IProtobufSchema
+  // Type is the internal discriminator "map".
+  Type string
+
+  // Map holds a MetadataMap or a dynamic MetadataObjectType.
+  Map any
+
+  // Key is the resolved schema of map keys.
+  Key IProtobufSchema
+
+  // Value is the resolved schema of map values.
   Value IProtobufSchema
 }
 

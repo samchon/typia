@@ -28,7 +28,7 @@ const fixture = { toKebab, isKebab, assertKebab, validateKebab };
  *    assertions.
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from notationKebabCaseRuntimeRunner; emitted-text presence alone cannot pass these assertions.
- * @evidence contracts/testing.md#independent-expectations Handwritten kebab spellings for the source's property names establish the expected object shape. Nested values and family rejection controls detect conversion loss rather than comparing two generated notation functions.
+ * @evidence contracts/testing.md#independent-expectations Handwritten exact kebab key sets and four top-level literal values establish expected conversion independently. Nested inner-value key presence is checked, but its deep string content is not compared. Family-specific malformed inputs require null, any exception or a nonempty failed record; exact diagnostic paths and error identity are not asserted.
  * @evidence contracts/testing.md#distinguishing-cases Preserves the literal runtime assertions below; the rest of the original runner's assertions remain below without dropping or skipping inputs.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_notation_kebab_case in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed notationKebabCaseSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.

@@ -6,10 +6,12 @@ import { Singleton } from "@typia/utils";
  * Reads a Protocol Buffer message from a buffer.
  *
  * Every malformed input throws an error prefixed with
- * `typia.protobuf.decode()`, and a read that fails leaves the position where it
- * began. Adapted from the fixed reader of as-proto.
+ * `typia.protobuf.decode()`. Length-prefixed bytes, message forks and field
+ * skips restore their position on failure. Scalar varints may consume bytes
+ * before failing, and invalid UTF-8 is reported after its byte range has been
+ * consumed. Adapted from the fixed reader of as-proto.
  *
- * @evidence contracts/common.md#principled-implementation The reader decodes the wire format from a buffer with a pointer and a length-delimited boundary, throwing a typia-prefixed error for any overflow, malformed varint or invalid UTF-8, and restoring its position when a compound read fails so a caller can retry or report from a consistent state. Varints are bounded to ten bytes with a tenth byte limited to bit 63, in every reading path, so skipping and reading agree on what a varint is.
+ * @evidence contracts/common.md#principled-implementation The reader decodes the wire format from a buffer with a pointer and a length-delimited boundary, throwing a typia-prefixed error for overflow, malformed varints or invalid UTF-8. Atomic bytes, fork and skip operations restore their pointer and boundary on failure; scalar varint reads can retain consumed bytes, and UTF-8 decoding can fail after bytes has completed. Varints are bounded to ten bytes with a tenth byte limited to bit 63 in every reading path, so skipping and reading agree on the wire limits.
  * @evidence contracts/common.md#clear-and-simple-design One class with public typed readers, skip methods and a message fork and close pair, and private varint readers and a bounds check shared by all of them; the fault builder and limits are module constants.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Limits come from the wire format; invalid input throws and is never repaired by truncation or guessing.
  * @evidence contracts/common.md#meaningful-documentation A reference comment names the origin, the fields have comments and the skip and varint helpers explain their bounds.
@@ -186,9 +188,10 @@ export class _ProtobufReader {
   }
 
   /**
-   * Read a length-prefixed UTF-8 string, throwing on invalid UTF-8.
+   * Read a length-prefixed UTF-8 string, throwing on invalid UTF-8 after
+   * consuming its byte range. An invalid length restores the read position.
    *
-   * @evidence contracts/common.md#principled-implementation Reads the bytes and decodes them with a decoder that is fatal on invalid UTF-8, so malformed text throws a typia error instead of producing replacement characters.
+   * @evidence contracts/common.md#principled-implementation Reads the bytes and decodes them with a decoder that is fatal on invalid UTF-8, so malformed text throws a typia error instead of producing replacement characters. A byte-range failure rolls back through bytes; a decoding failure occurs after that range has been consumed and does not rewind it.
    * @evidence contracts/common.md#clear-and-simple-design One function over bytes with a shared decoder.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The error is raised, not repaired.
    * @evidence contracts/common.md#meaningful-documentation A short comment states what is read.

@@ -32,11 +32,21 @@ var PlainClassifyProgrammer = plainClassifyProgrammerNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type PlainClassifyProgrammer_DecomposeProps struct {
+  // Validated selects a separate is-helper namespace from enclosing assertion helpers.
   Validated bool
-  Context   nativecontext.ITypiaContext
-  Functor   *nativehelpers.FunctionProgrammer
-  Type      *shimchecker.Type
-  Name      *string
+
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Functor collects shared helper declarations and recursive-visit state.
+  Functor *nativehelpers.FunctionProgrammer
+
+  // Type is the checker type whose input shape is analyzed.
+  Type *shimchecker.Type
+
+  // Name optionally overrides the rendered type name; nil uses the checker name.
+  Name *string
+
   // Modulo is the call-site node (the typia.plain.classify(...) call). Its
   // source file anchors cross-module class value-import specifiers for the
   // from/new construction strategies; nil falls back to a bare identifier.
@@ -999,14 +1009,9 @@ func plainClassifyProgrammer_configure(props struct {
   // below byte-identical.
   var unionMembers []plainClassifyProgrammer_member
   callFile := plainClassifyProgrammer_call_file(props.Modulo)
-  // classRefOf resolves a named class to a value reference for the field-copy
-  // path (Object.create(<Class>.prototype) in ClassifyJoiner and the recursion
-  // guard allocator). Bare identifier when the class is in lexical scope at the
-  // call site (same file, or source unknown); a relative value import otherwise
-  // — without it a cross-module field-copied class is referenced by an
-  // unimported identifier and throws ReferenceError at runtime. (A default-
-  // exported cross-module class still resolves via a named import here; the
-  // from/new construct path resolves default vs named precisely via class_ref.)
+  // classRefOf resolves a class's usable value reference for both the field-copy
+  // joiner and recursion allocator. Same-file values use lexical bindings;
+  // cross-module values use relative named or default imports.
   classRefOf := func(obj *schemametadata.MetadataObjectType) *shimast.Node {
     // Only a real `class` has a runtime value to Object.create against. An
     // interface / type alias / anonymous object literal (including a RECURSIVE
@@ -1017,12 +1022,9 @@ func plainClassifyProgrammer_configure(props struct {
     if obj == nil || !obj.IsClass {
       return nil
     }
-    // The runtime value reference. obj.Name is the qualified metadata name, which
-    // is already a usable value for a plain or namespaced class ("NS.Plain"
-    // prints verbatim). Two cases need a different binding: a NAMED class
-    // expression (ValueRef = the `const X` binding, since obj.Name is the inner
-    // class name), and a generic instantiation (obj.Name is "Container<string>" —
-    // strip the type arguments to the bare constructor "Container").
+    // Prefer the enclosing variable binding for named or unnamed class
+    // expressions. Otherwise the qualified metadata name identifies the class;
+    // generic instantiations remove their erased type arguments.
     name := obj.Name
     if obj.ValueRef != "" {
       name = obj.ValueRef
@@ -1092,16 +1094,10 @@ func plainClassifyProgrammer_configure(props struct {
   }
   config.Visited = props.Functor.Visited
   config.VisitGuard = func(next nativeinternal.FeatureProgrammer_VisitGuardProps) *shimast.Node {
-    // The recursion guard registers its allocator in the WeakMap as the
-    // canonical output for a revisited input, so for a named class it must be a
-    // prototype-bearing instance — otherwise Object.assign onto a plain {} drops
-    // the prototype and `x instanceof Class` fails on the recursive arm. Mirror
-    // ClassifyJoiner.Object's literal/named split (same *MetadataObjectType
-    // pointer, so IsLiteral() agrees): Object.create(<Name>.prototype) for a
-    // named class, {} for a literal/anonymous shape. The class is referenced by
-    // bare identifier (lexical scope); cross-module support arrives with the
-    // from/new Importer.Instance slice, which must update this allocator AND
-    // ClassifyJoiner.Object together.
+    // Register the same prototype-bearing output chosen by ClassifyJoiner.
+    // Nonliteral objects with a usable class reference use Object.create;
+    // literal shapes and classes without a usable value reference allocate {}.
+    // classRefOf handles lexical bindings and cross-module imports for both.
     var allocator *shimast.Node
     classRef := classRefOf(next.Object)
     if next.Object != nil && !next.Object.IsLiteral() && classRef != nil {
@@ -1128,8 +1124,7 @@ func plainClassifyProgrammer_configure(props struct {
     // _yo<index> joiner — keeps a self-referential class field-copying at nested
     // positions while still constructing at the root.
     if next.Explore.From == "top" {
-      // class-TYPE UNION: discriminate the input and construct the matched member
-      // (the tail = the ordinary union decode lets non-class members pass through).
+      // Class-TYPE UNION: construct or decode the first matched member.
       if len(unionMembers) != 0 {
         // Every union member (class + non-class) is in the ladder, so the tail is
         // the no-match fallback: return the input unchanged. Decoding next.Metadata
@@ -1530,8 +1525,8 @@ func plainClassifyProgrammer_choose_seed(
 }
 
 // plainClassifyProgrammer_is_abstract reports whether the class TYPE is abstract
-// — its construct signature is un-`new`-able at runtime (`new C` throws "Cannot
-// create an instance of an abstract class"). The `abstract` keyword sits on the
+// — TypeScript rejects construction through its abstract construct signature,
+// although the abstract modifier is erased from JavaScript. The keyword sits on the
 // CLASS declaration, not the constructor declaration, so it is read from the
 // class symbol's declaration (the same node class_ref / emplace_metadata_object
 // read for Default/Private). An abstract class therefore field-copies, exactly
@@ -1618,11 +1613,6 @@ func plainClassifyProgrammer_tuple_seed(checker *shimchecker.Checker, restParamT
   return args[0] // first element is the seed (P in `[infer P, ...Rest]`)
 }
 
-// plainClassifyProgrammer_validation_type returns the type assertClassify /
-// validateClassify must validate the INPUT against. For a class-TYPE target the
-// input is NOT typeof C: it is the from/new SEED (validate the seed), or, when
-// field-copy is selected, the instance shape. For an instance / plain type it
-// is the type itself. Mirrors the detection in plainClassifyProgrammer_initialize.
 // plainClassifyProgrammer_call_file resolves the absolute path of the classify
 // call site (from the Modulo node) — used to decide a same-file vs cross-module
 // class reference. "" when unresolvable.
@@ -1638,6 +1628,11 @@ func plainClassifyProgrammer_call_file(modulo *shimast.Node) string {
   return ""
 }
 
+// plainClassifyProgrammer_validation_type returns the type assertClassify /
+// validateClassify must validate the INPUT against. For a class-TYPE target the
+// input is NOT typeof C: it is the from/new SEED (validate the seed), or, when
+// field-copy is selected, the instance shape. For an instance / plain type it
+// is the type itself. Mirrors the detection in plainClassifyProgrammer_initialize.
 func plainClassifyProgrammer_validation_type(ctx nativecontext.ITypiaContext, static *shimchecker.Type, callFile string) *shimchecker.Type {
   checker := ctx.Checker
   // class-TYPE UNION: assert/validate must check the SEED union (seedA | seedB |
@@ -1932,14 +1927,10 @@ type plainClassifyProgrammer_member struct {
   Strategy *plainClassifyProgrammer_strategy
 }
 
-// plainClassifyProgrammer_union_members detects, per CLASS member of a union
-// target, its construction strategy (from/new) or field-copy, plus the seed /
-// instance-shape metadata used to discriminate the input. Non-class members
-// (e.g. `number` in `typeof A | number`) are omitted — they fall through to the
-// ordinary union-decode tail. Each member's seed/shape is analyzed into the
-// shared collection so its decode helpers are emitted. Members keep declaration
-// order; the runtime ladder is first-match-wins, matching how typia's is/validate
-// resolve a structurally ambiguous union.
+// plainClassifyProgrammer_union_members analyzes each union member into the
+// shared collection in checker order. Class members select from/new or
+// field-copy; non-class members use their own shapes. A pure non-class union
+// returns nil for ordinary decoding. The construction ladder uses first match.
 func plainClassifyProgrammer_union_members(
   ctx nativecontext.ITypiaContext,
   static *shimchecker.Type,
@@ -1999,12 +1990,10 @@ func plainClassifyProgrammer_union_members(
   return members
 }
 
-// plainClassifyProgrammer_construct_union emits the root construction for a union
-// of class types: a first-match ladder over the ordered members —
-// `if (is<seedA>(input)) return A.from/new(...); if (is<seedB>(input)) return ...`
-// — then a TAIL that runs the ordinary union decode, so a mixed `typeof A |
-// number` lets the non-class members (42) pass through unchanged. The whole thing
-// is an IIFE arrow (an EXPRESSION, never a bare Block).
+// plainClassifyProgrammer_construct_union emits a first-match ladder: class
+// members construct from decoded seeds, other members decode their own shapes.
+// The supplied tail handles no match; the root caller passes input unchanged.
+// The ladder is an IIFE expression, so it can be emitted as a return value.
 func plainClassifyProgrammer_construct_union(
   ctx nativecontext.ITypiaContext,
   config nativeinternal.FeatureProgrammer_IConfig,

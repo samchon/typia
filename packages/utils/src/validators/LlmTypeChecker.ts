@@ -397,6 +397,8 @@ export namespace LlmTypeChecker {
     x: ILlmSchema.IObject;
     y: ILlmSchema.IObject;
   }): boolean => {
+    if (p.x.required?.some((key) => p.y.required?.includes(key) !== true))
+      return false;
     if (!p.x.additionalProperties && !!p.y.additionalProperties) return false;
     else if (
       !!p.x.additionalProperties &&
@@ -419,11 +421,6 @@ export namespace LlmTypeChecker {
         key,
       );
       if (a === undefined) return false;
-      else if (
-        (p.x.required?.includes(key) ?? false) === true &&
-        (p.y.required?.includes(key) ?? false) === false
-      )
-        return false;
       return coverStation({
         $defs: p.$defs,
         visited: p.visited,

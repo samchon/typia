@@ -14,7 +14,7 @@ import (
 // @evidence contracts/testing.md#behavioral-verification The root description writer is run on a table of descriptor cases (reference roots to parameters objects) and each result is compared with the authored expected description.
 // @evidence contracts/testing.md#independent-expectations The expected descriptions follow the documented cascade rule of JsonDescriptor.cascade with escape, authored as literals, and are what LlmSchemaConverter.parameters writes for the same collection.
 // @evidence contracts/testing.md#distinguishing-cases The table rows vary the referenced component's description and qualification; inline roots are owned by TestLlmReferenceDescriptionAssign.
-// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the exported writer on constructed schemas with no checker, filesystem fixture or process.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the private root helper on constructed schemas with no checker, filesystem fixture or process.
 func TestLlmReferenceDescription(t *testing.T) {
   t.Parallel()
   const separator = "\n\n------------------------------\n\n"
@@ -106,9 +106,9 @@ func TestLlmReferenceDescription(t *testing.T) {
   }
 }
 
-// TestLlmReferenceDescriptionAssign locks that the parameters object loses a
-// stale description when the cascade yields none, and gains the cascade
-// otherwise.
+// TestLlmReferenceDescriptionAssign requires a reference root to receive its
+// cascade, an inline root to retain its empty description and a bare inline
+// root to remain undescribed.
 //
 // @evidence contracts/testing.md#behavioral-verification The description assignment helper is called with a reference root, an inline root that already has an empty description and an inline root with none; the result is compared in each case.
 // @evidence contracts/testing.md#independent-expectations A reference root receives Current Type with a link to the referenced component, and an inline root keeps its own description or stays undescribed; these literals are authored from the parameters description contract.

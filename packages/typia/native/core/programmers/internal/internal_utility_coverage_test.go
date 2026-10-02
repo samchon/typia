@@ -30,8 +30,8 @@ import (
 // 6. Verify helper functions for binary joins, and definition naming.
 // 7. Cover configured checker objectors, recursive writers, and direct decode branches.
 //
-// @evidence contracts/testing.md#behavioral-verification Checker, feature writer and escaped toJSON helpers are called on small metadata graphs; text arguments handed to checker combiners are compared with authored strings, while most other checks require a non-nil result.
-// @evidence contracts/testing.md#independent-expectations Authored expected text for combiner, failure and joiner arguments is independent; non-nil checks certify only that a node is produced.
+// @evidence contracts/testing.md#behavioral-verification Checker, feature writer and escaped toJSON helpers are called on small metadata graphs; checker combiner/failure/full hooks require nonempty descriptions, while most AST checks require only a non-nil result.
+// @evidence contracts/testing.md#independent-expectations Authored tuple-postfix text and recursive-writer counts are exact independent checks. Description checks reject empty strings without certifying their content; non-nil checks certify only construction.
 // @evidence contracts/testing.md#distinguishing-cases Array-like union, escaped and toJSON checks and writer assembly are visited once each without negative twins.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestInternalUtilityCoverage(t *testing.T) {

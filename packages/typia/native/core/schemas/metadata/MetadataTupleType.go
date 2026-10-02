@@ -6,12 +6,17 @@ package metadata
 // @evidence contracts/common.md#principled-implementation The JSON form lists what a tuple needs to be rebuilt as data.
 // @evidence contracts/common.md#clear-and-simple-design One flat record.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation Each field describes the tuple definition produced by ToJSON.
 type IMetadataSchema_ITupleType struct {
-  Name      string
-  Elements  []*IMetadataSchema
-  Index     *int
+  // Name identifies the shared tuple definition.
+  Name string
+  // Elements contains serialized element schemas in positional order.
+  Elements []*IMetadataSchema
+  // Index is the optional collection-assigned recursive index.
+  Index *int
+  // Recursive marks a recursive tuple definition.
   Recursive bool
+  // Nullables records the nullability of analyzed uses.
   Nullables []bool
 }
 
@@ -24,13 +29,20 @@ type IMetadataSchema_ITupleType struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each part.
 type MetadataTupleType struct {
-  Name        string
+  // Name identifies the shared tuple definition.
+  Name string
+  // DisplayName is the human-facing rendering, falling back to Name when empty.
   DisplayName string
-  Elements    []*MetadataSchema
-  Index       *int
-  Recursive   bool
-  Nullables   []bool
-  Of_map      *bool
+  // Elements contains positional schemas, with an optional trailing Rest wrapper.
+  Elements []*MetadataSchema
+  // Index is the optional collection-assigned recursive index.
+  Index *int
+  // Recursive marks a recursive tuple definition.
+  Recursive bool
+  // Nullables records the nullability of analyzed uses.
+  Nullables []bool
+  // Of_map marks a synthetic tuple representing a map entry during generation.
+  Of_map *bool
 }
 
 // MetadataTupleType_create builds a tuple type from props. The nullability list

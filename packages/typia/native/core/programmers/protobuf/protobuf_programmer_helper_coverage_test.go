@@ -9,6 +9,7 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativeinternal "github.com/samchon/typia/packages/typia/native/core/programmers/internal"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -28,9 +29,9 @@ import (
 // 5. Exercise encode union, wrapper, container, and fallback helper branches.
 // 6. Exercise protobuf decode property, array, map, default, and importer helpers.
 //
-// @evidence contracts/testing.md#behavioral-verification Protobuf helpers are called to read bigint names from property and schema variants, and build encode and decode blocks; names are compared and builder calls only require non-nil nodes.
-// @evidence contracts/testing.md#independent-expectations Authored schema variants give expected bigint names; non-nil checks are limitations.
-// @evidence contracts/testing.md#distinguishing-cases Supported and unsupported bigint variants are covered; builders have no negative twins.
+// @evidence contracts/testing.md#behavioral-verification Protobuf helpers are called to read bigint names from property and schema variants, and build encode and decode blocks; names and proto3 scalar defaults are compared. An admitted factory-produced primitive/static-object union requires exactly four ordered outer guards; remaining builder calls only require non-nil nodes.
+// @evidence contracts/testing.md#independent-expectations Authored schema variants define names/default literals and the preserved boolean/object/number/string guard order for the admitted producer shape. Neither counts nor guards come from generated snapshots; non-nil checks are construction-only limitations.
+// @evidence contracts/testing.md#distinguishing-cases Supported and unsupported bigint variants and fallback switches are contrasted. The admitted two-object union detects duplicate aggregate arms; the original mixed array/Map union remains a synthetic construction smoke case because public validation rejects such container unions.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls helpers on constructed metadata with no checker, filesystem fixture or process.
 func TestProtobufProgrammerHelperCoverage(t *testing.T) {
   emit := shimprinter.NewEmitContext()
@@ -181,6 +182,51 @@ func TestProtobufProgrammerHelperCoverage(t *testing.T) {
   if unionBlock == nil {
     t.Fatal("protobuf union property should decode")
   }
+  // A factory-produced primitive/static-object union is admitted by validation.
+  // Container unions in the original mixed fixture are construction smoke only.
+  admitted := protobufProgrammerAtomic("boolean")
+  admitted.Atomics = append(admitted.Atomics, schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{Type: "number"}), schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{Type: "string"}))
+  admitted.Objects = []*schemametadata.MetadataObject{
+    schemametadata.MetadataObject_create(schemametadata.MetadataObject{Type: alpha}),
+    schemametadata.MetadataObject_create(schemametadata.MetadataObject{Type: beta}),
+  }
+  property := schemametadata.MetadataProperty_create(schemametadata.MetadataProperty{Key: protobufProgrammerLiteral("value"), Value: admitted})
+  nativefactories.ProtobufFactory.EmplaceObject(schemametadata.MetadataObjectType_create(schemametadata.MetadataObjectType{Name: "Owner", Properties: []*schemametadata.MetadataProperty{property}}))
+  produced := protobufEncodeProgrammer_decode_property(protobufEncodeProgrammer_decodePropertyProps{Context: context, Functor: functor, Metadata: admitted, Protobuf: property.Of_protobuf_, Input: input})
+  if produced == nil || produced.Kind != shimast.KindBlock || len(produced.Statements()) != 1 {
+    t.Fatal("admitted union must have one outer dispatch ladder")
+  }
+  arm := produced.Statements()[0]
+  for _, expected := range []string{"boolean", "object", "number", "string"} {
+    if arm == nil || arm.Kind != shimast.KindIfStatement {
+      t.Fatalf("missing outer %s arm", expected)
+    }
+    condition := arm.AsIfStatement().Expression
+    if expected == "object" {
+      if condition.Kind != shimast.KindBinaryExpression || condition.AsBinaryExpression().OperatorToken.Kind != shimast.KindAmpersandAmpersandToken {
+        t.Fatal("object arm must guard typeof and null")
+      }
+      nullGuard := condition.AsBinaryExpression().Right
+      if nullGuard.Kind != shimast.KindBinaryExpression ||
+        nullGuard.AsBinaryExpression().OperatorToken.Kind != shimast.KindExclamationEqualsEqualsToken ||
+        nullGuard.AsBinaryExpression().Left.Kind != shimast.KindNullKeyword ||
+        nullGuard.AsBinaryExpression().Right != input {
+        t.Fatal("object arm must exclude null on the original input")
+      }
+      condition = condition.AsBinaryExpression().Left
+    }
+    if condition.Kind != shimast.KindBinaryExpression {
+      t.Fatalf("%s arm must use a typeof equality", expected)
+    }
+    equality := condition.AsBinaryExpression()
+    if equality.OperatorToken.Kind != shimast.KindEqualsEqualsEqualsToken || equality.Left.Kind != shimast.KindStringLiteral || equality.Left.Text() != expected || equality.Right.Kind != shimast.KindTypeOfExpression || equality.Right.AsTypeOfExpression().Expression != input {
+      t.Fatalf("outer %s guard changed order or input", expected)
+    }
+    arm = arm.AsIfStatement().ElseStatement
+  }
+  if arm == nil || arm.Kind == shimast.KindIfStatement {
+    t.Fatal("exactly four outer arms must precede the error fallback")
+  }
   for _, meta := range []*schemametadata.MetadataSchema{
     schemametadata.MetadataSchema_create(schemametadata.MetadataSchema{Optional: true, Nullable: true}),
     schemametadata.MetadataSchema_create(schemametadata.MetadataSchema{Optional: true}),
@@ -283,7 +329,7 @@ func TestProtobufProgrammerHelperCoverage(t *testing.T) {
     if inner == nil || inner.Kind != expected.kind {
       t.Fatalf("protobuf %s default seeded the wrong node kind", expected.typ)
     }
-    if expected.text != "" && inner.Text() != expected.text {
+    if (expected.kind == shimast.KindStringLiteral || expected.text != "") && inner.Text() != expected.text {
       t.Fatalf("protobuf %s default seeded %q instead of %q", expected.typ, inner.Text(), expected.text)
     }
   }
@@ -354,8 +400,8 @@ func TestProtobufProgrammerHelperCoverage(t *testing.T) {
   }
   func() {
     defer func() {
-      if recover() == nil {
-        t.Fatal("protobuf decode property type default should panic")
+      if got := recover(); got != "Error on ProtobufDecodeProgrammer.write(): unknown property type" {
+        t.Fatalf("protobuf decode property refusal changed: %v", got)
       }
     }()
     _ = protobufDecodeProgrammer_decode_property_type(protobufDecodeProgrammer_decodePropertyTypeProps{
@@ -367,8 +413,8 @@ func TestProtobufProgrammerHelperCoverage(t *testing.T) {
   }()
   func() {
     defer func() {
-      if recover() == nil {
-        t.Fatal("protobuf decode array value default should panic")
+      if got := recover(); got != "unreachable condition" {
+        t.Fatalf("protobuf decode array refusal changed: %v", got)
       }
     }()
     _ = protobufDecodeProgrammer_decode_array_value(nil, emit)

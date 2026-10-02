@@ -16,7 +16,7 @@ import (
 // 1. Build two string constant schemas with one overlapping literal.
 // 2. Merge them.
 // 3. Assert the merged schema has one string constant bucket.
-// 4. Assert the bucket contains the two unique literal values.
+// 4. Assert the bucket contains the three unique literal values.
 //
 // @evidence contracts/testing.md#behavioral-verification MetadataSchema merge of two string constant schemas with one overlapping literal yields one bucket holding the unique values.
 // @evidence contracts/testing.md#independent-expectations Set union of the authored literals gives the three unique values; the expected set is stated in the test, not read from the merge.

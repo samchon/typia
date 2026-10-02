@@ -38,7 +38,8 @@ const fixture = { reflectFalse, reflectOutput, jsonOutput, jsonApplication };
  * booleanLiteralDiscriminantSource declarations; the former
  * booleanLiteralDiscriminantRuntimeRunner observations execute in the existing
  * automated worker. This detects a generated program whose output compiles but
- * changes these runtime decisions: the literal runtime assertions below.
+ * changes the false/error and true/data branch pairing or loses literal
+ * discriminants across reflected, named and inline JSON outputs.
  *
  * 1. Transform the typed declarations through the installed native typia plugin.
  * 2. Execute the original inputs, literal expected outcomes, and failure
@@ -46,7 +47,7 @@ const fixture = { reflectFalse, reflectOutput, jsonOutput, jsonApplication };
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from booleanLiteralDiscriminantRuntimeRunner; emitted-text presence alone cannot pass these assertions.
  * @evidence contracts/testing.md#independent-expectations The handwritten false/error and true/data branches determine boolean constant values, component references and sibling pairing across reflection and JSON application schemas. Expectations are never copied from emitted output.
- * @evidence contracts/testing.md#distinguishing-cases Preserves the literal runtime assertions below; the rest of the original runner's assertions remain below without dropping or skipping inputs.
+ * @evidence contracts/testing.md#distinguishing-cases Bare false remains a Boolean constant; the reflected union retains both literals paired with error/data respectively. JSON schema preserves both named branch references and their constants; application output preserves the named Output alias and branches, while inline output retains the same literal/sibling pairing without that named-alias assertion.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_boolean_literal_discriminant_schema in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed booleanLiteralDiscriminantSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.
  * @evidence contracts/e2e.md#shared-execution Uses the existing automated project and single suite worker, sharing the plugin artifact and project load with other composites instead of recreating the former temporary project.

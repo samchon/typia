@@ -58,7 +58,7 @@ export namespace StandardSchemaV1 {
    *
    * @evidence contracts/common.md#principled-implementation Props has version 1, a vendor name, an optional phantom `types` and a `validate` function that accepts unknown and returns a result or a promise of one, as the specification requires.
    * @evidence contracts/common.md#clear-and-simple-design Four readonly members, matching the specification.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts The types member is never populated at runtime and is only a type carrier, as documented.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The optional types member carries inferred types; typia omits it from generated validators. The structural declaration does not forbid a different implementation from providing a value.
    * @evidence contracts/common.md#meaningful-documentation The comment describes each member and the phantom nature of types.
    */
   export interface Props<Input = unknown, Output = Input> {
@@ -71,7 +71,7 @@ export namespace StandardSchemaV1 {
     /**
      * Inferred types associated with the schema.
      *
-     * Never populated at runtime. It carries the type arguments so
+     * Typia omits this property at runtime. It carries the type arguments so
      * {@link StandardSchemaV1.InferInput} and
      * {@link StandardSchemaV1.InferOutput} can read them back.
      */
@@ -184,7 +184,7 @@ export namespace StandardSchemaV1 {
    *
    * @evidence contracts/common.md#principled-implementation The input and output members are used only to carry the type arguments at compile time.
    * @evidence contracts/common.md#clear-and-simple-design Two readonly members.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts It is never populated at runtime.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts This is a type carrier with no runtime allocation; typia omits it from generated validators.
    * @evidence contracts/common.md#meaningful-documentation The comment says it is the Standard types interface.
    */
   export interface Types<Input = unknown, Output = Input> {
@@ -200,7 +200,7 @@ export namespace StandardSchemaV1 {
    *
    * @template Schema Standard Schema to read the input type from
    *
-   * @evidence contracts/common.md#principled-implementation It indexes the non-null `types` member of a schema's `~standard` property for its `input`, which recovers the declared input type; for a schema whose `types` is absent the result is `never`.
+   * @evidence contracts/common.md#principled-implementation It indexes the non-null types member of a schema's ~standard property for input, recovering the statically declared input type without reading a runtime property.
    * @evidence contracts/common.md#clear-and-simple-design One indexed access type.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts It is a type-level lookup and has no runtime effect.
    * @evidence contracts/common.md#meaningful-documentation The comment says it infers the input type and documents the Schema parameter.

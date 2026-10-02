@@ -13,7 +13,7 @@ import { Calculator } from "../structures/Calculator";
  * The case builds its input in this file and asserts number of tools, add(10,
  * 5), subtract(10, 3), multiply(4, 7), divide(20, 4).
  *
- * 1. Generate the value from the types declared in this file.
+ * 1. Generate a controller from the imported Calculator fixture.
  * 2. Assert the properties listed above.
  *
  * @evidence contracts/testing.md#behavioral-verification Four reflected Calculator tools invoke actual methods and return authored arithmetic results 15, 7, 28 and 5 in success wrappers.

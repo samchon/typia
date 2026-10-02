@@ -13,8 +13,8 @@ import (
 
 // Resolves the repository root from this helper.
 //
-// @evidence contracts/testing.md#behavioral-verification RepoRoot only constructs the repository root path resolved from this source file and asserts nothing; the tests that call it assert the behavior of the code under test on that value, so a wrong construction surfaces as a failing assertion in those callers.
-// @evidence contracts/testing.md#independent-expectations The constructed value is authored input derived from the arguments and not from the code under test.
+// @evidence contracts/testing.md#behavioral-verification RepoRoot marks the caller as a helper, fails it when runtime.Caller cannot locate this source, and walks five parents to locate fixture paths. Fixture consumers own the product assertions.
+// @evidence contracts/testing.md#independent-expectations The directory is derived from this helper's source location and the repository layout, independently of the native code under test; it is not authored fixture content.
 // @evidence contracts/testing.md#distinguishing-cases RepoRoot supplies the repository root path resolved from this source file for positive and negative cases chosen by its callers and owns no case distinction itself.
 // @evidence contracts/testing.md#execution-ownership The helper is compiled into the packages/typia/test module (pnpm test:go:public) and called in process by the Go tests; it starts no process and builds no native command.
 func RepoRoot(t *testing.T) string {
@@ -26,8 +26,8 @@ func RepoRoot(t *testing.T) string {
 
 // Decodes a JSON fixture file into the caller-selected type and fails the calling test on error.
 //
-// @evidence contracts/testing.md#behavioral-verification ReadJSON only constructs a decoded JSON fixture value and asserts nothing; the tests that call it assert the behavior of the code under test on that value, so a wrong construction surfaces as a failing assertion in those callers.
-// @evidence contracts/testing.md#independent-expectations The constructed value is authored input derived from the arguments and not from the code under test.
+// @evidence contracts/testing.md#behavioral-verification ReadJSON reads through ReadText, unmarshals into the caller-selected type, and fails the calling test on malformed JSON. Consumers own assertions over the decoded fixture and native result.
+// @evidence contracts/testing.md#independent-expectations Fixture contents are authored outside the native producer; encoding/json decodes those contents and does not derive expected values from that producer.
 // @evidence contracts/testing.md#distinguishing-cases ReadJSON supplies a decoded JSON fixture value for positive and negative cases chosen by its callers and owns no case distinction itself.
 // @evidence contracts/testing.md#execution-ownership The helper is compiled into the packages/typia/test module (pnpm test:go:public) and called in process by the Go tests; it starts no process and builds no native command.
 func ReadJSON[T any](t *testing.T, file string) T {
@@ -40,8 +40,8 @@ func ReadJSON[T any](t *testing.T, file string) T {
 
 // Reads a fixture file as text and fails the calling test on error.
 //
-// @evidence contracts/testing.md#behavioral-verification ReadText only constructs the text of a fixture file and asserts nothing; the tests that call it assert the behavior of the code under test on that value, so a wrong construction surfaces as a failing assertion in those callers.
-// @evidence contracts/testing.md#independent-expectations The constructed value is authored input derived from the arguments and not from the code under test.
+// @evidence contracts/testing.md#behavioral-verification ReadText reads the caller-selected path with os.ReadFile and fails the calling test on an I/O error. Consumers own assertions over the returned fixture text and native result.
+// @evidence contracts/testing.md#independent-expectations The bytes come from a fixture file chosen by the caller, independently of the native producer; converting them to string does not create an expectation.
 // @evidence contracts/testing.md#distinguishing-cases ReadText supplies the text of a fixture file for positive and negative cases chosen by its callers and owns no case distinction itself.
 // @evidence contracts/testing.md#execution-ownership The helper is compiled into the packages/typia/test module (pnpm test:go:public) and called in process by the Go tests; it starts no process and builds no native command.
 func ReadText(t *testing.T, file string) string {

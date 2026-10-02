@@ -33,6 +33,14 @@ type Guard = (
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ) => asserts input is User;
+/**
+ * Pins inferred assertion-factory and invocation-result types at compilation.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Assert/Equal reject a factory return type that differs from the handwritten assertion guard signature, or an invocation result that differs from void. The runtime case separately checks acceptance, custom-error rejection and surplus-key strictness.
+ * @evidence contracts/testing.md#independent-expectations Guard explicitly declares the public asserts-input-is-User signature and optional error factory; void follows the documented guard invocation contract. These expectations do not use emitted native JavaScript.
+ * @evidence contracts/testing.md#distinguishing-cases Both ordinary/equality factory inference and invocation void are checked. The neighboring @ts-expect-error assignment rejects treating an invoked guard as another guard; narrowing's value.id access checks the assertion effect inside a function.
+ * @evidence contracts/testing.md#execution-ownership The automated and default-profile consumer projects compile this exported tuple and its private Assert/Equal/Guard/narrowing premises before the matching runtime case executes. No independent DynamicExecutor registration is attached to the type.
+ */
 export type FactoryCases = [
   Assert<Equal<typeof inferred, Guard>>,
   Assert<Equal<typeof inferredEquals, Guard>>,
@@ -59,7 +67,7 @@ const fixture = { guard, equalsGuard, inferred, inferredEquals, narrowing };
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from assertGuardFactoryRuntime; emitted-text presence alone cannot pass these assertions.
  * @evidence contracts/testing.md#independent-expectations The public guard contract returns undefined on acceptance and calls the supplied error factory on rejection. Numeric id, wrong id type and surplus-key equality distinguish these outcomes without another generated validator as oracle.
- * @evidence contracts/testing.md#distinguishing-cases Preserves normal success returns void; equals success returns void; normal permits surplus; the rest of the original runner's assertions remain below without dropping or skipping inputs.
+ * @evidence contracts/testing.md#distinguishing-cases Ordinary/equality guards return undefined on clean numeric id. Ordinary guard permits a surplus key; both reject a string id and equality guard rejects the surplus key, each through the supplied custom-error message. FactoryCases, narrowing and the @ts-expect-error assignment preserve compile-time assertion signatures and the void invocation distinction.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_assert_guard_factory_contract in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed assertGuardFactorySource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.
  * @evidence contracts/e2e.md#shared-execution Uses the existing automated project and single suite worker, sharing the plugin artifact and project load with other composites instead of recreating the former temporary project.

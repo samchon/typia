@@ -21,7 +21,7 @@ const lessMixed = typia.compare.createLess<number | string>();
  * 3. Propagate every failed comparison to the shared suite runner.
  *
  * @evidence contracts/testing.md#behavioral-verification Ordinary/NaN pairs, invalid dates, arrays, tuple positions, nested values, mixed-type rank, signed zero, infinity and a complete sorted result distinguish the ordering boundaries.
- * @evidence contracts/testing.md#independent-expectations The retained literal expectations encode the authored type/value contract, not emitted-source patterns. Type-level equality assertions, where present, remain compiled independently of runtime comparisons.
+ * @evidence contracts/testing.md#independent-expectations The NaN-last contract places ordinary numbers before NaN while keeping signed zeros equivalent and type rank ahead of same-arm numeric ordering. Authored pair booleans and the complete sorted scalar sequence establish expectations independently of the callback; Number.isNaN identifies the two expected tail values.
  * @evidence contracts/testing.md#distinguishing-cases Ordinary/NaN pairs, invalid dates, arrays, tuple positions, nested values, mixed-type rank, signed zero, infinity and a complete sorted result distinguish the ordering boundaries.
  * @evidence contracts/testing.md#execution-ownership The matching exported composite is discovered by TestServant in test-typia-automated. Private typed producers and deliberately unchecked JavaScript-style runtime inputs preserve the original test boundary.
  * @evidence contracts/e2e.md#necessary-boundary Real typia public calls are transformed and their callbacks execute in Node. Go unit assertions on metadata or emitted text cannot detect a runtime result, receiver or mutation defect.

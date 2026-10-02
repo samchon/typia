@@ -20,9 +20,9 @@ package metadata
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The type is a stand-in for an unexported typescript-go type and invents no other representation.
 // @evidence contracts/common.md#meaningful-documentation The doc explains why the stand-in exists and why it must stay comparable.
 type MetadataBigint struct {
-  // Text is the exact value in base 10, prefixed with `-` when negative. A
-  // bigint exists to hold what a float64 cannot, so the digits are the only
-  // representation that stays exact at every magnitude.
+  // Text is the exact value in base 10, prefixed with `-` when negative.
+  // The metadata producer supplies the checker's canonical digits, avoiding
+  // conversion of an exact integer through float64.
   Text string
 }
 
@@ -38,7 +38,8 @@ func (obj MetadataBigint) String() string {
 }
 
 // MarshalJSON writes the digits unquoted, so metadata marshaled by a
-// downstream tool carries the same JSON number a plain integer would.
+// downstream tool carries the same JSON number a plain integer would. Text is
+// expected to contain the producer's canonical decimal digits; empty text is 0.
 //
 // @evidence contracts/common.md#principled-implementation The digits are written unquoted as a JSON number, so metadata marshaled by a downstream tool carries the same number an integer would, and empty text is written as 0.
 // @evidence contracts/common.md#clear-and-simple-design One method with one empty-text branch.

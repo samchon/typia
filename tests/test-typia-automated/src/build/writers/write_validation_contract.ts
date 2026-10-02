@@ -6,10 +6,10 @@
  * The fixture name identifies the authored value/spoiler owner. Other operation
  * families keep their own renderer and are not certified by this selection.
  *
- * @evidence contracts/common.md#principled-implementation The selected normal or strict validator helper determines the result and diagnostic assertions; rendering only those reviewed modes avoids attributing validator semantics to codecs, pruning or random generation. Fixture and public method names identify the actual binding.
- * @evidence contracts/common.md#clear-and-simple-design One operation description supplies the differing assertion/oracle facts and one renderer supplies shared native-boundary ownership. An unknown family returns no acknowledgment rather than inventing its semantics.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts This function writes documentation only. It does not alter a fixture, operation, assertion, selector or expected result, and its shared-execution answer names the actual single-worker suite owner.
- * @evidence contracts/common.md#meaningful-documentation Generated prose names the actual operation, fixture, positive/spoiled input distinctions, oracle limits and execution owner. The JSDoc block is emitted before the case declaration and separates descriptions from checklist answers.
+ * @evidence contracts/testing.md#behavioral-verification This source-comment renderer describes actual Boolean/assertion/guard/validation/Standard Schema helpers and strict surplus variants without changing their assertions. Normal helpers use authored value spoilers; strict helpers independently inject surplus keys and compare their operation-specific paths/results.
+ * @evidence contracts/testing.md#independent-expectations Fixture generators/spoilers and independently injected surplus keys establish data and path expectations. NamingConvention path quoting and extra native record-shape checks remain shared/correlated dependencies; emitted comment text does not independently certify them.
+ * @evidence contracts/testing.md#distinguishing-cases Method normalization and the standardSchema prefix choose actual helper facts, strict modes select surplus-member wording, and unsupported modes return empty text. Spoiler-free/primitive-only fixtures disclose their clean-only contribution; assertion one-path and validation full-multiset distinctions remain separate.
+ * @evidence contracts/testing.md#execution-ownership write_common places this returned comment before the actual generated matching export. Local definitions/mode/strict normalization own descriptions, the controller owns fixture eligibility, and TestServant executes the helper's real callback assertions during start.
  */
 export const write_validation_contract = (
   props: { method: string; prefix?: string | undefined },

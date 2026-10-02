@@ -19,7 +19,7 @@ import { HttpLlm, HttpMigration, LlmJson } from "@typia/utils";
  *
  * @evidence contracts/testing.md#behavioral-verification HttpMigration, HttpLlm and LlmJson.validateArguments run on authored parameter documents; serialized query text, advertised LLM properties, validator outcomes and composition diagnostics are compared, so a dropped referenced array, a rejected delimited style, a lost open object entry or a promoted optional member fails.
  * @evidence contracts/testing.md#independent-expectations Serialized strings and diagnostics are authored literals following the OpenAPI style and explode tables; the LLM validation outcomes follow from the declared requiredness rather than from a stored snapshot.
- * @evidence contracts/testing.md#distinguishing-cases Space and pipe delimiters, referenced arrays, open and implicit objects, required versus optional object members and invalid style and explode combinations each decide a different branch, with partial and complete inputs as accept and reject twins.
+ * @evidence contracts/testing.md#distinguishing-cases Space and pipe delimiters, referenced arrays, open and implicit objects, required versus optional object members and invalid style and explode combinations each decide a different branch, with partial and complete inputs as accept and reject twins. An omitted required object must raise the actual Error class with the independently authored required-query diagnostic, not an arbitrary rejection.
  * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The wire format is captured through a fetch double and validators run in process, so no native build, installation or host is involved.
  */
 export const test_http_migrate_parameter_serialization_edges =
@@ -97,7 +97,7 @@ export const test_http_migrate_parameter_serialization_edges =
       query: {},
     });
     TestEquality.equals("required empty object", "", captured!.search);
-    let requiredMemberError = false;
+    let requiredMemberError: unknown;
     try {
       await HttpMigration.execute({
         connection,
@@ -105,13 +105,21 @@ export const test_http_migrate_parameter_serialization_edges =
         parameters: [],
         query: {},
       });
-    } catch {
-      requiredMemberError = true;
+    } catch (error) {
+      requiredMemberError = error;
     }
     TestEquality.equals(
       "required object member remains required",
       true,
-      requiredMemberError,
+      requiredMemberError instanceof Error &&
+        requiredMemberError.constructor === Error,
+    );
+    TestEquality.equals(
+      "required object diagnostic",
+      requiredMemberError instanceof Error
+        ? requiredMemberError.message
+        : undefined,
+      'Error on MigrateRouteFetcher.request(): query "filter" is required.',
     );
 
     const llm = HttpLlm.application({ document });

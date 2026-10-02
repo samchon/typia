@@ -55,6 +55,7 @@ export const test_llm_json_parse_lenient_findJsonStart_junk_prefix =
     // Junk with array notation that should be skipped
     const r6 = LlmJson.parse("See items at index [0] and [1]: [10, 20, 30]");
     TestEquality.equals("arr-ref-junk-success", r6.success, true);
+    if (r6.success) TestEquality.equals("arr-ref-junk-data", r6.data, [0]);
     // Should find first [ which is [0] - this tests the behavior of findJsonStart
     // findJsonStart finds the first { or [ outside strings
 

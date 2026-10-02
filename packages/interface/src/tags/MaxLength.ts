@@ -8,8 +8,8 @@ import { TagBase } from "./TagBase";
  * TypeScript intersection types.
  *
  * This constraint is commonly combined with {@link MinLength} to define a valid
- * length range. Multiple length constraints can be applied to the same property
- * (all must pass).
+ * length range. Each kind is exclusive: a property may carry one `MinLength`
+ * and one `MaxLength`, and both constraints must pass.
  *
  * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
  * `typia.validate()`. It generates `maxLength` in JSON Schema output.

@@ -29,7 +29,7 @@ import { OpenApiTypeCheckerBase } from "../utils/internal/OpenApiTypeCheckerBase
  *
  * @author Jeongho Nam - https://github.com/samchon
  *
- * @evidence contracts/common.md#principled-implementation The namespace groups the guards and the traversal operations over the emended schema union, delegating to OpenApiTypeCheckerBase with the emended component prefix so the four version-specific checkers elsewhere stay separate; the guards are the discriminants of the emended form and the operations (escape, visit, covers) follow references through the components map.
+ * @evidence contracts/common.md#principled-implementation The namespace groups guards and traversal operations over the emended schema union, delegating to OpenApiTypeCheckerBase with the emended component prefix while raw-dialect guards remain separate. Guards discriminate the emended form; escape, visit and covers follow references through the components map.
  * @evidence contracts/common.md#clear-and-simple-design A public facade whose bodies are one-line delegations; the algorithms live in one internal base shared with other checkers, and unreference is documented separately.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Behavior is the dialect's, delegated to the shared base; no fixture, foreign method or global is used.
  * @evidence contracts/common.md#meaningful-documentation The comment lists the guards and operations and points to the checkers for the other versions.

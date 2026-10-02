@@ -2,10 +2,10 @@
  * Converts fixture fields into lower-case header names and scalar/array wire
  * representations.
  *
- * @evidence contracts/common.md#principled-implementation Converts fixture fields into lower-case header names and scalar/array wire representations.
- * @evidence contracts/common.md#clear-and-simple-design One entry loop omits undefined/empty arrays, preserves set-cookie as separate strings and joins cookie with semicolons versus ordinary arrays with commas.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts These separators are explicit fixture transport policy. This helper does not establish every HTTP parser spelling or network framing rule.
- * @evidence contracts/common.md#meaningful-documentation The native description makes separators, repeated-cookie behavior and omission visible.
+ * @evidence contracts/testing.md#behavioral-verification This encoder prepares transport and makes no verdict. The headers, assertHeaders, isHeaders and validateHeaders helpers execute their actual callback using its record, retaining clean decoded-content and their respective spoiler assertions.
+ * @evidence contracts/testing.md#independent-expectations Authored fixture values establish decoded expectations independently of callback output. Lower-case names and cookie/set-cookie separators are explicit transport preparation; successful round trips alone do not independently prove all raw HTTP header spellings.
+ * @evidence contracts/testing.md#distinguishing-cases Undefined and empty-array fields are omitted; set-cookie retains separate strings, cookie arrays join with semicolons, ordinary arrays with commas, and scalars stringify. HEADERS eligibility and fixture contents determine the executed combinations; this helper supplies no malformed transport matrix.
+ * @evidence contracts/testing.md#execution-ownership Generated direct/factory header-family entries invoke the named internal helper, which owns each call here and the result assertions. The array map callback stringifies cookie values without retaining shared state or reporting a test independently.
  */
 export const headers_to_string = (
   input: Record<string, any>,

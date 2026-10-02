@@ -32,10 +32,19 @@ export namespace HttpMigrateRouteComposer {
    * @evidence contracts/common.md#meaningful-documentation A comment names it as the properties of compose.
    */
   export interface IProps {
+    /** Live document receiving composed component schemas. */
     document: OpenApi.IDocument;
+
+    /** HTTP method of the operation. */
     method: "head" | "get" | "post" | "put" | "patch" | "delete" | "query";
+
+    /** Original OpenAPI path template. */
     path: string;
+
+    /** Router path with colon parameters. */
     emendedPath: string;
+
+    /** Live operation whose parameters and schemas are normalized. */
     operation: OpenApi.IOperation;
   }
   /**

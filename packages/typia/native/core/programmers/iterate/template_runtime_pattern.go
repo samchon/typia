@@ -257,9 +257,10 @@ func template_is_literal(meta *nativemetadata.MetadataSchema) bool {
 // The matrix must be fully constrained — every OR row contributes at least one
 // validate-able tag. A row with no validate-able tag accepts every value of the
 // base type, which would unconstrain the whole matrix; honoring only the
-// validate-able rows would then reject values the type accepts. Such
-// placeholders (and `boolean`/union/constant placeholders, and tags with no
-// `Validate`) fall back to the historical behavior: structural match only, with
+// validate-able rows would then reject values the type accepts. Runtime checks
+// include exclusions synthesized from schema fragments, not only Validate text.
+// Such unconstrained placeholders (and `boolean`/union/constant placeholders)
+// fall back to the historical behavior: structural match only, with
 // the tag left unenforced rather than emitting a broken check.
 func template_constrained_capture(meta *nativemetadata.MetadataSchema) (*nativemetadata.MetadataAtomic, string, bool) {
   if meta == nil || meta.Bucket() != 1 || len(meta.Atomics) != 1 {
@@ -287,7 +288,7 @@ func template_fully_constrained(tags [][]nativemetadata.IMetadataTypeTag) bool {
   for _, row := range tags {
     validating := false
     for _, tag := range row {
-      if tag.Validate != "" {
+      if tag.Validate != "" || (tag.Kind == "exclude" && len(check_exclude_values(tag)) != 0) {
         validating = true
         break
       }

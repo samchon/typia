@@ -8,7 +8,7 @@ import { OpenApiComponentName } from "./OpenApiComponentName";
  * and `:param` form that the migration and LLM composers use for accessors and
  * schema keys.
  *
- * @evidence contracts/common.md#principled-implementation Path-derived names are built by splitting on slashes, dropping parameter segments, turning every character an identifier cannot hold into an underscore and escaping reserved or digit-leading segments, so the result is always a legal accessor or component key while letters of any script survive.
+ * @evidence contracts/common.md#principled-implementation Path-derived names split on slashes, drop parameter segments, replace characters outside the identifier-continue class and escape reserved or digit-leading segments. Accessor composition applies its additional naming guard, while component derivation applies the OpenAPI key escape; normalize alone does not guarantee a legal binding for every Unicode start or strict-mode restricted name.
  * @evidence contracts/common.md#clear-and-simple-design Small single-purpose functions compose in one namespace so the accessor composers and component naming share one normalization and no caller repeats it.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The character policy is a general class (`ID_Continue` plus `$` and the joiners) and not a list of known path spellings.
  * @evidence contracts/common.md#meaningful-documentation The namespace comment states the purpose and the main functions carry the reasons with issue references.
@@ -91,15 +91,16 @@ export namespace EndpointUtil {
   };
 
   /**
-   * Normalize one path segment into an identifier.
+   * Normalize one path segment for accessor or component name derivation.
    *
    * A path segment may hold any RFC 3986 `pchar`: Google AIP custom methods
    * write `/items:batchGet`, and `@`, `~`, `+`, `*`, and percent-encodings are
-   * all legal. Every character an identifier cannot hold becomes `_`, so the
-   * accessors and names derived from a path are always legal (#2443), while the
-   * letters of any script stay, as they did before.
+   * all legal. Characters outside the identifier-continue class become `_`,
+   * while letters of any script stay (#2443). Accessor and component callers
+   * apply their own final naming guards; this function alone does not establish
+   * a legal binding identifier for every Unicode start or restricted name.
    *
-   * @evidence contracts/common.md#principled-implementation Every character outside the identifier-continue class, `$` and the joiners becomes an underscore, reserved words get a prefix and a leading digit is prefixed, which gives a legal binding name for any path segment; the empty result is returned unchanged.
+   * @evidence contracts/common.md#principled-implementation The allowed set is identifier-continue characters plus `$` and the joiners; all other characters become underscores. Reserved words and leading ASCII digits receive prefixes, and the empty result stays empty. Unicode starting characters and strict-mode restricted bindings are left to the accessor caller's additional guard, so this helper does not claim full binding validation.
    * @evidence contracts/common.md#clear-and-simple-design One function with three ordered conditions; the pattern is built from a string because the package targets a lower ECMAScript level than property escapes in literals.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The rule is a character class, with no list of known segments.
    * @evidence contracts/common.md#meaningful-documentation The comment explains the allowed characters, the AIP custom method example and the motivating issue.

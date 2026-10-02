@@ -77,8 +77,12 @@ let input!: Example;
         if key == nil {
           t.Fatal("literal key missing")
         }
+        wantOptional, known := expectedOptional[*key]
+        if !known {
+          t.Fatalf("unexpected fixture property %s", *key)
+        }
         wantRequired := *key == "optional" && compiler.optionalRequired
-        if property.Value.Optional != expectedOptional[*key] || property.Value.Required != wantRequired || len(property.Value.Atomics) != 1 || property.Value.Atomics[0].Type != "string" {
+        if property.Value.Optional != wantOptional || property.Value.Required != wantRequired || len(property.Value.Atomics) != 1 || property.Value.Atomics[0].Type != "string" {
           t.Fatalf("%s metadata Optional=%v Required=%v Atomics=%+v", *key, property.Value.Optional, property.Value.Required, property.Value.Atomics)
         }
       }

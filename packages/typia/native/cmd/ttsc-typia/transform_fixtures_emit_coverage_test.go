@@ -30,7 +30,7 @@ import (
 // have failed the repair -- and left the JS emit path it exists to cover
 // unreached, since the run stopped at the identity check.
 //
-//  1. Create isolated temporary TypeScript projects under the native package.
+//  1. Create isolated temporary TypeScript projects in the writable OS temp directory.
 //  2. Transform each project's `src/main.ts` to TypeScript output in memory.
 //  3. Transform each project's `src/main.ts` to JavaScript and require emitted
 //     CommonJS, which is what reaches the printer and the emit path.

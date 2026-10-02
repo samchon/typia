@@ -84,9 +84,8 @@ var createAssertErrorFactoryMembers = []string{
 const createAssertErrorFactorySentinel = "zzz"
 
 // createAssertErrorFactorySurfaceSource is type-checked and transformed, but
-// never executed: the http, protobuf and notation members pull runtime helpers
-// this package stubs only for the emit it runs, so the executed fixture stays
-// on the module family.
+// never executed. The smaller module-family fixture below is also only
+// typechecked and inspected for emitted parameter forwarding.
 const createAssertErrorFactorySurfaceSource = `import typia, {
   AssertionGuard,
   StandardSchemaV1,

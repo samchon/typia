@@ -23,7 +23,7 @@ import (
 // 4. Emit single-schema AST literals through JsonSchemaProgrammer.Write.
 // 5. Validate and emit JSON application metadata for function properties.
 //
-// @evidence contracts/testing.md#behavioral-verification JSON schema validation is run on bigint, undefined element, Map, Set and unsupported native metadata, and the 3.0 writer and an application with no functions are exercised; rejections are checked by message presence and the writers by non-nil results.
+// @evidence contracts/testing.md#behavioral-verification JSON schema validation is run on bigint, undefined element, Map, Set and unsupported native metadata, and the 3.0 writer and empty, dynamic and valid function applications are exercised; rejection counts, version/schema/function counts and exact description strings are checked, while AST writers only require non-nil results.
 // @evidence contracts/testing.md#independent-expectations The unsupported types are authored; the checks that only require a message or a non-nil collection have no exact oracle.
 // @evidence contracts/testing.md#distinguishing-cases Several rejected shapes and one valid string are covered; exact schema output is not compared.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls programmers on constructed metadata with no checker, filesystem fixture or process.

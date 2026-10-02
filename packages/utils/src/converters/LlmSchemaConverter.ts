@@ -22,8 +22,8 @@ import { OpenApiConstraintShifter } from "./internal/OpenApiConstraintShifter";
  *
  * `LlmSchemaConverter` converts OpenAPI JSON schemas to LLM-compatible
  * {@link ILlmSchema} format. LLMs don't fully support JSON Schema, so this
- * simplifies schemas by removing unsupported features (tuples, `const`, mixed
- * unions).
+ * converts constants to enum members and mixed unions to `anyOf`. Tuple schemas
+ * are rejected with structured reasons.
  *
  * Main functions:
  *
@@ -33,7 +33,8 @@ import { OpenApiConstraintShifter } from "./internal/OpenApiConstraintShifter";
  *
  * Configuration options ({@link ILlmSchema.IConfig}):
  *
- * - `strict`: OpenAI structured output mode (all properties required)
+ * - `strict`: Require all declared properties to be required, reject dynamic
+ *   properties and move supported constraints into description tags.
  *
  * @author Jeongho Nam - https://github.com/samchon
  *
@@ -530,7 +531,9 @@ export namespace LlmSchemaConverter {
    * `strict` inversion reads them back. Pass the same `config` the schema was
    * converted with; the default is the same non-strict default {@link getConfig}
    * applies, under which the constraint keywords are still on the schema and a
-   * description is only ever prose.
+   * description is only ever prose. Strict tags are a line-based approximation:
+   * multiline or surrounding whitespace in string constraints and pre-existing
+   * matching description tags are not restored exactly.
    *
    * @param props.config Configuration the schema was converted with
    * @param props.components Target components (mutated with definitions)
@@ -539,7 +542,7 @@ export namespace LlmSchemaConverter {
    *
    * @returns OpenAPI JSON schema
    *
-   * @evidence contracts/common.md#principled-implementation Each LLM member is mapped back to an OpenAPI member: enum values become `const` members, strict descriptions are read back into constraint keywords, and `$defs` references become component schemas under keys allocated once per conversion, so a reference and its stored component always agree and a caller's existing component is never overwritten. The inverse is lossless only for schemas that the forward conversion produced.
+   * @evidence contracts/common.md#principled-implementation Each LLM member is mapped back to an OpenAPI member: enum values become const members, strict description tags become constraint keywords, and definitions become components under keys allocated once per conversion, preserving reference/store agreement and existing caller components. Conversion is not universally lossless even for forward-produced schemas: strict tags trim one-line string values, cannot preserve embedded newlines and can select pre-existing matching tags before the appended ones.
    * @evidence contracts/common.md#clear-and-simple-design One public wrapper that seeds the key allocation and a recursive worker with an emitted-set that stops repeated definitions.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The allocation follows the component-key grammar rather than echoing raw `$defs` keys, and the own-property view is used consistently for seeding and resolution.
    * @evidence contracts/common.md#meaningful-documentation The doc explains the strict gate and the config argument; inline comments explain the allocation seeding and the emitted-set.

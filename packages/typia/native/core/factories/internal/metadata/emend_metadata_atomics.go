@@ -7,7 +7,9 @@ import (
 )
 
 // Emend_metadata_atomics removes constants that an atomic of the same type
-// already covers and folds a boolean constant of both values into one boolean.
+// already covers without validation requirements and folds a boolean constant
+// of both values into one boolean. An unconstrained string atomic also removes
+// template alternatives.
 //
 // @evidence contracts/common.md#principled-implementation A constant of a type that an atomic of the same type already covers is redundant and is removed, and a boolean constant set with both values is replaced by a boolean atomic, keeping both alternatives if the two values carry different tags; this normalizes unions such as `string | "a"` and `true | false`.
 // @evidence contracts/common.md#clear-and-simple-design One function over the metadata's constants and atomics, applied by the explorer to the schema and its escaped halves.

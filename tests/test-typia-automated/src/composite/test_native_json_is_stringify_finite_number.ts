@@ -22,7 +22,7 @@ const fixture = { stringify };
  *    assertions.
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from jsonIsStringifyFiniteNumberRunner; emitted-text presence alone cannot pass these assertions.
- * @evidence contracts/testing.md#independent-expectations JSON permits finite numbers and forbids NaN and infinities. Authored finite output must match the literal JSON document; each non-finite input must return top-level null under both original producer option rows.
+ * @evidence contracts/testing.md#independent-expectations The finite control must parse as JSON and retain authored value1; this is a decoded-field comparison, not exact document-text equality. Each NaN or infinity input must return top-level null under both original producer option rows, independently of any serializer round-trip agreement.
  * @evidence contracts/testing.md#distinguishing-cases Preserves the literal runtime assertions below; the rest of the original runner's assertions remain below without dropping or skipping inputs.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_json_is_stringify_finite_number in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed jsonIsStringifyFiniteNumberSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.

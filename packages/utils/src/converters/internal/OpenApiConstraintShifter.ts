@@ -7,9 +7,11 @@ import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
  *
  * Strict LLM schemas cannot carry these keywords, so each one is written as a
  * `@name value` line and deleted from the schema. `LlmDescriptionInverter`
- * reads the tags back. The functions modify the schema they receive.
+ * reads the tags back. The functions modify the schema they receive. The raw
+ * line format cannot exactly restore multiline or whitespace-sensitive strings;
+ * pre-existing matching tags can also take precedence on inversion.
  *
- * @evidence contracts/common.md#principled-implementation Each keyword a strict LLM schema cannot hold is written as one `@name value` line after the description and deleted from the schema, so no information is lost for a reader that parses the tags back; the numeric shifter first removes a redundant inclusive or exclusive bound.
+ * @evidence contracts/common.md#principled-implementation Each keyword a strict LLM schema cannot hold is appended as raw @name value text and deleted from the schema; the numeric shifter first settles a redundant inclusive or exclusive bound. This line-based representation is not lossless for multiline or whitespace-sensitive string values, or descriptions already containing matching tags: the inverse trims values and takes the first match.
  * @evidence contracts/common.md#clear-and-simple-design Three shifters share one description writer and one bound settler.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The shifters mutate the schema they receive and say so; callers pass copies.
  * @evidence contracts/common.md#meaningful-documentation The namespace comment states the tag format, the inverse reader and the mutation.

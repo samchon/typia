@@ -1,29 +1,40 @@
 package metadata
 
 // IMetadataSchema_IFunction is the JSON form of a function: its parameters, its
-// output schema and whether it is async.
+// output schema and whether its return type was resolved as a Promise.
 //
 // @evidence contracts/common.md#principled-implementation The JSON form keeps the signature data a validator or schema needs.
 // @evidence contracts/common.md#clear-and-simple-design Three fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation The doc explains the signature projection, with separate parameter, resolved-output and Promise-flag field descriptions.
 type IMetadataSchema_IFunction struct {
+  // Parameters contains serialized parameters in signature order.
   Parameters []*IMetadataSchema_IParameter
-  Output     *IMetadataSchema
-  Async      bool
+
+  // Output is the serialized return schema after Promise resolution.
+  Output *IMetadataSchema
+
+  // Async reports whether the return type was resolved as a Promise.
+  Async bool
 }
 
 // MetadataFunction is a function type: parameters, the schema of the awaited
-// output and whether the function is async.
+// output and whether the return type was resolved as a Promise. The flag comes
+// from return-type analysis rather than an async syntax modifier.
 //
 // @evidence contracts/common.md#principled-implementation A function schema is its parameter list plus the output and the async flag, which is what the validators and the function-based programmers read.
 // @evidence contracts/common.md#clear-and-simple-design Three fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each part.
 type MetadataFunction struct {
+  // Parameters holds the analyzed parameters in signature order.
   Parameters []*MetadataParameter
-  Output     *MetadataSchema
-  Async      bool
+
+  // Output is the return schema after PromiseTypeFactory resolution.
+  Output *MetadataSchema
+
+  // Async reports whether PromiseTypeFactory resolved the return type.
+  Async bool
 }
 
 // MetadataFunction_create builds a function from props. The parameter slice and

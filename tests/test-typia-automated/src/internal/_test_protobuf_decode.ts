@@ -12,10 +12,6 @@ import { resolved_equal_to } from "../utils/resolved_equal_to";
  * 1. Run the clean fixture scenario and its observable assertions.
  * 2. Retain the applicable invalid or round-trip distinctions described below.
  *
- * @evidence contracts/common.md#principled-implementation The actual encoder supplies bytes to the decoder; resolved decoded content must match the fixture projection and re-encoding must retain exact byte length and values. Authored fixture/RESOLVE defines expected decoded content, but wire bytes come from a sibling typia encoder. Encoder and decoder can share mistakes, so round-trip equality does not independently prove the wire format.
- * @evidence contracts/common.md#clear-and-simple-design One fixture and three local binary/content values support the round-trip check; a byte loop checks every re-encoded index without retaining history.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts The actual supplied callback is executed without substituting a verdict. One clean binary-compatible fixture is exercised per call. No malformed, truncated or otherwise invalid byte inputs are supplied here.
- * @evidence contracts/common.md#meaningful-documentation The introduction and scenario list identify this helper's assertion responsibility; the answers state its exact comparisons, executable owner and oracle limitations.
  * @evidence contracts/testing.md#behavioral-verification The actual encoder supplies bytes to the decoder; resolved decoded content must match the fixture projection and re-encoding must retain exact byte length and values.
  * @evidence contracts/testing.md#independent-expectations Authored fixture/RESOLVE defines expected decoded content, but wire bytes come from a sibling typia encoder. Encoder and decoder can share mistakes, so round-trip equality does not independently prove the wire format.
  * @evidence contracts/testing.md#distinguishing-cases One clean binary-compatible fixture is exercised per call. No malformed, truncated or otherwise invalid byte inputs are supplied here.

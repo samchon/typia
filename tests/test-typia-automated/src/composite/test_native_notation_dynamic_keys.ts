@@ -94,7 +94,7 @@ const fixture = {
  *    assertions.
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from notationDynamicKeysRuntimeRunner; emitted-text presence alone cannot pass these assertions.
- * @evidence contracts/testing.md#independent-expectations Authored key/value objects determine transformed literal names and recursively transformed values. Dynamic/template/numeric keys, __proto__ ownership and validating-family negative controls establish cases independently of the current notation output.
+ * @evidence contracts/testing.md#independent-expectations Authored literal names determine outer and nested key presence and counts; leaf values are not inspected. Dynamic/template/numeric keys, __proto__ ownership and destination-collision exceptions establish independent cases across every family. Collision diagnostics must include quoted source/destination names; malformed-value rejection and error identity are not asserted.
  * @evidence contracts/testing.md#distinguishing-cases Preserves the literal runtime assertions below; the rest of the original runner's assertions remain below without dropping or skipping inputs.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_notation_dynamic_keys in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed notationDynamicKeysSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.

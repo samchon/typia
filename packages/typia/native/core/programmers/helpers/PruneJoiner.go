@@ -27,9 +27,9 @@ type PruneJoiner_ObjectProps struct {
 }
 
 // PruneJoiner_ArrayProps is the argument record of PruneJoiner.Array, which
-// prunes an array by mapping its elements with Arrow.
+// prunes an array by visiting its elements with Arrow for side effects.
 //
-// @evidence contracts/common.md#principled-implementation It is the argument record of PruneJoiner.Array, which prunes an array by mapping its elements with Arrow; its 3 fields (Input, Arrow, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#principled-implementation Input is the array expression and Arrow is the in-place element pruner passed to forEach. Emit supplies AST creation context; this record does not model a mapped output array.
 // @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the record is.

@@ -22,8 +22,8 @@ import (
 // 3. Exercise direct array disambiguation, explore copying, and return wrapping.
 // 4. Verify protobuf utility first-row extraction and numeric conversions.
 //
-// @evidence contracts/testing.md#behavioral-verification The array-like union explorer is called for tuple-only, array-only and mixed unions, disambiguation and failure text; most checks require a non-nil node or that props are complete, and a few check that the failure text names the expected type.
-// @evidence contracts/testing.md#independent-expectations Only the failure-text checks compare with an authored expectation; the non-nil checks have none and certify only construction.
+// @evidence contracts/testing.md#behavioral-verification The array-like union explorer constructs tuple-only, array-only and mixed ASTs; most checks certify construction or callback inputs. The mixed failure callback must receive the exact authored type description once. Explore copies retain source and leave originals unchanged, and protobuf conversions and sequence extraction are compared with exact literals.
+// @evidence contracts/testing.md#independent-expectations Authored tuple/array names define the exact mixed failure description; authored numeric and sequence values define conversion expectations. The non-nil AST checks certify construction only and do not establish emitted runtime semantics.
 // @evidence contracts/testing.md#distinguishing-cases Tuple, array and mixed paths are each visited once without negative twins.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestUnionExplorerCoverage(t *testing.T) {
@@ -45,6 +45,7 @@ func TestUnionExplorerCoverage(t *testing.T) {
       Nullables: []bool{},
     }),
   })
+  failures := 0
   config := UnionExplorer_ArrayLikeConfig{
     Checker: func(props UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
       if props.Input == nil || props.Definition == nil {
@@ -61,8 +62,9 @@ func TestUnionExplorerCoverage(t *testing.T) {
     Empty:   factory.NewIdentifier("empty"),
     Success: factory.NewKeywordExpression(shimast.KindTrueKeyword),
     Failure: func(props UnionExplorer_ArrayLikeFailureProps) *shimast.Node {
-      if props.Expected == "" {
-        t.Fatal("union failure should include expected name")
+      failures++
+      if props.Expected != "([string] | string[])" || props.Input != input {
+        t.Fatalf("mixed union failure must retain input and authored type names, got %q", props.Expected)
       }
       return factory.NewIdentifier("failed")
     },
@@ -90,6 +92,9 @@ func TestUnionExplorerCoverage(t *testing.T) {
     Definitions: []any{tuple, array},
   }) == nil {
     t.Fatal("mixed array-or-tuple explorer returned nil")
+  }
+  if failures != 1 {
+    t.Fatalf("mixed union must construct exactly one failure callback, got %d", failures)
   }
 
   iterated := false
@@ -120,19 +125,19 @@ func TestUnionExplorerCoverage(t *testing.T) {
     len(protobufUtil_firstTagRow([][]nativemetadata.IMetadataTypeTag{{tag}})) != 1 {
     t.Fatal("protobuf first tag row extraction mismatch")
   }
-  for _, value := range []any{int(1), int32(2), int64(3), uint(4), uint32(5), uint64(6), float32(7), float64(8), "9"} {
-    if protobufUtil_toFloat(value) == 0 {
-      t.Fatalf("protobuf float conversion failed for %T", value)
+  for index, value := range []any{int(1), int32(2), int64(3), uint(4), uint32(5), uint64(6), float32(7), float64(8), "9"} {
+    if actual := protobufUtil_toFloat(value); actual != float64(index+1) {
+      t.Fatalf("protobuf float conversion for %T: got %v want %d", value, actual, index+1)
     }
   }
   if parsed := protobufUtil_toFloat(struct{ Value int }{Value: 10}); parsed != 0 {
     t.Fatalf("fallback float conversion should return zero for struct text, got %f", parsed)
   }
-  if ProtobufUtil.GetSequence([]nativemetadata.IMetadataTypeTag{
+  if sequence := ProtobufUtil.GetSequence([]nativemetadata.IMetadataTypeTag{
     {Kind: "format", Schema: map[string]any{"x-protobuf-sequence": 1}},
     {Kind: "sequence", Schema: "invalid"},
     {Kind: "sequence", Schema: map[string]any{"x-protobuf-sequence": "11"}},
-  }) == nil {
-    t.Fatal("protobuf sequence should parse string-backed sequence value")
+  }); sequence == nil || *sequence != 11 {
+    t.Fatal("protobuf sequence should preserve the authored string-backed value 11")
   }
 }

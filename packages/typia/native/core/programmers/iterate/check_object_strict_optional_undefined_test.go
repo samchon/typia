@@ -11,7 +11,7 @@ import (
 
 // TestCheckObjectStrictOptionalUndefinedAllowsMissingKey verifies strict optional guards.
 //
-// Exact optional properties must reject a present own `undefined` value without
+// Exact optional properties must reject a present `undefined` value without
 // rejecting a missing optional key. The object checker therefore wraps strict
 // optional property expressions with a key-presence short circuit.
 //

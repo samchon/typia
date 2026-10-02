@@ -12,7 +12,7 @@ import (
 // The evaluation model rounds its answers to those decimals, so a finer
 // requirement can never be told apart from its neighbor. The same source must
 // fail without a config, because two decimals is the default, and compile once
-// `decimals` is coarse enough to hold it.
+// `decimals` is fine enough to hold it.
 //
 //  1. Declare a boolean, a choice member, and a set member finer than two
 //     decimals, with `decimals: 2`.

@@ -94,23 +94,36 @@ type MetadataFactory_IError = nativemetadata.MetadataFactory_IError
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc lists the inputs.
 type MetadataFactory_IProps struct {
-  Checker    *nativechecker.Checker
-  Options    MetadataFactory_IOptions
+  // Checker resolves Type and its reachable compiler types.
+  Checker *nativechecker.Checker
+
+  // Options selects the shape analysis and optional validation hooks.
+  Options MetadataFactory_IOptions
+
+  // Components is the per-analysis registry filled with shared named types.
   Components *schemametadata.MetadataCollection
-  Type       *nativechecker.Type
+
+  // Type is the root type to explore.
+  Type *nativechecker.Type
 }
 
 // MetadataFactory_ValidationPipe is the analysis result: Success, the metadata
-// and the errors collected.
+// on success or the errors collected on failure. Analyze leaves Data nil on
+// failure and Errors empty on success.
 //
 // @evidence contracts/common.md#principled-implementation The result carries a success flag, the schema and the errors, so a caller can report every error and not only the first.
 // @evidence contracts/common.md#clear-and-simple-design A three-field result record.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the three parts.
 type MetadataFactory_ValidationPipe struct {
+  // Success selects whether Data or Errors carries the analysis result.
   Success bool
-  Data    *schemametadata.MetadataSchema
-  Errors  []MetadataFactory_IError
+
+  // Data is the root schema on success; Analyze leaves it nil on failure.
+  Data *schemametadata.MetadataSchema
+
+  // Errors contains all collected analysis/validation failures on failure.
+  Errors []MetadataFactory_IError
 }
 
 func (metadataFactoryNamespace) Analyze(props MetadataFactory_IProps) MetadataFactory_ValidationPipe {

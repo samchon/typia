@@ -27,33 +27,47 @@ var ExpressionFactory = expressionFactoryNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the two switches.
 type ExpressionFactory_IsObjectProps struct {
-  CheckNull  bool
+  // CheckNull excludes null from JavaScript's object category.
+  CheckNull bool
+
+  // CheckArray excludes arrays from JavaScript's object category.
   CheckArray bool
-  Input      *shimast.Expression
+
+  // Input is the expression tested; the generated checks may evaluate it more
+  // than once, so callers provide a stable reference.
+  Input *shimast.Expression
 }
 
-// ExpressionFactory_CurryingProps is a function expression and the arguments of
-// the call to build.
+// ExpressionFactory_CurryingProps builds successive unary calls of Function.
+// Empty Arguments builds a single call with no arguments.
 //
-// @evidence contracts/common.md#principled-implementation A curried call needs the function expression and the argument list, so the builder can emit a call of a call without the caller assembling nodes.
+// @evidence contracts/common.md#principled-implementation The first argument calls Function and each remaining argument calls the previous result, representing successive unary application; an empty list requests one zero-argument call.
 // @evidence contracts/common.md#clear-and-simple-design A two-field argument record for Currying.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states both fields.
 type ExpressionFactory_CurryingProps struct {
-  Function  *shimast.Expression
+  // Function is the expression called first.
+  Function *shimast.Expression
+
+  // Arguments is applied one element per successive call, in slice order.
   Arguments []*shimast.Expression
 }
 
-// ExpressionFactory_TranspileProps is a script text and the importer that
-// resolves the helpers that the script refers to.
+// ExpressionFactory_TranspileProps configures a parsed expression template.
+// The first statement must be an expression statement; later statements are
+// ignored. Transpile panics if that first statement is absent or has another
+// kind. The returned builder substitutes $input and recognized import calls.
 //
 // @evidence contracts/common.md#principled-implementation Transpile parses a script into an expression once and substitutes the caller's input, so it needs the script text and an importer for references that the script makes to internal helpers.
 // @evidence contracts/common.md#clear-and-simple-design A two-field argument record for Transpile.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states both fields.
 type ExpressionFactory_TranspileProps struct {
+  // Importer resolves recognized $import calls; nil leaves them unchanged.
   Importer ExpressionFactory_Importer
-  Script   string
+
+  // Script supplies the first expression statement used as the template.
+  Script string
 }
 
 // ExpressionFactory_Importer is the part of the import programmer that expression
@@ -72,6 +86,7 @@ type ExpressionFactory_Importer interface {
   // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
   // @evidence contracts/common.md#meaningful-documentation The comment states the reference and the registration.
   Internal(name string) *shimast.Node
+
   // Instance returns the reference to a named export of a file and registers the import.
   //
   // @evidence contracts/common.md#principled-implementation A named export is identified by file and name, and the importer records the request so the import statement is emitted once.
@@ -79,6 +94,7 @@ type ExpressionFactory_Importer interface {
   // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
   // @evidence contracts/common.md#meaningful-documentation The comment states the reference and the registration.
   Instance(props ExpressionFactory_IInstance) *shimast.Node
+
   // Namespace returns the reference to a file's namespace import and registers the import.
   //
   // @evidence contracts/common.md#principled-implementation A namespace import is identified by file and name, and the importer records the request so the import statement is emitted once.
@@ -86,6 +102,7 @@ type ExpressionFactory_Importer interface {
   // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
   // @evidence contracts/common.md#meaningful-documentation The comment states the reference and the registration.
   Namespace(props ExpressionFactory_INamespace) *shimast.Node
+
   // Default returns the reference to a file's default import and registers the import.
   //
   // @evidence contracts/common.md#principled-implementation A default import is identified by file and local name, and the importer records the request so the import statement is emitted once.
@@ -130,6 +147,9 @@ type ExpressionFactory_INamespace = nativecontext.ImportProgrammer_INamespace
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the field.
 type ExpressionFactory_GetEscapedTextProps struct {
+  // Input is an identifier or string literal whose text is returned directly,
+  // or another expression whose name is delegated to IdentifierFactory. Nil
+  // returns the empty string.
   Input *shimast.Expression
 }
 

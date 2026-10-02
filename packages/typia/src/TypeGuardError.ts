@@ -23,8 +23,8 @@ export class TypeGuardError<T = any> extends Error {
   /**
    * Property path where assertion failed.
    *
-   * Uses dot notation for nested properties. `undefined` if error occurred at
-   * root level.
+   * Uses dot notation for nested properties. Generated assertions start at
+   * `$input`; callers constructing the error may omit the path.
    *
    * E.g., `"input.age"`, `"input.profile.email"`, `"input[0].name"`.
    */
@@ -105,16 +105,16 @@ export class TypeGuardError<T = any> extends Error {
 /**
  * Properties of {@link TypeGuardError}.
  *
- * @evidence contracts/common.md#principled-implementation The error extends Error so it can be thrown and caught normally, and it carries the failing typia method, the path, the expected type text and the actual value as readonly fields; the default message is built from those fields when none is given. A missing value, or an explicit description, produces a description string, which gives an LLM harness an instruction to fill the value. The prototype assignment only matters when a toolchain downlevels `extends Error`.
+ * @evidence contracts/common.md#principled-implementation The error extends Error and carries the failing method, optional path, expected type text and actual value as readonly fields. A nonempty message overrides the generated text. A nonempty description is retained; when the value is undefined, a supplied description (including an empty one) is retained or a missing-value instruction is generated. The prototype assignment preserves the subclass prototype when a toolchain downlevels `extends Error`.
  * @evidence contracts/common.md#clear-and-simple-design One class with a namespace holding its constructor properties; the generic `T` is carried by a protected phantom member that is marked internal and never assigned.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts The phantom member is a type-level device and no runtime object is patched; the prototype repair is the standard compatibility step for Error subclasses.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The phantom member is a type-level device. The constructor changes only its own error instance's prototype to new.target.prototype for downlevel Error subclass compatibility; it does not replace a foreign method, global or prototype.
  * @evidence contracts/common.md#meaningful-documentation The class comment lists the carried fields with examples, each field has its own comment and the phantom and constructor are explained.
  */
 export namespace TypeGuardError {
   /**
    * Properties for constructing a TypeGuardError.
    *
-   * @evidence contracts/common.md#principled-implementation The record lists exactly what the constructor reads: method, expected and value are required, while path, description and message are optional, with message overriding the generated text.
+   * @evidence contracts/common.md#principled-implementation The record lists exactly what the constructor reads: method, expected and value are required, while path, description and message are optional. A nonempty message overrides the generated text; absence or an empty message uses the default.
    * @evidence contracts/common.md#clear-and-simple-design A flat record in the class namespace used only by the constructor and the factories.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
    * @evidence contracts/common.md#meaningful-documentation Each property has a comment with examples and the meaning of absence.
@@ -154,7 +154,8 @@ export namespace TypeGuardError {
     /**
      * Custom error message (optional).
      *
-     * If not provided, a default message is generated from other properties.
+     * If omitted or empty, a default message is generated from other
+     * properties.
      */
     message?: undefined | string;
   }

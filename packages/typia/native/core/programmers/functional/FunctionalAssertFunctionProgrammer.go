@@ -20,6 +20,7 @@ var FunctionalAssertFunctionProgrammer = functionalAssertFunctionProgrammerNames
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type FunctionalAssertFunctionProgrammer_IConfig struct {
+  // Equals rejects surplus properties in addition to checking declared values.
   Equals bool
 }
 
@@ -34,12 +35,23 @@ type FunctionalAssertFunctionProgrammer_IConfig struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionalAssertFunctionProgrammer_IProps struct {
-  Context     nativecontext.ITypiaContext
-  Modulo      *shimast.Node
-  Config      FunctionalAssertFunctionProgrammer_IConfig
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Modulo identifies the typia call for helper naming and diagnostics.
+  Modulo *shimast.Node
+
+  // Config selects ordinary validation or rejection of surplus properties.
+  Config FunctionalAssertFunctionProgrammer_IConfig
+
+  // Declaration supplies parameter bindings and the checker return signature.
   Declaration *shimast.Node
-  Expression  *shimast.Node
-  Init        *shimast.Node
+
+  // Expression is the original callable, invoked with the wrapper receiver.
+  Expression *shimast.Node
+
+  // Init initializes the error factory; nil selects the functional default.
+  Init *shimast.Node
 }
 
 // FunctionalAssertFunctionProgrammer_ErrorFactoryWrapperOutput is what the
@@ -51,7 +63,10 @@ type FunctionalAssertFunctionProgrammer_IProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states each returned part.
 type FunctionalAssertFunctionProgrammer_ErrorFactoryWrapperOutput struct {
-  Name     string
+  // Name is the error factory binding, disambiguated against parameter names.
+  Name string
+
+  // Variable declares the shared factory once around the returned wrapper.
   Variable *shimast.Node
 }
 

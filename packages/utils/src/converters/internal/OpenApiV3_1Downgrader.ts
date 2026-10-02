@@ -10,7 +10,8 @@ import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
  * The `query` method and additional operations move to
  * `x-additionalOperations`, which 3.1 lacks, the `byte` format becomes
  * `contentEncoding: base64`, examples become arrays and the device
- * authorization flow is dropped.
+ * authorization flow is dropped. Tuple rest constraints become `items`, and the
+ * emended required-prefix and closed-rest defaults become explicit.
  *
  * @evidence contracts/common.md#principled-implementation The emended document is rewritten to 3.1 by moving `query` and additional operations to `x-additionalOperations`, writing `byte` as base64 content encoding, turning example maps into arrays and removing the device authorization flow, while schemas keep their 2020-12 form.
  * @evidence contracts/common.md#clear-and-simple-design Per-object helpers in one namespace.
@@ -27,7 +28,10 @@ export namespace OpenApiV3_1Downgrader {
    * @evidence contracts/common.md#meaningful-documentation A one-line comment states the role.
    */
   export interface IComponentsCollection {
+    /** Emended schemas used to resolve the source references. */
     original: OpenApi.IComponents;
+
+    /** Target component store receiving converted schemas. */
     downgraded: OpenApiV3_1.IComponents;
   }
 
@@ -351,11 +355,15 @@ export namespace OpenApiV3_1Downgrader {
           union.push({
             ...schema,
             examples: downgradeSchemaExamples(schema.examples),
-            prefixItems: schema.prefixItems.map(downgradeSchema(collection)),
-            additionalItems:
+            prefixItems: schema.prefixItems.length
+              ? schema.prefixItems.map(downgradeSchema(collection))
+              : undefined,
+            minItems: schema.minItems ?? schema.prefixItems.length,
+            items:
               typeof schema.additionalItems === "object"
                 ? downgradeSchema(collection)(schema.additionalItems)
-                : schema.additionalItems,
+                : (schema.additionalItems ?? false),
+            additionalItems: undefined,
           });
         else if (OpenApiTypeChecker.isObject(schema))
           union.push({

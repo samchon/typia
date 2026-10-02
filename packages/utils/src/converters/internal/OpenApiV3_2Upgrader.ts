@@ -394,7 +394,7 @@ export namespace OpenApiV3_2Upgrader {
    *
    * @evidence contracts/common.md#principled-implementation Component schemas are converted through the 3.1 schema conversion and security schemes kept.
    * @evidence contracts/common.md#clear-and-simple-design One function.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts No unreachable component is retained.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Supported schema and security-scheme stores are retained without reachability pruning; other component kinds are consumed while converting operations.
    * @evidence contracts/common.md#meaningful-documentation The doc states what is kept.
    */
   export const convertComponents = (

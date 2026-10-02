@@ -134,7 +134,7 @@ func MetadataDependency_touchFile(checker *nativechecker.Checker, fileName strin
 // type: both the structural symbol (interface / class / enum / object literal)
 // and the type-name symbol (a `type` alias), which differ for aliased types.
 //
-// @evidence contracts/common.md#principled-implementation A consulted type is reported through both its structural symbol and its type-name symbol, which differ for aliased types, with one visited set so a shared declaration is reported once.
+// @evidence contracts/common.md#principled-implementation A consulted type is reported through both its structural symbol and its type-name symbol, which differ for aliased types; one visited-symbol set prevents revisiting a shared symbol during this touch, while the host owns file deduplication.
 // @evidence contracts/common.md#clear-and-simple-design One guard, one set and two walks of a symbol.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts No walk happens without a listener.
 // @evidence contracts/common.md#meaningful-documentation The doc states the two symbols.
@@ -711,8 +711,8 @@ func metadataDependency_literal(initializer *nativeast.Node) bool {
 
 // metadataDependency_typeSurface selects the WRITTEN type nodes of a
 // declaration: the whole node for a `type` alias, a mapped type, or a type
-// parameter (constraint and default included), the type parameters and index
-// signatures of an interface or class, the annotation for properties,
+// parameter (constraint and default included), the index signatures of an
+// interface or class, the annotation for properties,
 // parameters, and variables, and parameter types + return type for methods,
 // accessors, and index signatures. Bodies and initializers are excluded — a
 // reference appearing only there is not part of the type the analysis consulted,

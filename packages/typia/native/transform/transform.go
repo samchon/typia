@@ -21,6 +21,9 @@ type TransformFactory func(file *shimast.SourceFile) *shimast.SourceFile
 // built with ec.Factory so tsgo's module-transform aliases the runtime
 // references itself. A nil ec keeps the legacy text-emit behavior.
 //
+// Missing strictNullChecks, when the host supplies compiler options and a
+// diagnostic sink, is reported through that sink before the factory is returned.
+//
 // @evidence contracts/common.md#principled-implementation The options default to the zero record, a program without strictNullChecks reports a diagnostic that names the missing option, and the file transformer is built over the program's compiler options and checker; a non-nil emit context selects AST-integration mode and nil keeps the legacy text-splice mode.
 // @evidence contracts/common.md#clear-and-simple-design One function over three small private accessors.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Missing program or config yields nil accessors that the file transformer treats as absent and does not fall back to reading files.

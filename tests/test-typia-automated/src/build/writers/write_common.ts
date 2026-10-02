@@ -9,10 +9,10 @@ import { write_validation_contract } from "./write_validation_contract";
  * Factory forms instantiate once in the case; direct forms supply a callback.
  * Async helpers return their promise so the executor can report a rejection.
  *
- * @evidence contracts/common.md#principled-implementation file and method compose the matching import/export and public operation from IProps; functor distinguishes direct callbacks from factory calls. Validator and data contract writers supply operation-specific declarations before the export, and asynchronous selects the actual return type.
- * @evidence contracts/common.md#clear-and-simple-design This writer owns the common source skeleton; private naming helpers keep imports, exported identity and callback spelling consistent. Specialized random and protobuf structures use their own active writers.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Rendering keeps the real typia call and assertion helper, without emitted-output snapshots or cached verdicts. An unsupported operation would receive no meaningful contract prose from the specialized contract writers and must not be described as covered.
- * @evidence contracts/common.md#meaningful-documentation The comment explains direct/factory invocation and async rejection propagation. IProps documents the promise boundary, while generated contract comments describe actual assertions and oracle limitations.
+ * @evidence contracts/testing.md#behavioral-verification This writer emits source without asserting callback behavior. Its generated export binds the actual typed typia call to the named _test helper; that helper owns data and rejection assertions. Async output returns the helper's Promise so a rejection remains observable by the executor.
+ * @evidence contracts/testing.md#independent-expectations No actual callback is executed while rendering and no expected result is computed here. Operation-specific helpers use authored fixtures and their documented independent or correlated oracle; the contract writers describe those actual distinctions.
+ * @evidence contracts/testing.md#distinguishing-cases The create argument selects a factory call versus a direct callback; prefix/module/method establish family identity and asynchronous switches void to Promise<void>. Eligible descriptors and fixtures come from the controller; this writer does not certify unsupported operations or fault-test its own source skeleton.
+ * @evidence contracts/testing.md#execution-ownership TestAutomationController.writeScript invokes this fallback renderer. Private file/method/functor and IProps own naming and callback text; each generated matching test export is separately discovered by TestServant during start.
  */
 export const write_common =
   (p: IProps) => (create: boolean) => (structure: string) =>

@@ -6,26 +6,44 @@
       "type": "typescript",
       "files": ["src/**/*.ts"],
       "symbol": ["type", "function"],
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": ["contracts/testing.md"],
-        "symbol": "h2",
-        "checklist": true
-      }
+      "reference": [
+        {
+          "type": "markdown",
+          "root": "../../.agents/skills",
+          "files": ["contracts/testing.md"],
+          "symbol": "h2",
+          "checklist": true
+        },
+        {
+          "type": "markdown",
+          "root": "../../.agents/skills",
+          "files": ["contracts/e2e.md"],
+          "symbol": "h2",
+          "checklist": false
+        }
+      ]
     },
     {
       "name": "real component boundary cases",
       "type": "typescript",
       "files": ["src/features/**/test_*.ts"],
       "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": ["contracts/e2e.md"],
-        "symbol": "h2",
-        "checklist": true
-      }
+      "reference": [
+        {
+          "type": "markdown",
+          "root": "../../.agents/skills",
+          "files": ["contracts/e2e.md"],
+          "symbol": "h2",
+          "checklist": true
+        },
+        {
+          "type": "markdown",
+          "root": "../../.agents/skills",
+          "files": ["contracts/testing.md"],
+          "symbol": "h2",
+          "checklist": false
+        }
+      ]
     }
   ]
 }

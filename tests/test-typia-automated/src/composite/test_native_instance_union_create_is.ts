@@ -1,7 +1,23 @@
 import typia from "typia";
 
+/**
+ * Defines the mixed-array native helper collision fixture.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The generated createIs consumes every Union element in the outer array.
+ * @evidence contracts/testing.md#independent-expectations Authored valid population and four literal false controls supply the verdicts.
+ * @evidence contracts/testing.md#distinguishing-cases Native/container/tuple/ordinary-object arms share one callback; malformed set/tuple/point/circle inputs reject.
+ * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+ */
 export type InstanceUnion = InstanceUnion.Union[];
 namespace InstanceUnion {
+  /**
+   * Defines the eleven alternatives sharing one native checker.
+   *
+   * @evidence contracts/testing.md#behavioral-verification The valid population includes one number, typed array, Set, Map, both tuples, both ordinary arrays, empty array and both object forms.
+   * @evidence contracts/testing.md#independent-expectations Concrete authored values pin acceptance independently of the native predicate.
+   * @evidence contracts/testing.md#distinguishing-cases Bad set elements and tuple members contrast with valid values; Map any entries impose no content restriction.
+   * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+   */
   export type Union =
     | number
     | Uint8Array
@@ -16,18 +32,42 @@ namespace InstanceUnion {
     | ObjectUnionExplicit;
 }
 
+/**
+ * Defines four repeated point properties for object helper reuse.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The consumer supplies scale/position/rotate/pivot and checks the mixed array succeeds.
+ * @evidence contracts/testing.md#independent-expectations The local point producer supplies literal consecutive numeric coordinates.
+ * @evidence contracts/testing.md#distinguishing-cases Changing pivot.z to string must reject; separate helper identities are not inspected.
+ * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+ */
 export interface ObjectSimple {
   scale: IPoint3D;
   position: IPoint3D;
   rotate: IPoint3D;
   pivot: IPoint3D;
 }
+/**
+ * Defines the reused three-number point fixture.
+ *
+ * @evidence contracts/testing.md#behavioral-verification All four ObjectSimple properties use this exact shape.
+ * @evidence contracts/testing.md#independent-expectations Local coordinate values and the authored pivot.z string mutation provide independent expectations.
+ * @evidence contracts/testing.md#distinguishing-cases Valid numeric coordinates accept and the mutated z rejects; no coordinate range is required.
+ * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+ */
 export interface IPoint3D {
   x: number;
   y: number;
   z: number;
 }
 
+/**
+ * Defines the seven tagged geometry alternatives inside a nested array.
+ *
+ * @evidence contracts/testing.md#behavioral-verification All seven geometry literals are included in the accepting outer population.
+ * @evidence contracts/testing.md#independent-expectations Authored tags and member payloads establish the expected valid structure.
+ * @evidence contracts/testing.md#distinguishing-cases A circle lacking radius rejects; each other arm has a positive observation only.
+ * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+ */
 export type ObjectUnionExplicit = Array<
   | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint>
   | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine>
@@ -41,35 +81,99 @@ export type ObjectUnionExplicit = Array<
   | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>
 >;
 namespace ObjectUnionExplicit {
+  /**
+   * Adds an exact geometry tag to each member fixture.
+   *
+   * @evidence contracts/testing.md#behavioral-verification The union consumer binds each of seven literal tags to its matching geometry.
+   * @evidence contracts/testing.md#independent-expectations Independent authored string tags pair with source member requirements.
+   * @evidence contracts/testing.md#distinguishing-cases The missing-radius circle case tests its payload, not every wrong-tag spelling.
+   * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+   */
   export type Discriminator<Type extends string, T extends object> = T & {
     type: Type;
   };
+  /**
+   * Defines the two-number geometry leaf.
+   *
+   * @evidence contracts/testing.md#behavioral-verification Point and all composed geometries supply authored x/y values.
+   * @evidence contracts/testing.md#independent-expectations The literal geometry population supplies valid coordinates independently of createIs.
+   * @evidence contracts/testing.md#distinguishing-cases This leaf has positive coverage; the negative circle case omits radius rather than spoiling coordinates.
+   * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+   */
   export interface IPoint {
     x: number;
     y: number;
   }
+  /**
+   * Defines a geometry with two point endpoints.
+   *
+   * @evidence contracts/testing.md#behavioral-verification The line-tagged accepting literal supplies p1 and p2.
+   * @evidence contracts/testing.md#independent-expectations Each endpoint is authored as a numeric point in the consumer.
+   * @evidence contracts/testing.md#distinguishing-cases This arm has a positive observation; missing-endpoint controls are not enrolled.
+   * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+   */
   export interface ILine {
     p1: IPoint;
     p2: IPoint;
   }
+  /**
+   * Defines the three-point triangle fixture.
+   *
+   * @evidence contracts/testing.md#behavioral-verification The triangle-tagged accepting literal supplies p1/p2/p3.
+   * @evidence contracts/testing.md#independent-expectations The local geometry literal supplies all required numeric points.
+   * @evidence contracts/testing.md#distinguishing-cases This arm has a positive observation; triangle-specific rejection is not independently asserted.
+   * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+   */
   export interface ITriangle {
     p1: IPoint;
     p2: IPoint;
     p3: IPoint;
   }
+  /**
+   * Defines the four-point rectangle fixture.
+   *
+   * @evidence contracts/testing.md#behavioral-verification The rectangle-tagged accepting literal supplies p1 through p4.
+   * @evidence contracts/testing.md#independent-expectations Four authored point values establish the expected structure.
+   * @evidence contracts/testing.md#distinguishing-cases This arm has a positive observation; it imposes no geometric rectangularity constraint.
+   * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+   */
   export interface IRectangle {
     p1: IPoint;
     p2: IPoint;
     p3: IPoint;
     p4: IPoint;
   }
+  /**
+   * Defines an array of geometry points.
+   *
+   * @evidence contracts/testing.md#behavioral-verification The polyline and polygon literals both exercise this leaf container.
+   * @evidence contracts/testing.md#independent-expectations The authored point arrays supply expected valid numeric members.
+   * @evidence contracts/testing.md#distinguishing-cases Positive direct/nested uses execute; malformed array-member rejection is not enrolled here.
+   * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+   */
   export interface IPolyline {
     points: IPoint[];
   }
+  /**
+   * Defines an outer polyline with inner polylines.
+   *
+   * @evidence contracts/testing.md#behavioral-verification The polygon literal supplies both outer and one inner boundary.
+   * @evidence contracts/testing.md#independent-expectations Authored nested point arrays establish the valid structure.
+   * @evidence contracts/testing.md#distinguishing-cases This is a positive nested-container observation, without polygon topology or empty-hole requirements.
+   * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+   */
   export interface IPolygon {
     outer: IPolyline;
     inner: IPolyline[];
   }
+  /**
+   * Defines centroid and numeric radius for a circle.
+   *
+   * @evidence contracts/testing.md#behavioral-verification The valid circle has radius5; a separate circle omits radius.
+   * @evidence contracts/testing.md#independent-expectations The authored presence/absence of the required radius supplies opposite verdicts.
+   * @evidence contracts/testing.md#distinguishing-cases Valid centroid/radius accepts and absent radius rejects; no positivity constraint is declared.
+   * @evidence contracts/testing.md#execution-ownership test_native_instance_union_create_is owns runtime observations; this declaration supplies the native callback input shape.
+   */
   export interface ICircle {
     centroid: IPoint;
     radius: number;

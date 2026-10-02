@@ -9,14 +9,14 @@ import (
 
 // TestDynamicKeyTagsTransform verifies both pattern and length constraints on dynamic property keys.
 //
-// A constrained index key must satisfy both its key pattern and length tag independently of the value type. The authored key intersection supplies these two requirements.
+// Pattern-tagged and length-tagged index keys have different constraints from their string-valued entries. Separate authored key types supply the two emitted checks.
 //
-// 1. Dynamic record keys combine pattern and minimum length; untagged key/native property behavior is owned by adjacent key and property cases.
+// 1. Separate dynamic record types carry pattern and minimum length tags; numeric, plain and template keys also contribute fixture inputs.
 // 2. Generated checking contains a RegExp predicate and the lower string-length helper, rather than checking only record values.
 //
 // @evidence contracts/testing.md#behavioral-verification Generated checking contains a RegExp predicate and the lower string-length helper, rather than checking only record values.
-// @evidence contracts/testing.md#independent-expectations A constrained index key must satisfy both its key pattern and length tag independently of the value type. The authored key intersection supplies these two requirements.
-// @evidence contracts/testing.md#distinguishing-cases Dynamic record keys combine pattern and minimum length; untagged key/native property behavior is owned by adjacent key and property cases.
+// @evidence contracts/testing.md#independent-expectations The authored Pattern<"^ab+$"> and MinLength<3> belong to separate index-key types and require emitted key checks independently of their string-valued entries.
+// @evidence contracts/testing.md#distinguishing-cases The assertions require pattern and lower-length helpers somewhere in the combined emission, not their runtime verdicts or every export's complete predicate. Numeric, plain and template keys are additional successfully transformed inputs.
 // @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestDynamicKeyTagsTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestDynamicKeyTagsTransform(t *testing.T) {
   project := dynamicKeyTagsProject(t)

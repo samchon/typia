@@ -19,8 +19,8 @@ const fixture = { assertUser, assertUserEquals, withOverride };
  * createAssertErrorFactoryRuntimeSource declarations; the former
  * createAssertErrorFactoryRuntimeRunner observations execute in the existing
  * automated worker. This detects a generated program whose output compiles but
- * changes these runtime decisions: valid input passes; index ; index ; index ;
- * call-time factory message; call-time factory path.
+ * changes these runtime decisions: clean acceptance, numeric second-argument
+ * fallback, call-time factory selection and surplus-property rejection.
  *
  * 1. Transform the typed declarations through the installed native typia plugin.
  * 2. Execute the original inputs, literal expected outcomes, and failure
@@ -28,7 +28,7 @@ const fixture = { assertUser, assertUserEquals, withOverride };
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from createAssertErrorFactoryRuntimeRunner; emitted-text presence alone cannot pass these assertions.
  * @evidence contracts/testing.md#independent-expectations The asserted id type determines number, $input.id and the documented createAssert method. Non-callable Array.map indices must retain ordinary errors; a real call-time factory must retain its authored message and path.
- * @evidence contracts/testing.md#distinguishing-cases Preserves valid input passes; index ; index ; index ; call-time factory message; call-time factory path; the rest of the original runner's assertions remain below without dropping or skipping inputs.
+ * @evidence contracts/testing.md#distinguishing-cases Clean id1 contrasts with invalid string id under falsy index0 and truthy indices1/2, each requiring ordinary expected/path/method fields. A callable override supplies its exact message/path, and strict createAssertEquals rejects extra:true with expected undefined. This runtime composite does not certify all eighteen factory declarations or their emitted arity; those remain in the separate native surface test.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_create_assert_error_factory_arity in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed createAssertErrorFactoryRuntimeSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.
  * @evidence contracts/e2e.md#shared-execution Uses the existing automated project and single suite worker, sharing the plugin artifact and project load with other composites instead of recreating the former temporary project.

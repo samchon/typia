@@ -80,8 +80,8 @@ export const test_native_tuple_optional_compare_clone = (): void => {
     }
   };
 
-  // A clone must be a distinct array, deep-equal to expected, with no phantom
-  // trailing slot (length matches, and the first out-of-range index is absent).
+  // Check array shape, primitive elements and no phantom trailing slot.
+  // This helper does not assert that the result has a distinct identity.
   const expectClone: any = (label: any, result: any, expected: any): any => {
     if (!Array.isArray(result)) throw new Error(label + ": not an array");
     if (result.length !== expected.length)

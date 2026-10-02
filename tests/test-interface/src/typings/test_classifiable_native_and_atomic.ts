@@ -8,7 +8,7 @@ import { Classifiable } from "@typia/interface";
  * ArrayBuffer/DataView, Blob/File, RegExp) pass through unchanged so they can
  * be handed to the reconstructed instance as-is, boxed primitives collapse to
  * their value type (Boolean→boolean, Number→number, String→string), and bare
- * primitives (including `bigint`) round-trip through the identity guard.
+ * primitives (including `bigint`) retain their value types.
  *
  * 1. Apply `Classifiable` to each native class and boxed/atomic type.
  * 2. Compare against the preserved native or unwrapped primitive.

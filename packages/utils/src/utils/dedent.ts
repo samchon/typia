@@ -18,11 +18,6 @@
  * @evidence contracts/common.md#clear-and-simple-design One literal-line segmentation pass, one boundary/indentation pass and one rendering pass separate whitespace normalization from opaque value conversion without a marker protocol.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Structured segments preserve all interpolation strings uniformly without reserved magic text, escape-value lists or substitution passes that can rewrite earlier values.
  * @evidence contracts/common.md#meaningful-documentation The public comment states trimming and indentation rules and the opaque-value boundary, while the inline invariant explains why a line begins with a literal segment.
- * @evidence contracts/performance.md#efficient-algorithms Segmentation and a fixed number of line scans cost linear time in literal and output length; index bounds avoid repeated front removal and a running indentation minimum avoids spreading an unbounded line array into a call.
- *
- * @evidenceExclude contracts/performance.md#reuse-equivalent-work Each call owns distinct template and interpolation values and performs one normalization; no repeated-request or graph computation is retained, and caching arbitrary generated strings would introduce new retention without a caller validity contract.
- *
- * @evidence contracts/performance.md#bound-retention-and-release-resources Segment arrays, converted values and rendered strings are local to the invocation and proportional to input/output size; the helper retains no global cache, native handle or callback after returning.
  */
 export function dedent(
   strings: TemplateStringsArray,

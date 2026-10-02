@@ -16,7 +16,7 @@ import * as tags from "../tags";
  *
  * @author Jeongho Nam - https://github.com/samchon
  *
- * @evidence contracts/common.md#principled-implementation The namespace mirrors the OpenAPI 3.0 object model so a 3.0 document parses without loss, including 3.0-only spellings such as `nullable`, boolean exclusive bounds and `allOf`, which the normalized OpenApi type removes. Version differences from 3.1 are listed in the comment.
+ * @evidence contracts/common.md#principled-implementation The namespace describes the supported OpenAPI 3.0 fields, including nullable, boolean exclusive bounds and allOf. It is a structural input model, not a complete specification validator or a promise of lossless parsing of every field; the utils converter owns normalization.
  * @evidence contracts/common.md#clear-and-simple-design One namespace with the same member layout as the sibling version namespaces, so converters can be written version by version without cross-references between them.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts It describes an input format and does not convert or normalize it; conversion is in the utils package.
  * @evidence contracts/common.md#meaningful-documentation The comment lists the main 3.0 differences and links the normalized type.
@@ -46,7 +46,7 @@ export namespace OpenApiV3 {
   /**
    * OpenAPI document structure.
    *
-   * @evidence contracts/common.md#principled-implementation The version is `3.0` or `3.0.${number}`, which is the family of 3.0 versions the specification publishes; components and paths are optional as in 3.0.
+   * @evidence contracts/common.md#principled-implementation The version accepts 3.0 and patch spellings, and sections are optional for structural compatibility. This is more permissive than the specification, which requires info and paths; the declaration does not validate a complete document.
    * @evidence contracts/common.md#clear-and-simple-design One flat record with metadata types in its namespace.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
    * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
@@ -422,7 +422,7 @@ export namespace OpenApiV3 {
   /**
    * Reusable components storage.
    *
-   * @evidence contracts/common.md#principled-implementation It keeps every component kind that 3.0 references can target (schemas, responses, parameters, request bodies, security schemes, headers and examples), because a 3.0 document uses `$ref` to all of them.
+   * @evidence contracts/common.md#principled-implementation The record represents seven reusable component maps: schemas, responses, parameters, request bodies, security schemes, headers and examples. It does not enumerate the specification's callbacks and links maps or resolve references.
    * @evidence contracts/common.md#clear-and-simple-design Optional maps.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
    * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.

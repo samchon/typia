@@ -18,7 +18,7 @@ import { TestGlobal } from "../../../../TestGlobal";
  *    again.
  * 3. Assert the flagged variant has exactly one function fewer.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpLlm.application is run on the original and on the flagged document copy and the function counts are compared; ignoring the extension leaves the counts equal and failing to drop only the flagged operation changes the difference.
+ * @evidence contracts/testing.md#behavioral-verification HttpLlm.application is run on the original and on the flagged document copy and the function counts must differ by one. Ignoring the extension or removing an incorrect number of functions fails; which function disappears is not identified by this count comparison.
  * @evidence contracts/testing.md#independent-expectations The expectation is the documented extension semantics: flagging exactly one operation removes exactly one function, with the baseline count taken from the same fixture rather than a literal. It does not name which function disappears.
  * @evidence contracts/testing.md#distinguishing-cases The unflagged baseline is the negative twin and one flagged operation is the positive case. Several flagged operations, a false flag and other extensions are not covered here.
  * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The swagger fixture is read from disk and composed in process with no native build, installation or host.

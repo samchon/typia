@@ -12,11 +12,13 @@ import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
  * `nullable` on the other members, tuples become bounded arrays of the union of
  * their elements, constants become enums and `examples` are dropped, because
  * 3.0 does not define them. A nullable reference gets a generated `.Nullable`
- * component.
+ * component. Tuple conversion loses positional restrictions and uses the prefix
+ * length for its bounds. An existing `.Nullable` component is reused, so
+ * callers must reserve that generated suffix for this conversion.
  *
  * @evidence contracts/common.md#principled-implementation The emended document is rewritten to 3.0 by turning numeric exclusive bounds into the draft-04 boolean form, `null` members into `nullable`, constants into enums, tuples into bounded arrays and by dropping `examples`; a nullable reference gets a generated `.Nullable` component so `nullable` can be expressed on a reference.
  * @evidence contracts/common.md#clear-and-simple-design Per-object helpers in one namespace; the rewrites that only 3.0 needs are private to it.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts The generated component name suffix is a documented, collision-checked convention; nothing is faked to satisfy a consumer.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The generated .Nullable suffix is a convention and an existing target is reused without schema comparison, so callers must reserve that suffix. Tuple approximation is an explicit dialect limitation rather than exact positional preservation.
  * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the rewrites.
  */
 export namespace OpenApiV3Downgrader {
@@ -29,7 +31,10 @@ export namespace OpenApiV3Downgrader {
    * @evidence contracts/common.md#meaningful-documentation A one-line comment states the role.
    */
   export interface IComponentsCollection {
+    /** Emended schemas used to resolve the source references. */
     original: OpenApi.IComponents;
+
+    /** Target component store receiving converted schemas. */
     downgraded: OpenApiV3.IComponents;
   }
 
@@ -268,7 +273,7 @@ export namespace OpenApiV3Downgrader {
    *
    * @returns Function that converts an emended schema to a 3.0 schema
    *
-   * @evidence contracts/common.md#principled-implementation A nullable schema, found by following `oneOf` and references, gets `nullable` on each member, constants merge into enums per type, tuples bound their length and exclusive bounds are rewritten, so the 3.0 reading of each keyword matches its emended meaning.
+   * @evidence contracts/common.md#principled-implementation A nullable schema, found by following oneOf and references, gets nullable on each member, constants merge into enums per type and exclusive bounds are rewritten. Tuples approximate positional schemas as one item union, set the minimum to the prefix length and close the maximum at that length when no rest is present; this loses positional and optional-prefix constraints. Existing generated .Nullable targets are reused without schema equivalence checking.
    * @evidence contracts/common.md#clear-and-simple-design One recursive function with helpers for nullable references, example removal and bounds.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Rewrites follow the 3.0 dialect and the bound rewrite cites its issue.
    * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result; helpers have comments.

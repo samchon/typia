@@ -15,7 +15,7 @@ import "testing"
 // @evidence contracts/testing.md#behavioral-verification The demo route rejects its unsupported flag with status two.
 // @evidence contracts/testing.md#independent-expectations The demo command has a closed flag parser; unrecognized options are usage failures rather than silently accepted work.
 // @evidence contracts/testing.md#distinguishing-cases A single unsupported flag owns the usage-rejection branch; ordinary route/default handling is tested separately.
-// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestDemoRejectsBadFlag as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
+// @evidence contracts/testing.md#execution-ownership The native Go runner selects this unit only with typia_native_internal enabled. The command router and captured demo flag parser run in process; this case owns no temporary fixture, named subcase or subprocess.
 func TestDemoRejectsBadFlag(t *testing.T) {
   _, errText, code := transformCoverageCapture(func() int {
     return run([]string{"demo", "--bad"})

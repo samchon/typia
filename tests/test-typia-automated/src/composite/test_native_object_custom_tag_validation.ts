@@ -170,7 +170,7 @@ const fixture = { run };
  *    assertions.
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from objectCustomTagValidationRuntimeRunner; emitted-text presence alone cannot pass these assertions.
- * @evidence contracts/testing.md#independent-expectations The authored TagBase predicate requires the object constraint independently of ordinary members. Invocation counts must be one for tagged branches and zero for the untagged control; failed reports also pin tag names and paths.
+ * @evidence contracts/testing.md#independent-expectations The authored TagBase predicates determine entry-count acceptance independently of ordinary members. Invocation counts must be one for tagged branches and zero for the untagged control; failed reports pin root/other paths and absence of a spurious union path. Tag names and complete diagnostic records are not inspected.
  * @evidence contracts/testing.md#distinguishing-cases Preserves the literal runtime assertions below; the rest of the original runner's assertions remain below without dropping or skipping inputs.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_object_custom_tag_validation in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed objectCustomTagValidationSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.

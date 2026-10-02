@@ -7,7 +7,9 @@ import { LlmSchemaConverter } from "@typia/utils";
  * Verifies strict conversion closes both root and nested object schemas.
  *
  * Closing only the root would still permit unmodeled fields in objects inside
- * an array. Default mode must retain its separate open-object representation.
+ * an array. Default mode must preserve the authored absence of the closure
+ * keyword; this assertion does not establish that an absent keyword opens an
+ * LLM object.
  *
  * 1. Convert an authored required object with nested object-array items in strict
  *    mode.

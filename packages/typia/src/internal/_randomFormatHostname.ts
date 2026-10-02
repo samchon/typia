@@ -38,7 +38,8 @@ const pickLength = (props: _ILengthProps): number => {
 /**
  * Builds dot-joined hostname labels totaling exactly `length` characters, each
  * label within 63 chars. Shared with the idn-hostname generator, which realizes
- * its length the same way since #2317 gave the two formats one structure.
+ * its length the same way since #2317 gave the two formats one structure. The
+ * callers supply an integer total from1 through253.
  *
  * @evidence contracts/common.md#principled-implementation A target length is spent as full 63-character labels with joining dots and a final label, with the one awkward remainder of 64 split into two labels so no label exceeds 63.
  * @evidence contracts/common.md#clear-and-simple-design One function shared by the hostname and idn hostname generators.

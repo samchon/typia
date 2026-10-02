@@ -6,12 +6,28 @@ declare const solo: unique symbol;
 declare const invoke: unique symbol;
 declare const COMPUTED: "computed";
 
+/**
+ * Defines ordinary name beside unique and well-known symbol members.
+ *
+ * @evidence contracts/testing.md#behavioral-verification is/assert/validate accept symbol-bearing and plain name shapes; schema requires only name.
+ * @evidence contracts/testing.md#independent-expectations Literal name:string and authored wrong/missing name establish independent verdicts.
+ * @evidence contracts/testing.md#distinguishing-cases Symbol members omitted versus present both accept; wrong name rejects.
+ * @evidence contracts/testing.md#execution-ownership test_native_symbol_key_member_filter owns the actual native runtime/schema observations; this declaration supplies the fixture shape.
+ */
 export interface Symbolic {
   name: string;
   [sym]: number;
   [Symbol.toStringTag]: string;
 }
 
+/**
+ * Defines ordinary quoted, numeric and computed-string key controls.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The local isControlled callback must accept all four authored fields.
+ * @evidence contracts/testing.md#independent-expectations Explicit string/number/boolean values and missing-key literals provide the oracle.
+ * @evidence contracts/testing.md#distinguishing-cases Missing computed or numeric key rejects; symbol filtering must preserve these ordinary keys.
+ * @evidence contracts/testing.md#execution-ownership test_native_symbol_key_member_filter owns the actual native runtime/schema observations; this declaration supplies the fixture shape.
+ */
 export interface Controlled {
   plain: string;
   "quoted-key": number;
@@ -19,12 +35,36 @@ export interface Controlled {
   [COMPUTED]: string;
 }
 
+/**
+ * Defines a string/symbol-member intersection fixture.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Native isJoined accepts id with or without symbol storage.
+ * @evidence contracts/testing.md#independent-expectations Authored id:string and missing id determine literal expected booleans.
+ * @evidence contracts/testing.md#distinguishing-cases Present or omitted symbol accepts; absent id rejects.
+ * @evidence contracts/testing.md#execution-ownership test_native_symbol_key_member_filter owns the actual native runtime/schema observations; this declaration supplies the fixture shape.
+ */
 export type Joined = { id: string } & { [joined]: number };
 
+/**
+ * Defines a fixture whose only declaration is symbol-named.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Native isSolo accepts a symbol-bearing object and an empty object.
+ * @evidence contracts/testing.md#independent-expectations Independent object versus null literals distinguish empty structural shape from accepting anything.
+ * @evidence contracts/testing.md#distinguishing-cases Empty object accepts; null rejects; symbol value content is not checked.
+ * @evidence contracts/testing.md#execution-ownership test_native_symbol_key_member_filter owns the actual native runtime/schema observations; this declaration supplies the fixture shape.
+ */
 export interface SoloSymbol {
   [solo]: number;
 }
 
+/**
+ * Defines a string id beside a symbol-named method.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Native isMethodic accepts id with or without the symbol callback.
+ * @evidence contracts/testing.md#independent-expectations The authored string id and positive boolean literals supply the expectation.
+ * @evidence contracts/testing.md#distinguishing-cases Present/absent symbol method contrasts; malformed id rejection is not separately enrolled for this arm.
+ * @evidence contracts/testing.md#execution-ownership test_native_symbol_key_member_filter owns the actual native runtime/schema observations; this declaration supplies the fixture shape.
+ */
 export interface Methodic {
   id: string;
   [invoke](): number;

@@ -6,7 +6,8 @@ import (
 )
 
 // TestMetadataCollectionOpenApiName verifies the OpenAPI-specific metadata
-// name allocator preserves legal controls while encoding every other rune.
+// name normalizer preserves legal controls while producing legal keys from the
+// selected punctuation, empty-name and Unicode cases.
 //
 // The schema generators use the allocated name as both a Components Object
 // key and a local-reference token. Deleting punctuation is insufficient:

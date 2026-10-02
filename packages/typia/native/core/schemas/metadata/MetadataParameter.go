@@ -8,12 +8,19 @@ import shimchecker "github.com/microsoft/typescript-go/shim/checker"
 // @evidence contracts/common.md#principled-implementation The JSON form lists what a parameter needs as data and leaves out the compiler type.
 // @evidence contracts/common.md#clear-and-simple-design Four fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation The doc explains the signature projection, with each serialized field documented separately.
 type IMetadataSchema_IParameter struct {
-  Name        string
-  Type        *IMetadataSchema
+  // Name is the parameter name supplied by the selected signature.
+  Name string
+
+  // Type is the serialized metadata of the parameter's type.
+  Type *IMetadataSchema
+
+  // Description is the parameter documentation, or nil when absent.
   Description *string
-  JsDocTags   []IJsDocTagInfo
+
+  // JsDocTags retains the parameter's ordered JSDoc tags.
+  JsDocTags []IJsDocTagInfo
 }
 
 // MetadataParameter is a function parameter: name, type schema, documentation
@@ -25,11 +32,20 @@ type IMetadataSchema_IParameter struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The analysis-only field is stated.
 // @evidence contracts/common.md#meaningful-documentation The doc states the analysis-only field.
 type MetadataParameter struct {
-  Name        string
-  Type        *MetadataSchema
+  // Name is the parameter name supplied by the selected signature.
+  Name string
+
+  // Type is the analyzed parameter schema, including argument omission.
+  Type *MetadataSchema
+
+  // Description is the parameter documentation, or nil when absent.
   Description *string
-  JsDocTags   []IJsDocTagInfo
-  TsType      *shimchecker.Type
+
+  // JsDocTags retains the parameter's ordered JSDoc tags.
+  JsDocTags []IJsDocTagInfo
+
+  // TsType is the compiler type used by LLM programmers; it is not serialized.
+  TsType *shimchecker.Type
 }
 
 // MetadataParameter_create builds a parameter from props, copying the JSDoc tag

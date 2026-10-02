@@ -20,6 +20,7 @@ import (
 // @evidence contracts/common.md#prohibited-implementation-shortcuts State is per instance and no package-level table is kept.
 // @evidence contracts/common.md#meaningful-documentation The doc states the collector role, and the field comments explain visit tracking, the emit context and the is-check prefix.
 type FunctionProgrammer struct {
+  // Method is the source callee label used in generated errors.
   Method         string
   local_         map[string]bool
   unions_        map[string]*functionProgrammer_union
@@ -149,7 +150,7 @@ func (p *FunctionProgrammer) HasLocal(name string) bool {
 // emplacement order, followed by those of the emplaced unions unless
 // includeUnions is false.
 //
-// @evidence contracts/common.md#principled-implementation It returns the constant declarations of every emplaced variable in emplacement order, followed by those of the emplaced unions unless includeUnions is false.
+// @evidence contracts/common.md#principled-implementation Ordered key slices preserve first emplacement order independently of Go map iteration. Variables precede unions, and the optional flag controls only union declarations.
 // @evidence contracts/common.md#clear-and-simple-design One small method on the per-call collector.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts State lives on the receiver and not in a package global.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
@@ -181,7 +182,7 @@ func (p *FunctionProgrammer) Declare(includeUnions ...bool) []*shimast.Node {
 // DeclareUnions returns only the constant declarations of the emplaced unions in
 // emplacement order.
 //
-// @evidence contracts/common.md#principled-implementation It returns only the constant declarations of the emplaced unions in emplacement order.
+// @evidence contracts/common.md#principled-implementation The union-order slice indexes the same registered tuples and preserves first emplacement order without emitting variables.
 // @evidence contracts/common.md#clear-and-simple-design One small method on the per-call collector.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts State lives on the receiver and not in a package global.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
@@ -212,7 +213,7 @@ func (p *FunctionProgrammer) Increment() int {
 // EmplaceUnion returns the name of the union function registered under prefix
 // and name, creating it with factory on first use.
 //
-// @evidence contracts/common.md#principled-implementation It returns the name of the union function registered under prefix and name, creating it with factory on first use.
+// @evidence contracts/common.md#principled-implementation The prefix/name key identifies a union within this emission. Registering its reserved name before invoking factory allows recursive factories to refer back to the same name; the completed AST is declared afterward.
 // @evidence contracts/common.md#clear-and-simple-design One small method on the per-call collector.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts State lives on the receiver and not in a package global.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it builds.

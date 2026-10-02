@@ -52,7 +52,7 @@ const fixture = {
  *    assertions.
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from notationUnicodeKeyRuntimeRunner; emitted-text presence alone cannot pass these assertions.
- * @evidence contracts/testing.md#independent-expectations Handwritten Unicode output names establish each case mapping, including combining marks, astral letters, Greek forms and ordinary ASCII controls. Comparing outputs with another generated notation function would not establish these mappings.
+ * @evidence contracts/testing.md#independent-expectations Handwritten Unicode output names and their distinct values establish each case mapping, including combining marks, complete astral code points, Greek forms and ordinary ASCII controls. normalize retains full codePointAt values instead of discarding the low surrogate. Dynamic-to-static agreement is a correlated consistency check; authored static expectations provide the independent anchor.
  * @evidence contracts/testing.md#distinguishing-cases Preserves the literal runtime assertions below; the rest of the original runner's assertions remain below without dropping or skipping inputs.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_notation_unicode_key in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed notationUnicodeKeySource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.
@@ -154,7 +154,7 @@ export const test_native_notation_unicode_key = (): void => {
     JSON.stringify(
       Object.entries(object)
         .map(([key, value]: any): any => [
-          Array.from(key, (c: any): any => c.charCodeAt(0)),
+          Array.from(key, (c: any): any => c.codePointAt(0)),
           value,
         ])
         .sort((a: any, b: any): any => (String(a) < String(b) ? -1 : 1)),

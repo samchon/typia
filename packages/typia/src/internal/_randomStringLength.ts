@@ -19,7 +19,10 @@ export const _RANDOM_LENGTH_ERROR =
  * @evidence contracts/common.md#meaningful-documentation The comment says when the generated code passes it.
  */
 export interface _ILengthProps {
+  /** Inclusive minimum string length in code points, when constrained. */
   minLength?: number;
+
+  /** Inclusive maximum string length in code points, when constrained. */
   maxLength?: number;
 }
 

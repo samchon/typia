@@ -13,7 +13,7 @@ import { Calculator } from "../structures/Calculator";
  * The case builds its input in this file and asserts add tool should have
  * description, schema type should be object.
  *
- * 1. Generate the value from the types declared in this file.
+ * 1. Generate a controller from the imported Calculator fixture.
  * 2. Assert the properties listed above.
  *
  * @evidence contracts/testing.md#behavioral-verification The reflected add tool retains authored method prose and exposes an object-valued schema.

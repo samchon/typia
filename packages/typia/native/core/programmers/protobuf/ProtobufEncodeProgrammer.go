@@ -333,7 +333,10 @@ type protobufEncodeProgrammer_decodePropertyProps struct {
 func protobufEncodeProgrammer_decode_property(props protobufEncodeProgrammer_decodePropertyProps) *shimast.Node {
   f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, props.Context.Emit)
   union := []protobufEncodeProgrammer_IUnion{}
-  for _, schema := range props.Protobuf.Union {
+  bigintCandidates := protobufEncodeProgrammer_bigintCandidates(props.Protobuf.Union)
+  numberCandidates := protobufEncodeProgrammer_numberCandidates(props.Protobuf.Union)
+  objectSchemas := protobufEncodeProgrammer_objectSchemas(props.Protobuf.Union)
+  for i, schema := range props.Protobuf.Union {
     switch typed := schema.(type) {
     case *schemaprotobuf.IProtobufPropertyType_IBoolean:
       index := typed.Index
@@ -361,7 +364,7 @@ func protobufEncodeProgrammer_decode_property(props protobufEncodeProgrammer_dec
       }{
         Input:      props.Input,
         Type:       typed.Name,
-        Candidates: protobufEncodeProgrammer_bigintCandidates(props.Protobuf.Union),
+        Candidates: bigintCandidates,
         Index:      typed.Index,
       }, props.Context.Emit))
     case *schemaprotobuf.IProtobufPropertyType_INumber:
@@ -373,7 +376,7 @@ func protobufEncodeProgrammer_decode_property(props protobufEncodeProgrammer_dec
       }{
         Input:      props.Input,
         Type:       typed.Name,
-        Candidates: protobufEncodeProgrammer_numberCandidates(props.Protobuf.Union),
+        Candidates: numberCandidates,
         Index:      typed.Index,
       }, props.Context.Emit))
     case *schemaprotobuf.IProtobufPropertyType_IString:
@@ -441,8 +444,9 @@ func protobufEncodeProgrammer_decode_property(props protobufEncodeProgrammer_dec
         })
       }
     }
-    objectSchemas := protobufEncodeProgrammer_objectSchemas(props.Protobuf.Union)
-    if len(objectSchemas) != 0 {
+    // The aggregate arm already handles every object alternative. Keep its
+    // original position after the first schema arm; later copies cannot run.
+    if i == 0 && len(objectSchemas) != 0 {
       schemas := objectSchemas
       union = append(union, protobufEncodeProgrammer_IUnion{
         Is: func() *shimast.Node {

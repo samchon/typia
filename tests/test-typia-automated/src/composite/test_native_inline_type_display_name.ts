@@ -34,7 +34,8 @@ const validateInlineTuple = typia.createValidate<{
   pair: [{ a: string }, { b: number }];
 }>();
 
-// Component keys are identifiers and must stay on the synthetic names.
+// Retain the original schema call as a transform fixture; the runtime runner
+// does not inspect its schema component keys or inline property.
 const schemas = typia.json.schemas<[{ inline: { id: string } }]>();
 const fixture = {
   validateNested,

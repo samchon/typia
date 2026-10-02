@@ -1,8 +1,10 @@
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/** Supplies nested company, department and employee arrays. */
 export type ArrayHierarchical = ArrayHierarchical.ICompany[];
 export namespace ArrayHierarchical {
+  /** Declares the company fields and required child-array shape. */
   export interface ICompany {
     id: number;
     serial: number;
@@ -10,6 +12,7 @@ export namespace ArrayHierarchical {
     established_at: ITimestamp;
     departments: IDepartment[];
   }
+  /** Declares each department's data, timestamp and employee array. */
   export interface IDepartment {
     id: number;
     code: string;
@@ -17,6 +20,7 @@ export namespace ArrayHierarchical {
     created_at: ITimestamp;
     employees: IEmployee[];
   }
+  /** Declares the five required employee data fields. */
   export interface IEmployee {
     id: number;
     name: string;
@@ -24,11 +28,13 @@ export namespace ArrayHierarchical {
     grade: number;
     employed_at: ITimestamp;
   }
+  /** Supplies the required numeric time and zone record shape. */
   export interface ITimestamp {
     time: number;
     zone: number;
   }
 
+  /** Constructs a fresh nonempty nested company hierarchy. */
   export function generate(): ArrayHierarchical {
     return TestRandomGenerator.array(() => ({
       id: TestRandomGenerator.integer(),
@@ -60,6 +66,7 @@ export namespace ArrayHierarchical {
     }));
   }
 
+  /** Prepares a deliberately invalid final employee for a dormant trail input. */
   export function trail(): ArrayHierarchical {
     const data = generate();
     const departments = data[data.length - 1]!.departments;

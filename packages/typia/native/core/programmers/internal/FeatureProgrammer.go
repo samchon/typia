@@ -61,9 +61,9 @@ type FeatureProgrammer_IConfig struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_VisitGuardProps struct {
-  // Key names the `_vctx` slot of the guarded function (e.g. "o3" for the
-  // object function of index 3), so each recursive function tracks its own
-  // visit set and union-branch probing cannot pollute sibling checks.
+  // Key includes the feature prefix (e.g. "io3" for the "_i" object function
+  // of index 3), so recursive helpers in composed feature families do not
+  // share visit state merely because their metadata indices match.
   Key   string
   Input *shimast.Expression
   Body  *shimast.Node
@@ -88,8 +88,8 @@ type FeatureProgrammer_IConfig_ITypes struct {
 
 // FeatureProgrammer_IConfig_IObjector is the object operations that a feature
 // supplies to FeatureProgrammer. Checker, Decoder, Joiner, Unionizer, Failure
-// and Full build the feature's checks and results, Is and Required test an
-// input, and Type is the checked type.
+// and Full build the feature's checks and results, Is and Required wrap a
+// condition, and Type is the return type of generated object helpers.
 //
 // @evidence contracts/common.md#principled-implementation It is the object operations that a feature supplies to FeatureProgrammer; its 9 members (Checker, Decoder, Joiner, Unionizer, Failure, Is, Required, Full, Type) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
 // @evidence contracts/common.md#clear-and-simple-design A 9-member record of values and callbacks.
@@ -107,13 +107,15 @@ type FeatureProgrammer_IConfig_IObjector struct {
   Type      *shimast.TypeNode
 }
 
-// FeatureProgrammer_IConfig_IGenerator is the optional generators that replace
-// how a feature writes its object, union, array and tuple functions.
+// FeatureProgrammer_IConfig_IGenerator supplies helper-function generators.
+// Objects and Unions may be nil to use the shared writers. Arrays and Tuples
+// are called directly and must be supplied, even when they return no helpers.
+// A supplied Unions callback may also return nil to use the shared writer.
 //
-// @evidence contracts/common.md#principled-implementation It is the optional generators that replace how a feature writes its object, union, array and tuple functions; its 4 members (Objects, Unions, Arrays, Tuples) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#principled-implementation Objects and Unions optionally override shared writers; Arrays and Tuples are required callbacks consumed by Compose and Write. Keeping the four metadata families separate lets each feature supply its helper bodies without changing the common assembly.
 // @evidence contracts/common.md#clear-and-simple-design A 4-member record of values and callbacks.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
-// @evidence contracts/common.md#meaningful-documentation The doc states the role.
+// @evidence contracts/common.md#meaningful-documentation The native comment distinguishes optional overrides from callbacks that Compose and Write call directly, including the empty-helper case.
 type FeatureProgrammer_IConfig_IGenerator struct {
   Objects func(collection *nativemetadata.MetadataCollection) []*shimast.Node
   Unions  func(collection *nativemetadata.MetadataCollection) []*shimast.Node
@@ -454,7 +456,7 @@ type FeatureProgrammer_IndexProps struct {
 
 // FeatureProgrammer_ArgumentsArrayProps is the argument record of
 // FeatureProgrammer.ArgumentsArray, which builds the arguments of a call to a
-// generated array function.
+// generated helper function, including object and recursive-array helpers.
 //
 // @evidence contracts/common.md#principled-implementation It is the argument record of FeatureProgrammer.ArgumentsArray, which builds the arguments of a call to a generated array function; its 4 fields (Config, Input, Explore, Emit) are named so that a producer and a consumer cannot transpose them.
 // @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
@@ -1562,7 +1564,6 @@ func featureProgrammer_union_objector(objector FeatureProgrammer_IConfig_IObject
         Explore:   props.Explore,
       })
     },
-    Type: objector.Type,
   }
 }
 

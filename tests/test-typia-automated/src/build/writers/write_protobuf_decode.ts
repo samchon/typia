@@ -3,10 +3,10 @@ import { NamingConvention, dedent } from "@typia/utils";
 /**
  * Renders protobuf decoding bindings for one fixture and API form.
  *
- * @evidence contracts/common.md#principled-implementation The method and mode determine the actual decode callback; the same fixture supplies its generated encode companion and existing helper invocation.
- * @evidence contracts/common.md#clear-and-simple-design Private name and callback renderers keep direct/factory API spellings aligned with one discoverable export per fixture.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts The writer preserves the fixture, native callbacks and roundtrip helper without expected bytes derived from an executed callback at generation time.
- * @evidence contracts/common.md#meaningful-documentation The comment distinguishes source rendering from the runtime roundtrip and generated comments disclose that both codec halves come from typia.
+ * @evidence contracts/testing.md#behavioral-verification This writer binds an actual selected decode callback and companion native encoder to the named helper. The helper owns decoded-content and complete re-encoded-byte comparisons; the writer itself only renders source.
+ * @evidence contracts/testing.md#independent-expectations Authored fixture/RESOLVE data determine decoded-content expectations. Wire input and re-encoding use a typia companion and are correlated, so byte stability does not independently certify Protocol Buffer conformance.
+ * @evidence contracts/testing.md#distinguishing-cases Private getFile/getMethod/getFunctor preserve direct/factory API identities. The active ordinary decode descriptor generates clean roundtrips; validating wrappers and malformed-input assertions must be described by their own actual helpers rather than credited to this ordinary scenario.
+ * @evidence contracts/testing.md#execution-ownership The configured protobuf decoding programmer invokes this writer through the controller. Its generated named export reaches _test_protobuf_decode through TestServant; no compiler, codec or independent verdict runs during rendering.
  */
 export const write_protobuf_decode =
   (method: string) => (create: boolean) => (structure: string) =>

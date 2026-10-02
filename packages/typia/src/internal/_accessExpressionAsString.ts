@@ -1,8 +1,8 @@
 /**
  * Write a property access on a key as source text.
  *
- * A key that is a legal identifier and not a reserved word becomes `.key`, and
- * any other key becomes `["key"]` with a JSON string literal.
+ * A key that is a legal ASCII identifier and not a reserved word becomes
+ * `.key`, and any other key becomes `["key"]` with a JSON string literal.
  *
  * @evidence contracts/common.md#principled-implementation A key that is a legal ASCII identifier and not a reserved word is written as a dot access, and every other key as a bracket access with a JSON string literal, which is a valid JavaScript string literal for any key, so the emitted access expression is correct for every property name. The reserved list is conservative for dot access, which is legal after a dot, so it can only cause an extra bracket form; the strict-mode future reserved words are not in the list.
  * @evidence contracts/common.md#clear-and-simple-design One function with two private helpers, the identifier test and the reserved set.

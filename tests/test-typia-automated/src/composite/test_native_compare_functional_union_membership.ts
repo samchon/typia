@@ -106,7 +106,7 @@ const nestedDirectEquals = (x: Nested, y: Nested): boolean =>
  * 3. Propagate every failed comparison to the shared suite runner.
  *
  * @evidence contracts/testing.md#behavioral-verification Direct/factory validators, comparators, covers, clones, pruning, reversed/nested arms, same-invalid-reference identity, actual function members, omitted/undefined cover fields and delegated equals retain literal expected results.
- * @evidence contracts/testing.md#independent-expectations The retained literal expectations encode the authored type/value contract, not emitted-source patterns. Type-level equality assertions, where present, remain compiled independently of runtime comparisons.
+ * @evidence contracts/testing.md#independent-expectations Functional membership requires a function-valued handler when selecting its arm, while comparison ignores function identity after selection and default mode retains lenient function members. Boolean decisions and clone/prune payload literals encode that option contract independently of callback output; payload expectations never read the potentially mutated callback input.
  * @evidence contracts/testing.md#distinguishing-cases Direct/factory validators, comparators, covers, clones, pruning, reversed/nested arms, same-invalid-reference identity, actual function members, omitted/undefined cover fields and delegated equals retain literal expected results. Each invocation checks one actual transform option. The ordinary suite invokes functional mode; the separate default-option batch must invoke default mode against a project transformed with functional disabled. Both option executions are required to establish preserved coverage.
  * @evidence contracts/testing.md#execution-ownership The matching exported composite is discovered by TestServant in test-typia-automated. Private typed producers and deliberately unchecked JavaScript-style runtime inputs preserve the original test boundary.
  * @evidence contracts/e2e.md#necessary-boundary Real typia public calls are transformed and their callbacks execute in Node. Go unit assertions on metadata or emitted text cannot detect a runtime result, receiver or mutation defect.
@@ -213,18 +213,22 @@ export const test_native_compare_functional_union_membership = (
     expectJson(
       "functional direct clone preserves later member",
       functional.directClone(left),
-      left,
+      { handler: "text", common: "same", label: "left" },
     );
   if (mode === "functional")
     expectJson(
       "functional factory clone preserves later member",
       functional.factoryClone(right),
-      right,
+      { handler: "text", common: "same", label: "right" },
     );
   const pruned: any = { ...left, extra: true };
   if (mode === "functional") functional.prune(pruned);
   if (mode === "functional")
-    expectJson("functional prune retains selected later label", pruned, left);
+    expectJson("functional prune retains selected later label", pruned, {
+      handler: "text",
+      common: "same",
+      label: "left",
+    });
   if (mode === "functional")
     expect(
       "functional reversed union distinguishes later label",

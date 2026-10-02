@@ -2,14 +2,17 @@ package metadata
 
 // MetadataAlias is one use of a shared alias type in a schema, together with
 // the type tag rows that apply at that use. The two cached names are computed on
-// first read and are not recomputed when Tags changes later.
+// first read. Type names and Tags must be final beforehand; later changes do
+// not invalidate either cache.
 //
 // @evidence contracts/common.md#principled-implementation A use site carries its own tags while the alias type is shared, so tags live on the reference and the type stays one value; the name caches avoid re-rendering the tagged name on every comparison.
 // @evidence contracts/common.md#clear-and-simple-design A reference record with two cached strings.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The record copies nothing from the type and does not hide the cache behavior.
 // @evidence contracts/common.md#meaningful-documentation The doc states the shared type, the per-use tags and the cache limitation.
 type MetadataAlias struct {
-  Type          *MetadataAliasType
+  // Type is the shared alias definition referenced by this use.
+  Type *MetadataAliasType
+  // Tags contains this use's alternative rows of jointly applied tags.
   Tags          [][]IMetadataTypeTag
   name_         string
   display_name_ string
@@ -58,11 +61,12 @@ func (obj *MetadataAlias) GetDisplayName() string {
 }
 
 // ToJSON returns the by-name reference to the alias type with a copy of the
-// tags. The type's own JSON is written once by the components.
+// tag rows. Nested tag payloads remain shared. The type's own JSON is written
+// once by the components.
 //
 // @evidence contracts/common.md#principled-implementation A reference in the JSON form is the type name plus tags, because the shared type is serialized once in the components and a copy here would break sharing and recursion.
 // @evidence contracts/common.md#clear-and-simple-design One record construction.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The tags are copied, so the caller cannot edit the use through the result.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Matrix rows are copied; nested tag payloads retain their existing references.
 // @evidence contracts/common.md#meaningful-documentation The doc states the by-name form.
 func (obj *MetadataAlias) ToJSON() IMetadataSchema_IReference {
   return IMetadataSchema_IReference{

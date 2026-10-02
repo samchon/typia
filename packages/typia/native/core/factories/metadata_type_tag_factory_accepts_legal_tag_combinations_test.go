@@ -13,7 +13,7 @@ import (
 // that over-matches would reject `Minimum<0> & Maximum<10>`, which neither tag's
 // `exclusive` list names and which every bounded-range type depends on.
 //
-// 1. Combine each array-form tag with a kind absent from its exclusive list.
+// 1. Accept each array-form tag alone and all four opposite-end numeric bound pairs.
 // 2. Combine bool-form tags of differing kinds, which the untouched branch owns.
 // 3. Require every combination, and each tag alone, to validate.
 //

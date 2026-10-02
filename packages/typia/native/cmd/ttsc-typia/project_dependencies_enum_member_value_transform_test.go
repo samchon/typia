@@ -28,9 +28,9 @@ import (
 //  4. Assert the caller of the self-contained enum is declared complete and the
 //     caller of the borrowing enum is not.
 //
-// @evidence contracts/testing.md#behavioral-verification The envelope retains the declaration supplying an enum member value and excludes unused declarations.
+// @evidence contracts/testing.md#behavioral-verification Emitted comparisons retain the authored string and negative numeric literals, and the borrowed string value. The self-defined enum caller remains complete while the borrowed-value caller is withheld; this case does not assert individual dependency entries.
 // @evidence contracts/testing.md#independent-expectations The enum member constant is embedded in validation; changing that declaration changes output even when the type is represented as a literal.
-// @evidence contracts/testing.md#distinguishing-cases A consulted enum member is paired with an unused declaration.
+// @evidence contracts/testing.md#distinguishing-cases A self-defined string and unary-negative numeric enum contrast with an enum member initialized from another file; validator-output guards ensure both completeness assertions concern transformed callers.
 // @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesEnumMemberValueTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesEnumMemberValueTransform(t *testing.T) {
   project := projectDependenciesEnumMemberValueProject(t)

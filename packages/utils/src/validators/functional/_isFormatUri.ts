@@ -1,14 +1,18 @@
 /**
- * Checks the RFC 3986 URI spelling of the `uri` format.
+ * Checks the supported URI spelling of the `uri` format.
  *
  * Requires a scheme, then accepts the hierarchical forms with an optional
  * authority, an IPv4, IPv6 or future-version address literal or a registered
  * name, a path, a query and a fragment, ignoring case. A string with neither
  * `/` nor `:` is rejected first, because a URI always has a scheme separator.
  *
- * @evidence contracts/common.md#principled-implementation The RFC 3986 grammar is spelled out for a URI with a scheme: authority with optional user information, an IPv4, IPv6 or IPvFuture literal or a registered name, a port, path forms, query and fragment, ignoring case. The cheap guard that the string contains `/` or `:` rejects most non-URIs before the long expression, and is implied by the scheme anyway. The IPv4 octet alternative accepts leading zeros, which the standard's `dec-octet` does not.
+ * This grammar rejects an empty hierarchy such as `urn:` and permits leading
+ * zeros in its embedded IPv4 octets, so it is not the complete RFC 3986
+ * grammar.
+ *
+ * @evidence contracts/common.md#principled-implementation The expression checks a scheme followed by supported authority, literal-address, registered-name, path, query and fragment forms. The separator guard is implied by the required scheme. This is an RFC 3986-oriented grammar with limitations: empty hierarchy is rejected and embedded IPv4 octets permit leading zeros rather than strict dec-octet spelling.
  * @evidence contracts/common.md#clear-and-simple-design One predicate with two private patterns, identical to the copy in the typia package that emitted code imports; the long expression is the grammar and is not factored.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts The grammar is the standard's and the guard is a speed-up with the same result.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts One fixed grammar applies uniformly, and the necessary separator guard preserves its result. Existing empty-hierarchy and IPv4 spelling limitations are disclosed rather than claimed as full RFC compliance.
  * @evidence contracts/common.md#meaningful-documentation The doc states the structure and the guard.
  */
 export const _isFormatUri = (str: string): boolean =>

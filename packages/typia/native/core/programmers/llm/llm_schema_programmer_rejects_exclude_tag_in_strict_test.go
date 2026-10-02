@@ -10,9 +10,8 @@ import (
 // TestLlmSchemaProgrammerRejectsExcludeTagInStrict verifies strict exclusion.
 //
 // The exclude type tag compiles to `not: { enum: [...] }` in JSON schema, but
-// OpenAI strict structured outputs support no `not` keyword (only types,
-// enum, anyOf, and $defs). A strict LLM schema configuration must therefore
-// reject the tag instead of silently emitting an unenforceable schema, while
+// typia's maintained strict LLM schema contract disallows `not`. A strict
+// LLM schema configuration must reject the tag, while
 // non-strict configurations keep accepting it.
 //
 // 1. Build metadata with a number atomic carrying an exclude-kind tag.
@@ -20,7 +19,7 @@ import (
 // 3. Validate without strict config and require no diagnostic.
 //
 // @evidence contracts/testing.md#behavioral-verification The LLM schema validator runs on a type with an exclude tag under strict and non-strict configurations; strict must report and non-strict must accept.
-// @evidence contracts/testing.md#independent-expectations OpenAI strict structured outputs support no not keyword, which is where the exclude tag compiles; the verdicts are authored from that provider contract.
+// @evidence contracts/testing.md#independent-expectations The maintained strict LLM schema contract disallows not, where the exclude tag compiles; authored strict/loose verdicts are independent of the validator output.
 // @evidence contracts/testing.md#distinguishing-cases Strict versus non-strict with the same input is the one-axis pair.
 // @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the validator on constructed metadata with no checker, filesystem fixture or process.
 func TestLlmSchemaProgrammerRejectsExcludeTagInStrict(t *testing.T) {

@@ -11,12 +11,12 @@ import (
 //
 // A class supplied by constructor form uses its supported seed constructor; container properties remain part of that seed type rather than turning the outer class into a plain object.
 //
-// 1. A constructor-bearing class includes nested container values; recursive container value behavior is owned by the deep-nested classification case.
+// 1. A constructor-bearing class includes nested container values; the deep-nested classification case separately checks reconstruction-strategy emission, without executing recursive container values.
 // 2. The emitted classify wrapper constructs Cart with new Cart rather than omitting its declared reconstruction strategy.
 //
 // @evidence contracts/testing.md#behavioral-verification The emitted classify wrapper constructs Cart with new Cart rather than omitting its declared reconstruction strategy.
 // @evidence contracts/testing.md#independent-expectations A class supplied by constructor form uses its supported seed constructor; container properties remain part of that seed type rather than turning the outer class into a plain object.
-// @evidence contracts/testing.md#distinguishing-cases A constructor-bearing class includes nested container values; recursive container value behavior is owned by the deep-nested classification case.
+// @evidence contracts/testing.md#distinguishing-cases A constructor-bearing class includes nested container values; the deep-nested classification case separately checks reconstruction-strategy emission, without executing recursive container values.
 // @evidence contracts/testing.md#execution-ownership The native Go runner executes TestPlainClassifyContainerSeedTransform as a unit test. Captured runTransform calls operate on the isolated fixture project in process; output assertions and cleanup remain owned by these helpers without a compiler or Node subprocess.
 func TestPlainClassifyContainerSeedTransform(t *testing.T) {
   project := plainClassifyContainerProject(t)

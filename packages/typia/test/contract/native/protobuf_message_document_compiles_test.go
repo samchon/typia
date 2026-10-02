@@ -21,7 +21,7 @@ import (
 // is the only oracle that can, so the document goes to one here.
 //
 //  1. Build objects covering required scalars, the all-optional boundary,
-//     nullable fields, arrays, maps, bytes, nested messages, and a `oneof`.
+//     nullable fields, arrays, maps, bytes, and a `oneof`.
 //  2. Render each through the message programmer's document writer.
 //  3. Require a strict Protobuf compiler to accept every rendered document.
 //

@@ -2,6 +2,7 @@ package metadata
 
 import (
   "regexp"
+  "strconv"
   "testing"
 )
 
@@ -135,8 +136,9 @@ func TestMetadataCollectionNameAllocation(t *testing.T) {
   // that rescanned the run from zero each time would be quadratic in a
   // program's anonymous type count.
   run := map[string]bool{}
-  for i := 0; i != 64; i++ {
-    run[metadataCollection_composeName("__type", i)] = true
+  run["__type"] = true
+  for i := 1; i != 64; i++ {
+    run["__type-o"+strconv.Itoa(i)] = true
   }
   if _, index := metadataCollection_allocateName(run, "__type", 64); index != 64 {
     t.Fatalf("a correct counter was not honored: index=%d expected=64", index)

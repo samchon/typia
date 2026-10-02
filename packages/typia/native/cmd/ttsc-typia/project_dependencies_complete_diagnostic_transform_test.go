@@ -18,7 +18,7 @@ import (
 // explaining (samchon/typia#2357).
 //
 //  1. Build a project where `rejected.ts` asks for a protobuf message over
-//     `bigint`, which no protobuf entry point supports, beside a `control.ts`
+//     a top-level `bigint` instead of a static message object, beside `control.ts`
 //     that transforms cleanly.
 //  2. Run project transform mode; the host reports the diagnostic and exits 3
 //     after printing the envelope.

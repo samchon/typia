@@ -66,8 +66,8 @@ export const test_native_native_name_collision_is = (): void => {
   eq("isFile null", mod.isFile(null), false);
   eq("isFile primitive", mod.isFile(5), false);
 
-  // validate shares the structural object path, so it agrees with is and names no
-  // File expected type.
+  // Validate retains structural acceptance and rejection. These observations
+  // check success only and do not inspect its diagnostic expected string.
   eq(
     "validateFile valid",
     mod.validateFile({ name: "a", size: 1 }).success,

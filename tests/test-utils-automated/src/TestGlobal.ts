@@ -1,6 +1,15 @@
 import fs from "fs";
 import path from "path";
 
+/**
+ * Resolves the suite root and reads runner filters without retaining
+ * selections.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Supplies the package root and include/exclude argv slices to main and generation. It performs no assertion; validation paths and fatal status are asserted by the registered cases.
+ * @evidence contracts/testing.md#independent-expectations The package identity locates the owning workspace and requested double-dash flags define filters. Neither helper calculates expected schema reports.
+ * @evidence contracts/testing.md#distinguishing-cases Root resolution tries cwd, module parent and cwd ancestors; argv parsing distinguishes absent and explicitly empty flags. Generated cases own clean, spoiled and surplus-value distinctions.
+ * @evidence contracts/testing.md#execution-ownership main and TestAutomation consume this support class during suite start; generate also consumes ROOT during preparation. Private root helpers own filesystem discovery and are not independently registered cases.
+ */
 export class TestGlobal {
   public static readonly ROOT: string = resolveTestRoot();
 
@@ -8,10 +17,10 @@ export class TestGlobal {
    * Reads all values after the first requested double-dash flag, stopping at
    * the next flag. A missing flag returns null.
    *
-   * @evidence contracts/common.md#principled-implementation The first matching flag starts a slice ending before the next double-dash argument. An absent flag returns null, allowing the caller to choose its default filter.
-   * @evidence contracts/common.md#clear-and-simple-design Two index searches and one slice expose the first-occurrence policy without changing process.argv or holding filter state between calls.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts The parser uses argv values and the requested flag spelling; it reads no fixture contents and cannot manufacture a test verdict.
-   * @evidence contracts/common.md#meaningful-documentation Native prose states first-occurrence, multi-value and absent-flag behavior so callers can distinguish default selection from an explicitly empty filter.
+   * @evidence contracts/testing.md#behavioral-verification Supplies the first requested flag's values to main's include/exclude filters. No behavioral assertion occurs in this parser; the servant reports the selected test entries' assertions.
+   * @evidence contracts/testing.md#independent-expectations Requested flag spelling and argv delimiters define the slice, independently of schema or validator results. This helper supplies selection inputs rather than an assertion oracle.
+   * @evidence contracts/testing.md#distinguishing-cases An absent flag returns null; an empty flag returns an empty array; one or multiple values end at the next double-dash argument. main defaults absence to an unrestricted filter.
+   * @evidence contracts/testing.md#execution-ownership The parent suite main calls this support method before its single servant request. It launches no native compiler or child process and registers no separate case.
    */
   public static getArguments(type: string): string[] | null {
     const from: number = process.argv.indexOf(`--${type}`) + 1;

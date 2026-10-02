@@ -16,7 +16,7 @@ import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
  *
  * @evidence contracts/common.md#principled-implementation A Swagger 2.0 document is converted by turning definitions into component schemas, body and form-data parameters into request bodies per consumed media type, response schemas into content per produced media type, and host, base path and schemes into servers, and by reading `x-nullable`, `x-anyOf` and `x-oneOf`. Constructs that have no 3.x form, such as a body with form data or file parameters outside form data, throw TypeError with a message instead of being converted wrongly.
  * @evidence contracts/common.md#clear-and-simple-design Helpers per object kind in one namespace, and server composition and form-data schema checks are private; the operation and path-item conversion duplicates the other upgraders' shape.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Unrepresentable input is rejected and nothing is repaired by guessing a media type.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Unsupported combinations are rejected. Media types come from the operation, then the document, with application/json as the existing default when neither declares them; an explicitly empty declaration stays empty and can cause rejection.
  * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the mappings and the rejections.
  */
 export namespace SwaggerV2Upgrader {

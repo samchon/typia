@@ -75,7 +75,7 @@ const fixture = {
  *    assertions.
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from recursiveContainerHelperIndexRuntimeRunner; emitted-text presence alone cannot pass these assertions.
- * @evidence contracts/testing.md#independent-expectations Authored valid array and tuple container graphs determine stringify text, clone and notation leaf values, classification, pruning of extras and configured random output. Literal generated and number/boolean callback values establish the random assertions; this runner does not assert malformed-leaf rejection.
+ * @evidence contracts/testing.md#independent-expectations Authored valid array and tuple container graphs determine independent literal stringify text, clone and notation leaf values, classification and pruning of extras. Random observations check an array value and the literal generated first tuple element; number/boolean callback results and malformed-leaf rejection are not asserted. Serializer mutation cannot alter the literal expected text.
  * @evidence contracts/testing.md#distinguishing-cases Preserves is array; is tuple; stringify array; stringify tuple; notation array; notation tuple; the rest of the original runner's assertions remain below without dropping or skipping inputs.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_recursive_container_helper_index in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed recursiveContainerHelperIndexSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.
@@ -105,12 +105,12 @@ export const test_native_recursive_container_helper_index = (): void => {
   expect(
     "stringify array",
     mod.stringifyArray(arrayValue),
-    JSON.stringify(arrayValue),
+    '{"ordinary":["a"],"value":[1,{"nested":[true,null]}]}',
   );
   expect(
     "stringify tuple",
     mod.stringifyTuple(tupleValue),
-    JSON.stringify(tupleValue),
+    '{"ordinary":[1],"value":["root",["child",null]]}',
   );
   expect("notation array", mod.camelArray(arrayValue).value[1].nested[0], true);
   expect("notation tuple", mod.camelTuple(tupleValue).value[1][0], "child");

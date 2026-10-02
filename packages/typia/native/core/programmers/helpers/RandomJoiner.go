@@ -84,20 +84,27 @@ type RandomJoiner_TupleProps struct {
 
 // RandomJoiner_ObjectProps is the argument record of RandomJoiner.Object, which
 // builds a random object. OptionalProperty and StrictOptionalUndefined classify
-// a property schema, and Optional builds the expression that makes a property
-// absent.
+// a property schema, and Optional builds the condition for including an optional
+// property. A nil Optional callback includes the property.
 //
 // @evidence contracts/common.md#principled-implementation It is the argument record of RandomJoiner.Object, which builds a random object; its 6 fields (Decode, Object, OptionalProperty, StrictOptionalUndefined, Optional, Emit) are named so that a producer and a consumer cannot transpose them.
 // @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type RandomJoiner_ObjectProps struct {
-  Decode                  RandomJoiner_Decoder
-  Object                  *nativemetadata.MetadataObjectType
-  OptionalProperty        func(*nativemetadata.MetadataSchema) bool
+  Decode RandomJoiner_Decoder
+  Object *nativemetadata.MetadataObjectType
+
+  // OptionalProperty selects properties emitted through conditional spreads.
+  OptionalProperty func(*nativemetadata.MetadataSchema) bool
+
+  // StrictOptionalUndefined removes optionality from the included value schema.
   StrictOptionalUndefined func(*nativemetadata.MetadataSchema) bool
-  Optional                func() *shimast.Node
-  Emit                    *shimprinter.EmitContext
+
+  // Optional returns the inclusion condition, not an absence condition.
+  Optional func() *shimast.Node
+
+  Emit *shimprinter.EmitContext
 }
 
 type randomJoiner_DynamicPropertyProps struct {

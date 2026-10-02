@@ -12,11 +12,6 @@ import { _isFormatDate } from "./_isFormatDate";
  * @evidence contracts/common.md#clear-and-simple-design Ordinary seconds finish after syntax/calendar validation; only the leap-second branch constructs the UTC instant needed for the boundary decision.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts UTC conversion and the potential leap-second boundary are uniform rules. The implementation neither relies on local timezone nor special-cases fixture dates; historical announcements are outside this check.
  * @evidence contracts/common.md#meaningful-documentation The doc states that an offset is required, when a second of 60 is allowed and that no leap-second announcement table is consulted.
- * @evidence contracts/performance.md#efficient-algorithms One grammar scan accounts for the potentially unbounded fractional-second spelling; the separate date check has fixed length. Only the second-of-60 branch allocates a Date and performs bounded UTC arithmetic. No scan of historical dates or offset table occurs.
- *
- * @evidenceExclude contracts/performance.md#reuse-equivalent-work The verdict for one string is independent of every other, so there is no computation to share between requests, and caching results keyed by arbitrary input strings would add retention without any validity contract.
- *
- * @evidence contracts/performance.md#bound-retention-and-release-resources Only the pattern constant is retained; the match array and the Date built for a second of 60 are local to the call and reclaimed on return, and the input string is not kept.
  */
 export const _isFormatDateTime = (str: string): boolean => {
   const match: RegExpExecArray | null = PATTERN.exec(str);

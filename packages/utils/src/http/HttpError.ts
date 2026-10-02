@@ -71,7 +71,10 @@ export class HttpError extends Error {
   }
 
   /**
-   * Serialize to JSON-compatible object.
+   * Return the structured error record.
+   *
+   * JSON serialization requires the caller's response body type to be
+   * JSON-compatible; the generic type does not establish that property.
    *
    * @template T Expected response body type
    *
@@ -104,7 +107,7 @@ export namespace HttpError {
    *
    * @template T Response body type
    *
-   * @evidence contracts/common.md#principled-implementation The record lists the same method, path, status and headers as the error and a body-typed `message`, which is the shape `toJSON` returns and which can be serialized by JSON.stringify.
+   * @evidence contracts/common.md#principled-implementation The record lists the same method, path, status and headers as the error and a body-typed message, matching toJSON's result. The caller's T and actual body must be JSON-compatible for JSON.stringify; this generic record does not establish serializability.
    * @evidence contracts/common.md#clear-and-simple-design Five fields in the error's namespace, used only for the method result.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
    * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment and the type parameter is described.

@@ -3,10 +3,10 @@ import { dedent } from "@typia/utils";
 /**
  * Renders direct and factory random-generator bindings for one fixture.
  *
- * @evidence contracts/common.md#principled-implementation The Boolean mode selects direct typia.random calls or a createRandom factory. The fixture RANDOM metadata and a separately generated assert callback are passed unchanged to _test_random.
- * @evidence contracts/common.md#clear-and-simple-design One curried writer, one method-name choice and one callback renderer define both source forms without preparing a compiler.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts No generated value or runtime verdict is used to manufacture assertions. The writer retains the existing fixture, helper, RANDOM customization and 100-draw scenario.
- * @evidence contracts/common.md#meaningful-documentation The comment identifies text generation and the difference between direct and factory bindings; generated declaration comments state the companion-validator oracle limitation.
+ * @evidence contracts/testing.md#behavioral-verification The writer renders the actual random/createRandom call, RANDOM customization and companion createAssert binding; _test_random owns 100 runtime draw/assert calls. Rendering performs no product assertion or draw itself.
+ * @evidence contracts/testing.md#independent-expectations The fixture's TypeScript declaration and RANDOM metadata are authored inputs. Runtime acceptance uses the native companion validator and may share generator mistakes; neither this writer nor that agreement independently establishes distribution, diversity or all declaration semantics.
+ * @evidence contracts/testing.md#distinguishing-cases Direct and factory source forms both retain the same fixture/customization and 100-draw helper. Private method/functor select those API spellings; random sampling does not guarantee any specific boundary value is drawn.
+ * @evidence contracts/testing.md#execution-ownership The random descriptor registers this programmer with the controller. Each returned matching test export is discovered by TestServant and hands its two real native callbacks to _test_random; private text renderers own no independent test registration.
  */
 export const write_random = (create: boolean) => (structure: string) =>
   dedent`

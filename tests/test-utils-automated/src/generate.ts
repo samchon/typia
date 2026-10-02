@@ -7,10 +7,10 @@ import { TestAutomation } from "./TestAutomation";
  * generator owns fixture eligibility and both ordinary/equality variants, so
  * preparation delegates to it instead of inventing a coverage list.
  *
- * @evidence contracts/common.md#principled-implementation Awaiting the normal generator establishes the complete validate/validateEquals files under its existing fixture-selection rules before analysis begins. This entry does not invoke a worker or claim those rules prove validation behavior.
- * @evidence contracts/common.md#clear-and-simple-design One awaited generator call owns preparation; its existing selection and writers remain the only source of generated case inputs and names.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts No authored case is copied, excluded or substituted to make Evidence pass. Generation errors reject and prevent analysis from treating preparation as successful.
- * @evidence contracts/common.md#meaningful-documentation Native prose explains fresh-checkout absence, the two matrices and the non-executing preparation boundary. Contract tags remain separate from useful descriptive prose.
+ * @evidence contracts/testing.md#behavioral-verification Materializes the normal clean/spoiled and surplus-key entries through TestAutomation.generate. It executes no assertions; start later composes native schema output with the helper checks.
+ * @evidence contracts/testing.md#independent-expectations Generation preserves authored fixture/spoiler inputs and helper expectations. This entry produces no expected result and does not certify a prepared declaration as behaviorally correct.
+ * @evidence contracts/testing.md#distinguishing-cases Both ordinary and equality populations use their existing membership policies. Clean and invalid distinctions execute in their entries; this preparation function is support code rather than an independent case matrix.
+ * @evidence contracts/testing.md#execution-ownership The package generate script and root evidence:prepare invoke this entry. Its single awaited call rejects on preparation failure; the catch sets process.exitCode to 1. The suite start owns subsequent worker execution.
  */
 export async function generate(): Promise<void> {
   await TestAutomation.generate();

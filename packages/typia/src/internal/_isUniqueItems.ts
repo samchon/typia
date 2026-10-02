@@ -6,7 +6,9 @@
  * primitives, buffers and typed arrays are compared structurally, with cycles
  * tolerated. Native categories must match on both sides; ordinary class
  * instances retain comparison by enumerable structure. Every pair is compared,
- * so the work grows quadratically with the number of elements.
+ * so the work grows quadratically with the number of elements. Blob comparison
+ * uses size and MIME type; File adds name and last-modified time. Their payload
+ * bytes are not read.
  *
  * @evidence contracts/common.md#principled-implementation Native categories are checked on both sides, distinguishing files from blobs and native values from ordinary objects. Every pair of elements is compared with a structural equality that is strict for primitives, handles arrays, sets, maps, boxed primitives, dates, expressions, files, blobs and binary buffers and compares plain objects by own enumerable keys, with a pair table so cycles end. Sets and maps are matched without regard to order. The pairwise scan costs quadratic time in the number of elements, which is stated in the doc.
  * @evidence contracts/common.md#clear-and-simple-design One predicate over a private equality builder and a bytes helper, identical to the copy in @typia/utils.

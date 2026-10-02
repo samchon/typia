@@ -14,26 +14,47 @@ import (
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc lists the inputs.
 type Explore_metadata_IProps struct {
-  Options     MetadataFactory_IOptions
-  Checker     *nativechecker.Checker
-  Components  *schemametadata.MetadataCollection
-  Errors      *[]MetadataFactory_IError
-  Type        *nativechecker.Type
-  Explore     MetadataFactory_IExplore
+  // Options supplies the analysis shape and hooks; member options stay fixed
+  // within the collection.
+  Options MetadataFactory_IOptions
+
+  // Checker resolves Type in the collection's compiler program.
+  Checker *nativechecker.Checker
+
+  // Components owns named entries and cached schemas for this analysis.
+  Components *schemametadata.MetadataCollection
+
+  // Errors is the optional append-only sink; added errors prevent cache storage.
+  Errors *[]MetadataFactory_IError
+
+  // Type is explored into a fresh schema; nil returns the initialized schema.
+  Type *nativechecker.Type
+
+  // Explore supplies the diagnostic location and shape-state flags.
+  Explore MetadataFactory_IExplore
+
+  // Intersected suppresses nested intersection handling and disables cache use.
   Intersected bool
-  NoCache     bool
-  Prunable    bool
+
+  // NoCache bypasses lookup and storage for exploratory analysis.
+  NoCache bool
+
+  // Prunable permits impossible intersection branches to contribute no values.
+  Prunable bool
 }
 
 // Explore_metadata analyzes a type into a new metadata schema.
 //
 // A result is cached in the collection by type and by the options that change
-// it, but only when the type is not inside an intersection and no error was
-// reported. Atomics are emended after the iterators ran.
+// it, but only outside an intersected descent and when this exploration adds no
+// error. Plain-object intersection types are also eligible. One collection is
+// used for one checker/program and fixed Methods/StrictObjectMembers options;
+// the key does not encode every option or location. Atomics are emended after
+// the iterators ran.
 //
-// @evidence contracts/common.md#principled-implementation A fresh schema is filled by Iterate_metadata and emended; the result is cached in the collection by the type and by the options and location bits that change it, but never inside an intersection (unless every member is a plain object) and never when the analysis reported an error, so a cached schema is always a complete, error-free analysis of exactly that key.
+// @evidence contracts/common.md#principled-implementation A fresh schema is filled by Iterate_metadata and emended. Eligible results are cloned through the collection cache keyed by type, Escape/Absorb/Constant/Functional and Top/Aliased/Escaped/Output. Intersected descent, NoCache and explorations adding errors bypass storage; plain-object intersections can be cached. The collection is local to one checker/program and fixed member options, and the key does not encode Prunable or complete location identities.
 // @evidence contracts/common.md#clear-and-simple-design One function with the cache lookup before and the cache store after the iteration.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The cache key lists every input that can change the result, and an uncacheable analysis simply recomputes.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Cache entries are analysis-local cloned schemas, not foreign checker mutations. NoCache and Intersected explicitly bypass reuse; member options must stay fixed within the collection. Prunable is not represented by the current key, so the key alone does not establish equivalence across pruning contexts.
 // @evidence contracts/common.md#meaningful-documentation The doc states the cache conditions.
 func Explore_metadata(props Explore_metadata_IProps) *schemametadata.MetadataSchema {
   plainObjectIntersection := false

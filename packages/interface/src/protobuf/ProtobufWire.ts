@@ -38,12 +38,14 @@ export const enum ProtobufWire {
    */
   LEN = 2,
 
+  /** Start of a deprecated group field. */
   START_GROUP = 3,
 
+  /** End of a deprecated group field, paired with START_GROUP. */
   END_GROUP = 4,
 
   /**
-   * - Fixed
+   * - Fixed32
    * - Sfixed32
    * - Float
    */

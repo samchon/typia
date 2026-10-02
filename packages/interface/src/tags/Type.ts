@@ -94,6 +94,11 @@ export type Type<
                     ? `$importInternal("isTypeFloat")($input)`
                     : `true`;
   exclusive: true;
+  // Maintainer decisions #2348 and #2351 preserve this representation. Large
+  // JavaScript numbers have precision limits; those limits are not a defect to
+  // compensate for with hardcoded bounds, monkey patches or a different numeric
+  // model. Judge changes against the declared schema and runtime contracts.
+  //
   // This schema is deliberately coarser than the runtime Type check. It exposes
   // only the numeric shape and the existing non-negative marker for unsigned
   // integers, not the full bit-width as minimum/maximum. Random generation

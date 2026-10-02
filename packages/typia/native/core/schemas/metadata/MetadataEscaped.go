@@ -6,10 +6,13 @@ package metadata
 // @evidence contracts/common.md#principled-implementation A type with `toJSON` has two shapes, the declared one and the serialized one, and both must survive serialization.
 // @evidence contracts/common.md#clear-and-simple-design Two fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation The doc distinguishes the declared and serialized shapes, with each public field documented separately.
 type IMetadataSchema_IEscaped struct {
+  // Original is the serialized metadata of the type before its toJSON call.
   Original *IMetadataSchema
-  Returns  *IMetadataSchema
+
+  // Returns is the serialized metadata of the value returned by toJSON.
+  Returns *IMetadataSchema
 }
 
 // MetadataEscaped is a type with a `toJSON` method: Original is the declared
@@ -21,8 +24,11 @@ type IMetadataSchema_IEscaped struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states which schema each field is.
 type MetadataEscaped struct {
+  // Original is the analyzed type before its toJSON call.
   Original *MetadataSchema
-  Returns  *MetadataSchema
+
+  // Returns is the analyzed return type used for JSON serialization and names.
+  Returns *MetadataSchema
 }
 
 // MetadataEscaped_create builds an escaped type from props, storing both schemas

@@ -1,5 +1,6 @@
 import { Spoiler } from "../utils/Spoiler";
 
+/** Supplies an array containing every member of a heterogeneous enum. */
 export type ConstantEnumeration = ConstantEnumeration.Enumeration[];
 export namespace ConstantEnumeration {
   export enum Enumeration {
@@ -9,6 +10,7 @@ export namespace ConstantEnumeration {
     Three = "Three",
     Four = "Four",
   }
+  /** Constructs a fresh array using all five authored enum members. */
   export function generate(): ConstantEnumeration {
     return [
       Enumeration.Zero,

@@ -15,12 +15,8 @@ import typia from "typia";
  * 2. For each spoiler, require a failed result whose sorted paths equal the
  *    authored paths.
  *
- * @evidence contracts/common.md#principled-implementation The prepared check judges the success data and a failed result for the clean fixture fails the helper; for spoilers the path lists must match exactly in length and content. The reference is the pre-callback JSON.stringify and the spoiler path lists are authored; the generated typia.assertEquals check on the result shape shares the native producer and is not independent.
- * @evidence contracts/common.md#clear-and-simple-design prepareStringify owns the pre-call platform reference and source snapshots; this wrapper owns operation-specific clean result adaptation and each separate fixture spoiler scenario.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Actual callbacks and authored spoilers execute unchanged; no text-presence or fixture-name shortcut replaces serialization or rejection. Result/error shape checks retain their native correlated-oracle limitation where present.
- * @evidence contracts/common.md#meaningful-documentation The native scenario explains clean serialization and the operation-specific invalid result; the answers identify the shared portable owner and actual committed ObjectSimple composite.
  * @evidence contracts/testing.md#behavioral-verification The prepared check judges the success data and a failed result for the clean fixture fails the helper; for spoilers the path lists must match exactly in length and content.
- * @evidence contracts/testing.md#independent-expectations The reference is the pre-callback JSON.stringify and the spoiler path lists are authored; the generated typia.assertEquals check on the result shape shares the native producer and is not independent.
+ * @evidence contracts/testing.md#independent-expectations The reference is pre-callback JSON.stringify and spoiler path lists are authored; native typia.assertEquals record checking is correlated. The shared serialization oracle compares JSON-visible input state, not ignored properties or mutations undone before checking.
  * @evidence contracts/testing.md#distinguishing-cases Clean success against one failure per spoiler with exact path-list comparison, which also detects missing or extra paths.
  * @evidence contracts/testing.md#execution-ownership Executes through the committed test_json_validateStringify_ObjectSimple composite of test-typia-automated. Native cases in this workspace call the helper from the shared TestServant worker with native-transformed callbacks, so the assembly with the native producer is this suite's boundary, while the expectation policy executes in the plugin-free test-utils unit population.
  */

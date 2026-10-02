@@ -100,9 +100,9 @@ export interface ILlmStructuredOutput<T = unknown> {
    *
    * @param input Pre-parsed output object from SDK
    *
-   * @returns Coerced output with corrected types
+   * @returns Coerced output under the unchecked static interpretation T
    *
-   * @evidence contracts/common.md#principled-implementation Takes a pre-parsed value and returns T, claiming only the coerced types and not validity; the signature asserts T because callers are expected to follow with validate.
+   * @evidence contracts/common.md#principled-implementation The input is unknown and the declared result is T, but coercion is not validation and may leave malformed values unchanged. T is an unchecked static interpretation; the validate member owns the runtime check before callers rely on that type.
    * @evidence contracts/common.md#clear-and-simple-design A function-valued property with a single argument.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts It is documented as a coercion and not a validation.
    * @evidence contracts/common.md#meaningful-documentation The comment warns to use it only for pre-parsed input and gives coercion examples.

@@ -331,8 +331,10 @@ func check_dynamic_properties_internal(context nativecontext.ITypiaContext, name
 // type while breaking that signature's type tags -- the question the tail has
 // to answer to tell an invalid key from a surplus property.
 //
-// It is the same `Check_dynamic_key` question asked of every signature with its
-// type tags removed, joined with `||`. The tail runs only after each full
+// It asks every signature's structural key question without runtime tag
+// predicates, joined with `||`. Templates keep the full checker's structural
+// lowering so discarding predicates does not change substring grammar.
+// The tail runs only after each full
 // condition returned false, so a signature whose declared type still answers
 // yes is one whose tags are what the key broke.
 //
@@ -352,15 +354,32 @@ func check_dynamic_properties_key_shape(props Check_dynamic_propertiesProps, key
   }
   conditions := make([]*shimast.Node, 0, len(props.Dynamic))
   for _, entry := range props.Dynamic {
-    condition := Check_dynamic_key(Check_dynamic_keyProps{
-      Context:  props.Context,
-      Metadata: check_dynamic_properties_key_untagged(entry.Key),
-      Input:    key,
-    })
-    if condition.Kind == shimast.KindTrueKeyword {
-      return condition
+    untagged := check_dynamic_properties_key_untagged(entry.Key)
+    if len(untagged.Atomics) != 0 || len(untagged.Constants) != 0 || len(untagged.Natives) != 0 ||
+      untagged.Any || untagged.Nullable || !untagged.IsRequired() {
+      condition := Check_dynamic_key(Check_dynamic_keyProps{
+        Context:  props.Context,
+        Metadata: untagged,
+        Input:    key,
+      })
+      if condition.Kind == shimast.KindTrueKeyword {
+        return condition
+      }
+      conditions = append(conditions, condition)
     }
-    conditions = append(conditions, condition)
+    f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, props.Context.Emit)
+    for _, template := range entry.Key.Templates {
+      // Keep the same structural lowering as the full checker. Removing slot
+      // tags first would change constrained string captures from [\s\S] to .
+      // and misclassify a newline-bearing declared key as a surplus property.
+      conditions = append(conditions, f.NewCallExpression(
+        f.NewIdentifier("RegExp(/"+TemplateRuntimePattern(template.Row)+"/).test"),
+        nil,
+        nil,
+        f.NewNodeList([]*shimast.Node{key}),
+        shimast.NodeFlagsNone,
+      ))
+    }
   }
   return check_dynamic_key_reduce(conditions, shimast.KindBarBarToken, props.Context.Emit)
 }
@@ -379,23 +398,40 @@ func check_dynamic_properties_key_shape(props Check_dynamic_propertiesProps, key
 // every full condition refused the key, so a stripped condition equal to one of
 // them refuses it too.
 func check_dynamic_properties_key_tagged(metadata *nativemetadata.MetadataSchema) bool {
-  for _, atomic := range metadata.Atomics {
-    for _, row := range atomic.Tags {
+  tagged := func(rows [][]nativemetadata.IMetadataTypeTag) bool {
+    for _, row := range rows {
       for _, tag := range row {
-        if tag.Validate != "" {
+        if tag.Validate != "" || (tag.Kind == "exclude" && len(check_exclude_values(tag)) != 0) {
           return true
         }
+      }
+    }
+    return false
+  }
+  for _, atomic := range metadata.Atomics {
+    if tagged(atomic.Tags) {
+      return true
+    }
+  }
+  for _, template := range metadata.Templates {
+    if tagged(template.Tags) {
+      return true
+    }
+    for _, child := range template.Row {
+      if _, _, ok := template_constrained_capture(child); ok {
+        return true
       }
     }
   }
   return false
 }
 
-// The key declaration with its type tags removed, leaving the declared type
-// alone. Templates, constants, and natives carry no tags, so only the atomics
-// are rebuilt; the clone keeps the original reportable name untouched.
+// The non-template key declaration with its atomic tags removed. Templates use
+// their original structural pattern in key_shape, so discarding runtime tag
+// predicates cannot change capture grammar. Original metadata stays untouched.
 func check_dynamic_properties_key_untagged(metadata *nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
   clone := *metadata
+  clone.Templates = nil
   clone.Atomics = make([]*nativemetadata.MetadataAtomic, 0, len(metadata.Atomics))
   for _, atomic := range metadata.Atomics {
     clone.Atomics = append(clone.Atomics, nativemetadata.MetadataAtomic_create(nativemetadata.MetadataAtomic{

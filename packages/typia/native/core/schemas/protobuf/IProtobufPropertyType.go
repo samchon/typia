@@ -21,7 +21,10 @@ type IProtobufPropertyType interface {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what Index means.
 type IProtobufPropertyType_IByte struct {
+  // IProtobufSchema_IByte carries the bytes encoding of this union member.
   IProtobufSchema_IByte
+
+  // Index is the field number; nil means it has not been assigned yet.
   Index *int
 }
 
@@ -34,7 +37,10 @@ type IProtobufPropertyType_IByte struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what Index means.
 type IProtobufPropertyType_IBoolean struct {
+  // IProtobufSchema_IBoolean carries the bool encoding of this union member.
   IProtobufSchema_IBoolean
+
+  // Index is the field number; nil means it has not been assigned yet.
   Index *int
 }
 
@@ -47,7 +53,10 @@ type IProtobufPropertyType_IBoolean struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what Index means.
 type IProtobufPropertyType_IBigint struct {
+  // IProtobufSchema_IBigint selects the integer encoding of this union member.
   IProtobufSchema_IBigint
+
+  // Index is the field number; nil means it has not been assigned yet.
   Index *int
 }
 
@@ -60,7 +69,10 @@ type IProtobufPropertyType_IBigint struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what Index means.
 type IProtobufPropertyType_INumber struct {
+  // IProtobufSchema_INumber selects the numeric encoding of this union member.
   IProtobufSchema_INumber
+
+  // Index is the field number; nil means it has not been assigned yet.
   Index *int
 }
 
@@ -73,7 +85,10 @@ type IProtobufPropertyType_INumber struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what Index means.
 type IProtobufPropertyType_IString struct {
+  // IProtobufSchema_IString carries the string encoding of this union member.
   IProtobufSchema_IString
+
+  // Index is the field number; nil means it has not been assigned yet.
   Index *int
 }
 
@@ -86,7 +101,10 @@ type IProtobufPropertyType_IString struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what Index means.
 type IProtobufPropertyType_IArray struct {
+  // IProtobufSchema_IArray describes the repeated encoding of this union member.
   IProtobufSchema_IArray
+
+  // Index is the field number; nil means it has not been assigned yet.
   Index *int
 }
 
@@ -99,7 +117,10 @@ type IProtobufPropertyType_IArray struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what Index means.
 type IProtobufPropertyType_IObject struct {
+  // IProtobufSchema_IObject identifies the nested message of this union member.
   IProtobufSchema_IObject
+
+  // Index is the field number; nil means it has not been assigned yet.
   Index *int
 }
 
@@ -111,7 +132,10 @@ type IProtobufPropertyType_IObject struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what Index means.
 type IProtobufPropertyType_IMap struct {
+  // IProtobufSchema_IMap describes the map encoding of this union member.
   IProtobufSchema_IMap
+
+  // Index is the field number; nil means it has not been assigned yet.
   Index *int
 }
 

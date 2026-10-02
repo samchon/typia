@@ -18,7 +18,7 @@ import (
 // 1. Build metadata with boolean, bigint, number, string, and template buckets.
 // 2. Reuse a caller-owned union map while extracting atomic scalars.
 // 3. Assert fallback sequence and unsupported sequence-tag branches.
-// 4. Exercise numeric atomic defaults and unsupported integer conversion.
+// 4. Exercise numeric atomic defaults with a nil caller-owned union map.
 //
 // @evidence contracts/testing.md#behavioral-verification Scalar extraction runs on boolean, bigint, number, string and template buckets with a caller-owned union map, and on unsupported sequence tags and number-only input.
 // @evidence contracts/testing.md#independent-expectations Scalar defaults (double, uint64 for positive bigint, int32 for small constants) are authored from the protobuf mapping rules.

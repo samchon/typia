@@ -51,6 +51,8 @@ const schemas = typia.json.schemas<[User]>();
 
 The output is a plain object. Use it directly with typia and `@typia/utils`, hand it to `ajv` when your JSON Schema consumer accepts typia's emended shape, or save it to disk for tooling that wants schemas at rest.
 
+When index-signature values are combined into a schema, their template-literal alternatives remain in the resulting value union.
+
 When validating a schema with `@typia/utils`'s `OpenApiValidator`, supported string formats apply their registered checks. Unknown format names are annotations and impose no format check; string type, pattern and length constraints still apply. This also holds for custom names such as `constructor` or `__proto__`.
 
 `typia.json.schema`, `typia.json.schemas`, and `typia.json.application` return typia's emended schema representation. It is designed for typia and `@typia/utils` converters first, not for direct assignment to every third-party OpenAPI `SchemaObject` type. When a tool expects raw OpenAPI 3.1 schemas, convert the components with `OpenApiConverter.downgradeComponents`:
@@ -71,6 +73,8 @@ const components = OpenApiConverter.downgradeComponents(
 This matters for schema-level `examples`: typia keeps `tags.Examples<T>` as named examples in the emended schema, while OpenAPI 3.1's Schema Object uses JSON Schema's array-shaped `examples` keyword. The converter drops the names and emits the raw OpenAPI form.
 
 The same boundary applies to `tags.Format<"byte">`. Typia keeps `format: "byte"` in its emended schema, OpenAPI 3.0 output retains that spelling, and raw OpenAPI 3.1 output uses `contentEncoding: "base64"`. An explicitly supplied `tags.ContentMediaType<...>` is retained in the OpenAPI 3.1 Schema Object; typia does not invent a media type when none was declared.
+
+For tuples, raw OpenAPI 3.1 uses `prefixItems` for positional schemas and `items` for the remaining elements. The converter writes typia's emended rest constraint into `items` and preserves the required prefix length through `minItems`. When upgrading a raw schema, `items: true` or omitted `items` permits unconstrained elements, while `items: false` forbids them; without a prefix, false permits only an empty array, subject to the schema's length bounds.
 
 ### Swagger 2 document conversion
 

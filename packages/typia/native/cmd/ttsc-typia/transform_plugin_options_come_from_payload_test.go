@@ -9,12 +9,12 @@ import (
 //
 // The host payload configures typia transform behavior; source-project plugin options do not replace those explicit operation settings.
 //
-// 1. Enabled/disabled option payload twins distinguish finite, functional, numeric and undefined checks while retaining the same fixture shape.
-// 2. Each transform option subcase emits guards matching its explicit plugin payload, independent of fixture config settings.
+// 1. Inline, commented, sibling-owned and inherited plugin entries distinguish enabled/disabled functional payloads while retaining the same function-property fixture.
+// 2. Each subcase includes or omits the function-property guard according to the explicit typia plugin payload.
 //
-// @evidence contracts/testing.md#behavioral-verification Each transform option subcase emits guards matching its explicit plugin payload, independent of fixture config settings.
+// @evidence contracts/testing.md#behavioral-verification Each subcase includes or omits the function-property guard according to the explicit typia plugin payload.
 // @evidence contracts/testing.md#independent-expectations The host payload configures typia transform behavior; source-project plugin options do not replace those explicit operation settings.
-// @evidence contracts/testing.md#distinguishing-cases Enabled/disabled option payload twins distinguish finite, functional, numeric and undefined checks while retaining the same fixture shape.
+// @evidence contracts/testing.md#distinguishing-cases Inline, commented, sibling-owned and inherited plugin entries distinguish enabled/disabled functional payloads while retaining the same function-property fixture.
 // @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestTransformPluginOptionsComeFromPayload as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestTransformPluginOptionsComeFromPayload(t *testing.T) {
   for _, tc := range pluginOptionsPayloadCases() {

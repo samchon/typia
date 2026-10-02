@@ -11,15 +11,10 @@ declare const process: { argv: string[]; exitCode?: number };
  * Each entry supplies actual imported callbacks; a failed case cannot prevent
  * later independent cases from running or leave the child process successful.
  *
- * @evidence contracts/common.md#principled-implementation Each selected task is awaited once in order, with success/failure printed under its profile and case identity. Failures are retained and set nonzero process exitCode after all cases; malformed CLI mode selection remains with the profile entry.
- * @evidence contracts/common.md#clear-and-simple-design One execution loop owns case filtering and failure aggregation; the caller owns compiler context and callback list. Local host declarations avoid importing ambient Node/DOM types into provenance-sensitive projects.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts No callback is patched, skipped by verdict or replaced with emitted-text checks. Include/exclude filtering follows the same substring rules as TestServant and is explicitly counted; producer options come from the official CLI project, not from task arguments alone.
- * @evidence contracts/common.md#meaningful-documentation The comment explains actual callback execution, failure continuation and local host declarations; logs retain profile/case identities and final selected counts for execution census.
- * @evidence contracts/performance.md#efficient-algorithms One pass selects and executes cases; filter work grows with case names and supplied include/exclude strings. Cases execute sequentially and local failure storage grows only with failing cases.
- *
- * @evidenceExclude contracts/performance.md#reuse-equivalent-work The caller has already prepared this profile once through official ttsx. This function coordinates no compilation cache; each callback's assertions must execute rather than reuse a previous verdict.
- *
- * @evidence contracts/performance.md#bound-retention-and-release-resources Only the selected list and local failures are retained until this invocation ends. Each task is awaited before another starts; the surrounding official CLI owns the child lifetime and this operation acquires no independent host or file handle.
+ * @evidence contracts/testing.md#behavioral-verification Every selected task executes and is awaited before its success record is printed; a thrown/rejected task records its own failure without suppressing later independent tasks. A nonempty failure list sets final exitCode 1; this runner owns aggregate status rather than a case's expected product value.
+ * @evidence contracts/testing.md#independent-expectations Imported authored cases own their literals, fixtures and reference comparisons. This operation requires actual task completion and no caught failure, while runNativeProfiles independently compares printed success identities with its configured registry.
+ * @evidence contracts/testing.md#distinguishing-cases Include/exclude substring filters distinguish selected and omitted identities; successful, synchronously throwing and asynchronously rejecting tasks retain separate logs and later execution. Private values collects flag arguments; the runner adds no fault-injection scenario to ordinary product cases.
+ * @evidence contracts/testing.md#execution-ownership default/numeric/undefined and provenance entry scripts import this entry under their actual tsconfig authority. Their named task callbacks preserve original case failure identities; filtering, awaiting, reporting and exitCode aggregation are owned here, with no per-case compiler launch.
  */
 export async function executeProfile(
   profile: string,

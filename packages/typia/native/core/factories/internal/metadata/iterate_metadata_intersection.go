@@ -17,7 +17,7 @@ import (
 // with the tags attached. Anything else is reported as a nonsensible
 // intersection.
 //
-// @evidence contracts/common.md#principled-implementation A union-distribution reduction and a plain-object test come first, because an intersection of plain objects is merged by the object path. Otherwise every member is analyzed in a scratch copy of the collection with errors captured; type tag objects are separated, a call-signature-only arm is dropped when something else survives, phantom brands (optional or symbol-keyed members only) are dropped, and exactly one single-bucket base must remain, which is analyzed alone with the tags attached to its constants, atomics, templates, arrays, objects, natives, sets or maps; any other combination is an error. The collection is restored from the copy so the trial analysis leaves no residue.
+// @evidence contracts/common.md#principled-implementation A union-distribution reduction and a plain-object test come first, because an intersection of plain objects is merged by the object path. Otherwise every member is analyzed on the collection after taking a registry snapshot, with trial errors captured; type tag objects are separated, a call-signature-only arm is dropped when something else survives, phantom brands (optional or symbol-keyed members only) are dropped, and exactly one single-bucket base must remain, which is analyzed alone with the tags attached to its constants, atomics, templates, arrays, objects, natives, sets or maps; any other combination is an error. Restoring the snapshot rolls back registry maps, order lists, counters and caches; existing named definitions remain shared and are not a deep transaction.
 // @evidence contracts/common.md#clear-and-simple-design One long function that lists the decision steps in order and delegates classification to private helpers (brand and signature tests, never detection, literal disjointness, tag analysis, identity gates); the helpers are private because only this iterator and the explorer need them.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Each rejection reports the exact intersection, and the brand and signature rules are structural; the long inline comments record the cases that a simpler rule would break.
 // @evidence contracts/common.md#meaningful-documentation The doc states the order of steps, and the helpers carry comments with the reasons and issue references.
@@ -143,7 +143,7 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
   // removable" guard below exists to refuse an intersection of nothing but
   // brands, and an arm such as `Record<never, never>` is vacuously a phantom
   // brand, so counting signatures as removable would turn
-  // `call & Record<never, never>` — which the interface spelling accepts — into a
+  // `call & Record<never, never>` ??which the interface spelling accepts ??into a
   // rejection.
   if len(metadatas) > 1 {
     kept := make([]*schemametadata.MetadataSchema, 0, len(metadatas))
@@ -169,7 +169,7 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
       metadatas = kept
       indexes = keptIndexes
     } else if len(kept) == 0 {
-      // Every arm was signatures only — an overload set, a call-and-construct
+      // Every arm was signatures only ??an overload set, a call-and-construct
       // pair, or two constructors. That is a member-free callable, which is what
       // the interface spelling of the same type produces, so this iterator has
       // nothing to merge and hands the type back rather than refusing it.
@@ -199,9 +199,9 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
     }
   }
   // After phantom brands are dropped, exactly one single-bucket base member must
-  // survive (`string & Brand` → string). Two genuine non-object members
-  // (`string[] & number[]`, `A[] & [t…]`, `T1 & T2`, …) — or a multi-bucket
-  // survivor — is an intersection of constraint carriers, a misuse with no sound
+  // survive (`string & Brand` ??string). Two genuine non-object members
+  // (`string[] & number[]`, `A[] & [t??`, `T1 & T2`, ?? ??or a multi-bucket
+  // survivor ??is an intersection of constraint carriers, a misuse with no sound
   // merge, so it stays nonsensible. This subsumes the per-candidate-kind check
   // below, which therefore always collapses to a single candidate.
   if len(metadatas) != 1 || metadatas[0].Size() != 1 {
@@ -331,7 +331,7 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
   explore.Escaped = false
   // Re-explore the surviving base alone (`Intersected: true` short-circuits the
   // intersection handler at the top of this function). TypeScript flattens nested
-  // intersections — `(A & B) & C` is presented as a single `types: [A, B, C]` — so
+  // intersections ??`(A & B) & C` is presented as a single `types: [A, B, C]` ??so
   // `Types()[index]` is always an atomic member, never itself an intersection that
   // would re-enter and leave `props.Metadata` empty.
   Iterate_metadata(IMetadataIteratorProps{
@@ -359,7 +359,7 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
 //
 // `((v: number) => string) & { label: string }` and
 // `interface T { (v: number): string; label: string }` are the same type, and
-// only the first reaches this function — the second is one object carrying a
+// only the first reaches this function ??the second is one object carrying a
 // call signature. Without this the first was refused as a nonsensible
 // intersection while the second was accepted, so the answer depended on the
 // spelling (samchon/typia#2276).
@@ -385,11 +385,11 @@ func iterate_metadata_intersection_is_call_signature_only(m *schemametadata.Meta
 // The single-survivor guard lives in the caller: when EVERY member is a plain
 // object, the entry point routes to the object-merge path before this runs, so
 // a required-literal property of a genuine `A & B` object merge is never dropped
-// here — only brands intersected with a primitive/array/template/native are.
+// here ??only brands intersected with a primitive/array/template/native are.
 //
 // A member is removable when it is a single non-recursive object bucket whose
 // every property is phantom: optional, or symbol-keyed. Those two are the only
-// unambiguously phantom markers — an optional property need not be present, and
+// unambiguously phantom markers ??an optional property need not be present, and
 // a symbol-keyed property is never observable on a JSON value. Any required
 // string-keyed property (literal or not) might be real data, so it keeps the
 // intersection nonsensible rather than silently dropping a declared constraint.
@@ -584,7 +584,7 @@ func iterate_metadata_intersection_is_removable_object_constraint(
     // A symbol-keyed member is never observable on a JSON value (the canonical
     // nominal brand), so it is phantom and removable. typia's own tag is handled
     // as a constraint, not stripped here; any required string-keyed property might
-    // be real data — both keep the object as a constraint, not a removable brand.
+    // be real data ??both keep the object as a constraint, not a removable brand.
     if iterate_metadata_intersection_is_symbol_name(symbol.Name) {
       continue
     }

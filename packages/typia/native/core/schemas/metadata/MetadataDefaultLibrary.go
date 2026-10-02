@@ -87,7 +87,7 @@ func MetadataDefaultLibrary_is(checker *nativechecker.Checker, source *nativeast
 // exported so the one predicate that still answers without a checker keeps
 // using the same rule.
 //
-// @evidence contracts/common.md#principled-implementation A base name of the form lib.*.d.ts after normalizing separators is the historical default-library test, exposed so the callers that have no checker use the same rule as the fallback.
+// @evidence contracts/common.md#principled-implementation After separator normalization, a base name beginning with lib. and ending with .d.ts passes the historical test, including lib.d.ts; callers without a checker use this same fallback.
 // @evidence contracts/common.md#clear-and-simple-design One normalization and two prefix and suffix tests.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts It is the documented fallback and does not claim to be authoritative.
 // @evidence contracts/common.md#meaningful-documentation The doc states that it is the file-name fallback.

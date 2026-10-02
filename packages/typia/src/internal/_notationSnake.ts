@@ -31,7 +31,7 @@ const _notationSnakeWord = (str: string): string => {
  * underscore-delimited segment, with consecutive capitals collapsed into one
  * word.
  *
- * @evidence contracts/common.md#principled-implementation Leading underscores are kept, each underscore-delimited segment is walked at its ASCII capitals with consecutive capitals collapsed into one word, and the lowercased pieces are joined with underscores, matching the SnakeCase typing and the utilities' converter.
+ * @evidence contracts/common.md#principled-implementation Leading underscores are kept, each underscore-delimited segment is walked at its ASCII capitals with consecutive capitals collapsed into one word, and the lowercased pieces are joined with underscores. Word boundaries follow the ASCII-capital convention also used by SnakeCase; lowercase conversion applies to each complete runtime piece, rather than promising character-by-character Unicode equivalence with the template-literal type. The utilities' converter uses the same runtime algorithm.
  * @evidence contracts/common.md#clear-and-simple-design One function and a private word converter, duplicated in the utilities package, which typia cannot reach from the emitted-code path.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The rule is general over ASCII capitals and no key is special-cased.
  * @evidence contracts/common.md#meaningful-documentation A comment states the boundary rule and the per-segment walk.

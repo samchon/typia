@@ -6,9 +6,12 @@ package metadata
 // @evidence contracts/common.md#principled-implementation The JSON form groups the values by the primitive type, like the analysis does.
 // @evidence contracts/common.md#clear-and-simple-design Two fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation The doc explains primitive grouping, and each public field describes its serialized role.
 type IMetadataSchema_IConstant struct {
-  Type   string
+  // Type is the shared primitive category of the literal values.
+  Type string
+
+  // Values contains the ordered serialized literals in this category.
   Values []IMetadataSchema_IConstant_IValue
 }
 
@@ -20,7 +23,10 @@ type IMetadataSchema_IConstant struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the grouping.
 type MetadataConstant struct {
-  Type   string
+  // Type is the shared primitive category used for grouping and type checks.
+  Type string
+
+  // Values holds the analyzed literal records belonging to this category.
   Values []*MetadataConstantValue
 }
 

@@ -6,7 +6,8 @@ import { LlmJson, LlmSchemaConverter } from "@typia/utils";
  *
  * Each function gets `parse` and `coerce` bound to its parameters schema and a
  * validator that a custom hook can replace. The schema configuration is the one
- * the emitted application declares.
+ * the emitted application declares. The returned application shares schemas
+ * with the primitive; keep them unchanged while using the bound operations.
  *
  * @evidence contracts/common.md#principled-implementation The emitted application, which has the schemas and the declared configuration, is completed at runtime: each function gains parse and coerce bound to its parameter schema and a validator that a custom hook can replace, and the configuration is the emitted one with the hook. The schema configuration is taken from the emitted application because that is where the generic was resolved, so a strict build reports strict.
  * @evidence contracts/common.md#clear-and-simple-design One function that spreads the primitive application and maps its functions, using the utility package for parsing and coercion.

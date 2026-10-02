@@ -19,7 +19,7 @@ import { OpenApiConverter } from "@typia/utils";
  *
  * @evidence contracts/testing.md#behavioral-verification OpenApiConverter upgrades authored Swagger 2 documents and downgrades the result; servers, global and operation consumes and produces, response examples and the downgraded endpoint fields are compared.
  * @evidence contracts/testing.md#independent-expectations Swagger's scheme, host, basePath, consumes and produces precedence rules and the source document decide the expected servers and media maps; expectations are authored literals.
- * @evidence contracts/testing.md#distinguishing-cases Global versus operation overrides, response-media order, empty response content, root server normalization and host casing each isolate one conversion decision; unrepresentable combinations are rejected by test_document_downgrade_v20_unrepresentable.
+ * @evidence contracts/testing.md#distinguishing-cases Global versus operation overrides, response-media order, empty response content, root server normalization and host casing each isolate one conversion decision. Empty media declarations with payloads and endpoint query/fragment failures require the actual TypeError constructor and independently authored diagnostic; downgrade rejection cases are owned by test_document_downgrade_v20_unrepresentable.
  * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored documents with no native build, installation or host.
  */
 export const test_document_roundtrip_v20_server_media = (): void => {
@@ -302,56 +302,74 @@ export const test_document_roundtrip_v20_server_media = (): void => {
     },
   );
 
-  assertThrows("empty consumes with body schema", () =>
-    OpenApiConverter.upgradeDocument({
-      ...input,
-      paths: {
-        "/invalid": {
-          post: {
-            consumes: [],
-            parameters: [
-              { name: "body", in: "body", schema: { type: "boolean" } },
-            ],
-            responses: {},
-          },
-        },
-      },
-    }),
-  );
-  assertThrows("empty produces with response schema", () =>
-    OpenApiConverter.upgradeDocument({
-      ...input,
-      paths: {
-        "/invalid": {
-          get: {
-            produces: [],
-            responses: {
-              "200": { description: "ok", schema: { type: "boolean" } },
+  assertThrows(
+    "empty consumes with body schema",
+    "SwaggerV2Upgrader: body parameters require a consumed media type.",
+    () =>
+      OpenApiConverter.upgradeDocument({
+        ...input,
+        paths: {
+          "/invalid": {
+            post: {
+              consumes: [],
+              parameters: [
+                { name: "body", in: "body", schema: { type: "boolean" } },
+              ],
+              responses: {},
             },
           },
         },
-      },
-    }),
+      }),
+  );
+  assertThrows(
+    "empty produces with response schema",
+    "SwaggerV2Upgrader: response payloads require a produced media type.",
+    () =>
+      OpenApiConverter.upgradeDocument({
+        ...input,
+        paths: {
+          "/invalid": {
+            get: {
+              produces: [],
+              responses: {
+                "200": { description: "ok", schema: { type: "boolean" } },
+              },
+            },
+          },
+        },
+      }),
   );
   for (const endpoint of [
     { host: "api.example.com?tenant=one" },
     { basePath: "/v1#section" },
   ])
-    assertThrows("server query or fragment", () =>
-      OpenApiConverter.upgradeDocument({
-        ...input,
-        ...endpoint,
-        paths: {},
-      }),
+    assertThrows(
+      "server query or fragment",
+      "SwaggerV2Upgrader: host and basePath cannot contain a query or fragment.",
+      () =>
+        OpenApiConverter.upgradeDocument({
+          ...input,
+          ...endpoint,
+          paths: {},
+        }),
     );
 };
 
-const assertThrows = (title: string, task: () => unknown): void => {
-  let thrown: boolean = false;
+const assertThrows = (
+  title: string,
+  message: string,
+  task: () => unknown,
+): void => {
+  let thrown: unknown;
   try {
     task();
-  } catch {
-    thrown = true;
+  } catch (error) {
+    thrown = error;
   }
-  TestValidator.predicate(title, thrown);
+  TestValidator.predicate(
+    title,
+    thrown instanceof TypeError &&
+      thrown.constructor === TypeError &&
+      thrown.message === message,
+  );
 };

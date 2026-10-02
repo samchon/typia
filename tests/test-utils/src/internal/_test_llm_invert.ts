@@ -28,14 +28,10 @@ import { LlmSchemaConverter } from "@typia/utils";
  * @param $defs Definitions `llm` was written into
  * @param json OpenAPI schema of the same type
  *
- * @evidence contracts/testing.md#behavioral-verification The helper inverts a natively generated LLM schema and compares the normalized result with the natively generated JSON schema of the same type; an erased keyword, unresolved union or empty definition changes the comparison.
+ * @evidence contracts/testing.md#behavioral-verification The helper inverts a supplied LLM schema and compares the normalized result with the expected JSON schema; native callers produce both schemas from the same type, while the oracle unit supplies authored schemas. An erased keyword, unresolved union or empty definition changes the comparison.
  * @evidence contracts/testing.md#independent-expectations The expected JSON schema comes from the separate json.schema API rather than from invert, but both native producers share metadata and can share defects. Authored unit inputs pin the comparison's reference resolution and mismatch sensitivity; this native parity helper cannot independently establish producer correctness.
  * @evidence contracts/testing.md#distinguishing-cases The helper owns the comparison policy only (descriptions skipped, members as a set); the type families are supplied by the invert cases.
  * @evidence contracts/testing.md#execution-ownership Native inversion cases call this helper from test:integration; the explicitly registered test_llm_invert_oracle_references unit case supplies authored schemas without a native producer. The helper's actual operations are portable TypeScript.
- * @evidence contracts/common.md#principled-implementation Private normalization expands own local reference targets after URI-fragment and RFC 6901 token decoding, overlays each reference's siblings and sorts union signatures without descriptions. Separate alias-chain and recursive-graph sets reject empty alias cycles while terminating object back-edges; malformed or missing targets fail the comparison. Default/example payloads remain literal values rather than reference graphs.
- * @evidence contracts/common.md#clear-and-simple-design One inversion call and one comparison own the assertion. Private normalize and signature isolate reference expansion and ordering from the converter; per-branch sets keep sibling branches independent and no normalization state survives a call.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts The comparison decodes references from their values and requires own entries, with no named-fixture branch or missing-target fallback. Its independent pointer reader preserves intermediate reference siblings that a root-only terminal resolver would erase; authored unit controls exercise this oracle directly.
- * @evidence contracts/common.md#meaningful-documentation Native prose states ignored descriptions, union ordering, missing/alias-cycle failures and the retained recursive-name limitation so callers know which equivalence this helper establishes.
  */
 export const _test_llm_invert = (
   title: string,

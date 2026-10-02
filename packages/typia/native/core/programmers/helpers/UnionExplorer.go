@@ -44,25 +44,27 @@ type UnionExplorer_ObjectConfig struct {
 }
 
 // UnionExplorer_IObjector is the object operations that a feature supplies to
-// UnionExplorer.Object. Checker, Decoder, Unionizer, Failure, Full and Joiner
-// build the feature's checks and results; Is and Required test the input, and
-// Type is the checked type. Joiner is typed any because each feature has its own
-// joiner record.
+// UnionExplorer.Object. Checker, Decoder, Unionizer, Failure and Full
+// build the feature's checks and results. Is and Required adapt a generated
+// predicate, rather than receiving the original input value.
 //
-// @evidence contracts/common.md#principled-implementation It is the object operations that a feature supplies to UnionExplorer.Object; its 9 members (Checker, Decoder, Joiner, Unionizer, Failure, Is, Required, Full, Type) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
-// @evidence contracts/common.md#clear-and-simple-design A 9-member record of values and callbacks.
+// @evidence contracts/common.md#principled-implementation Checker tests a discriminator, Decoder emits the selected member and Unionizer handles members without a unique property. Failure/Full carry the feature's diagnostic policy; optional Is/Required adapt generated predicates, keeping the union explorer independent of checking or serialization results.
+// @evidence contracts/common.md#clear-and-simple-design The seven callbacks are the operations Object actually consumes; optional predicate/result adapters do not duplicate the feature's decoder or error policy.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
 // @evidence contracts/common.md#meaningful-documentation The doc states the role and the meaning of the members that are not obvious.
 type UnionExplorer_IObjector struct {
   Checker   func(props UnionExplorer_ObjectorCheckerProps) *shimast.Node
   Decoder   func(props UnionExplorer_ObjectorDecoderProps) *shimast.Node
-  Joiner    any
   Unionizer func(props UnionExplorer_ObjectorUnionizerProps) *shimast.Node
   Failure   func(props UnionExplorer_ObjectorFailureProps) *shimast.Node
-  Is        func(exp *shimast.Expression) *shimast.Node
-  Required  func(exp *shimast.Expression) *shimast.Node
-  Full      func(props UnionExplorer_ObjectorFullProps) *shimast.Node
-  Type      *shimast.TypeNode
+
+  // Is optionally adapts the chosen discriminator predicate.
+  Is func(exp *shimast.Expression) *shimast.Node
+
+  // Required optionally adapts a property-presence predicate for a unique key.
+  Required func(exp *shimast.Expression) *shimast.Node
+
+  Full func(props UnionExplorer_ObjectorFullProps) *shimast.Node
 }
 
 // UnionExplorer_ObjectorCheckerProps is the argument of the Checker operation,
@@ -174,10 +176,18 @@ type UnionExplorer_ArrayLikeConfig struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ArrayLikeCheckerProps struct {
-  Input      *shimast.Expression
+  Input *shimast.Expression
+
+  // Definition is element metadata for arrays/sets, a key/value metadata pair
+  // for maps, or the full MetadataTuple for tuples. The matching explorer and
+  // callback must agree on this representation.
   Definition any
-  Explore    UnionExplorer_IExplore
-  Container  *shimast.Expression
+
+  Explore UnionExplorer_IExplore
+
+  // Container is the full array expression when Input is only its front value.
+  // Tuple callbacks may need it for container length checks.
+  Container *shimast.Expression
 }
 
 // UnionExplorer_ArrayLikeDecoderProps is the argument of the Decoder operation
@@ -188,9 +198,13 @@ type UnionExplorer_ArrayLikeCheckerProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ArrayLikeDecoderProps struct {
-  Input      *shimast.Expression
+  Input *shimast.Expression
+
+  // Definition is the full MetadataArray or MetadataTuple selected for decode.
+  // Set/map explorers provide their synthesized MetadataArray representation.
   Definition any
-  Explore    UnionExplorer_IExplore
+
+  Explore UnionExplorer_IExplore
 }
 
 // UnionExplorer_ArrayLikeCandidateProps is the argument of the Candidate
@@ -202,9 +216,13 @@ type UnionExplorer_ArrayLikeDecoderProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ArrayLikeCandidateProps struct {
-  Input      *shimast.Expression
+  Input *shimast.Expression
+
+  // Definition is the full candidate MetadataArray or MetadataTuple; Candidate
+  // validates container constraints before committing to its decoder.
   Definition any
-  Explore    UnionExplorer_IExplore
+
+  Explore UnionExplorer_IExplore
 }
 
 // UnionExplorer_ArrayLikeFailureProps is the argument of the Failure operation
@@ -261,12 +279,16 @@ type UnionExplorer_ArrayProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ArrayOrTupleProps struct {
-  Config      UnionExplorer_ArrayLikeConfig
-  Parameters  []*shimast.Node
-  Input       *shimast.Expression
+  Config     UnionExplorer_ArrayLikeConfig
+  Parameters []*shimast.Node
+  Input      *shimast.Expression
+
+  // Definitions contains MetadataArray and MetadataTuple candidates in the
+  // order supplied by the owning feature; no other dynamic type is supported.
   Definitions []any
-  Explore     UnionExplorer_IExplore
-  Emit        *shimprinter.EmitContext
+
+  Explore UnionExplorer_IExplore
+  Emit    *shimprinter.EmitContext
 }
 
 // UnionExplorer_SetProps is the argument record of UnionExplorer.Set, which

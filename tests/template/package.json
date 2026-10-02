@@ -55,8 +55,5 @@
     "uuid": "catalog:utils",
     "@typia/interface": "workspace:^",
     "@typia/utils": "workspace:^"
-  },
-  "scripts": {
-    "evidence": "evidence"
   }
 }

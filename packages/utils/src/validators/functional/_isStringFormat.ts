@@ -31,11 +31,6 @@ import { _isFormatUuid } from "./_isFormatUuid";
  * @evidence contracts/common.md#clear-and-simple-design One fixed dispatch table owns name-to-predicate selection. The membership check and invocation stay together, so both consumers share unknown-format semantics without separate lists or exception handlers.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Registered names are supported schema formats, not consumer or fixture exceptions. Own-key selection applies uniformly to arbitrary names and changes no foreign prototype or checker.
  * @evidence contracts/common.md#meaningful-documentation Native prose explains unknown annotations, inherited-name exclusion and the independent constraints owned by consumers. The registry gives the exact supported population; descriptive prose is separate from acknowledgments.
- * @evidence contracts/performance.md#efficient-algorithms Own-key testing and keyed lookup avoid scanning the fixed registry. Dispatch adds constant work to the selected predicate's input-dependent cost and allocates no per-call registry or format-name list.
- *
- * @evidenceExclude contracts/performance.md#reuse-equivalent-work This operation selects and runs a predicate for one value; it coordinates no equivalent request population or result cache. Fixed predicate references are initialized once and reused by calls without storing validated values.
- *
- * @evidence contracts/performance.md#bound-retention-and-release-resources The module retains one fixed registry of predicate references. Calls retain no input, result history, task or handle; predicate-local allocations belong to the invoked checker and become reclaimable after its execution.
  */
 export const _isStringFormat = (format: string, value: string): boolean => {
   const checker: ((input: string) => boolean) | undefined = Object.hasOwn(

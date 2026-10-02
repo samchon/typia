@@ -6,23 +6,30 @@ package metadata
 // @evidence contracts/common.md#principled-implementation A map has no shared declaration, so its JSON form holds both schemas and the tags.
 // @evidence contracts/common.md#clear-and-simple-design Three fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation Each field describes the map projection produced by ToJSON.
 type IMetadataSchema_IMap struct {
-  Key   *IMetadataSchema
+  // Key is the serialized map-key schema.
+  Key *IMetadataSchema
+  // Value is the serialized map-value schema.
   Value *IMetadataSchema
-  Tags  [][]IMetadataTypeTag
+  // Tags contains alternative rows of jointly applied tags.
+  Tags [][]IMetadataTypeTag
 }
 
 // MetadataMap is the global `Map` type with its key and value schemas and the
-// tag rows of the use. The cached names are not recomputed when Tags changes later.
+// tag rows of the use. Key and Value names and Tags must be final before the
+// first cached name lookup; later changes do not invalidate either cache.
 //
 // @evidence contracts/common.md#principled-implementation The key and value schemas define the map and the tags belong to the use.
 // @evidence contracts/common.md#clear-and-simple-design Three fields and two caches.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The cache limitation is stated.
 // @evidence contracts/common.md#meaningful-documentation The doc states the parts and the cache limitation.
 type MetadataMap struct {
-  Key           *MetadataSchema
-  Value         *MetadataSchema
+  // Key is the analyzed key schema, required before ToJSON.
+  Key *MetadataSchema
+  // Value is the analyzed value schema, required before ToJSON.
+  Value *MetadataSchema
+  // Tags contains this use's alternative rows of jointly applied tags.
   Tags          [][]IMetadataTypeTag
   name_         string
   display_name_ string

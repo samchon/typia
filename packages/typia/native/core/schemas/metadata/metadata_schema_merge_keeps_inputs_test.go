@@ -17,10 +17,12 @@ import "testing"
 //  3. Assert neither input changed.
 //  4. Merge the result with a third schema and assert the second input is still
 //     unchanged, which is the chained use.
+//  5. Preserve a right-only template and distinct template alternatives, then
+//     merge equal template bases with different tags without editing inputs.
 //
-// @evidence contracts/testing.md#behavioral-verification MetadataSchema_merge is called on authored schemas and the tag rows and constant values of the result and of both inputs are read back; the in-place implementation fails the unchanged-input assertions.
+// @evidence contracts/testing.md#behavioral-verification MetadataSchema_merge is called on authored schemas and the result/input rows, literals and templates are asserted. In-place merging fails input ownership assertions, and dropping right-side templates fails right-only and distinct-base cases.
 // @evidence contracts/testing.md#independent-expectations The expected rows and values are the authored ones in the test, a union that follows from the definition of merging, and not values read from the implementation.
-// @evidence contracts/testing.md#distinguishing-cases The result must change (both rows, three values) while each input must not, and the chained merge separates editing the left record from editing a record taken from the right.
+// @evidence contracts/testing.md#distinguishing-cases Atomic/literal and chained ownership cases are joined by right-only templates, distinct bases and equal bases with different tag rows. Warmed input names and an edited result separate output naming and row ownership from input state.
 // @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process on constructed schemas, with no checker, filesystem fixture or process.
 func TestMetadataSchemaMergeKeepsInputs(t *testing.T) {
   build := func(tag string, values ...any) *MetadataSchema {
@@ -67,5 +69,49 @@ func TestMetadataSchemaMergeKeepsInputs(t *testing.T) {
   }
   if len(third.Atomics[0].Tags) != 1 || len(third.Constants[0].Values) != 1 {
     t.Fatalf("the third schema was edited by the chained merge: %+v %+v", third.Atomics[0].Tags, third.Constants[0].Values)
+  }
+
+  template := func(text string, tag string) *MetadataTemplate {
+    literal := MetadataSchema_initialize()
+    literal.Constants = []*MetadataConstant{MetadataConstant_create(MetadataConstant{
+      Type:   "string",
+      Values: []*MetadataConstantValue{MetadataConstantValue_create(MetadataConstantValue{Value: text})},
+    })}
+    return MetadataTemplate_create(MetadataTemplate{
+      Row:  []*MetadataSchema{literal},
+      Tags: [][]IMetadataTypeTag{{{Name: tag, Kind: "pattern", Validate: "true"}}},
+    })
+  }
+  templateSchema := func(text string, tag string) *MetadataSchema {
+    schema := MetadataSchema_initialize()
+    schema.Templates = []*MetadataTemplate{template(text, tag)}
+    return schema
+  }
+
+  rightOnly := MetadataSchema_merge(MetadataSchema_initialize(), templateSchema("right", "Right"))
+  if len(rightOnly.Templates) != 1 || rightOnly.Templates[0].GetBaseName() != "`right`" {
+    t.Fatalf("a right-only template was lost: %+v", rightOnly.Templates)
+  }
+  distinct := MetadataSchema_merge(templateSchema("left", "Left"), templateSchema("right", "Right"))
+  if len(distinct.Templates) != 2 || distinct.Templates[0].GetBaseName() != "`left`" || distinct.Templates[1].GetBaseName() != "`right`" {
+    t.Fatalf("distinct template alternatives were not preserved: %+v", distinct.Templates)
+  }
+
+  templateLeft := templateSchema("shared", "Left")
+  templateRight := templateSchema("shared", "Right")
+  if templateLeft.GetName() != "(`shared` & Left)" || templateRight.GetName() != "(`shared` & Right)" {
+    t.Fatal("unexpected input template names")
+  }
+  sameBase := MetadataSchema_merge(templateLeft, templateRight)
+  if len(sameBase.Templates) != 1 || len(sameBase.Templates[0].Tags) != 2 || sameBase.GetName() != "(`shared` & (Left | Right))" {
+    t.Fatalf("same-base templates did not combine their tag alternatives: %q", sameBase.GetName())
+  }
+  if len(templateLeft.Templates[0].Tags) != 1 || len(templateRight.Templates[0].Tags) != 1 || templateLeft.GetName() != "(`shared` & Left)" || templateRight.GetName() != "(`shared` & Right)" {
+    t.Fatal("template merging edited an input's rows or names")
+  }
+  sameBase.Templates[0].Tags[0][0].Name = "Changed"
+  sameBase.Templates[0].Row[0].Optional = true
+  if templateLeft.Templates[0].Tags[0][0].Name != "Left" || templateRight.Templates[0].Tags[0][0].Name != "Right" || templateLeft.Templates[0].Row[0].Optional || templateRight.Templates[0].Row[0].Optional {
+    t.Fatal("the merged template shares editable rows or row roots with an input")
   }
 }

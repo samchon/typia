@@ -11,20 +11,18 @@
  *
  * - Own enumerable keys are compared symmetrically, so an unexpected output
  *   property fails instead of hiding behind a one-sided traversal;
- * - A native compares its intrinsic brand rather than a realm-local constructor
- *   identity, so a `Uint16Array` never satisfies a `Uint8Array`;
+ * - Native fixture values use current-realm dispatch and matching string brands,
+ *   so a `Uint16Array` never satisfies a `Uint8Array` in that fixture domain;
  * - `ArrayBuffer`, `SharedArrayBuffer`, and `DataView` compare visible bytes, not
  *   only a byte length;
  * - Functions compare by reference identity.
  *
- * The one deliberate looseness is inherited from the operations themselves: a
- * `null`, `undefined`, empty array, or empty `Map` on either side satisfies a
- * missing value, because the Protocol Buffer and HTTP encodings drop them.
- *
- * @evidence contracts/common.md#principled-implementation Optional tracer and silent fields describe diagnostics without changing verdicts; optional Blob pairs transfer deferred byte comparisons to the asynchronous owner, while their absence makes Blob input fail on the synchronous path.
- * @evidence contracts/common.md#clear-and-simple-design One local context carries first-path reporting and deferred binary work rather than module history; its fields have separate diagnostic and content roles.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts No field holds an expected result, fixture-name exception or native callback replacement. silent affects console reporting only.
- * @evidence contracts/common.md#meaningful-documentation Member comments explain first differences, negative-test logging and deferred binary content ownership; surrounding prose states transport omission semantics.
+ * Transport looseness is inherited from the operations themselves: a `null`,
+ * `undefined`, empty array, or empty `Map` on either side satisfies a missing
+ * value, because the Protocol Buffer and HTTP encodings drop them. Numeric
+ * relative error below 0.001 of the expected value is also accepted. These
+ * comparisons assume finite acyclic graphs of ordinary current-realm fixtures,
+ * without spoofed native brands; they are not generic exact equality.
  */
 export interface IStrictEqualContext {
   /** Records the path of the first inequality, for the caller's diagnostics. */
@@ -55,11 +53,6 @@ export interface IStrictEqualContext {
  * Dispatches a finite acyclic graph by primitive/native representation and
  * compares both sets of own enumerable keys, indexed values and supported
  * visible bytes.
- *
- * @evidence contracts/common.md#principled-implementation Dispatches a finite acyclic graph by primitive/native representation and compares both sets of own enumerable keys, indexed values and supported visible bytes.
- * @evidence contracts/common.md#clear-and-simple-design Private object/array/byte/view/blob helpers isolate representations; trace reports the first mismatch and number_equal_to owns transport numeric tolerance.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Null/undefined may equal empty arrays/maps and numeric relative error below 0.001 of expected x is accepted, so the oracle is not exact or numerically symmetric. Set/Map order matters; prototypes/non-enumerable members are not compared. Native dispatch commonly relies on current-realm instanceof after brand checks.
- * @evidence contracts/common.md#meaningful-documentation Native prose distinguishes keys, brands and bytes; these answers state transport looseness, current-realm dispatch and finite acyclic premises.
  */
 export const strict_equal_to = (
   x: unknown,
@@ -67,14 +60,7 @@ export const strict_equal_to = (
   ctx: IStrictEqualContext,
 ): boolean => recursive_equal_to(x, y, "$input", ctx);
 
-/**
- * Compares the byte content of every `Blob` pair the walk collected. *
- *
- * @evidence contracts/common.md#principled-implementation Reads and compares the entire byte content of every Blob pair retained by the structural walk.
- * @evidence contracts/common.md#clear-and-simple-design Sequential pairs use two concurrent arrayBuffer reads; byte length and each index are compared at the recorded path.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Metadata and pairing must already have been checked. Equal size alone cannot satisfy content; a failed asynchronous read rejects the caller.
- * @evidence contracts/common.md#meaningful-documentation The description identifies deferred binary comparison and its preceding structural owner.
- */
+/** Compares the byte content of every `Blob` pair the walk collected. */
 export const strict_blobs_equal_to = async (
   ctx: IStrictEqualContext,
 ): Promise<boolean> => {

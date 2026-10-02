@@ -12,12 +12,12 @@ import (
 //
 // A Protobuf compiler accepts both `optional int32 id = 1;` and a bare
 // `int32 id = 1;`, so the compiler oracle cannot tell the two apart — but the
-// codecs can. ProtobufEncodeProgrammer writes a required non-nullable field
-// unguarded, emitting it even at the scalar default, and ProtobufDecodeProgrammer
-// defaults an absent required number to `undefined`. A bare field is implicit
-// presence, which lets a peer drop default values from the wire and decode back
-// into a missing property, so dropping the label to satisfy proto3 would trade
-// an illegal document for a lossy one. This pins the choice the oracle cannot.
+// presence semantics differ. ProtobufEncodeProgrammer writes a required
+// non-nullable field unguarded, including scalar defaults. A bare field permits
+// peers to omit default-valued scalars and loses the distinction between an
+// explicitly supplied default and absence. The decoder currently initializes
+// an absent required number to zero; this test checks document labels rather
+// than codec execution or peer round trips.
 //
 // 1. Render a document whose scalars are required, optional, and nullable.
 // 2. Require every singular field to keep an explicit presence label.

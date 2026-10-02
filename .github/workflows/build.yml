@@ -55,9 +55,8 @@ jobs:
       # `benchmark/` is a compiled workspace of ~780 sources that no lane
       # compiled, so a transform, interface, or utils change could break every
       # benchmark program and stay green until someone next ran a benchmark
-      # (issue #2316). This compiles the benchmark's own transformed programs;
-      # Evidence preparation may already have built the shared native plugin.
-      # The restored cache serves both steps with the same content-keyed artifact.
+      # (issue #2316). This compiles the benchmark's own transformed programs.
+      # The restored cache reuses the content-keyed native plugin artifact.
       # `--fail-if-no-match` because a `--filter` selecting nothing exits 0,
       # which would report success without compiling anything.
       - name: Build Benchmark

@@ -16,8 +16,11 @@ var NodeTransformer = nodeTransformerNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states both fields.
 type NodeTransformer_TransformProps struct {
+  // Context supplies the services used when a call expression is encountered.
   Context nativecontext.ITypiaContext
-  Node    *shimast.Node
+
+  // Node is the source AST node to inspect for a transformable call.
+  Node *shimast.Node
 }
 
 func (nodeTransformerNamespace) Transform(props NodeTransformer_TransformProps) *shimast.Node {

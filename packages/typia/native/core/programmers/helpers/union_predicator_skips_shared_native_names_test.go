@@ -18,9 +18,9 @@ import (
 //  3. Repeat with tagged `Uint8Array` metadata whose runtime check is still name
 //     based.
 //
-// @evidence contracts/testing.md#behavioral-verification Union specialization runs over many branch layouts where Date or Uint8Array fields are shared by name; the number of specializations, their indices, target objects and literal keys are compared.
+// @evidence contracts/testing.md#behavioral-verification Union specialization runs on two authored two-branch layouts sharing Date or differently tagged Uint8Array fields; specialization count, indices, object/property identity, literal keys and Neighbor flags are compared.
 // @evidence contracts/testing.md#independent-expectations Native types with equal constructor names overlap, so such a field cannot discriminate; the expected specification list per layout is authored.
-// @evidence contracts/testing.md#distinguishing-cases A matrix of layouts gives branches that do and do not have unique required properties, with ordering and index checks.
+// @evidence contracts/testing.md#distinguishing-cases Both layouts have shared native fields and one unique required property per branch. Date versus differently tagged Uint8Array separates constructor-name overlap from metadata identity; no layout without a unique property is asserted here.
 // @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the predicator on constructed metadata with no checker, filesystem fixture or process.
 func TestUnionPredicatorSkipsSharedNativeNames(t *testing.T) {
   cases := []struct {

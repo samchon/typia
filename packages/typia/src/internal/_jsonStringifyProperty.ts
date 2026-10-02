@@ -15,7 +15,7 @@
  *
  * The trailing separator belongs to the member because a dropped member must
  * take its comma with it; `_jsonStringifyTail` removes the one that is left
- * behind when the last written member is the one that dropped.
+ * behind when the final declared member is omitted.
  *
  * @param head Quoted key and colon, emitted by the transform.
  * @param text Serialized member value, or `undefined` when it has none.

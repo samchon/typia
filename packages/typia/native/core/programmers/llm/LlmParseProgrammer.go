@@ -125,7 +125,7 @@ func (llmParseProgrammerNamespace) Validate(props struct {
 // is given.
 //
 // @evidence contracts/common.md#principled-implementation It returns the import type request that refers to `ILlmSchema.IParameters` of the typia package, using the emit context when one is given.
-// @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
+// @evidence contracts/common.md#clear-and-simple-design One function returns the package and qualified type identifier together, shared by the parse and coerce schema declarations.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func ImportTypeIParameters(emit ...*shimprinter.EmitContext) nativecontext.ImportProgrammer_TypeProps {

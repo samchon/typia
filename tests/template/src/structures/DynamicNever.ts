@@ -3,10 +3,15 @@ import { ArrayUtil } from "@nestia/e2e";
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/** Supplies a never-valued dictionary fixture for default undefined admission. */
 export interface DynamicNever {
   [key: string]: never;
 }
 export namespace DynamicNever {
+  /**
+   * Constructs explicit undefined dictionary fields through deliberate any
+   * casts.
+   */
   export function generate(): DynamicNever {
     const output: DynamicNever = {};
     ArrayUtil.repeat(TestRandomGenerator.integer(3, 10), () => {

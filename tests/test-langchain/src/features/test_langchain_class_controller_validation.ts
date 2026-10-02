@@ -13,9 +13,10 @@ import { Calculator } from "../structures/Calculator";
 /**
  * Verifies typia — not LangChain — rejects a class tool's invalid arguments.
  *
- * `toLangChainTools` promises that every tool call is validated by typia, and
- * that a failure returns `LlmJson.stringify` feedback the model can correct
- * itself from. LangChain's `StructuredTool.call` runs `@cfworker/json-schema`
+ * `toLangChainTools` validates arguments with typia and rejects invalid calls
+ * with a `ToolInputParsingException` carrying `LlmJson.stringify` feedback. The
+ * caller or agent must handle that rejection to use the feedback for
+ * correction. LangChain's `StructuredTool.call` runs `@cfworker/json-schema`
  * against whatever `schema` a tool registers and throws before the tool body,
  * so registering a bare JSON Schema silently hands validation to LangChain and
  * reduces the feedback to its generic "Received tool input did not match

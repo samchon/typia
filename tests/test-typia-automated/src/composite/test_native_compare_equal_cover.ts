@@ -60,7 +60,7 @@ const coverNode = typia.compare.createCover<INode>();
  * 3. Propagate every failed comparison to the shared suite runner.
  *
  * @evidence contracts/testing.md#behavioral-verification Nested address, regular-expression flags, bytes, dictionary keys, array length, discriminated branches and cyclic nodes have literal true/false expectations.
- * @evidence contracts/testing.md#independent-expectations The retained literal expectations encode the authored type/value contract, not emitted-source patterns. Type-level equality assertions, where present, remain compiled independently of runtime comparisons.
+ * @evidence contracts/testing.md#independent-expectations Equality compares declared scalar/native contents and partial cover requires supplied keys and complete array elements to agree. Authored pairs vary one nested value, native flag/byte, dictionary key, branch or cyclic id and assert literal booleans without deriving a result from another native callback or emitted-source pattern.
  * @evidence contracts/testing.md#distinguishing-cases Nested address, regular-expression flags, bytes, dictionary keys, array length, discriminated branches and cyclic nodes have literal true/false expectations.
  * @evidence contracts/testing.md#execution-ownership The matching exported composite is discovered by TestServant in test-typia-automated. Private typed producers and deliberately unchecked JavaScript-style runtime inputs preserve the original test boundary.
  * @evidence contracts/e2e.md#necessary-boundary Real typia public calls are transformed and their callbacks execute in Node. Go unit assertions on metadata or emitted text cannot detect a runtime result, receiver or mutation defect.

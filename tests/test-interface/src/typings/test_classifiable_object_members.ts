@@ -7,8 +7,8 @@ import { Classifiable } from "@typia/interface";
  * Pins the object branch of `Classifiable`: methods must be _omitted_ (not
  * mapped to `never`), getter-backed data members survive (as `readonly`),
  * modifiers (`readonly`, optional) are preserved, nested classes recurse to
- * their own plain shapes, and a method-free object round-trips unchanged
- * through the identity guard.
+ * their own plain shapes, and a method-free object retains its structural
+ * type.
  *
  * 1. Declare a class with data members, a getter, a method, and a nested class.
  * 2. Apply `Classifiable` and compare against the hand-written plain shape.
@@ -23,7 +23,7 @@ import { Classifiable } from "@typia/interface";
 export type ClassifiableObjectMemberCases = [
   Assert<IsEqual<Classifiable<User>, ExpectedUser>>,
   Assert<IsEqual<Classifiable<Profile>, ExpectedProfile>>,
-  // a method-free plain object round-trips unchanged (identity guard)
+  // a method-free plain object retains its structural type
   Assert<IsEqual<Classifiable<IPlain>, IPlain>>,
   // an already-plain data interface is identical to itself
   Assert<IsEqual<Classifiable<ExpectedUser>, ExpectedUser>>,

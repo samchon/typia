@@ -128,13 +128,13 @@ export namespace IMetadataSchema {
    * @evidence contracts/common.md#principled-implementation The `type` literal limits the category to the four atomics, and each entry has a list of tag groups; the outer array allows several alternative tag combinations for the same atomic category, each group being the tags applied together.
    * @evidence contracts/common.md#clear-and-simple-design Two fields; the nested tag arrays mirror how a union of tagged primitives distributes.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record with no constraint evaluation.
-   * @evidence contracts/common.md#meaningful-documentation The comment states the record's meaning; the field comment gives tag examples, and it does not explain the two-level array, which follows from IMetadataTypeTag usage elsewhere.
+   * @evidence contracts/common.md#meaningful-documentation The comment states the record's meaning; the tag member explains alternative rows and the conjunction within each row.
    */
   export interface IAtomic {
     /** Primitive type kind. */
     type: "boolean" | "bigint" | "number" | "string";
 
-    /** Type constraint tags (e.g., `@minimum`, `@format`). */
+    /** Alternative constraint groups; all tags within one group apply together. */
     tags: IMetadataTypeTag[][];
   }
 
@@ -304,7 +304,7 @@ export namespace IMetadataSchema {
   /**
    * Object type definition.
    *
-   * @evidence contracts/common.md#principled-implementation An object definition lists its properties as key and value schema pairs, with documentation, an index, recursion and nullability; keys are schemas rather than strings so dynamic and symbol keys are expressible.
+   * @evidence contracts/common.md#principled-implementation An object definition lists its properties as key and value schema pairs, with documentation, an index, recursion and nullability. Key schemas represent literal and dynamic string/number keys; native object analysis omits symbol-keyed members rather than representing them here.
    * @evidence contracts/common.md#clear-and-simple-design One record per object type; properties are separate records so they carry their own documentation.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Data only; no property ordering or optionality is inferred.
    * @evidence contracts/common.md#meaningful-documentation The comment states the purpose and every field is documented; the key-as-schema choice is explained at IProperty.
@@ -338,10 +338,10 @@ export namespace IMetadataSchema {
    * @evidence contracts/common.md#principled-implementation A property's key is itself an IMetadataSchema, so literal keys, template keys and index signatures are all expressed by one mechanism, and mutability marks readonly members while remaining optional on the record.
    * @evidence contracts/common.md#clear-and-simple-design Five fields with `mutability` optional because mutable is the default.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Data only.
-   * @evidence contracts/common.md#meaningful-documentation The comment says it is object property metadata and documents the key being a string or symbol schema.
+   * @evidence contracts/common.md#meaningful-documentation The comment identifies object property metadata; member comments describe literal or dynamic string/number keys, value schema, JSDoc and the optional readonly marker.
    */
   export interface IProperty {
-    /** Property key schema (string or symbol). */
+    /** Property key schema for literal or dynamic string/number keys. */
     key: IMetadataSchema;
 
     /** Property value schema. */

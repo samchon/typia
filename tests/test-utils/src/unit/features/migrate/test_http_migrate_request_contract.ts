@@ -18,7 +18,7 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
  *
  * @evidence contracts/testing.md#behavioral-verification HttpMigration, HttpLlm and HttpMigration.execute run on an authored 3.1 document; route groups, LLM validation, captured headers, cookies, body and the exact query wire text are compared, so dropped groups, forced requirements or wrong array serialization fail.
  * @evidence contracts/testing.md#independent-expectations Header, cookie and query strings are authored literals following the OpenAPI style and explode tables, with reserved headers and the connection authorization as documented overrides; the fetch double is the test's own.
- * @evidence contracts/testing.md#distinguishing-cases Required and optional groups, form, pipe, space and deep-object styles, exploded and non-exploded arrays, matrix and label paths and header and cookie overrides each flip a branch.
+ * @evidence contracts/testing.md#distinguishing-cases Required and optional groups, form, pipe, space and deep-object styles, exploded and non-exploded arrays, matrix and label paths and header and cookie overrides each flip a branch. Omitted required groups must fail with the actual Error class and the independently authored missing-header diagnostic, not an arbitrary rejection.
  * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Requests are captured by a fetch double and run in process with no native build, installation or host.
  */
 export const test_http_migrate_request_contract = async (): Promise<void> => {
@@ -185,17 +185,26 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   );
   TestEquality.equals("JSON body", '{"title":"hello"}', String(sent.init.body));
 
-  let requiredError = false;
+  let requiredError: unknown;
   try {
     await HttpMigration.execute({
       connection,
       route,
       parameters: { userId: "samchon" },
     });
-  } catch {
-    requiredError = true;
+  } catch (error) {
+    requiredError = error;
   }
-  TestEquality.equals("required groups rejected", true, requiredError);
+  TestEquality.equals(
+    "required groups error class",
+    requiredError instanceof Error && requiredError.constructor === Error,
+    true,
+  );
+  TestEquality.equals(
+    "required groups diagnostic",
+    requiredError instanceof Error ? requiredError.message : undefined,
+    "Error on MigrateRouteFetcher.request(): headers is not matched.",
+  );
 
   const matrix = migration.routes.find(
     (candidate) => candidate.path === "/matrix/{coords}",

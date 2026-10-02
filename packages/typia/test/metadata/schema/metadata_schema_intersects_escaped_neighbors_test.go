@@ -16,12 +16,12 @@ import (
 //
 // 1. Build two schemas with disjoint escaped pairs but a shared number atomic.
 // 2. Assert they intersect through the shared primitive bucket.
-// 3. Assert matching escaped pairs still intersect on their own.
+// 3. Assert matching escaped originals intersect even when return schemas differ.
 // 4. Assert fully disjoint escaped schemas still do not intersect.
 //
-// @evidence contracts/testing.md#behavioral-verification MetadataSchema_intersects runs on schemas with escaped pairs next to a number atomic: disjoint escapes with a shared primitive, matching escapes and fully disjoint schemas.
+// @evidence contracts/testing.md#behavioral-verification MetadataSchema_intersects runs on escaped schemas with a shared number atomic despite disjoint escapes, matching originals with differing returns and no primitive buckets, and fully disjoint escaped schemas.
 // @evidence contracts/testing.md#independent-expectations A shared primitive value makes the schemas overlap regardless of escaped neighbors; the three verdicts are authored from value overlap.
-// @evidence contracts/testing.md#distinguishing-cases Shared primitive with disjoint escapes is the regression positive, matching escapes a second positive and disjoint everything the negative.
+// @evidence contracts/testing.md#distinguishing-cases Shared primitive with disjoint escapes is the regression positive, matching originals with differing returns a second positive, and disjoint everything the negative.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported intersection function on constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataSchemaIntersectsEscapedNeighbors(t *testing.T) {
   escaped := func(original *metadata.MetadataSchema, returns *metadata.MetadataSchema, atomic string) *metadata.MetadataSchema {

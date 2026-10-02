@@ -498,22 +498,22 @@ export namespace OpenApiV3_1 {
      * Mixed type (multiple types in array).
      *
      * @evidence contracts/common.md#principled-implementation The variant is the case where `type` is an array of type names, which 3.1 permits; it inherits the keywords of every single-type variant so that any keyword valid for one of the listed types is accepted, and widens default and enum to arbitrary values.
-     * @evidence contracts/common.md#clear-and-simple-design One interface assembled from the other variants through Omit, so keyword definitions stay in one place each.
+     * @evidence contracts/common.md#clear-and-simple-design Omit reuses type-specific keywords without their discriminators, defaults and enums; Partial reuses optional composition and reference keywords without requiring every composition at once.
      * @evidence contracts/common.md#prohibited-implementation-shortcuts The type admits keywords that apply to only some of the listed types and does not check which type a keyword belongs to.
      * @evidence contracts/common.md#meaningful-documentation The comment says it covers multiple types in an array and each widened field is described.
      */
     export interface IMixed
       extends
-        IConstant,
+        Partial<IConstant>,
         Omit<IBoolean, "type" | "default" | "enum">,
         Omit<INumber, "type" | "default" | "enum">,
         Omit<IString, "type" | "default" | "enum">,
         Omit<IArray, "type">,
         Omit<IObject, "type">,
-        IOneOf,
-        IAnyOf,
-        IAllOf,
-        IReference {
+        Partial<IOneOf>,
+        Partial<IAnyOf>,
+        Partial<IAllOf>,
+        Partial<IReference> {
       /** Array of type discriminators. */
       type: Array<
         | "boolean"
@@ -526,7 +526,7 @@ export namespace OpenApiV3_1 {
       >;
 
       /** Default value. */
-      default?: any[] | null;
+      default?: any;
 
       /** Allowed values. */
       enum?: any[];
@@ -732,26 +732,33 @@ export namespace OpenApiV3_1 {
     /**
      * Array type.
      *
-     * @evidence contracts/common.md#principled-implementation Items may be a schema or an array of schemas, the legacy tuple spelling, alongside the 2020-12 `prefixItems` and `additionalItems`, so both tuple forms in the wild are representable.
+     * @evidence contracts/common.md#principled-implementation JSON Schema 2020-12 items applies its schema after prefixItems, or to every element without a prefix. Boolean true permits those elements and false forbids them; omission is unconstrained. Legacy items arrays and additionalItems remain representable for converter compatibility, with reconciliation owned by the upgrader.
      * @evidence contracts/common.md#clear-and-simple-design Optional fields on the array attribute record.
      * @evidence contracts/common.md#prohibited-implementation-shortcuts The type accepts both tuple spellings and leaves their reconciliation to the upgrader.
-     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment, including tuple prefix items.
+     * @evidence contracts/common.md#meaningful-documentation Member comments distinguish 2020-12 items and prefix semantics from legacy tuple keywords, including boolean and omitted items behavior and independent length bounds.
      */
     export interface IArray
       extends Omit<IJsonSchemaAttribute.IArray, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
-      /** Element type (or tuple types). */
-      items?: IJsonSchema | IJsonSchema[];
+      /**
+       * Schema for elements after prefixItems, or every element without a
+       * prefix.
+       *
+       * True or omission leaves these elements unconstrained; false forbids
+       * them. A schema array is the legacy tuple spelling accepted by the
+       * converter.
+       */
+      items?: boolean | IJsonSchema | IJsonSchema[];
 
-      /** Tuple prefix items. */
+      /** Positional prefix schemas; array length is constrained separately. */
       prefixItems?: IJsonSchema[];
 
       /** Whether elements must be unique. */
       uniqueItems?: boolean;
 
-      /** Additional items schema. */
+      /** Legacy rest keyword for an items array; not the 2020-12 prefix rest. */
       additionalItems?: boolean | IJsonSchema;
 
       /** Minimum items. */
@@ -777,7 +784,7 @@ export namespace OpenApiV3_1 {
     /**
      * Recursive reference.
      *
-     * @evidence contracts/common.md#principled-implementation A `$recursiveRef` string, the 3.1-era dynamic reference keyword for recursive structures.
+     * @evidence contracts/common.md#principled-implementation The record preserves a legacy 2019-09 $recursiveRef string. It does not represent the 2020-12 $dynamicRef keyword or resolve either reference form.
      * @evidence contracts/common.md#clear-and-simple-design One field.
      * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record that does not resolve the reference.
      * @evidence contracts/common.md#meaningful-documentation The one-line comment names it as a recursive reference.

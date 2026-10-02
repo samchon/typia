@@ -157,9 +157,10 @@ type ClassifiableFactory<T> = [ClassInstanceType<T>] extends [never]
 //  - a private/protected constructor does not match `abstract new` at all, so the
 //    outer arm is already `never` for it;
 //  - an ABSTRACT class DOES match `abstract new` (that is precisely its construct
-//    signature) yet cannot be `new`-ed at runtime (`new Abstract()` throws), so
-//    the inner `T extends new (...) => any` gate drops it — an abstract
-//    constructor type is not assignable to a concrete `new` signature. Both then
+//    signature) but TypeScript does not permit direct construction; abstract is
+//    erased at runtime. The inner `T extends new (...) => any` gate drops it:
+//    an abstract constructor type is not assignable to a concrete `new`
+//    signature. Both then
 //    field-copy, matching the transform (which never emits `new` for them).
 type ClassifiableConstructor<T> = T extends abstract new (
   ...args: infer A

@@ -40,7 +40,11 @@ const packageJsonFiles = () =>
     .execFileSync("git", ["ls-files"], { encoding: "utf8" })
     .split(/\r?\n/)
     .filter(
-      (file) => file === "package.json" || file.endsWith("/package.json"),
+      (file) =>
+        // Committed dependency fixtures keep their upstream versions; they are
+        // not release packages even though Git tracks their manifests.
+        !file.split("/").includes("node_modules") &&
+        (file === "package.json" || file.endsWith("/package.json")),
     );
 
 const assertPackageVersions = (version) => {

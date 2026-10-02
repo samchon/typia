@@ -14,11 +14,12 @@ var FunctionalGenericTransformer = functionalGenericTransformerNamespace{}
 // FunctionalGenericTransformer_IConfig holds Equals, which selects the equality
 // variant of a functional validator.
 //
-// @evidence contracts/common.md#principled-implementation The only variation between the functional validators is whether they compare strictly, which is one flag.
+// @evidence contracts/common.md#principled-implementation Equals distinguishes excess-property checking from ordinary validation within each functional validator family; the family's programmer supplies its assert, is or validate behavior separately.
 // @evidence contracts/common.md#clear-and-simple-design One field.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the flag.
 type FunctionalGenericTransformer_IConfig struct {
+  // Equals enables rejection of properties outside the declared target type.
   Equals bool
 }
 
@@ -30,8 +31,13 @@ type FunctionalGenericTransformer_IConfig struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the three parts.
 type FunctionalGenericTransformer_ISpecification struct {
-  Method     string
-  Config     FunctionalGenericTransformer_IConfig
+  // Method is the functional operation name used in transform diagnostics.
+  Method string
+
+  // Config selects the family's ordinary or excess-property-checking variant.
+  Config FunctionalGenericTransformer_IConfig
+
+  // Programmer builds the function wrapper for the resolved input function.
   Programmer func(props FunctionalGenericTransformer_IProgrammerProps) *shimast.Node
 }
 
@@ -44,12 +50,23 @@ type FunctionalGenericTransformer_ISpecification struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc lists the parts.
 type FunctionalGenericTransformer_IProgrammerProps struct {
-  Context     nativecontext.ITypiaContext
-  Modulo      *shimast.Node
-  Expression  *shimast.Node
+  // Context supplies the checker and generated-code services.
+  Context nativecontext.ITypiaContext
+
+  // Modulo is the original callee used in generated runtime error labels.
+  Modulo *shimast.Node
+
+  // Expression is the function value supplied as the call's first argument.
+  Expression *shimast.Node
+
+  // Declaration is the target type's first symbol declaration, or nil if absent.
   Declaration *shimast.Node
-  Config      FunctionalGenericTransformer_IConfig
-  Init        *shimast.Node
+
+  // Config selects the family's ordinary or excess-property-checking variant.
+  Config FunctionalGenericTransformer_IConfig
+
+  // Init is the optional second call argument passed to the programmer.
+  Init *shimast.Node
 }
 
 func (functionalGenericTransformerNamespace) Transform(spec FunctionalGenericTransformer_ISpecification) func(props nativetransform.ITransformProps) *shimast.Node {

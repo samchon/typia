@@ -21,6 +21,7 @@ var FunctionAssertReturnProgrammer = functionAssertReturnProgrammerNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type FunctionAssertReturnProgrammer_IConfig struct {
+  // Equals rejects surplus properties in addition to checking declared values.
   Equals bool
 }
 
@@ -35,12 +36,23 @@ type FunctionAssertReturnProgrammer_IConfig struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionAssertReturnProgrammer_IProps struct {
-  Context     nativecontext.ITypiaContext
-  Modulo      *shimast.Node
-  Config      FunctionAssertReturnProgrammer_IConfig
-  Expression  *shimast.Node
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Modulo identifies the typia call for helper naming and diagnostics.
+  Modulo *shimast.Node
+
+  // Config selects ordinary validation or rejection of surplus properties.
+  Config FunctionAssertReturnProgrammer_IConfig
+
+  // Expression is the original callable, invoked with the wrapper receiver.
+  Expression *shimast.Node
+
+  // Declaration supplies parameter bindings and the checker return signature.
   Declaration *shimast.Node
-  Init        *shimast.Node
+
+  // Init initializes the error factory; nil selects the functional default.
+  Init *shimast.Node
 }
 
 // FunctionAssertReturnProgrammer_IDecomposeProps is the input of Decompose for
@@ -54,12 +66,23 @@ type FunctionAssertReturnProgrammer_IProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionAssertReturnProgrammer_IDecomposeProps struct {
-  Context     nativecontext.ITypiaContext
-  Modulo      *shimast.Node
-  Config      FunctionAssertReturnProgrammer_IConfig
-  Expression  *shimast.Node
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Modulo identifies the typia call for helper naming and diagnostics.
+  Modulo *shimast.Node
+
+  // Config selects ordinary validation or rejection of surplus properties.
+  Config FunctionAssertReturnProgrammer_IConfig
+
+  // Expression is the original callable, invoked with the wrapper receiver.
+  Expression *shimast.Node
+
+  // Declaration supplies parameter bindings and the checker return signature.
   Declaration *shimast.Node
-  Wrapper     string
+
+  // Wrapper names the shared error factory binding used to rewrite failure paths.
+  Wrapper string
 }
 
 // FunctionAssertReturnProgrammer_IDecomposeOutput is what the generator returns:
@@ -71,9 +94,14 @@ type FunctionAssertReturnProgrammer_IDecomposeProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states each returned part.
 type FunctionAssertReturnProgrammer_IDecomposeOutput struct {
-  Async     bool
+  // Async requests an async wrapper and awaiting of the original return value.
+  Async bool
+
+  // Functions contains helper declarations placed outside the returned wrapper.
   Functions []*shimast.Node
-  Value     *shimast.Node
+
+  // Value calls the return assertion on the original or awaited result.
+  Value *shimast.Node
 }
 
 func (functionAssertReturnProgrammerNamespace) Write(props FunctionAssertReturnProgrammer_IProps) *shimast.Node {

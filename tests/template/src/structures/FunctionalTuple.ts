@@ -1,5 +1,6 @@
 import { Spoiler } from "../utils/Spoiler";
 
+/** Supplies a fixed three-position callable tuple fixture. */
 export type FunctionalTuple = [
   FunctionalTuple.Functional,
   FunctionalTuple.Functional,
@@ -11,7 +12,9 @@ export namespace FunctionalTuple {
   export const PRIMITIVE = false;
   export const RESOLVABLE = false;
 
+  /** Declares the unrestricted callable type used by each tuple position. */
   export type Functional = (...args: any[]) => any;
+  /** Constructs a fresh tuple of three existing console.log references. */
   export function generate(): FunctionalTuple {
     return [console.log, console.log, console.log];
   }

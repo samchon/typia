@@ -1,7 +1,8 @@
 import typia from "typia";
 
 // ABSTRACT class: typeof Shape has only an `abstract new` signature, which is
-// not runtime-newable, so classify must FIELD-COPY the instance shape.
+// not constructible through that TypeScript target, so classify FIELD-COPIES
+// the instance shape rather than selecting a concrete seed constructor.
 abstract class Shape {
   kind!: string;
   describe(): string {
@@ -37,7 +38,7 @@ const buildPair = typia.plain.createClassify<typeof Pair>();
  *
  * @evidence contracts/testing.md#behavioral-verification classify handles abstract classes and tuple-rest constructor seeds; the body executes real transformed callbacks and retains the original runner assertions.
  * @evidence contracts/testing.md#independent-expectations Handwritten seeds, class identity and declared method semantics establish expectations; no expected value is captured from emitted code.
- * @evidence contracts/testing.md#distinguishing-cases Abstract Shape field-copy preserves its method without constructing an abstract class; Pair tuple-rest uses the first tuple element and reconstructs sum 7.
+ * @evidence contracts/testing.md#distinguishing-cases The abstract Shape target preserves its runtime prototype and shape:circle method result; this runtime body does not observe constructor calls to distinguish allocation strategy. Pair tuple-rest uses the first tuple element and reconstructs sum7.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_plain_classify_strategy_edges in the automated composite population; private fixture declarations and callbacks belong to this entry.
  * @evidence contracts/e2e.md#necessary-boundary Real typia native lowering must connect these TypeScript declarations to executable JavaScript; direct emitter inspection cannot detect wrong constructor identity or missing runtime bindings.
  * @evidence contracts/e2e.md#shared-execution These call sites share the automated suite project and its single worker, with no per-case compiler project, CLI invocation or subprocess.

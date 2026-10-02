@@ -7,10 +7,10 @@ import { WorkerServer } from "tgrid";
  * The parent connector owns this process lifetime. Opening failure is fatal;
  * this entry neither selects fixtures nor computes test expectations.
  *
- * @evidence contracts/common.md#principled-implementation WorkerServer.open publishes the real TestServant instance using tgrid's supported request protocol, so the parent invokes the same execute owner used by the suite. Opening rejection sets a nonzero final status instead of only logging.
- * @evidence contracts/common.md#clear-and-simple-design One server and one servant expose the protocol; fixture discovery and assertions stay with TestServant and the case exports, while the parent owns connection closure.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts No protocol method is patched and no case verdict is replaced. The actual server instance opens the actual servant, and failures remain visible to the process boundary.
- * @evidence contracts/common.md#meaningful-documentation Native prose identifies parent lifetime ownership, protocol purpose and opening failure behavior, rather than attributing assertion correctness to worker setup.
+ * @evidence contracts/testing.md#behavioral-verification This entry opens a real TestServant on the WorkerServer protocol without generating a case verdict. The parent calls execute and accumulates actual named case failures; the top-level catch logs an opening rejection and sets exitCode 1.
+ * @evidence contracts/testing.md#independent-expectations Case helpers and composite assertions own expected product values independently of the worker protocol. Successful server opening alone certifies none of those assertions or case enrollment.
+ * @evidence contracts/testing.md#distinguishing-cases The real open either establishes the supported parent/servant connection or rejects; this entry does not inject protocol or cancellation faults. Directory filters and per-case failures remain with the parent and TestServant.
+ * @evidence contracts/testing.md#execution-ownership src/index.ts main connects to this file once after generation, retains the driver for every directory, and closes the connector in finally. This exported main owns opening; its anonymous rejection callback owns unsuccessful child status, and no separate test is registered here.
  */
 export const main = async (): Promise<void> => {
   const server = new WorkerServer();

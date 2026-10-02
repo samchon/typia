@@ -6,10 +6,10 @@ import typia from "typia";
  * declared operation capabilities. Missing flags use each controller's default;
  * they do not imply that a fixture is appropriate for every public operation.
  *
- * @evidence contracts/common.md#principled-implementation T connects generate's valid value and SPOILERS' in-place invalid mutations; optional capability flags describe fixture eligibility without parsing TypeScript source. RANDOM may disable generation or supply generator overrides, unlike the ordinary boolean capabilities.
- * @evidence contracts/common.md#clear-and-simple-design One metadata object carries a discovered name, fixture callbacks and operation-specific switches. The controller consumes these switches, while assertions derive their expectations from the callbacks rather than this type.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts This interface does not embed expected native results or implement selection itself. Capability declarations remain authored fixture policy; their presence alone is not proof of complete operation coverage.
- * @evidence contracts/common.md#meaningful-documentation The introduction identifies the valid/invalid fixture roles and missing-flag semantics; members describe each capability's effect on enrollment rather than promising behavior from a boolean.
+ * @evidence contracts/testing.md#behavioral-verification This type couples the authored fixture generator and invalid mutations to the controller's discovered name and eligibility flags; it performs no assertion. Runtime helpers own clean/spoiled verdicts and direct_factory_matrix owns generation enrollment checks.
+ * @evidence contracts/testing.md#independent-expectations generate and SPOILERS originate in the fixture owner, not product output. Optional capability flags describe supported inputs; their presence alone establishes neither fixture validity nor an independent random-generator oracle.
+ * @evidence contracts/testing.md#distinguishing-cases Optional generate means non-runnable metadata; positive transport flags admit their families while false compatibility flags exclude them. RANDOM distinguishes disabled generation from customization and RECURSIVE does not itself alter eligibility.
+ * @evidence contracts/testing.md#execution-ownership loadMetadata constructs this representation from template exports, generateFeatureSet consumes its flags, and the named generated case hands the same fixture to its helper. No type-level or runtime case is independently registered by the interface.
  */
 export interface TestAutomationMetadata<T> {
   /** Structure export name discovered from its source filename. */
@@ -17,10 +17,10 @@ export interface TestAutomationMetadata<T> {
   /**
    * Creates a valid value for each independent scenario.
    *
-   * @evidence contracts/common.md#principled-implementation The optional callback returns T so each enrolled helper can obtain an authored valid value; its absence means the declaration contributes no runnable structure.
-   * @evidence contracts/common.md#clear-and-simple-design One callback leaves fixture construction with its owner and avoids embedding generator logic in the controller's metadata.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts This signature supplies inputs, not expected native output or a validation verdict; callers must still execute their actual assertions.
-   * @evidence contracts/common.md#meaningful-documentation Native prose identifies valid-value and scenario ownership; the enclosing metadata comment explains optional fixture capabilities.
+   * @evidence contracts/testing.md#behavioral-verification This optional fixture signature supplies input to operation helpers; it runs no assertion. Helpers request a fresh value for clean and spoiled scenarios before executing the actual callback.
+   * @evidence contracts/testing.md#independent-expectations Each fixture owner authors this generator beside its TypeScript declaration; its output is independent of the callback under test. The signature alone does not prove generator validity or absence of shared fixture state.
+   * @evidence contracts/testing.md#distinguishing-cases Undefined generate excludes a metadata entry from runnable families; a present callback provides T. Capability flags still control which operation families may consume it.
+   * @evidence contracts/testing.md#execution-ownership loadMetadata copies the fixture's generator, the controller checks presence, and each generated helper invocation calls the original fixture callback. The signature declares no additional independently registered case.
    */
   generate?(): T;
   /** Mutates a generated value and returns authored invalid diagnostic paths. */

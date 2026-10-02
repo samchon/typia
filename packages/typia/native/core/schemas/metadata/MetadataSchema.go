@@ -18,26 +18,43 @@ import (
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states which members are inline and which are references.
 type IMetadataSchema struct {
-  Any       bool
-  Required  bool
-  Optional  bool
-  Nullable  bool
+  // Any marks an unrestricted value alternative.
+  Any bool
+  // Required records whether undefined is absent from the value type.
+  Required bool
+  // Optional records contextual argument or property omission.
+  Optional bool
+  // Nullable records a null alternative.
+  Nullable bool
+  // Functions contains serialized callable signatures.
   Functions []*IMetadataSchema_IFunction
 
-  Atomics   []IMetadataSchema_IAtomic
+  // Atomics contains primitive alternatives with their tags.
+  Atomics []IMetadataSchema_IAtomic
+  // Constants contains primitive literal-value buckets.
   Constants []IMetadataSchema_IConstant
+  // Templates contains serialized template literal alternatives.
   Templates []IMetadataSchema_ITemplate
-  Escaped   *IMetadataSchema_IEscaped
+  // Escaped contains original and toJSON-returned value schemas when present.
+  Escaped *IMetadataSchema_IEscaped
 
-  Rest    *IMetadataSchema
-  Arrays  []IMetadataSchema_IReference
-  Tuples  []IMetadataSchema_IReference
+  // Rest is the serialized trailing-rest element schema when present.
+  Rest *IMetadataSchema
+  // Arrays references shared array definitions by name and per-use tags.
+  Arrays []IMetadataSchema_IReference
+  // Tuples references shared tuple definitions by name and per-use tags.
+  Tuples []IMetadataSchema_IReference
+  // Objects references shared object definitions by name and per-use tags.
   Objects []IMetadataSchema_IReference
+  // Aliases references shared alias definitions by name and per-use tags.
   Aliases []IMetadataSchema_IReference
 
+  // Natives identifies built-in class alternatives and per-use tags.
   Natives []IMetadataSchema_IReference
-  Sets    []IMetadataSchema_ISet
-  Maps    []IMetadataSchema_IMap
+  // Sets contains serialized element schemas and per-use tags.
+  Sets []IMetadataSchema_ISet
+  // Maps contains serialized key/value schemas and per-use tags.
+  Maps []IMetadataSchema_IMap
 }
 
 // MetadataSchema is everything a type can be at one position: the flags Any,
@@ -45,38 +62,58 @@ type IMetadataSchema struct {
 // the union of its members, so `string | number[]` has one atomic and one array.
 // The name caches and the sole-literal cache are analysis state, and Union_index, Fixed_ and Boolean_literal_intersected_
 // are analysis marks that Clone copies and the JSON form omits. The caches are not
-// invalidated when the lists change after the first read.
+// invalidated when their flags or member inputs change after the first read.
 //
 // @evidence contracts/common.md#principled-implementation A union type needs one place that lists every alternative by kind, so the validators, schemas and sorters can reason about a type without re-reading the compiler type.
 // @evidence contracts/common.md#clear-and-simple-design One record of flags, member lists and caches, with the logic in methods and functions.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The cache limitation is stated and no member kind is hidden.
 // @evidence contracts/common.md#meaningful-documentation The doc states the meaning of a schema and which fields are analysis state.
 type MetadataSchema struct {
-  Any      bool
+  // Any marks an unrestricted value alternative.
+  Any bool
+  // Required records whether undefined is absent from the value type.
   Required bool
+  // Optional records contextual argument or property omission.
   Optional bool
+  // Nullable records a null alternative.
   Nullable bool
 
-  Escaped   *MetadataEscaped
-  Atomics   []*MetadataAtomic
+  // Escaped pairs the original type with its toJSON-returned value type.
+  Escaped *MetadataEscaped
+  // Atomics contains primitive alternatives with their tags.
+  Atomics []*MetadataAtomic
+  // Constants contains primitive literal-value buckets.
   Constants []*MetadataConstant
+  // Templates contains template literal alternatives.
   Templates []*MetadataTemplate
 
-  Rest      *MetadataSchema
-  Aliases   []*MetadataAlias
-  Arrays    []*MetadataArray
-  Tuples    []*MetadataTuple
-  Objects   []*MetadataObject
+  // Rest is the trailing-rest element schema when present.
+  Rest *MetadataSchema
+  // Aliases contains uses of shared alias definitions.
+  Aliases []*MetadataAlias
+  // Arrays contains uses of shared array definitions.
+  Arrays []*MetadataArray
+  // Tuples contains uses of shared tuple definitions.
+  Tuples []*MetadataTuple
+  // Objects contains uses of shared object definitions.
+  Objects []*MetadataObject
+  // Functions contains analyzed callable signatures.
   Functions []*MetadataFunction
 
+  // Natives contains built-in class alternatives with per-use tags.
   Natives []*MetadataNative
-  Sets    []*MetadataSet
-  Maps    []*MetadataMap
+  // Sets contains element schemas with per-use tags.
+  Sets []*MetadataSet
+  // Maps contains key/value schemas with per-use tags.
+  Maps []*MetadataMap
 
-  name_                        string
-  display_name_                string
-  Union_index                  *int
-  Fixed_                       *int
+  name_         string
+  display_name_ string
+  // Union_index is the collection-assigned object-union index used by generators.
+  Union_index *int
+  // Fixed_ is a retained optional analysis mark, copied by Clone and omitted from JSON.
+  Fixed_ *int
+  // Boolean_literal_intersected_ is a retained optional analysis mark, copied by Clone and omitted from JSON.
   Boolean_literal_intersected_ *bool
   sole_literal_cached_         bool
   sole_literal_                *string
@@ -144,13 +181,13 @@ func MetadataSchema_initialize() *MetadataSchema {
 }
 
 // ShallowClone copies the schema record, or returns nil for nil. The member lists
-// and the records in them are shared with the original, so only the flags may be
-// edited on the copy. The name caches are cleared because the callers change a
-// flag, which changes the name.
+// and the records in them are shared with the original. Callers use this for
+// presence flags; other analysis state, including the sole-literal cache, is
+// preserved. The name caches are cleared because presence affects the name.
 //
 // @evidence contracts/common.md#principled-implementation Callers need a separate flag set over the same members, and a cached name that was computed with the old flags would be wrong for the copy, so the name caches start empty.
 // @evidence contracts/common.md#clear-and-simple-design One struct copy and two cache resets.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The sharing is stated, so the copy must not have its lists edited in place, and a unit test pins the cache reset.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Shared lists must not be edited in place; only name caches are reset, and a unit test pins that reset.
 // @evidence contracts/common.md#meaningful-documentation The doc states what is shared and why the names are cleared.
 func (obj *MetadataSchema) ShallowClone() *MetadataSchema {
   if obj == nil {
@@ -182,15 +219,16 @@ func (obj *MetadataSchema) WithOptional(optional bool) *MetadataSchema {
   return &clone
 }
 
-// Clone copies a schema and everything it contains: the member records, tag
-// rows, constant values, template rows, function parameters and nested schemas.
+// Clone copies schema roots, member records, tag rows, template rows, function
+// parameters and nested schemas. Literal Value payloads, description pointers,
+// checker types and nested type-tag payloads retain their existing references.
 // The shared type values (object, alias, array and tuple types) are not copied,
 // and cyclic schema references are copied once. The name caches are
 // not copied, so the clone recomputes them.
 //
-// @evidence contracts/common.md#principled-implementation An exploration result must be reused or edited without affecting its origin, while the shared types must stay shared so identities remain.
+// @evidence contracts/common.md#principled-implementation Structural schema roots, member records and rows are copied for reuse; shared definitions and payload references retain their identities as documented.
 // @evidence contracts/common.md#clear-and-simple-design One recursive copy with a visited map and one helper per member kind.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The shared types are an explicit boundary of the copy.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Shared definitions and payload references are explicit boundaries of the copy.
 // @evidence contracts/common.md#meaningful-documentation The doc states what is copied, what is shared and what is recomputed.
 func (obj *MetadataSchema) Clone() *MetadataSchema {
   return metadataSchema_clone(obj, map[*MetadataSchema]*MetadataSchema{})
@@ -461,7 +499,8 @@ func metadataSchema_cloneJsDocTags(input []IJsDocTagInfo) []IJsDocTagInfo {
 }
 
 // ToJSON returns the JSON form of the schema. Shared types are written by name and
-// tags, and nested schemas are converted recursively.
+// tags, and nested schemas are converted recursively. Maintained member lists
+// and referenced definitions must contain the non-nil records their projections require.
 //
 // @evidence contracts/common.md#principled-implementation The JSON form has one inline part and one by-name part, matching how the components are written.
 // @evidence contracts/common.md#clear-and-simple-design One loop per member kind.
@@ -519,11 +558,12 @@ func (obj *MetadataSchema) ToJSON() *IMetadataSchema {
 }
 
 // GetName returns the identity name of the schema in union notation: `any` for
-// Any, otherwise the sorted member names, with `null` and `undefined` when they
+// Any, otherwise the sorted rendered value-member names, excluding callable
+// signatures, with `null` and `undefined` when they
 // apply, joined by ` | ` and parenthesized, a single member unparenthesized and
 // `unknown` for none. The name is cached after the first call.
 //
-// @evidence contracts/common.md#principled-implementation A stable name for the whole union is what keys, deduplication and messages need, and sorting the member names makes it independent of discovery order.
+// @evidence contracts/common.md#principled-implementation Keys and messages use the rendered value-member union; sorting makes its name independent of discovery order, while callable signatures are not rendered by this composer.
 // @evidence contracts/common.md#clear-and-simple-design A cache check and one private composer shared with the display name.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The cache limitation is documented on the record.
 // @evidence contracts/common.md#meaningful-documentation The doc gives the composition rules.
@@ -671,10 +711,11 @@ func (obj *MetadataSchema) IsRequired() bool {
   return obj.Required == true && obj.Optional == false
 }
 
-// IsUnionBucket reports whether more than one kind of alternative exists, where
-// atomics together with constants count once.
+// IsUnionBucket reports whether the adjusted Bucket count exceeds one. When
+// atomic and constant buckets both exist, they count as one for this heuristic,
+// without comparing their primitive categories.
 //
-// @evidence contracts/common.md#principled-implementation A constant of a type that an atomic of the same type already accepts adds no kind, so the pair counts as one.
+// @evidence contracts/common.md#principled-implementation Callers use an adjusted kind count that combines the atomic and constant buckets; this heuristic does not compare individual primitive categories.
 // @evidence contracts/common.md#clear-and-simple-design One comparison over the Bucket count.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The adjustment is stated, not hidden.
 // @evidence contracts/common.md#meaningful-documentation The doc states the adjustment.
@@ -687,8 +728,9 @@ func (obj *MetadataSchema) IsUnionBucket() bool {
   return emended > 1
 }
 
-// GetSoleLiteral returns the text when the schema is exactly one string literal
-// and nothing else, and nil otherwise. The answer is cached.
+// GetSoleLiteral returns the text when the member alternatives are exactly one
+// string literal, and nil otherwise. Presence and nullability flags are ignored.
+// The answer is cached.
 //
 // @evidence contracts/common.md#principled-implementation A property key is usable as a literal only when it is exactly one string, so every other member kind rules it out.
 // @evidence contracts/common.md#clear-and-simple-design One condition over the member lists and a cache.
@@ -878,17 +920,18 @@ func metadataSchema_constantValueKey(value any) string {
   }
 }
 
-// MetadataSchema_covers reports whether x accepts every value y accepts, as far as
-// it can tell without evaluating tag predicates: a tag-constrained atomic does
-// not cover a literal, and tag rows must match verbatim. It under-reports, which
-// only affects union ordering. A schema never covers itself at the top level. The
-// variadic argument is read for its first boolean, which marks an escaped
-// comparison.
+// MetadataSchema_covers compares x and y for structural union ordering without
+// evaluating tag predicates. Validating tag rows use row inclusion; container
+// comparisons follow the metadata's structural rules. Tuple comparison checks
+// positional types rather than proving runtime tuple-length containment, so
+// this result is not a general certificate that x accepts every y value.
+// A schema never covers itself at the top level. The first boolean variadic
+// argument marks an escaped comparison.
 //
-// @evidence contracts/common.md#principled-implementation Union members are ordered so that narrower ones are tried first, which needs a conservative cover test that cycles cannot defeat, so visited pairs answer true.
+// @evidence contracts/common.md#principled-implementation Union ordering uses structural comparisons of member kinds, presence and tags; visited pairs terminate recursive comparisons. The documented heuristic does not certify arbitrary value-set containment.
 // @evidence contracts/common.md#clear-and-simple-design One recursive comparison over the member kinds with private helpers for tags, templates and atomic-like natives.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The approximation and its direction are stated; no predicate evaluation is faked.
-// @evidence contracts/common.md#meaningful-documentation The doc states the approximation and the top-level rule.
+// @evidence contracts/common.md#meaningful-documentation The doc states the ordering role, tuple limitation, predicate boundary and top-level rule.
 func MetadataSchema_covers(x *MetadataSchema, y *MetadataSchema, levelAndEscaped ...any) bool {
   escaped := false
   for _, value := range levelAndEscaped {
@@ -1119,6 +1162,9 @@ func MetadataSchema_merge(x *MetadataSchema, y *MetadataSchema) *MetadataSchema 
     Maps:      base.Maps,
   })
   mergeTagged(&output.Atomics, other.Atomics, func(a, b *MetadataAtomic) bool { return a.Type == b.Type }, func(v *MetadataAtomic) *[][]IMetadataTypeTag { return &v.Tags })
+  // Identity excludes the tags being merged. Clone starts template name caches
+  // empty, and GetBaseName does not populate them before the row merge.
+  mergeTagged(&output.Templates, other.Templates, func(a, b *MetadataTemplate) bool { return a.GetBaseName() == b.GetBaseName() }, func(v *MetadataTemplate) *[][]IMetadataTypeTag { return &v.Tags })
   mergeTagged(&output.Arrays, other.Arrays, func(a, b *MetadataArray) bool { return a.Type.Name == b.Type.Name }, func(v *MetadataArray) *[][]IMetadataTypeTag { return &v.Tags })
   mergeTagged(&output.Tuples, other.Tuples, func(a, b *MetadataTuple) bool { return a.Type.Name == b.Type.Name }, func(v *MetadataTuple) *[][]IMetadataTypeTag { return &v.Tags })
   mergeTagged(&output.Objects, other.Objects, func(a, b *MetadataObject) bool { return a.Type.Name == b.Type.Name }, func(v *MetadataObject) *[][]IMetadataTypeTag { return &v.Tags })
@@ -1455,7 +1501,7 @@ func MetadataSchema_hasBigint(meta *MetadataSchema) bool {
 // `Number` and `String` to the atomic type they stand for, and reports false for
 // any other name.
 //
-// @evidence contracts/common.md#principled-implementation The wrapper objects accept the same values as the primitives in the checks that compare buckets, and one table names them.
+// @evidence contracts/common.md#principled-implementation Bucket-comparison helpers associate the four wrapper names with primitive categories through one table; this association does not change runtime wrapper validation.
 // @evidence contracts/common.md#clear-and-simple-design One switch.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Unlisted names report false and are never guessed.
 // @evidence contracts/common.md#meaningful-documentation The doc lists the four names.

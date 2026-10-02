@@ -13,8 +13,8 @@ import typia from "typia";
  * transform panic (#2461).
  *
  * 1. Call each spelling through the `is`, `assert`, and `validate` variants of
- *    `Function` and `Parameters`, and `isReturn`, and compare with a direct
- *    call.
+ *    `Function` and `Parameters`, and `isReturn`, and compare with the literal
+ *    expected result.
  * 2. Keep a destructured parameter apart from a parameter named like its
  *    positional stand-in, and let a later default read a name the pattern
  *    binds.

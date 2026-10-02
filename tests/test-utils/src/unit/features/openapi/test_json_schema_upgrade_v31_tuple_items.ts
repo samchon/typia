@@ -3,20 +3,21 @@ import { TestEquality } from "@typia/template/oracle-equality";
 import { OpenApiConverter, OpenApiValidator } from "@typia/utils";
 
 /**
- * Verifies OpenAPI 3.1 prefixItems keeps the standard items rest schema.
+ * Verifies OpenAPI 3.1 tuple conversion preserves standard items constraints.
  *
  * JSON Schema 2020-12 assigns tuple rest behavior to `items`; the deprecated
- * `additionalItems` keyword has no effect beside `prefixItems`. The upgrader
- * previously dropped `items` and consulted the deprecated keyword, changing
- * valid tuple languages.
+ * `additionalItems` keyword has no effect beside `prefixItems`. Emended rest
+ * constraints must be emitted as native `items`, and native nonprefix false
+ * items must retain the empty closed-array meaning through conversion.
  *
- * 1. Upgrade schema, false, and omitted `items` rest forms beside prefixItems.
- * 2. Require the emended additionalItems form to preserve each meaning.
- * 3. Validate positive and negative boundary values after conversion.
+ * 1. Upgrade schema, false, true and omitted rest forms beside prefixItems.
+ * 2. Downgrade emended tuples and compare independently authored raw fields.
+ * 3. Validate roundtrip rest and minimum-length boundaries, including empty closed
+ *    tuples and ordinary arrays with boolean or omitted items.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.upgradeSchema runs on prefixItems with schema, false and omitted items, and OpenApiValidator checks values at the boundaries of each result, so a dropped rest schema or use of additionalItems changes acceptance.
- * @evidence contracts/testing.md#independent-expectations JSON Schema 2020-12 defines items as the rest schema beside prefixItems and deprecates additionalItems; accepted and rejected values follow from that rule.
- * @evidence contracts/testing.md#distinguishing-cases Schema, false and omitted rest forms each have positive and negative boundary values.
+ * @evidence contracts/testing.md#behavioral-verification Public upgradeSchema and downgradeSchema execute authored tuple and ordinary-array schemas. Literal raw items, prefixItems and length assertions detect an incorrect dialect emission; value validation after roundtrip detects widened rest constraints or changed required-prefix defaults.
+ * @evidence contracts/testing.md#independent-expectations JSON Schema 2020-12 defines items as the rest schema beside prefixItems, permits a shorter prefix unless minItems forbids it, and makes omitted or true items unconstrained. The emended ITuple contract instead defaults to a required prefix and closed rest. Literal native fields and independent value witnesses check preservation across that difference; unrelated annotations are outside the field projection.
+ * @evidence contracts/testing.md#distinguishing-cases Schema, false, true and omitted rest forms distinguish native open-rest and emended closed-rest defaults. Empty versus present prefixes, default versus explicit zero minima, and nonprefix false items with positive minimum and retained maximum cover the same conversion boundary. Existing schema-rest positive and negative witnesses remain intact.
  * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion and validation run in process on authored schemas with no native build, installation or host.
  */
 export const test_json_schema_upgrade_v31_tuple_items = (): void => {
@@ -62,10 +63,140 @@ export const test_json_schema_upgrade_v31_tuple_items = (): void => {
     ["x", { anything: true }],
     true,
   );
+
+  const trueRest = upgrade({
+    type: "array",
+    prefixItems: [{ type: "string" }],
+    items: true,
+  });
+  assertTupleRest("explicit true items is open", trueRest, true);
+  expectValidation("true rest permits omitted prefix", trueRest, [], true);
+  expectValidation(
+    "true rest accepts arbitrary extra",
+    trueRest,
+    ["x", 1],
+    true,
+  );
+
+  for (const row of [
+    {
+      label: "schema",
+      rest: { type: "number" } as const,
+      items: { type: "number" } as const,
+      extra: 1,
+      badExtra: "bad",
+    },
+    { label: "false", rest: false, items: false, extra: 1, badExtra: 1 },
+    { label: "true", rest: true, items: true, extra: { arbitrary: true } },
+    { label: "omitted", rest: undefined, items: false, extra: 1, badExtra: 1 },
+  ]) {
+    const source: OpenApi.IJsonSchema.ITuple = {
+      type: "array",
+      prefixItems: [{ type: "string" }],
+      ...(row.rest === undefined ? {} : { additionalItems: row.rest }),
+    };
+    const raw = downgrade(source);
+    TestEquality.equals(
+      `${row.label} native tuple fields`,
+      {
+        type: "type" in raw ? raw.type : undefined,
+        prefixItems: "prefixItems" in raw ? raw.prefixItems : undefined,
+        items: "items" in raw ? raw.items : undefined,
+        minItems: "minItems" in raw ? raw.minItems : undefined,
+        additionalItems:
+          "additionalItems" in raw ? raw.additionalItems : undefined,
+      },
+      {
+        type: "array",
+        prefixItems: [{ type: "string" }],
+        items: row.items,
+        minItems: 1,
+        additionalItems: undefined,
+      },
+    );
+    const roundtrip = upgrade(raw);
+    expectValidation(
+      `${row.label} required prefix survives`,
+      roundtrip,
+      [],
+      false,
+    );
+    expectValidation(`${row.label} prefix accepts`, roundtrip, ["x"], true);
+    expectValidation(
+      `${row.label} extra policy`,
+      roundtrip,
+      ["x", row.extra],
+      row.rest !== false && row.rest !== undefined,
+    );
+    if (row.badExtra !== undefined)
+      expectValidation(
+        `${row.label} rejects wrong extra`,
+        roundtrip,
+        ["x", row.badExtra],
+        false,
+      );
+    expectValidation(
+      `${row.label} explicit zero permits empty`,
+      upgrade(downgrade({ ...source, minItems: 0 })),
+      [],
+      true,
+    );
+  }
+
+  for (const items of [true, undefined] as const) {
+    const ordinary = upgrade({
+      type: "array",
+      ...(items === undefined ? {} : { items }),
+    });
+    TestEquality.equals(
+      "ordinary unconstrained items",
+      "items" in ordinary ? ordinary.items : undefined,
+      {},
+    );
+    expectValidation("ordinary open empty", ordinary, [], true);
+    expectValidation(
+      "ordinary open heterogeneous",
+      ordinary,
+      [1, "x", {}],
+      true,
+    );
+    expectValidation("ordinary array rejects scalar", ordinary, 1, false);
+  }
+  for (const minItems of [0, 1]) {
+    const closed = upgrade({
+      type: "array",
+      items: false,
+      minItems,
+      maxItems: 2,
+    });
+    assertTupleRest("nonprefix false is closed", closed, false);
+    const raw = downgrade(closed);
+    TestEquality.equals(
+      "empty closed native fields",
+      {
+        prefixItems: "prefixItems" in raw ? raw.prefixItems : undefined,
+        items: "items" in raw ? raw.items : undefined,
+        minItems: "minItems" in raw ? raw.minItems : undefined,
+        maxItems: "maxItems" in raw ? raw.maxItems : undefined,
+      },
+      { prefixItems: undefined, items: false, minItems, maxItems: 2 },
+    );
+    const roundtrip = upgrade(raw);
+    expectValidation("empty closed minimum", roundtrip, [], minItems === 0);
+    expectValidation("empty closed rejects member", roundtrip, [1], false);
+  }
 };
 
 const upgrade = (schema: OpenApiV3_1.IJsonSchema): OpenApi.IJsonSchema =>
   OpenApiConverter.upgradeSchema({ components: {}, schema });
+
+const downgrade = (schema: OpenApi.IJsonSchema): OpenApiV3_1.IJsonSchema =>
+  OpenApiConverter.downgradeSchema({
+    components: {},
+    schema,
+    version: "3.1",
+    downgraded: {},
+  });
 
 const assertTupleRest = (
   label: string,

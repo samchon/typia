@@ -22,7 +22,7 @@ interface IPlain {
  * 3. Reject method calls on four representative decoded class results.
  *
  * @evidence contracts/testing.md#behavioral-verification HttpFactoryResultCases retains every original thirteen direct/factory Same assertion and the plain-interface identity assertion. The methodOnFactoryResult expected-error controls require Query.twice to remain noncallable on query, nullable isQuery, FormData and assertHeaders results.
- * @evidence contracts/testing.md#independent-expectations The return-type comparison uses a local symmetric type-identity predicate against the public direct signatures. The Query class's authored callable method supplies four independent negative controls; a correlated wrong direct/factory class return would still fail those controls.
+ * @evidence contracts/testing.md#independent-expectations The return-type comparison uses a local deferred generic-function type-identity predicate against the public direct signatures. The Query class's authored callable method supplies four independent negative controls; a correlated wrong direct/factory class return would still fail those controls.
  * @evidence contracts/testing.md#distinguishing-cases Query/assertQuery/isQuery/validateQuery, FormData/assert/is/validate, headers/assert/is/validate and atomic parameter retain all factory signatures. The plain-interface control and nullable-is method call preserve their separate structural/nullability distinctions.
  * @evidence contracts/testing.md#execution-ownership test-interface start typechecks this compile-only file with noEmit. The typia import is type-only and every factory reference is a type query; no factory executes or must be transformed. The original runtime equality checks remain in the schema-suite case.
  */

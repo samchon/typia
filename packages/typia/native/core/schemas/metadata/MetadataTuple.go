@@ -8,7 +8,9 @@ package metadata
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the sharing.
 type MetadataTuple struct {
+  // Type is the shared tuple definition referenced by this use.
   Type *MetadataTupleType
+  // Tags contains this use's alternative rows of jointly applied tags.
   Tags [][]IMetadataTypeTag
 }
 

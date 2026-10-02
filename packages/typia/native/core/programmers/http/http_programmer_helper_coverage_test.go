@@ -22,7 +22,7 @@ import (
 // 3. Build header array readers for string, number, and cookie delimiters.
 // 4. Verify HTTP import, property-key, type decoding, and debug helpers.
 //
-// @evidence contracts/testing.md#behavioral-verification HTTP array reader helpers are called for required, nullable, optional, string, number and cookie-delimited cases; only the unchanged required array and the debug and method text helpers are compared exactly, the other checks require a non-nil node.
+// @evidence contracts/testing.md#behavioral-verification HTTP array reader helpers are called for required, nullable, optional, string, number and cookie-delimited cases; the required array has identity equality and method/property-key helpers have exact text checks; debug requires nonempty text, array/import builders require non-nil nodes, and the metadata decoder checks only the array-output flag.
 // @evidence contracts/testing.md#independent-expectations Exact checks use authored text; the non-nil checks have no independent oracle and certify only construction.
 // @evidence contracts/testing.md#distinguishing-cases Required, nullable, optional and delimiter variants are each visited once; few negatives exist.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.

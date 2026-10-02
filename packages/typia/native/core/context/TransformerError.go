@@ -15,7 +15,10 @@ import (
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the contents.
 type TransformerError struct {
-  Code    string
+  // Code identifies the typia operation reported by the host diagnostic.
+  Code string
+
+  // Message is the diagnostic text returned unchanged by Error.
   Message string
 }
 
@@ -49,7 +52,10 @@ func (err *TransformerError) Error() string {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it holds.
 type TransformerError_IProps struct {
-  Code    string
+  // Code identifies the typia operation reported by the host diagnostic.
+  Code string
+
+  // Message is the diagnostic text to preserve in the error.
   Message string
 }
 
@@ -61,8 +67,13 @@ type TransformerError_IProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states each part.
 type TransformerError_MetadataFactory_IError struct {
-  Name     string
-  Explore  TransformerError_MetadataFactory_IExplore
+  // Name is the unsupported type's rendered name.
+  Name string
+
+  // Explore locates the unsupported type in its object or signature.
+  Explore TransformerError_MetadataFactory_IExplore
+
+  // Messages contains the reasons rendered as indented diagnostic bullets.
   Messages []string
 }
 
@@ -75,16 +86,25 @@ type TransformerError_MetadataFactory_IError struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the location parts.
 type TransformerError_MetadataFactory_IExplore struct {
-  Object    *nativemetadata.MetadataObjectType
-  Property  any
+  // Object is the containing object type, or nil outside an object.
+  Object *nativemetadata.MetadataObjectType
+
+  // Property is nil for the object itself, a string for a named property or a
+  // non-string marker for an index key.
+  Property any
+
+  // Parameter is JSON-rendered in the diagnostic when non-nil and takes
+  // precedence over the return-type marker.
   Parameter any
-  Output    bool
+
+  // Output marks a return type when no Parameter marker is present.
+  Output bool
 }
 
 // TransformerError_from builds the "unsupported type detected" error from a list
 // of metadata errors, one bullet per type with its location and indented reasons.
 //
-// @evidence contracts/common.md#principled-implementation Each error becomes a bullet with the type, prefixed with its object and property path and a marker for a parameter or return type, followed by its reasons indented, and the bullets are joined under a fixed header; property keys that are legal identifiers use dot access and others a JSON-quoted bracket form, and keys that are not strings are shown as `[key]`.
+// @evidence contracts/common.md#principled-implementation Each error becomes a bullet with the type, prefixed with its object and property path and a marker for a parameter or return type, followed by its reasons indented, and the bullets are joined under a fixed header; property keys matching the ASCII identifier pattern use dot access and other strings a JSON-quoted bracket form, and keys that are not strings are shown as `[key]`.
 // @evidence contracts/common.md#clear-and-simple-design One function with three small private helpers for path joining, identifier testing and JSON encoding.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The text format is the diagnostic contract and nothing is keyed on a type name.
 // @evidence contracts/common.md#meaningful-documentation The doc states the output shape.

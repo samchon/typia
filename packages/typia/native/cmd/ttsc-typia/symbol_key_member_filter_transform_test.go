@@ -12,9 +12,9 @@ import (
 // Symbol keys are outside typia ordinary structural string-property traversal, while excluding them must not erase normal public members.
 //
 // 1. Computed symbol properties and ordinary string properties share a shape, pairing the unsupported-key exclusion with preserved valid fields.
-// 2. Every required string-keyed property remains in output and forbidden symbol binder markers are absent.
+// 2. The asserted name, id and plain string-keyed properties remain in output and forbidden symbol binder markers are absent.
 //
-// @evidence contracts/testing.md#behavioral-verification Every required string-keyed property remains in output and forbidden symbol binder markers are absent.
+// @evidence contracts/testing.md#behavioral-verification The asserted name, id and plain string-keyed properties remain in output and forbidden symbol binder markers are absent.
 // @evidence contracts/testing.md#independent-expectations Symbol keys are outside typia ordinary structural string-property traversal, while excluding them must not erase normal public members.
 // @evidence contracts/testing.md#distinguishing-cases Computed symbol properties and ordinary string properties share a shape, pairing the unsupported-key exclusion with preserved valid fields.
 // @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestSymbolKeyMemberFilterTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.

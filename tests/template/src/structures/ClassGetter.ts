@@ -1,8 +1,10 @@
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/** Supplies a class fixture with own data and a prototype getter. */
 export type ClassGetter = ClassGetter.Person;
 export namespace ClassGetter {
+  /** Owns initialized data and the declared prototype greeting getter. */
   export class Person {
     public constructor(
       public readonly id: string,
@@ -18,6 +20,7 @@ export namespace ClassGetter {
     }
   }
 
+  /** Constructs a fresh getter-bearing fixture with ordinary valid data. */
   export function generate(): ClassGetter {
     return new Person(
       TestRandomGenerator.string(),

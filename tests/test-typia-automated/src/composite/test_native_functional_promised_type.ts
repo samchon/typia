@@ -15,6 +15,19 @@ type BrandedPromise<T> = Promise<T> & {
   readonly __brand: unique symbol;
 };
 namespace Shadow {
+  /**
+   * Defines a synchronous class named Promise without thenable behavior.
+   *
+   * All eighteen shadowed functional wrappers must return synchronously and
+   * preserve authored nested total9, rather than awaiting this name-only
+   * fixture. The constructor stores its supplied value and declares no then
+   * method; authored instanceof global Promise false and total9 provide
+   * independent observations. This class contrasts with
+   * derived/interface/branded real Promises. Its valid-input wrappers execute;
+   * malformed shadowed inputs are not enrolled. shadowedTarget constructs this
+   * value; test_native_functional_promised_type owns all actual native wrapper
+   * observations in the shared worker.
+   */
   export class Promise<T> {
     public constructor(public value: T) {}
   }
@@ -137,7 +150,7 @@ void (null as unknown as [PromisedWrapperCases]);
  * @evidence contracts/testing.md#behavioral-verification Derived, interface and branded Promises retain Promise shape and fulfilled results, invalid parameters/returns reject or report failure by wrapper family, shadowed Promise stays synchronous, and target rejection propagates.
  * @evidence contracts/testing.md#independent-expectations The retained literal expectations encode the authored type/value contract, not emitted-source patterns. Type-level equality assertions, where present, remain compiled independently of runtime comparisons.
  * @evidence contracts/testing.md#distinguishing-cases Derived, interface and branded Promises retain Promise shape and fulfilled results, invalid parameters/returns reject or report failure by wrapper family, shadowed Promise stays synchronous, and target rejection propagates.
- * @evidence contracts/testing.md#execution-ownership The matching exported composite is discovered by TestServant in test-typia-automated. Private typed producers and deliberately unchecked JavaScript-style runtime inputs preserve the original test boundary.
+ * @evidence contracts/testing.md#execution-ownership This discovered composite owns the private Shadow.Promise constructor and shadowedTarget's eighteen synchronous wrapper observations, including literal total9 and non-global-Promise results. The private namespace class retains descriptive prose without a separate public acknowledgement; typed producers and unchecked runtime inputs preserve the original boundary.
  * @evidence contracts/e2e.md#necessary-boundary Real typia public calls are transformed and their callbacks execute in Node. Go unit assertions on metadata or emitted text cannot detect a runtime result, receiver or mutation defect.
  * @evidence contracts/e2e.md#shared-execution This case reuses the suite's generated project and shared worker with other native composites; it starts no compiler project, subprocess or artifact installation.
  * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each row creates its own receiver, input and pending Promise; all awaited fulfillment/rejection observations finish within the exported asynchronous case. Shadow-Promise targets construct a fresh returned object. The suite owns and closes the worker.

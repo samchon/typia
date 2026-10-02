@@ -38,7 +38,7 @@ func TestLlmEvaluationDeclarationProbabilityCache(t *testing.T) {
     go func() {
       defer group.Done()
       errors := llmEvaluation_onceDeclarationProbabilityErrors(shared, analyze)
-      if len(errors) != 1 || errors[0].Message != "unsupported declaration" {
+      if len(errors) != 1 || errors[0].Accessor != "$input" || errors[0].Message != "unsupported declaration" {
         t.Errorf("cached diagnostic changed: %+v", errors)
       }
     }()

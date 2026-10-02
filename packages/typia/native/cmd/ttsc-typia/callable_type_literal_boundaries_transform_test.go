@@ -51,8 +51,7 @@ func TestCallableTypeLiteralBoundariesTransform(t *testing.T) {
   // signatures, so the failure is legible in its emit alone: TypeScript augments
   // a callable object's apparent members with the global `Function` members, and
   // these fragments appear exactly when a signature-only shape was expanded as a
-  // structural object instead. Reading the emit stops the runtime matrix from
-  // passing on a coincidence, and it is asserted here rather than on the
+  // structural object instead. These emitted-property checks are asserted here rather than on the
   // spelling fixture because that fixture deliberately contains member-carrying
   // shapes, for which the same fragments are correct.
   for _, mode := range callableTypeLiteralModes() {
@@ -100,13 +99,11 @@ type callableTypeLiteralShape struct {
   Body string
   // Alias is the plain function-type spelling of the same type, empty when the
   // shape carries members and therefore has no function twin — its only alias
-  // spelling would be an intersection, which typia's intersection contract owns
-  // rather than this declaration-identity boundary.
+  // spelling is supplied by IntersectionAlias.
   Alias string
   // IntersectionAlias is that intersection spelling. It is mutually assignable
-  // with the declaration spellings, so it is compiled and executed as evidence
-  // of where the declaration-identity contract legitimately hands over to the
-  // intersection contract, and never as a validator this change has to move.
+  // with the declaration spellings; the typechecked premise and diagnostic
+  // parity matrix cover it without executing generated JavaScript.
   IntersectionAlias string
   // MemberTwin names the shape that is the same TypeScript type written with the
   // other member spelling (`method(): void` against `method: () => void`).
@@ -223,9 +220,8 @@ type Same<X, Y> = [X] extends [Y] ? ([Y] extends [X] ? true : false) : false;
       builder.WriteString("type _" + shape.Name + "AliasTwin = Assert<Same<" + shape.Name + "Interface, " + shape.Name + "Alias>>;\n")
     }
     if shape.IntersectionAlias != "" {
-      // Type-level only: the intersection spelling is the declared hand-over
-      // point to typia's intersection contract, so it is proven equivalent here
-      // and exercised as a diagnostic, never as a validator.
+      // Establish intersection-spelling equivalence here; the isolated
+      // diagnostic twins below require that spelling to remain supported too.
       builder.WriteString("type _" + shape.Name + "IntersectionTwin = Assert<Same<" + shape.Name + "Interface, " + shape.IntersectionAlias + ">>;\n")
     }
     if shape.MemberTwin != "" {
@@ -303,10 +299,8 @@ func callableTypeLiteralTransform(t *testing.T, project string, file string, fun
 //
 // The interface, named-literal, and inline spellings of one shape are the same
 // declaration written three ways, so they must always agree. A member-carrying
-// shape's only function-type spelling is an intersection, and typia rejects an
-// intersection of runtime callability with a further obligation; that rejection
-// belongs to typia's intersection contract, not to declaration identity, so it
-// is recorded as the expected boundary rather than silently generalized.
+// shape's function-type spelling uses an intersection; it must have the same
+// supported verdict as the equivalent declaration spellings.
 func callableTypeLiteralDiagnosticTwins(t *testing.T) []string {
   t.Helper()
   failures := []string{}
@@ -407,10 +401,10 @@ func callableTypeLiteralDiagnosticTwins(t *testing.T) []string {
 // The three spellings are compiled in separate projects under one shared type
 // name, so their emits must be byte-identical rather than merely equivalent.
 // That is the strongest oracle available here: it cannot be satisfied by two
-// different validators that happen to agree on the executed inputs, and it needs
+// different emitted validators that merely agree on selected inputs, and it needs
 // no expected-value table that could be written from the implementation's own
-// output. The runtime rows then pin the answers the emit alone cannot: a
-// function slot is dropped from JSON, cloned away, and ignored by equality.
+// output. Parity cannot establish that a shared emission is semantically correct;
+// this helper does not execute the generated JavaScript.
 func callableTypeLiteralConsumerFamilies(t *testing.T) []string {
   t.Helper()
   failures := []string{}

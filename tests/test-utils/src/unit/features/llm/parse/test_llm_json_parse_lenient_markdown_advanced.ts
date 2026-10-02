@@ -33,6 +33,8 @@ export const test_llm_json_parse_lenient_markdown_advanced = (): void => {
   // Code block with trailing whitespace before closing
   const r3 = LlmJson.parse('```json\n{"key": 1}\n  ```');
   TestEquality.equals("trailing-ws-close-success", r3.success, true);
+  if (r3.success)
+    TestEquality.equals("trailing-ws-close-data", r3.data, { key: 1 });
 
   // Markdown block with empty content
   const r4 = LlmJson.parse("```json\n\n```");

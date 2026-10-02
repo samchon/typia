@@ -5,6 +5,7 @@ package metadata
 
 import (
   "path/filepath"
+  "reflect"
   "testing"
 
   nativeast "github.com/microsoft/typescript-go/shim/ast"
@@ -25,18 +26,28 @@ import (
 // 4. Parse JSDoc AST nodes and cover type-expression/comment fallback helpers.
 // 5. Cover nil object and nil analyzer fallbacks.
 //
-// @evidence contracts/testing.md#behavioral-verification Comment tags are applied to constructed string, number, bigint and array metadata through an installed test analyzer and JSDoc rows are parsed; several checks assert tags landed in every bucket and not twice, others only that helpers return empty text for nil.
-// @evidence contracts/testing.md#independent-expectations Authored rows and the documented once-only application are the expectations; nil-returns-empty checks have no independent oracle.
+// @evidence contracts/testing.md#behavioral-verification The comment-tag dispatcher calls a test analyzer on constructed property metadata. Exactly one callback, its property/location inputs, each exact test tag and one propagated error are asserted, and a repeated call must leave the callback count unchanged. Parsed JSDoc presence and nil-helper fallbacks are also checked; the real analyzer's parsing semantics are not exercised here.
+// @evidence contracts/testing.md#independent-expectations Authored callback inputs and marker tags establish the dispatch and once-only contract independently of the dispatcher. The test analyzer deliberately supplies tag/error outputs, so those outputs do not establish real comment-tag parsing; that belongs to factory tests.
 // @evidence contracts/testing.md#distinguishing-cases Every tag bucket, repeated application and parsing are exercised once; this test has few negatives.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls internal helpers with constructed metadata and an installed analyzer; it needs no program load or process.
 func TestCommentTagsCoverage(t *testing.T) {
   oldAnalyzer := MetadataCommentTagAnalyzer
+  calls := 0
+  var analyzedMetadata *schemametadata.MetadataSchema
+  var analyzedObject *schemametadata.MetadataObjectType
+  var analyzedProperty any
+  var analyzedTags []schemametadata.IJsDocTagInfo
   MetadataCommentTagAnalyzer = func(props struct {
     Errors   *[]MetadataFactory_IError
     Metadata *schemametadata.MetadataSchema
     Tags     []schemametadata.IJsDocTagInfo
     Explore  MetadataFactory_IExplore
   }) {
+    calls++
+    analyzedMetadata = props.Metadata
+    analyzedObject = props.Explore.Object
+    analyzedProperty = props.Explore.Property
+    analyzedTags = props.Tags
     if props.Metadata == nil {
       return
     }
@@ -105,19 +116,22 @@ func TestCommentTagsCoverage(t *testing.T) {
     Errors *[]MetadataFactory_IError
     Object *schemametadata.MetadataObjectType
   }{Errors: &errors, Object: object})
-  if len(value.Atomics[0].Tags) == 0 ||
-    len(value.Atomics[1].Tags) == 0 ||
-    len(value.Atomics[2].Tags) == 0 ||
-    len(value.Arrays[0].Tags) == 0 ||
-    len(errors) == 0 {
-    t.Fatal("comment tags were not applied to every metadata bucket")
+  if calls != 1 || analyzedMetadata != value || analyzedObject != object || analyzedProperty != property || !reflect.DeepEqual(analyzedTags, property.JsDocTags) {
+    t.Fatal("comment-tag dispatch did not preserve the property and its location")
   }
-  before := len(value.Atomics[0].Tags[0])
+  for _, rows := range [][][]schemametadata.IMetadataTypeTag{value.Atomics[0].Tags, value.Atomics[1].Tags, value.Atomics[2].Tags, value.Arrays[0].Tags} {
+    if len(rows) != 1 || len(rows[0]) != 1 || rows[0][0].Name != "testTag" {
+      t.Fatal("comment-tag dispatch did not retain the analyzer's single marker tag")
+    }
+  }
+  if len(errors) != 1 || errors[0].Name != "comment tag(s)" || errors[0].Explore.Object != object || errors[0].Explore.Property != property || len(errors[0].Messages) != 1 || errors[0].Messages[0] != "test analyzer error" {
+    t.Fatal("comment-tag dispatch did not propagate the analyzer error")
+  }
   Iterate_metadata_comment_tags(struct {
     Errors *[]MetadataFactory_IError
     Object *schemametadata.MetadataObjectType
   }{Errors: &errors, Object: object})
-  if len(value.Atomics[0].Tags[0]) != before {
+  if calls != 1 {
     t.Fatal("comment tags should not be applied twice to the same object")
   }
   Iterate_metadata_comment_tags(struct {

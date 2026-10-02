@@ -15,7 +15,7 @@ import { CalculatorApi } from "../../structures/CalculatorApi";
  * controller functions, tool … should exist, at least one tool should have
  * description.
  *
- * 1. Generate the value from the types declared in this file.
+ * 1. Convert the imported CalculatorApi document into an HTTP controller.
  * 2. Assert the properties listed above.
  *
  * @evidence contracts/testing.md#behavioral-verification HttpLlm.controller converts the authored CalculatorApi document and toLangChainTools exposes each resulting function name plus a nonempty description.

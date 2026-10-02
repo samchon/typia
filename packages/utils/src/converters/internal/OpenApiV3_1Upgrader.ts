@@ -382,7 +382,7 @@ export namespace OpenApiV3_1Upgrader {
    *
    * @evidence contracts/common.md#principled-implementation Component schemas are converted and security schemes kept; other component kinds are not needed once references are inlined.
    * @evidence contracts/common.md#clear-and-simple-design One function, also used for 3.2 and for the component entry of OpenApiConverter.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts No unreachable component is retained.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Supported schema and security-scheme stores are retained without reachability pruning; other component kinds are consumed while converting operations.
    * @evidence contracts/common.md#meaningful-documentation The doc states what is kept.
    */
   export const convertComponents = (
@@ -405,8 +405,9 @@ export namespace OpenApiV3_1Upgrader {
    * schema with no possible instance. This preserves rejection through schema
    * validation and downversion conversion; strict LLM conversion still shifts
    * bounds into descriptions, and type coverage remains conservative across
-   * different atomic types. A tuple becomes `prefixItems` with its rest
-   * schema.
+   * different atomic types. A tuple becomes `prefixItems` with its rest schema.
+   * Boolean `items: false` without a prefix becomes an empty closed tuple; true
+   * or omitted items leave array elements unconstrained.
    *
    * @param components Components used to resolve references
    *
@@ -697,8 +698,18 @@ export namespace OpenApiV3_1Upgrader {
                     : (schema.items ?? true),
               },
             });
-          else if (schema.items === undefined)
-            // JSON SCHEMA 2020-12 TREATS OMITTED `items` AS AN OPEN `any[]`
+          else if (schema.items === false)
+            union.push({
+              ...schema,
+              ...{
+                items: undefined!,
+                prefixItems: [],
+                minItems: schema.minItems ?? 0,
+                additionalItems: false,
+              },
+            } satisfies OpenApi.IJsonSchema.ITuple);
+          else if (schema.items === undefined || schema.items === true)
+            // OMITTED OR TRUE `items` LEAVES EVERY ARRAY ELEMENT UNCONSTRAINED.
             union.push({
               ...schema,
               ...{

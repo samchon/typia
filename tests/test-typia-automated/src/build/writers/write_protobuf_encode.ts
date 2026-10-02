@@ -3,10 +3,10 @@ import { NamingConvention, dedent } from "@typia/utils";
 /**
  * Renders protobuf encoding bindings for one fixture and API form.
  *
- * @evidence contracts/common.md#principled-implementation The method and mode determine the real encode callback; the same fixture supplies the generated decode companion and protobuf message passed to its existing helper.
- * @evidence contracts/common.md#clear-and-simple-design Private name and callback renderers share direct/factory spellings and preserve a single exported entry for each supplied fixture.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts The output retains the original helper invocation, fixture, encode/decode/message calls and discoverable name. No runtime verdict is substituted for the native producer.
- * @evidence contracts/common.md#meaningful-documentation The comment separates source rendering from the generated wire-format boundary; generated comments expose the protobufJS exclusion and companion-decoder limitations.
+ * @evidence contracts/testing.md#behavioral-verification This writer binds the actual encode callback, companion decoder and generated message to the selected helper. The ordinary helper compares admitted protobufJS reference bytes, decoded fixture content and stable re-encoding; source rendering owns no runtime assertion.
+ * @evidence contracts/testing.md#independent-expectations Fixture/RESOLVE data establish content expectations. protobufJS independently encodes the supplied native message only outside oneof/int64 exclusions; it does not prove that message reflects the TypeScript declaration. Companion decode/re-encode remains correlated.
+ * @evidence contracts/testing.md#distinguishing-cases Direct/factory forms retain the same fixture, message and helper. The helper distinguishes supported independent-byte cases from oneof/int64 roundtrips; invalid-input scenarios belong to separate validating wrappers rather than ordinary encoding.
+ * @evidence contracts/testing.md#execution-ownership The active protobuf encoding programmer calls this writer through the controller. Private getFile/getMethod/getFunctor own matching identities and callback spellings; generated exports execute through TestServant, not during rendering.
  */
 export const write_protobuf_encode =
   (method: string) => (create: boolean) => (structure: string) =>

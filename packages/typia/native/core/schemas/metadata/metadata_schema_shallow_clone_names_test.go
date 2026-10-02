@@ -15,7 +15,7 @@ import "testing"
 //
 // @evidence contracts/testing.md#behavioral-verification ShallowClone is called after GetName and GetDisplayName filled the caches and the clone's names are read after Optional is changed; copying the caches fails the clone assertions.
 // @evidence contracts/testing.md#independent-expectations The expected names, `(string | undefined)` and `string`, are the union notation written out in the test and not read from the implementation.
-// @evidence contracts/testing.md#distinguishing-cases The clone and the original are asserted separately, so resetting a cache of the original or sharing one between them fails.
+// @evidence contracts/testing.md#distinguishing-cases Clone identity/display names and the original identity name are asserted separately. Retaining the clone's old optional names fails; clearing an unchanged original's cache alone would not fail these rendering assertions.
 // @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process on constructed schemas, with no checker, filesystem fixture or process.
 func TestMetadataSchemaShallowCloneResetsNames(t *testing.T) {
   schema := MetadataSchema_initialize()

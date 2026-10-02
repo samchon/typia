@@ -1,20 +1,24 @@
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/** Supplies a box's four nested numeric points and authored invalid mutations. */
 export type ObjectSimple = ObjectSimple.IBox3D;
 export namespace ObjectSimple {
+  /** Requires separate scale, position, rotation and pivot point data. */
   export interface IBox3D {
     scale: IPoint3D;
     position: IPoint3D;
     rotate: IPoint3D;
     pivot: IPoint3D;
   }
+  /** Requires three present numeric coordinates. */
   export interface IPoint3D {
     x: number;
     y: number;
     z: number;
   }
 
+  /** Creates independently allocated points for one clean box scenario. */
   export function generate(): ObjectSimple {
     const point = (): IPoint3D => ({
       x: TestRandomGenerator.integer(),
@@ -29,6 +33,7 @@ export namespace ObjectSimple {
     };
   }
 
+  /** Creates an explicitly invalid deepest-coordinate convenience fixture. */
   export function trail(): ObjectSimple {
     const data = generate();
     data.pivot.z = null!;

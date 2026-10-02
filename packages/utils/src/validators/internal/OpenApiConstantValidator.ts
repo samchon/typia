@@ -5,7 +5,7 @@ import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 /**
  * Validates a value against a constant schema.
  *
- * @evidence contracts/common.md#principled-implementation A constant schema accepts exactly the value that is strictly equal to its `const`, which is correct for the boolean, number and string constants the type allows; `NaN` as a constant would never match, which the type cannot express anyway.
+ * @evidence contracts/common.md#principled-implementation Strict equality implements the boolean, string and finite JSON-number constants of an emended schema without coercion. TypeScript's number type also admits NaN, but NaN is not a JSON constant and would never match; this predicate does not validate the schema itself.
  * @evidence contracts/common.md#clear-and-simple-design One expression.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Strict equality with no coercion.
  * @evidence contracts/common.md#meaningful-documentation The namespace comment and function doc state the contract.

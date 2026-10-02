@@ -1,4 +1,4 @@
-import { preparePrune } from "./TestPrune";
+﻿import { preparePrune } from "./TestPrune";
 
 /** The minimal fixture behavior used by portable predicate assertion helpers. */
 interface ITestPredicateFixture<T> {
@@ -14,15 +14,6 @@ interface ITestPredicateFixture<T> {
  *
  * Literal Boolean results matter: rejecting only the opposite Boolean would
  * accept undefined, null and other malformed predicate results.
- *
- * @evidence contracts/common.md#principled-implementation The clean invocation must return literal true and every authored spoiled invocation must return literal false; a non-Boolean result fails on either branch.
- * @evidence contracts/common.md#clear-and-simple-design The curried name, fixture and predicate parameters retain existing generated-call bindings; each spoiler receives a new generated value and the loop reports its own fixture/index failure.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Supplied callbacks are executed directly without replacing product methods or accepting fixture-specific expected outputs. The existing fixture traversal decisions are retained; exact Boolean comparisons reject malformed results rather than compensating for them.
- * @evidence contracts/common.md#meaningful-documentation Native prose identifies the return-value contract and fixture ownership; the acknowledgments state the precise assertions, original traversal premises and any oracle limitation.
- * @evidence contracts/testing.md#behavioral-verification The clean invocation must return literal true and every authored spoiled invocation must return literal false; a non-Boolean result fails on either branch.
- * @evidence contracts/testing.md#independent-expectations The fixture generator and spoiler mutations specify clean versus invalid input independently of the supplied predicate. Expected results are literal Boolean values, not another predicate computation.
- * @evidence contracts/testing.md#distinguishing-cases Each fixture contributes one clean value and its declared spoilers. A fixture without spoilers contributes clean acceptance only. Plugin-free sensitivity tests separately inject non-Boolean results on clean and spoiled calls.
- * @evidence contracts/testing.md#execution-ownership This shared oracle executes only the supplied callback and fixture operations. Matching test-utils test:unit cases call it under a plugin-free configuration; the existing automated/composite wrappers retain their actual native-produced callbacks and their own boundary execution.
  */
 export const _test_is =
   (name: string) =>
@@ -49,15 +40,6 @@ export const _test_is =
  *
  * A falsy non-Boolean result is neither a valid acceptance result nor a valid
  * rejection result, even when its truthiness resembles false.
- *
- * @evidence contracts/common.md#principled-implementation The clean result must be literal true. Each repetition adds a surplus key to reachable ordinary objects and requires literal false when at least one object was spoiled. Primitive-only values have no surplus-object assertion.
- * @evidence contracts/common.md#clear-and-simple-design A small private recursive traversal reports whether it added any surplus member, so primitive-only values do not invent a negative case. Recursion assumes the authored fixture is finite and acyclic, as the original traversal does; repeat preserves the existing caller-controlled repetition count.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Supplied callbacks are executed directly without replacing product methods or accepting fixture-specific expected outputs. The existing fixture traversal decisions are retained; exact Boolean comparisons reject malformed results rather than compensating for them.
- * @evidence contracts/common.md#meaningful-documentation Native prose identifies the return-value contract and fixture ownership; the acknowledgments state the precise assertions, original traversal premises and any oracle limitation.
- * @evidence contracts/testing.md#behavioral-verification The clean result must be literal true. Each repetition adds a surplus key to reachable ordinary objects and requires literal false when at least one object was spoiled. Primitive-only values have no surplus-object assertion.
- * @evidence contracts/testing.md#independent-expectations A valid authored fixture is the clean input; the helper-owned surplus key is outside the selected closed-object fixture contract. The configured native matrix excludes ADDABLE false fixtures; this helper does not infer whether an arbitrary index signature permits the key.
- * @evidence contracts/testing.md#distinguishing-cases Clean acceptance, object/array-nested surplus rejection and primitive-only no-spoil behavior are distinct. Unit sensitivity cases isolate malformed clean and spoiled returns; the native normal validator matrix separately owns ordinary invalid field values.
- * @evidence contracts/testing.md#execution-ownership This shared oracle executes only the supplied callback and fixture operations. Matching test-utils test:unit cases call it under a plugin-free configuration; the existing automated/composite wrappers retain their actual native-produced callbacks and their own boundary execution.
  */
 export const _test_equals =
   (name: string) =>
@@ -105,15 +87,6 @@ function spoilEqualsArray(array: any): boolean {
  * Pruning the surplus members is insufficient if the operation returns a
  * malformed non-Boolean status. The clean and spoiled result contracts must
  * both remain observable.
- *
- * @evidence contracts/common.md#principled-implementation The surplus-spoiled clean value must return literal true and lose the injected keys; each independently invalid fixture spoiler must return literal false. The shared deletion-only graph check also rejects lost or replaced authored valid data.
- * @evidence contracts/common.md#clear-and-simple-design Shared preparePrune owns valid-data capture and fresh surplus injection for ordinary object/array fixtures. This entry checks exact Boolean statuses; invalid cases start from separately generated values. Shared references and cycles are handled by graph identity.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Supplied callbacks are executed directly without replacing product methods or accepting fixture-specific expected outputs. The existing fixture traversal decisions are retained; exact Boolean comparisons reject malformed results rather than compensating for them.
- * @evidence contracts/common.md#meaningful-documentation Native prose identifies the return-value contract and fixture ownership; the acknowledgments state the precise assertions, original traversal premises and any oracle limitation.
- * @evidence contracts/testing.md#behavioral-verification The surplus-spoiled clean value must return literal true and lose the injected keys; each independently invalid fixture spoiler must return literal false. The shared deletion-only graph check also rejects lost or replaced authored valid data.
- * @evidence contracts/testing.md#independent-expectations The fixture generator/spoilers establish valid and invalid field values; the helper authors the surplus-key population. Literal true/false expectations follow the isPrune contract. Valid properties are captured before the callback; callback source spelling has no role in acceptance.
- * @evidence contracts/testing.md#distinguishing-cases Surplus removal on otherwise-valid data and rejection of each fixture spoiler are separate checks. Plugin-free sensitivity cases use a pruning callback that removes keys correctly while injecting malformed results independently on clean and invalid calls.
- * @evidence contracts/testing.md#execution-ownership This shared oracle executes only the supplied callback and fixture operations. Matching test-utils test:unit cases call it under a plugin-free configuration; the existing automated/composite wrappers retain their actual native-produced callbacks and their own boundary execution.
  */
 export const _test_plain_isPrune =
   (name: string) =>

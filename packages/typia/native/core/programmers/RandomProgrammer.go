@@ -1535,24 +1535,13 @@ func randomProgrammer_is_typed_array(name string) bool {
 // randomProgrammer_typed_array_range reports the type tag and range a TypedArray's
 // elements are generated from.
 //
-// These bounds are a generation hint, not a validation gate, and they are the one
-// copy of the 64-bit bound that is deliberately inexact. They become `minimum` and
-// `maximum` comment tags on a number-typed JSON schema, and `number` cannot
-// represent 2**63 - 1 or 2**64 - 1 -- both arrive rounded up to the next power of
-// two. That costs nothing here, and not because the generator is careless: it
-// draws Math.floor(Math.random() * (maximum - minimum + 1)) + minimum, and that
-// span is 2**64 either way, where consecutive doubles are 2048 apart. So the
-// largest draw is 2**63 - 2048 for int64 and 2**64 - 2048 for uint64, both
-// inside the width. (Nearer the int64 maximum itself the spacing is 1024, which
-// is why the largest double below 2**63 is 2**63 - 1024; the span is what bounds
-// the draw.) The TypedArray constructor then wraps whatever it is handed anyway.
-//
-// Only the `bigint` path is exact, in _isTypeInt64Bigint and _isTypeUint64Bigint,
-// which take the true inclusive bound through a BigInt string a `number` literal
-// here could not spell. _isTypeInt64 and _isTypeUint64 on the `number` path
-// carry the same rounding this table does: their maxima are written 2**63 - 1
-// and 2**64 - 1, which are the powers of two as doubles, so each accepts one
-// value above its width -- the only float form that maximum has.
+// These strings become generation tags, not validation gates. BigInt typed
+// arrays select a bigint atomic schema, while the minimum/maximum tags pass
+// through the existing number-based schema representation. Endpoints beyond
+// JavaScript's exact integer range therefore retain that representation's
+// rounding limit. The default generator or a supplied generator consumes the
+// resulting schema, and the TypedArray constructor performs its normal element
+// conversion; this table does not promise an exact draw distribution.
 func randomProgrammer_typed_array_range(name string) (string, string, string) {
   switch name {
   case "Uint8Array", "Uint8ClampedArray":

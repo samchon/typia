@@ -20,9 +20,9 @@ import (
 //     the writer omits it.
 //  3. Assert the marker is not nil-like.
 //
-// @evidence contracts/testing.md#behavioral-verification The null marker and a plain nil are marshaled through encoding/json, inside a map and an ordered object, and the nil-like classification is read for both.
+// @evidence contracts/testing.md#behavioral-verification The null marker is marshaled in a plain map; an ordered object then compares the retained null marker with an omitted plain nil. The nil-like classifier must reject the marker and accept nil.
 // @evidence contracts/testing.md#independent-expectations JSON null must survive while Go nil is dropped by object writers; the expected JSON text is authored.
-// @evidence contracts/testing.md#distinguishing-cases Marker versus nil in plain and ordered objects and the classifier are the pairs.
+// @evidence contracts/testing.md#distinguishing-cases Marker versus nil is checked in the ordered object and in the classifier; the plain map checks only marker serialization. The emitted AST is owned by the named TypeScript integration test.
 // @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It marshals in memory with no checker, filesystem fixture or process.
 func TestLiteralFactoryNullSurvivesObjects(t *testing.T) {
   encoded, err := json.Marshal(map[string]any{"example": LiteralFactory_Null{}})

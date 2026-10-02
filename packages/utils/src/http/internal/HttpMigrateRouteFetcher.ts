@@ -54,10 +54,10 @@ export namespace HttpMigrateRouteFetcher {
    *
    * @returns Status, headers and parsed body, including non-2xx responses
    *
-   * @throws Error when the arguments do not match the route, or when the
-   *   connection fails
+   * @throws Error when the arguments do not match the route, or when request
+   *   serialization, the connection or response parsing fails
    *
-   * @evidence contracts/common.md#principled-implementation It returns the response of the shared request function without a status check, so every status is data and only argument and connection failures throw.
+   * @evidence contracts/common.md#principled-implementation It returns the response of the shared request function without a status check, so every status is data. Argument checks, request serialization, the connection and response parsing can still throw.
    * @evidence contracts/common.md#clear-and-simple-design A one-line delegation.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts It adds no behavior beyond the request function.
    * @evidence contracts/common.md#meaningful-documentation The doc states the full response and the thrown errors.

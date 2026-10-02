@@ -28,8 +28,8 @@ import (
 // 4. Verify naming, formatting, first-element, and schema-copy helpers.
 // 5. Decode mixed metadata, recursive tuple, native object, and error adapter branches.
 //
-// @evidence contracts/testing.md#behavioral-verification Typed-array detection and range tuples are compared exactly, and tuple index 4 must retain its authored _rt4 local name. Native expression builders and import fallbacks are called per native name but only require a non-nil node.
-// @evidence contracts/testing.md#independent-expectations The typed-array range table follows element widths and the _rt4 expectation preserves the declared tuple helper naming convention, independently of the builder. Non-nil expression checks have no semantic oracle.
+// @evidence contracts/testing.md#behavioral-verification Typed-array detection is checked by name and range strings only for nonempty values, and tuple index 4 must retain its authored _rt4 local name. Native expression builders and import fallbacks are called per native name but only require a non-nil node.
+// @evidence contracts/testing.md#independent-expectations Range checks assert completeness rather than exact widths. The _rt4 expectation preserves the declared tuple helper naming convention, independently of the builder. Non-nil expression checks have no semantic oracle.
 // @evidence contracts/testing.md#distinguishing-cases Every supported typed array name and Date as the negative are checked; the exact tuple prefix restores the deleted direct-helper assertion without removing existing checks. Expression shapes are not compared.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestRandomProgrammerHelperCoverage(t *testing.T) {

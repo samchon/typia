@@ -17,7 +17,7 @@ import * as tags from "../tags";
  *
  * @author Jeongho Nam - https://github.com/samchon
  *
- * @evidence contracts/common.md#principled-implementation The namespace mirrors the Swagger 2.0 object model so a 2.0 document parses without loss: schema definitions at the top level, body parameters carrying `schema`, host and base path instead of servers, and schema unions only through `x-` extensions. The differences from 3.x are listed in the comment.
+ * @evidence contracts/common.md#principled-implementation The namespace describes supported Swagger 2.0 fields and compatibility extensions: top-level definitions, body parameter schemas, host and base path, and x-prefixed schema unions. The structural model is not a complete specification validator or a promise of lossless parsing of every field.
  * @evidence contracts/common.md#clear-and-simple-design One namespace with the same member layout as the 3.x namespaces, so the upgrader reads one self-contained set of types.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts It describes an input format and performs no conversion; upgrade to the normalized form lives in the utils package.
  * @evidence contracts/common.md#meaningful-documentation The comment lists the main differences from OpenAPI 3.x and links the normalized type.
@@ -26,7 +26,7 @@ export namespace SwaggerV2 {
   /**
    * HTTP method of the operation.
    *
-   * @evidence contracts/common.md#principled-implementation The eight methods that a Swagger 2.0 path item can hold; `query` appears only in 3.2.
+   * @evidence contracts/common.md#principled-implementation The union contains the seven Swagger 2.0 path-item methods plus trace for compatibility with newer HTTP operation models. Trace is not a standard Swagger 2.0 path-item field; query is absent.
    * @evidence contracts/common.md#clear-and-simple-design One alias used by IPath.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A literal union.
    * @evidence contracts/common.md#meaningful-documentation The one-line comment names the HTTP method of an operation.
@@ -57,7 +57,7 @@ export namespace SwaggerV2 {
   /**
    * Swagger document structure.
    *
-   * @evidence contracts/common.md#principled-implementation The version is `2.0` or `2.0.${number}`, and every top-level section is optional, as in the 2.0 specification; reusable parameters and responses are top-level maps next to `definitions` and `securityDefinitions`.
+   * @evidence contracts/common.md#principled-implementation The record accepts 2.0 and patch spellings and optional top-level sections for compatibility. The specification requires the exact 2.0 version, info and paths; this declaration does not enforce that complete-document contract. Reusable parameters and responses remain top-level maps beside definitions and securityDefinitions.
    * @evidence contracts/common.md#clear-and-simple-design One flat record with metadata types in its namespace.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
    * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment, naming the host, base path and the global consumed and produced types.
@@ -287,8 +287,16 @@ export namespace SwaggerV2 {
       | IGeneralParameter.ISchema
       | IGeneralParameter.IFile
     ) & {
+      /** Parameter name. */
       name: string;
+
+      /**
+       * Parameter location; standard locations are path, query, header and
+       * formData.
+       */
       in: string;
+
+      /** Parameter description. */
       description?: string;
     };
     export namespace IGeneralParameter {
@@ -314,7 +322,10 @@ export namespace SwaggerV2 {
        * @evidence contracts/common.md#meaningful-documentation The one-line comment says it is a file uploaded through a form-data request.
        */
       export interface IFile {
+        /** File-upload discriminator. */
         type: "file";
+
+        /** Whether the file parameter must be supplied. */
         required?: boolean;
       }
     }

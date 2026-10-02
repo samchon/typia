@@ -9,15 +9,22 @@ import "strings"
 // @evidence contracts/common.md#principled-implementation The JSON form lists what an object needs to be rebuilt as data.
 // @evidence contracts/common.md#clear-and-simple-design One flat record.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation Each field describes the object definition produced by ToJSON.
 type IMetadataSchema_IObjectType struct {
-  Name        string
-  Properties  []*IMetadataSchema_IProperty
+  // Name identifies the shared object definition.
+  Name string
+  // Properties contains serialized properties in analysis order.
+  Properties []*IMetadataSchema_IProperty
+  // Description is optional documentation attached to the type.
   Description *string
-  JsDocTags   []IJsDocTagInfo
-  Index       int
-  Recursive   bool
-  Nullables   []bool
+  // JsDocTags contains the type's ordered documentation tags.
+  JsDocTags []IJsDocTagInfo
+  // Index is the collection-assigned object index.
+  Index int
+  // Recursive marks a recursive object definition.
+  Recursive bool
+  // Nullables records the nullability of analyzed uses.
+  Nullables []bool
 }
 
 // MetadataObjectType is an object type shared by every use of it: its names,
@@ -31,19 +38,19 @@ type IMetadataSchema_IObjectType struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The record does not claim that the in-process fields survive create or JSON.
 // @evidence contracts/common.md#meaningful-documentation The doc and the field comments state what is serialized and what is not.
 type MetadataObjectType struct {
-  Name        string
+  // Name identifies the shared object definition.
+  Name string
+  // DisplayName is the human-facing rendering, falling back to Name when empty.
   DisplayName string
-  // Source is the absolute-or-as-declared path of the file declaring a named
-  // class, captured at analysis time so plain.classify can value-import a
-  // cross-module class it reconstructs (Object.create / new / from). nil for
-  // anonymous/literal shapes and types with no locatable declaration. Read
-  // in-process by the classify programmer; not serialized (classify is
-  // single-pass), and ignored by clone/prune.
+  // Source is the absolute-or-as-declared path of the first symbol declaration,
+  // when locatable. plain.classify reads it for class value imports; it may also
+  // be recorded for non-class shapes, whose IsClass gate prevents that import.
+  // It is analysis-only, omitted by create and JSON serialization.
   Source *string
   // SourceDefault is true when the class is the default export of Source, so a
   // cross-module classify value-import uses a default (not named) import.
   SourceDefault bool
-  // PrivateFields is true when the named class declaration carries at least one
+  // PrivateFields is true when the class or its base chain carries an instance
   // ES `#private` member (a member named with a PrivateIdentifier). Such slots
   // are installed only by running the constructor; plain.classify's field-copy
   // (Object.create + assign) cannot restore them, so classify rejects any such
@@ -58,31 +65,39 @@ type MetadataObjectType struct {
   // type-only name. Read in-process by the classify programmer; ignored by
   // clone/prune, not serialized.
   IsClass bool
-  // ValueRef overrides the runtime VALUE-binding name plain.classify uses when
-  // the class's metadata Name is not a usable runtime constructor reference —
-  // namely a NAMED class EXPRESSION (`const X = class Beast {...}`), whose Name
-  // is the inner `Beast` that binds only inside the class body. Holds the
-  // enclosing variable binding ("X"). Empty for a class DECLARATION (Name binds)
-  // and for an unnamed class expression (Name is already the variable binding).
-  // Read in-process by the classify programmer; not serialized, ignored by
-  // clone/prune.
-  ValueRef          string
-  Properties        []*MetadataProperty
-  Description       *string
-  JsDocTags         []IJsDocTagInfo
-  Index             int
-  Validated         bool
-  Recursive         bool
-  Nullables         []bool
-  Parent_objects_   []*MetadataObject
+  // ValueRef is the enclosing variable binding for a named or unnamed class
+  // expression when one is available. plain.classify prefers it to the metadata
+  // name, which may be an inner or checker-generated class name. Class
+  // declarations and expressions without such a binding leave it empty.
+  // It is analysis-only, omitted by create and JSON serialization.
+  ValueRef string
+  // Properties contains analyzed properties in discovery order.
+  Properties []*MetadataProperty
+  // Description is optional documentation attached to the type.
+  Description *string
+  // JsDocTags contains the type's ordered documentation tags.
+  JsDocTags []IJsDocTagInfo
+  // Index is the collection-assigned object index.
+  Index int
+  // Validated marks an object processed by the checker programmer.
+  Validated bool
+  // Recursive marks a recursive object definition.
+  Recursive bool
+  // Nullables records the nullability of analyzed uses.
+  Nullables []bool
+  // Parent_objects_ holds shared property groups factored out during generation.
+  Parent_objects_ []*MetadataObject
+  // Check_properties_ holds remaining properties, or nil to use all Properties.
   Check_properties_ []*MetadataProperty
+  // Tagged_ marks completion of this object's comment-tag analysis.
   Tagged_           bool
   literal_          *bool
   required_literal_ *bool
 }
 
 // MetadataObjectType_create builds an object type from props. Invalid UTF-8 in
-// the name becomes `__`. Properties are stored as given, the JSDoc tag slice and
+// the name and existing replacement characters become `__`. Properties are
+// stored as given, the outer JSDoc tag slice and
 // the nullability list are copied, and the in-process class facts, parent objects
 // and check properties are not carried over.
 //
@@ -138,7 +153,7 @@ func (obj *MetadataObjectType) CheckProperties() []*MetadataProperty {
 
 // HasRequiredLiteralProperty reports whether this object or a parent object has
 // a required property whose key is a single literal. The answer is computed once
-// and cached.
+// and cached. Parent/check-property inputs must be final before the first call.
 //
 // @evidence contracts/common.md#principled-implementation A required literal key is the discriminant a union test can rely on, and parents contribute their own.
 // @evidence contracts/common.md#clear-and-simple-design A cached search over parents and checked properties.
@@ -167,7 +182,8 @@ func (obj *MetadataObjectType) HasRequiredLiteralProperty() bool {
 
 // IsLiteral reports whether the type is an anonymous object literal: not
 // recursive and named `__type` or `__object` (or such a name with the
-// collection's duplicate suffix) or containing `readonly [`. The answer is cached.
+// collection's duplicate suffix) or containing `readonly [`. Name and Recursive
+// must be final before the first call because the answer is cached.
 //
 // @evidence contracts/common.md#principled-implementation Anonymous types are inlined by the schema generators instead of becoming components, and the check recognizes the names the analysis gives them.
 // @evidence contracts/common.md#clear-and-simple-design A cached name test using the collection's suffix constant.
@@ -205,7 +221,7 @@ func metadataObjectType_isAnonymousName(name string, marker string) bool {
 }
 
 // ToJSON returns the JSON form of the object type. The class facts and the
-// display name are not included.
+// display name are not included. Every property must be non-nil.
 //
 // @evidence contracts/common.md#principled-implementation It is the serializable projection of the type.
 // @evidence contracts/common.md#clear-and-simple-design One loop and one record construction.

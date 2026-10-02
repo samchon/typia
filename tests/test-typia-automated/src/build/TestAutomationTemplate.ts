@@ -11,10 +11,10 @@ import { write_random } from "./writers/write_random";
  * overrides only rendering. asynchronous preserves a helper's rejected
  * promise.
  *
- * @evidence contracts/common.md#principled-implementation Module, prefix and method compose the public operation and family identity. createOnly and creatable distinguish available binding forms, while capability flags select applicable fixtures. A programmer renders specialized random or binary bindings without replacing their assertions.
- * @evidence contracts/common.md#clear-and-simple-design The interface keeps selection and rendering options in one operation descriptor; DATA is the configured population. Runtime fixture callbacks remain in TestAutomationMetadata rather than being duplicated here.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Flags describe supported operation inputs, not expected results. The currently configured population deliberately omits several public operations; ObjectSimple composites retain selected validating variants, and this descriptor does not claim exhaustive public API coverage.
- * @evidence contracts/common.md#meaningful-documentation The introduction separates selection, rendering and promise ownership. asynchronous explains why a void wrapper would hide failed async assertions; method and directory document discoverable naming.
+ * @evidence contracts/testing.md#behavioral-verification This descriptor type defines available invocation forms, fixture eligibility and renderer/promise binding; it executes no assertion. The controller, generated helper and direct_factory_matrix respectively own enrollment, runtime verdict and direct/factory population checks.
+ * @evidence contracts/testing.md#independent-expectations DATA's authored flags establish supported generation forms before native calls execute. The type stores no expected product result; supplied helpers retain their independent fixture/reference or disclosed correlated oracle.
+ * @evidence contracts/testing.md#distinguishing-cases createOnly skips an unsupported direct form and creatable adds a supported factory form. Optional programmer changes source rendering, and asynchronous preserves rejected helper promises. Disabled public families receive no implicit execution credit.
+ * @evidence contracts/testing.md#execution-ownership TestAutomationController.iterate consumes DATA and passes each descriptor to its source writer. Generated named exports then execute via TestServant; the descriptor itself is checked as TypeScript input, not registered as a runtime case.
  */
 export interface TestAutomationTemplate {
   module: string | null;
@@ -44,22 +44,29 @@ export interface TestAutomationTemplate {
   /**
    * Overrides source rendering for the operation's binding form and fixture.
    *
-   * @evidence contracts/common.md#principled-implementation The curried create and structure inputs select a direct/factory binding and exact fixture identity, returning source text for the same controller enrollment decision.
-   * @evidence contracts/common.md#clear-and-simple-design One optional renderer specializes random or protobuf source skeletons without introducing another fixture selector or execution owner.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts The callback produces test source, not verdicts or expected codec bytes; real native bindings and assertions remain in the generated operation-specific cases.
-   * @evidence contracts/common.md#meaningful-documentation Native prose explains override responsibility and its two inputs; the interface introduction separates rendering from selection and asynchronous execution.
+   * @evidence contracts/testing.md#behavioral-verification This optional function signature supplies a source renderer for random/protobuf bindings; it performs no callback assertion. The returned matching export reaches the operation-specific helper at runtime.
+   * @evidence contracts/testing.md#independent-expectations create and structure are authored invocation-form/fixture inputs. Rendering computes no expected native output; operation helpers own fixture/reference expectations and disclose correlated companion checks.
+   * @evidence contracts/testing.md#distinguishing-cases An absent programmer selects write_common; present programmers preserve their direct/factory choice and supplied fixture identity. Fixture eligibility remains with the controller rather than being bypassed by a renderer.
+   * @evidence contracts/testing.md#execution-ownership TestAutomationController.writeScript invokes the selected programmer after eligibility. The signature itself has no independently discoverable runtime registration; its generated cases retain matching named exports.
    */
   programmer?: (create: boolean) => (structure: string) => string;
 }
-/** Owns active operation descriptors and their direct/factory family names. */
+/**
+ * Owns active operation descriptors and their direct/factory family names.
+ *
+ * @evidence contracts/testing.md#behavioral-verification method and directory provide names used by generation and its explicit enrollment regression. They supply no callback verdict; generated helpers own product assertions.
+ * @evidence contracts/testing.md#independent-expectations Authored descriptors select actual public API forms. Generation and its backstop share these naming helpers, so their agreement alone cannot independently establish every public spelling; runtime compilation/callback execution supplies the binding check.
+ * @evidence contracts/testing.md#distinguishing-cases DATA distinguishes configured direct/factory and create-only families, custom-error suffixes and specialized programmer/async forms. Only active descriptors participate; commented-out families provide no coverage.
+ * @evidence contracts/testing.md#execution-ownership The controller uses DATA/method/directory, test_direct_factory_matrix uses DATA/directory after generation, and named generated exports execute the resulting calls through TestServant.
+ */
 export namespace TestAutomationTemplate {
   /**
    * Returns the public method for the direct or factory half.
    *
-   * @evidence contracts/common.md#principled-implementation Direct forms retain tpl.method; factory forms prepend create to the capitalized method, matching typia's configured public naming convention.
-   * @evidence contracts/common.md#clear-and-simple-design One pure conditional owns this name composition and is reused by directory and the controller.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts No fixture identity or expected output influences the method spelling; the configured descriptor supplies the operation.
-   * @evidence contracts/common.md#meaningful-documentation Native prose states the distinction between direct and factory halves; it makes no execution or output correctness claim.
+   * @evidence contracts/testing.md#behavioral-verification The naming helper returns the direct method or create-prefixed capitalized factory name without running an assertion. Compilation and execution of the generated actual call establish its usable native binding.
+   * @evidence contracts/testing.md#independent-expectations The configured public method and typia's createX API convention determine the name; the enrollment regression shares this helper and therefore is not an independent spelling oracle.
+   * @evidence contracts/testing.md#distinguishing-cases create false preserves the authored method and true applies the factory naming convention. createOnly/creatable eligibility is decided by the controller, not silently enforced here.
+   * @evidence contracts/testing.md#execution-ownership The controller and directory helper call method. No independently registered case invokes it to certify product behavior; its output appears in actual generated direct/factory call sites.
    */
   export const method = (
     tpl: TestAutomationTemplate,
@@ -73,10 +80,10 @@ export namespace TestAutomationTemplate {
    * The direct/factory matrix backstop reads the same composition, so a renamed
    * family cannot leave the backstop asserting against a stale name.
    *
-   * @evidence contracts/common.md#principled-implementation Ordered optional prefix/module, composed method and Custom suffix preserve each configured family's discoverable directory identity, including standardSchema factory-only entries.
-   * @evidence contracts/common.md#clear-and-simple-design directory calls the shared method function and joins four naming components; it does not duplicate eligibility or render source.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts Naming depends only on the descriptor and binding half, never a fixture name or test verdict.
-   * @evidence contracts/common.md#meaningful-documentation The comment describes src/features naming and shared composition, which is useful when renaming an operation or its factory half.
+   * @evidence contracts/testing.md#behavioral-verification directory composes the generated family's prefix/module/method/custom identity. test_direct_factory_matrix requires distinct and present direct/factory families, supported create-only enrollment and fixture parity; actual callback behavior remains with each generated case.
+   * @evidence contracts/testing.md#independent-expectations Descriptor capabilities establish required forms before generation. The regression shares directory composition, so it detects missing/overlapping populations but cannot independently verify the helper's spelling against every public API.
+   * @evidence contracts/testing.md#distinguishing-cases Optional prefix/module and custom suffix remain separate components; method supplies the direct/factory difference. Empty optional components do not introduce separators, and Standard Schema contributes its configured prefix/factory-only family.
+   * @evidence contracts/testing.md#execution-ownership The controller uses directory for output locations/export names and test_direct_factory_matrix reuses it for completed-population checks. Its internal pure method callback owns no test registration.
    */
   export const directory = (
     tpl: TestAutomationTemplate,

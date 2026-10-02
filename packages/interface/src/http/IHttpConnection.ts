@@ -10,8 +10,8 @@
  * fine-grained control over fetch behavior, use {@link options} to configure
  * caching, CORS, credentials, and other fetch API settings.
  *
- * In Node.js versions prior to 20 (which lack native fetch), provide a polyfill
- * like `node-fetch` via the {@link fetch} property.
+ * When the runtime has no global fetch, provide an implementation such as
+ * `node-fetch` via the {@link fetch} property.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @author Seungjun We - https://github.com/SeungjunWe
@@ -19,7 +19,7 @@
  * @evidence contracts/common.md#principled-implementation The record carries the three things a fetch needs apart from the call itself: a required base host, optional per-request headers whose values may be primitives or primitive arrays, and optional fetch options, with a replaceable fetch for runtimes lacking one. Optional members are optional because a connection with only a host is complete.
  * @evidence contracts/common.md#clear-and-simple-design One flat interface with its helper types in the same-named namespace; the fetch and signal types are separate aliases because they need conditional resolution that the interface itself should not carry.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The injectable `fetch` member is the supported replacement point, so callers supply an implementation instead of patching the global; the interface does not itself contain a fetch call.
- * @evidence contracts/common.md#meaningful-documentation The comment states who uses the type, relates host, headers, options and fetch, and mentions the pre-Node-20 polyfill case with an example on the fetch member.
+ * @evidence contracts/common.md#meaningful-documentation The comment states who uses the type, relates host, headers, options and fetch, and explains injection when global fetch is unavailable, with an example on the fetch member.
  */
 export interface IHttpConnection {
   /**
@@ -50,9 +50,9 @@ export interface IHttpConnection {
   /**
    * Custom fetch function implementation.
    *
-   * For Node.js versions before 20 that lack native fetch support, provide a
-   * polyfill such as `node-fetch`. This allows the same connection
-   * configuration to work across all Node.js versions.
+   * Supply this when global fetch is unavailable or when a request needs a
+   * different implementation. The supplied function must implement the fetch
+   * behavior required by the HTTP executor.
    *
    * @example
    *   import fetch from "node-fetch";

@@ -1,4 +1,4 @@
-import { IValidation, OpenApi } from "@typia/interface";
+﻿import { IValidation, OpenApi } from "@typia/interface";
 import { OpenApiTypeChecker, OpenApiValidator } from "@typia/utils";
 
 /**
@@ -11,15 +11,6 @@ import { OpenApiTypeChecker, OpenApiValidator } from "@typia/utils";
  *
  * 1. Validate a generated success value and preserve its identity.
  * 2. Apply every fixture spoiler and compare the exact sorted failure paths.
- *
- * @evidence contracts/common.md#principled-implementation A reusable OpenApiValidator checks the clean input and each independently authored spoiler. Private normalization parses spoiler accessors, follows schema references and uses value/discriminator compatibility to group ambiguous union leaves at their owner; frequency maps retain repeated occurrences of an original path while merging distinct leaves with the same owner. Schema-aware grouping is not an independent proof of schema or branch selection.
- * @evidence contracts/common.md#clear-and-simple-design The exported operation owns scenario execution and whole-path comparison. Private helpers separate accessor parsing, reference traversal, coarse value compatibility and array/object discrimination; each normalization call owns its local state. No second emitted-schema producer or copied expected validator report is introduced.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts No fixture-name branch, foreign method replacement or expected paths copied from validation output are used. Grouping is the explicit ambiguous-union reporting contract, not permission to discard arbitrary errors. Reference traversal delegates to the public root resolver, preserving supported RFC 6901 spellings and own-entry lookup. Invalid or cyclic references fail explicitly rather than becoming fabricated unknown schemas.
- * @evidence contracts/common.md#meaningful-documentation The native introduction explains why expected union paths are grouped while actual paths stay raw, and the numbered scenario distinguishes clean acceptance from spoiled diagnostics. The acknowledgments state private normalization responsibilities, multiplicity handling and reference/oracle limitations separately from the descriptive prose.
- * @evidence contracts/testing.md#behavioral-verification OpenApiValidator.create with required input must accept the clean value without replacing its data and reject each declared spoiler. Sorted full-population equality compares normalized expected paths with raw actual paths, detecting missing, additional and duplicate diagnostic reports under that grouping contract.
- * @evidence contracts/testing.md#independent-expectations Fixture generators and spoilers establish input validity and original expected paths independently of the validator's result. Normalization then consults the supplied schema and shared OpenApiTypeChecker, so the grouped path oracle is coupled to those inputs and utilities; it does not independently establish their correctness.
- * @evidence contracts/testing.md#distinguishing-cases Each invocation owns one clean value plus every declared invalid mutation, with whole error-path multiplicity. Empty spoiler populations own clean success and identity only. Private grouping distinguishes uniquely selected object/array branches from ambiguous union owners; fixture declarations supply the actual contexts and separate equality helpers own surplus-member cases.
- * @evidence contracts/testing.md#execution-ownership This maintained helper owns portable validator and normalization logic and invokes no compiler or worker itself. Generated test_validate exports in the automated suite supply native-produced schemas and execute in its shared TestServant. Plugin-free test-utils test:unit cases directly execute this same owner on authored schemas and independently stated paths; the generated automated matrix retains its native schema producer boundary.
  */
 export const _test_validate = <T>(props: {
   schema: OpenApi.IJsonSchema;

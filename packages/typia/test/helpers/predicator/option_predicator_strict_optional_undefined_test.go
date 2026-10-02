@@ -22,7 +22,7 @@ import (
 //
 // @evidence contracts/testing.md#behavioral-verification The strict-optional predicate runs with exact optional property types and undefined checks disabled, once for optional?: T and once for optional?: T | undefined.
 // @evidence contracts/testing.md#independent-expectations TypeScript exactOptionalPropertyTypes semantics decide that only the explicit undefined union accepts an own undefined; the two verdicts are authored.
-// @evidence contracts/testing.md#distinguishing-cases The plain optional is the strict case and the explicit union its negative twin; options with undefined checks enabled are covered by the defaults case.
+// @evidence contracts/testing.md#distinguishing-cases The plain optional is the strict case and the explicit union its negative twin, with the same compiler and typia options. This test does not call the strict predicate with undefined checks enabled or exact optional properties disabled.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported predicate on constructed metadata and options with no filesystem fixture, process or native command build.
 func TestOptionPredicatorStrictOptionalUndefinedDistinguishesExplicitUnion(t *testing.T) {
   disabled := false

@@ -17,7 +17,11 @@ var PromiseTypeFactory = promiseTypeFactoryNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states both fields.
 type PromiseTypeFactory_IOutput struct {
-  Type  *shimchecker.Type
+  // Type is the unwrapped Promise payload, or the original type if unresolved.
+  Type *shimchecker.Type
+
+  // Async reports that a payload satisfying the global Promise contract was
+  // resolved, rather than inspecting a function's async syntax modifier.
   Async bool
 }
 

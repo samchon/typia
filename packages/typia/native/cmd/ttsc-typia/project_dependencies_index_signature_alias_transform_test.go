@@ -20,8 +20,9 @@ import (
 //
 //  1. Build a project where `a.ts` validates `Target` from `model.ts`, whose
 //     index signature uses the key alias `Key` (`key.ts`) and the value alias
-//     `Value` (`value.ts`), and whose unrelated property references `Kept`
-//     (`kept.ts`) while a method body alone references `BodyOnly` (`body.ts`).
+//     `Value` (`value.ts`). A separately validated Holder class has a property
+//     referencing `Kept` (`kept.ts`) and a method body alone referencing
+//     `BodyOnly` (`body.ts`).
 //  2. Run project transform mode and decode the JSON envelope.
 //  3. Assert `dependencies["src/a.ts"]` contains `key.ts`, `value.ts`, and
 //     `kept.ts`.

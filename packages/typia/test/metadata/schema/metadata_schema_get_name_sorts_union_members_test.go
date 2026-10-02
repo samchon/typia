@@ -13,7 +13,7 @@ import (
 // order does not change the cache identity.
 //
 // 1. Build metadata with nullable, undefined, number, and string members.
-// 2. Ask metadata for its display name.
+// 2. Ask metadata for its identity name.
 // 3. Assert the union members are sorted into a stable string.
 //
 // @evidence contracts/testing.md#behavioral-verification GetName on metadata holding nullable, undefined, number and string members returns one string compared with a literal.

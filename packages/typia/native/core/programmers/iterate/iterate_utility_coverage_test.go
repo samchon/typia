@@ -12,22 +12,20 @@ import (
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
-// TestIterateUtilityCoverage exercises schema and stringify helpers.
+// TestIterateUtilityCoverage exercises schema helpers and property classification.
 //
 // The iterate package contains many small helpers that are normally selected by
 // very specific metadata shapes. This test builds those shapes directly so JSON
-// schema attributes, native exports, prune logic, and stringify property logic
+// schema attributes, native exports and required-property classification
 // remain covered without relying on broad TypeScript fixtures.
 //
 // 1. Apply x-prefixed JSDoc tags and cast their text values.
 // 2. Export title, description, constant, escaped, template, and native schemas.
-// 3. Build stringify output for regular and dynamic object properties.
-// 4. Build prune and native stringify statements for object metadata.
-// 5. Build full JSON schema station outputs for empty, any, native, and union metadata.
-// 6. Classify required, mixed optional and empty regular property populations.
+// 3. Build full JSON schema station outputs for empty, any, native, and union metadata.
+// 4. Classify required, mixed optional and empty regular property populations.
 //
-// @evidence contracts/testing.md#behavioral-verification JSDoc casts and selected schema results are compared exactly. The actual dynamic-property helper must classify the original required string entry as all-required, reject the adjacent optional entry and accept an empty population. Remaining AST-builder presence checks detect missing nodes only.
-// @evidence contracts/testing.md#independent-expectations Authored JSDoc text and expected casts are independent. Required/optional flags establish the all-required outcomes, and an empty list contains no optional property; those expectations are not produced by the classifier. Non-nil builder checks have no semantic oracle.
+// @evidence contracts/testing.md#behavioral-verification JSDoc casts and selected schema results are compared exactly. The actual dynamic-property helper must classify the original required string entry as all-required, reject the adjacent optional entry and accept an empty population. Remaining schema presence checks detect missing outputs only.
+// @evidence contracts/testing.md#independent-expectations Authored JSDoc text and expected casts are independent. Required/optional flags establish the all-required outcomes, and an empty list contains no optional property; those expectations are not produced by the classifier. Non-nil schema checks have no semantic oracle.
 // @evidence contracts/testing.md#distinguishing-cases The original required singleton is preserved beside a mixed optional negative and an empty boundary. Title, description, constants, escaped, template and native schema paths retain their existing checks without new negative twins.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls helpers on constructed metadata with no checker, filesystem fixture or process.
 func TestIterateUtilityCoverage(t *testing.T) {

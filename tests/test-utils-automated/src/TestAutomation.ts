@@ -12,19 +12,19 @@ import { TestGlobal } from "./TestGlobal";
  * together; generated callbacks supply the native schema boundary to reusable
  * helpers.
  *
- * @evidence contracts/common.md#principled-implementation generate completes both validate and validateEquals populations from getStructures before their runner starts a worker. Private writers retain each fixture's native json.schema binding and existing helper; copied schema-specific enrollment preserves the four recursive arrays without mutating template declarations.
- * @evidence contracts/common.md#clear-and-simple-design One namespace groups discovery policy and two writers. Filesystem ownership belongs to generate, eligibility to getStructures and its pure selector, and behavior assertions to the supplied helper owners.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Generation does not compute expected validation reports or replace native callbacks. The existing HELD_OUT and specialized-fixture restrictions remain visible limitations; this acknowledgment does not certify exhaustive product schema coverage.
- * @evidence contracts/common.md#meaningful-documentation The namespace introduces the two matrices, getStructures records enrollment limitations and generated comments distinguish native producer assertions from portable helper policy.
+ * @evidence contracts/testing.md#behavioral-verification Groups discovery and declaration writers for clean/spoiled and surplus-member schema validation. Generated entries invoke the native json.schema producer and assertion helpers; generation itself computes no verdict.
+ * @evidence contracts/testing.md#independent-expectations Fixtures author clean values and invalid SPOILERS; the surplus helper authors injected-key paths. Writers preserve these owners instead of deriving expected reports from generated schemas. Ordinary union-path grouping has the limitation described by its helper.
+ * @evidence contracts/testing.md#distinguishing-cases The ordinary matrix retains clean acceptance and authored invalid-value mutations; the equality matrix retains clean identity and extra-key reports. Eligibility and existing held-out policies define this suite's population rather than all possible TypeScript declarations.
+ * @evidence contracts/testing.md#execution-ownership generate prepares both feature directories for the parent main and its single TestServant worker. Private writers retain one discoverable export per fixture; the namespace is support code, not an independently registered case.
  */
 export namespace TestAutomation {
   /**
    * Regenerates both schema-validation feature directories before execution.
    *
-   * @evidence contracts/common.md#principled-implementation The function removes the prior features tree, creates both family directories and awaits every selected ordinary and equality file write. Rejections propagate rather than allowing stale partial generation to be treated as successful preparation.
-   * @evidence contracts/common.md#clear-and-simple-design Directory initialization precedes two sequential selected-fixture loops; private writers own declaration text. No worker or assertion runs during generation.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts The real selected populations and native bindings are materialized, without cached verdicts or handwritten schema substitutions. Root paths come from TestGlobal and deletion is restricted to the generated features locations.
-   * @evidence contracts/common.md#meaningful-documentation The native introduction states replacement and preparation ordering; the namespace and selector comments expose the exact selection responsibilities and limitations.
+   * @evidence contracts/testing.md#behavioral-verification Replaces generated feature files before main executes their clean/spoiled and surplus-member assertions. Every selected write is awaited; a preparation rejection propagates instead of running a stale partial population.
+   * @evidence contracts/testing.md#independent-expectations Private writers bind authored fixtures and assertion helpers to actual typia.json.schema output. They emit no expected schema snapshot or validation report; helper oracle limitations remain documented at their owner.
+   * @evidence contracts/testing.md#distinguishing-cases Both ordinary and equality populations are generated, including cases with no spoilers or no object nodes. Fixture flags and held-out policies determine membership; generation is not a separate positive/negative test.
+   * @evidence contracts/testing.md#execution-ownership Parent main awaits this support operation before connecting its shared worker; generate.ts uses it for nonexecuting preparation. Private writers own filenames and matching exports, while TestServant owns discovery and case reporting.
    */
   export const generate = async (): Promise<void> => {
     const directories: string[] = [
@@ -193,6 +193,11 @@ export namespace TestAutomation {
    * _which_ structures the matrix covers — a separate decision from _how_ they
    * are selected, left to #2136's follow-up.
    */
+  // Schema validation concerns the constraints expressible in its emitted
+  // schema. Integer-width tags and tagged template interpolations need not
+  // preserve every TypeScript-side constraint there, and JavaScript numbers
+  // retain their normal finite precision. Those representation boundaries do
+  // not justify fixture-specific range patches or monkey-patching validators.
   const HELD_OUT: Record<string, string> = {
     // `additionalProperties` from an index signature
     DynamicArray: "index signature; passes today",
@@ -218,10 +223,10 @@ export namespace TestAutomation {
    * The schema equality override preserves independently useful assertions
    * whose native equality flag differs. No fixture source content is read.
    *
-   * @evidence contracts/common.md#principled-implementation Directory basenames bind to the actual template exports through TestStructureSelector. Own JSONABLE and schema/native equality flags decide admitted candidates independently of TypeScript syntax. The existing suite-specific held-out and Comment/ToJson/custom-tag restrictions remain an unresolved selection limitation, not a declaration of complete schema coverage.
-   * @evidence contracts/common.md#clear-and-simple-design This wrapper owns one directory read and existing suite candidate restrictions; the shared pure selector owns export identity and eligibility precedence. It neither executes fixture generators nor duplicates the selector's flag rules.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts No raw source substring decides eligibility. The suite declares SCHEMA_EQUALS on copied metadata for its four existing recursive-array cases, preserving their schema-only assertions without changing the master template fixtures or native ADDABLE policy. The legacy name-based HELD_OUT and specialized-fixture restrictions are retained visibly for separate consequence verification; this answer does not certify those exclusions as a complete or principled final policy.
-   * @evidence contracts/common.md#meaningful-documentation The comment explains discovery, the two equality populations and source independence. The retained held-out reasons and acknowledgment identify remaining selection limitations rather than attributing them to the repaired source scan.
+   * @evidence contracts/testing.md#behavioral-verification Supplies candidate names to both generated schema matrices by binding directory basenames to template exports and declared eligibility. It selects assertions for execution rather than validating values itself; missing exports fail in TestStructureSelector.
+   * @evidence contracts/testing.md#independent-expectations JSONABLE and schema/native equality flags state fixture suitability independently of emitted schemas. Four copied recursive-array schema-equality flags preserve this suite's established enrollment without changing native fixture policy; HELD_OUT preserves the documented schema-representation population.
+   * @evidence contracts/testing.md#distinguishing-cases Ordinary and equality modes differ by eligibility. Comment, ToJson, custom-tag and held-out fixtures stay outside the existing population; recursive nullable/required/union arrays retain their schema-only equality cases. Pure selector decision cases execute in test-utils unit coverage.
+   * @evidence contracts/testing.md#execution-ownership generate calls this support wrapper once per matrix before any worker executes. The shared selector owns flag interpretation, this wrapper owns directory discovery and suite policy, and generated exports own their native-schema bindings.
    */
   export const getStructures = async (equals: boolean): Promise<string[]> => {
     const directory: string[] = await fs.promises.readdir(

@@ -31,33 +31,113 @@ interface ExplicitSymbolMember {
 }
 
 type Assert<T extends true> = T;
+/**
+ * Pins string exclusion in keyof SymbolIndex.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This compile-time Assert requires the conditional keyof premise to resolve to true; it supplies a fixture premise rather than a runtime verdict.
+ * @evidence contracts/testing.md#independent-expectations The source SymbolIndex declaration determines whether the authored string domain is present independently of typia metadata.
+ * @evidence contracts/testing.md#distinguishing-cases The neighboring symbol/branded/string/explicit-member premises distinguish string and number domains from symbol domains; this alias checks only its named relation.
+ * @evidence contracts/testing.md#execution-ownership Native project compilation checks this alias; test_native_symbol_index_domain owns subsequent predicate and schema observations.
+ */
 export type _SymbolIndexHasNoStringDomain = Assert<
   string extends keyof SymbolIndex ? false : true
 >;
+/**
+ * Pins number exclusion in keyof SymbolIndex.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This compile-time Assert requires the conditional keyof premise to resolve to true; it supplies a fixture premise rather than a runtime verdict.
+ * @evidence contracts/testing.md#independent-expectations The source SymbolIndex declaration determines whether the authored number domain is present independently of typia metadata.
+ * @evidence contracts/testing.md#distinguishing-cases The neighboring symbol/branded/string/explicit-member premises distinguish string and number domains from symbol domains; this alias checks only its named relation.
+ * @evidence contracts/testing.md#execution-ownership Native project compilation checks this alias; test_native_symbol_index_domain owns subsequent predicate and schema observations.
+ */
 export type _SymbolIndexHasNoNumberDomain = Assert<
   number extends keyof SymbolIndex ? false : true
 >;
+/**
+ * Pins symbol membership in keyof SymbolIndex.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This compile-time Assert requires the conditional keyof premise to resolve to true; it supplies a fixture premise rather than a runtime verdict.
+ * @evidence contracts/testing.md#independent-expectations The source SymbolIndex declaration determines whether the authored symbol domain is present independently of typia metadata.
+ * @evidence contracts/testing.md#distinguishing-cases The neighboring symbol/branded/string/explicit-member premises distinguish string and number domains from symbol domains; this alias checks only its named relation.
+ * @evidence contracts/testing.md#execution-ownership Native project compilation checks this alias; test_native_symbol_index_domain owns subsequent predicate and schema observations.
+ */
 export type _SymbolIndexHasSymbolDomain = Assert<
   symbol extends keyof SymbolIndex ? true : false
 >;
+/**
+ * Pins string exclusion in keyof BrandedSymbolIndex.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This compile-time Assert requires the conditional keyof premise to resolve to true; it supplies a fixture premise rather than a runtime verdict.
+ * @evidence contracts/testing.md#independent-expectations The source BrandedSymbolIndex declaration determines whether the authored string domain is present independently of typia metadata.
+ * @evidence contracts/testing.md#distinguishing-cases The neighboring symbol/branded/string/explicit-member premises distinguish string and number domains from symbol domains; this alias checks only its named relation.
+ * @evidence contracts/testing.md#execution-ownership Native project compilation checks this alias; test_native_symbol_index_domain owns subsequent predicate and schema observations.
+ */
 export type _BrandedSymbolIndexHasNoStringDomain = Assert<
   string extends keyof BrandedSymbolIndex ? false : true
 >;
+/**
+ * Pins number exclusion in keyof BrandedSymbolIndex.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This compile-time Assert requires the conditional keyof premise to resolve to true; it supplies a fixture premise rather than a runtime verdict.
+ * @evidence contracts/testing.md#independent-expectations The source BrandedSymbolIndex declaration determines whether the authored number domain is present independently of typia metadata.
+ * @evidence contracts/testing.md#distinguishing-cases The neighboring symbol/branded/string/explicit-member premises distinguish string and number domains from symbol domains; this alias checks only its named relation.
+ * @evidence contracts/testing.md#execution-ownership Native project compilation checks this alias; test_native_symbol_index_domain owns subsequent predicate and schema observations.
+ */
 export type _BrandedSymbolIndexHasNoNumberDomain = Assert<
   number extends keyof BrandedSymbolIndex ? false : true
 >;
+/**
+ * Pins BrandedSymbol membership in keyof BrandedSymbolIndex.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This compile-time Assert requires the conditional keyof premise to resolve to true; it supplies a fixture premise rather than a runtime verdict.
+ * @evidence contracts/testing.md#independent-expectations The source BrandedSymbolIndex declaration determines whether the authored BrandedSymbol domain is present independently of typia metadata.
+ * @evidence contracts/testing.md#distinguishing-cases The neighboring symbol/branded/string/explicit-member premises distinguish string and number domains from symbol domains; this alias checks only its named relation.
+ * @evidence contracts/testing.md#execution-ownership Native project compilation checks this alias; test_native_symbol_index_domain owns subsequent predicate and schema observations.
+ */
 export type _BrandedSymbolIndexHasBrandedDomain = Assert<
   BrandedSymbol extends keyof BrandedSymbolIndex ? true : false
 >;
+/**
+ * Pins string membership in keyof StringIndex.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This compile-time Assert requires the conditional keyof premise to resolve to true; it supplies a fixture premise rather than a runtime verdict.
+ * @evidence contracts/testing.md#independent-expectations The source StringIndex declaration determines whether the authored string domain is present independently of typia metadata.
+ * @evidence contracts/testing.md#distinguishing-cases The neighboring symbol/branded/string/explicit-member premises distinguish string and number domains from symbol domains; this alias checks only its named relation.
+ * @evidence contracts/testing.md#execution-ownership Native project compilation checks this alias; test_native_symbol_index_domain owns subsequent predicate and schema observations.
+ */
 export type _StringIndexHasStringDomain = Assert<
   string extends keyof StringIndex ? true : false
 >;
+/**
+ * Pins number membership in keyof StringIndex.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This compile-time Assert requires the conditional keyof premise to resolve to true; it supplies a fixture premise rather than a runtime verdict.
+ * @evidence contracts/testing.md#independent-expectations The source StringIndex declaration determines whether the authored number domain is present independently of typia metadata.
+ * @evidence contracts/testing.md#distinguishing-cases The neighboring symbol/branded/string/explicit-member premises distinguish string and number domains from symbol domains; this alias checks only its named relation.
+ * @evidence contracts/testing.md#execution-ownership Native project compilation checks this alias; test_native_symbol_index_domain owns subsequent predicate and schema observations.
+ */
 export type _StringIndexHasNumberDomain = Assert<
   number extends keyof StringIndex ? true : false
 >;
+/**
+ * Pins symbol exclusion in keyof StringIndex.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This compile-time Assert requires the conditional keyof premise to resolve to true; it supplies a fixture premise rather than a runtime verdict.
+ * @evidence contracts/testing.md#independent-expectations The source StringIndex declaration determines whether the authored symbol domain is present independently of typia metadata.
+ * @evidence contracts/testing.md#distinguishing-cases The neighboring symbol/branded/string/explicit-member premises distinguish string and number domains from symbol domains; this alias checks only its named relation.
+ * @evidence contracts/testing.md#execution-ownership Native project compilation checks this alias; test_native_symbol_index_domain owns subsequent predicate and schema observations.
+ */
 export type _StringIndexHasNoSymbolDomain = Assert<
   symbol extends keyof StringIndex ? false : true
 >;
+/**
+ * Pins typeof explicitSymbol membership in keyof ExplicitSymbolMember.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This compile-time Assert requires the conditional keyof premise to resolve to true; it supplies a fixture premise rather than a runtime verdict.
+ * @evidence contracts/testing.md#independent-expectations The source ExplicitSymbolMember declaration determines whether the authored typeof explicitSymbol domain is present independently of typia metadata.
+ * @evidence contracts/testing.md#distinguishing-cases The neighboring symbol/branded/string/explicit-member premises distinguish string and number domains from symbol domains; this alias checks only its named relation.
+ * @evidence contracts/testing.md#execution-ownership Native project compilation checks this alias; test_native_symbol_index_domain owns subsequent predicate and schema observations.
+ */
 export type _ExplicitSymbolMemberIsPresent = Assert<
   typeof explicitSymbol extends keyof ExplicitSymbolMember ? true : false
 >;

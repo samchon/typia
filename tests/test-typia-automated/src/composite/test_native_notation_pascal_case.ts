@@ -40,7 +40,7 @@ const fixture = {
  *    assertions.
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from notationPascalCaseRuntimeRunner; emitted-text presence alone cannot pass these assertions.
- * @evidence contracts/testing.md#independent-expectations Authored Pascal spellings and corresponding nested values establish output independently. The fixture's acronym, numeric and recursive shapes and guarded-family negatives retain distinctions that a generic upper-first-letter conversion can miss.
+ * @evidence contracts/testing.md#independent-expectations Authored exact Pascal key sets and seven top-level numeric values establish conversion expectations. Nested and dynamic DeepValue presence are checked, but their numeric contents are not compared. Separate malformed top-level/nested inputs require null, an exception or a nonempty failure record by guarded family; exact diagnostic paths and error identity are not asserted.
  * @evidence contracts/testing.md#distinguishing-cases Preserves the literal runtime assertions below; the rest of the original runner's assertions remain below without dropping or skipping inputs.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_notation_pascal_case in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed notationPascalCaseSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.

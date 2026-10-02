@@ -8,14 +8,16 @@ import "strings"
 // @evidence contracts/common.md#principled-implementation A template has no shared declaration, so its JSON form holds the row and the tags.
 // @evidence contracts/common.md#clear-and-simple-design Two fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
+// @evidence contracts/common.md#meaningful-documentation Each field describes the template projection produced by ToJSON.
 type IMetadataSchema_ITemplate struct {
-  Row  []*IMetadataSchema
+  // Row contains serialized text and embedded-type schemas in source order.
+  Row []*IMetadataSchema
+  // Tags contains alternative rows of jointly applied tags.
   Tags [][]IMetadataTypeTag
 }
 
-// MetadataTemplate is a template literal type. Row alternates literal text and
-// the schemas of the embedded types. The name is cached, so the row and tags
+// MetadataTemplate is a template literal type. Row records non-empty literal
+// text and embedded-type schemas in source order. The name is cached, so the row and tags
 // must be final before the first GetName.
 //
 // @evidence contracts/common.md#principled-implementation A template is a sequence of text parts and type slots, which the row records in order.
@@ -23,15 +25,18 @@ type IMetadataSchema_ITemplate struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The cache limitation is stated.
 // @evidence contracts/common.md#meaningful-documentation The doc states the row layout and the cache limitation.
 type MetadataTemplate struct {
-  Row   []*MetadataSchema
+  // Row contains text and embedded-type schemas in source order.
+  Row []*MetadataSchema
+  // Tags contains this use's alternative rows of jointly applied tags.
   Tags  [][]IMetadataTypeTag
   name_ string
 }
 
-// MetadataTemplate_create builds a template from props, copying every row schema
-// and the tag matrix.
+// MetadataTemplate_create builds a template with separate row schema roots and
+// tag matrix rows. Member lists and descendants of the row roots, and nested
+// tag payloads, remain shared.
 //
-// @evidence contracts/common.md#principled-implementation The use owns its row and tags, so editing the source does not change the template. Every row entry must be non-nil.
+// @evidence contracts/common.md#principled-implementation Each row root is reconstructed through MetadataSchema_create and tag matrix rows are copied; nested members retain their references. Every row entry must be non-nil.
 // @evidence contracts/common.md#clear-and-simple-design One loop over the row.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A nil entry is a caller error and is not masked.
 // @evidence contracts/common.md#meaningful-documentation The doc states what is copied and the non-nil requirement.

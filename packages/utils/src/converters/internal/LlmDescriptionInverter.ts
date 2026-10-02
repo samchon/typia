@@ -9,14 +9,17 @@ import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
  * The shifter and this reader are one pair, so they share one gate. The shifter
  * moves constraints into the description only under `strict`, so this reader
  * reads them back only under `strict` too: every function here takes the config
- * that produced the schema and reports nothing outside that mode.
+ * that produced the schema and reports nothing outside that mode. The first
+ * matching tag supplies a trimmed single-line value. This does not preserve
+ * multiline strings or their surrounding whitespace, distinguish an author's
+ * tag from an appended one, or preserve the description's indentation.
  *
  * Without that gate an `@minimum 3` written by a documentation author would be
  * promoted to a constraint the type never declared, and, because these results
  * are spread over the live schema, the lookups that found nothing would delete
  * the real keywords a non-strict schema still carries.
  *
- * @evidence contracts/common.md#principled-implementation The reader and the constraint shifter are one pair gated on strict mode, so constraints are read back only where they were written; without the gate, prose such as `@minimum 3` would become a constraint the type never declared and the spread would delete real keywords.
+ * @evidence contracts/common.md#principled-implementation The reader and shifter share a strict gate, so non-strict prose is not interpreted and missing tags do not overwrite live keywords. Strict mode still reads the first matching tag regardless of who wrote it, trims its one-line value and description lines, and cannot exactly recover multiline or whitespace-sensitive text.
  * @evidence contracts/common.md#clear-and-simple-design Three public readers share private helpers to read the strict gate, find a tag, drop unfound keys and rebuild the description.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The gate is stated and applied in one place; unfound tags are removed before spreading instead of compensating afterward.
  * @evidence contracts/common.md#meaningful-documentation The namespace comment explains the pairing and why the gate exists, and private helpers explain the compact rule.

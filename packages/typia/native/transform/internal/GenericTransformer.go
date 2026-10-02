@@ -21,8 +21,13 @@ var GenericTransformer = genericTransformerNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the three parts.
 type ITransformProps struct {
-  Context    nativecontext.ITypiaContext
-  Modulo     *shimast.Node
+  // Context supplies the checker and generated-code services.
+  Context nativecontext.ITypiaContext
+
+  // Modulo is the original callee used for generated runtime error labels.
+  Modulo *shimast.Node
+
+  // Expression carries the call's type arguments and value arguments.
   Expression *shimast.CallExpression
 }
 
@@ -75,9 +80,14 @@ var TransformerError_from = nativecontext.TransformerError_from
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the added fields.
 type GenericTransformer_IProps struct {
+  // ITransformProps carries the original call and its transform context.
   ITransformProps
+
+  // Method identifies the operation in transform diagnostics.
   Method string
-  Write  func(props nativecontext.IProgrammerProps) *shimast.Node
+
+  // Write builds the operation or factory for the resolved target type.
+  Write func(props nativecontext.IProgrammerProps) *shimast.Node
 }
 
 var genericTransformer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

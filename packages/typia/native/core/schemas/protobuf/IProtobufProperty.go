@@ -9,6 +9,9 @@ package protobuf
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc names both fields.
 type IProtobufProperty struct {
+  // Fixed means every union member already obtained its field number from tags.
   Fixed bool
+
+  // Union contains the permitted encodings and their assigned field numbers.
   Union []IProtobufPropertyType
 }

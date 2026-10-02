@@ -14,7 +14,7 @@ import (
 // the checker still resolves that alias at the evaluation decision.
 //
 //  1. Define an annotated primitive alias in an imported module.
-//  2. Use it in evaluation calls in two source files.
+//  2. Use it in one evaluation call and place another call in a second file.
 //  3. Require the imported declaration's diagnostic from both CLI paths.
 //
 // @evidence contracts/testing.md#behavioral-verification Both in-process build and project transform report status 3 and two occurrences of the imported Urgency declaration diagnostic.

@@ -13,14 +13,17 @@ import (
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the composition.
 type Emplace_metadata_array_type_IProps struct {
+  // IMetadataIteratorProps retains the encountered type used as collection key.
   IMetadataIteratorProps
+
+  // Array is the resolved array/base type from which element arguments are read.
   Array *nativechecker.Type
 }
 
 // Emplace_metadata_array_type returns the collection's entry for the array type,
 // analyzing its element type the first time it is seen.
 //
-// @evidence contracts/common.md#principled-implementation An array type is stored once in the collection and a repeat only records nullability, so a recursive array is analyzed once; the element type is the first type argument of the array type and is explored with the aliased and escaped states cleared.
+// @evidence contracts/common.md#principled-implementation The encountered props.Type is stored once in the collection, including subclasses whose resolved Array base differs; repeats record nullability. The element comes from Array's first checker type argument when available, otherwise Array itself, and is explored with aliased and escaped states cleared.
 // @evidence contracts/common.md#clear-and-simple-design One function over the collection's emplace service.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The element is taken from the checker's type arguments, not from the source text.
 // @evidence contracts/common.md#meaningful-documentation The doc states the once-per-type rule and the element source.

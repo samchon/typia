@@ -59,7 +59,7 @@ func TestJsonSchemaJsDocTagsCastReadsJavaScriptNumbers(t *testing.T) {
     }
     if number, ok := actual.(float64); ok {
       if math.IsNaN(number) || math.IsInf(number, 0) || math.Signbit(number) && number == 0 {
-        t.Fatalf("cast(%q) = %v is not a JSON number", item.text, number)
+        t.Fatalf("cast(%q) = %v violates the finite, normalized-zero contract", item.text, number)
       }
     }
     if _, err := json.Marshal(actual); err != nil {

@@ -43,7 +43,7 @@ export namespace HttpLlmFunctionFetcher {
    * @returns Status, headers and body, including non-2xx responses
    *
    * @throws Error when the arguments are not an object or do not match the
-   *   route, or when the connection fails
+   *   route, or when serialization, the connection or response parsing fails
    *
    * @evidence contracts/common.md#principled-implementation Builds route arguments and delegates to the route fetcher's propagate, so every status is returned as data.
    * @evidence contracts/common.md#clear-and-simple-design A one-line delegation.

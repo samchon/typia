@@ -42,7 +42,7 @@ const lessMoney = typia.compare.createLess<Money>();
  * 3. Propagate every failed comparison to the shared suite runner.
  *
  * @evidence contracts/testing.md#behavioral-verification Case-insensitive Word methods intentionally disagree with structural field comparison; nested id precedence and Money field ordering retain non-comparison controls.
- * @evidence contracts/testing.md#independent-expectations The retained literal expectations encode the authored type/value contract, not emitted-source patterns. Type-level equality assertions, where present, remain compiled independently of runtime comparisons.
+ * @evidence contracts/testing.md#independent-expectations Authored Word methods normalize case, deliberately disagreeing with raw field comparison; literal booleans pin that declared-method delegation contract. Nested id precedence and Money's amount/currency fields define independent structural controls while its format method supplies no comparison verdict.
  * @evidence contracts/testing.md#distinguishing-cases Case-insensitive Word methods intentionally disagree with structural field comparison; nested id precedence and Money field ordering retain non-comparison controls.
  * @evidence contracts/testing.md#execution-ownership The matching exported composite is discovered by TestServant in test-typia-automated. Private typed producers and deliberately unchecked JavaScript-style runtime inputs preserve the original test boundary.
  * @evidence contracts/e2e.md#necessary-boundary Real typia public calls are transformed and their callbacks execute in Node. Go unit assertions on metadata or emitted text cannot detect a runtime result, receiver or mutation defect.

@@ -18,8 +18,13 @@ var StatementFactory = statementFactoryNamespace{}
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the optional parts.
 type StatementFactory_MutProps struct {
-  Name        string
-  Type        *shimast.TypeNode
+  // Name is the identifier bound by the generated let statement.
+  Name string
+
+  // Type is optional; without it or an initializer the builder inserts any.
+  Type *shimast.TypeNode
+
+  // Initializer is optional and otherwise supplies inference for an omitted Type.
   Initializer *shimast.Expression
 }
 
@@ -31,8 +36,13 @@ type StatementFactory_MutProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the fields.
 type StatementFactory_ConstantProps struct {
-  Name  string
-  Type  *shimast.TypeNode
+  // Name is the identifier bound by the generated const statement.
+  Name string
+
+  // Type is omitted to let the compiler infer it from Value.
+  Type *shimast.TypeNode
+
+  // Value supplies the initializer required by ordinary executable const use.
   Value *shimast.Expression
 }
 
@@ -43,7 +53,10 @@ type StatementFactory_ConstantProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states the two bindings.
 type StatementFactory_EntryProps struct {
-  Key   string
+  // Key names the first binding of the array pattern.
+  Key string
+
+  // Value names the second binding of the array pattern.
   Value string
 }
 

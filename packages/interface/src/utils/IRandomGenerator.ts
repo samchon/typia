@@ -72,7 +72,7 @@ export interface IRandomGenerator {
   /**
    * Generates a random bigint within schema constraints.
    *
-   * @evidence contracts/common.md#principled-implementation Takes the integer schema and returns a bigint, so bounds beyond the safe integer range stay exact in the result.
+   * @evidence contracts/common.md#principled-implementation The integer-schema argument carries numeric bounds and the return type carries an arbitrary-precision integer. The bigint result does not recover precision already lost in a schema number; the implementing generator owns constraint handling.
    * @evidence contracts/common.md#clear-and-simple-design One method, parallel to integer but with a bigint result.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
    * @evidence contracts/common.md#meaningful-documentation The one-line comment says it follows schema constraints.
@@ -99,6 +99,7 @@ export interface IRandomGenerator {
    */
   array<T>(
     schema: Omit<OpenApi.IJsonSchema.IArray, "items"> & {
+      /** Generates an element after the array length has been chosen. */
       element: (index: number, count: number) => T;
 
       /**
@@ -504,6 +505,7 @@ export namespace IRandomGenerator {
      */
     array?: <T>(
       schema: Omit<OpenApi.IJsonSchema.IArray, "items"> & {
+        /** Generates an element after the array length has been chosen. */
         element: (index: number, count: number) => T;
 
         /**

@@ -11,7 +11,7 @@ import (
 //
 // Exact optional properties use two runtime branches: `optional?: T` must only
 // emit the property when the decoded value is not undefined, while
-// `optional?: T | undefined` must also preserve a present own `undefined`
+// `optional?: T | undefined` must also preserve a present `undefined`
 // property.
 //
 //  1. Build a strict optional clone entry and assert it uses only value presence.
@@ -41,6 +41,10 @@ func TestCloneJoinerOptionalConditionDistinguishesExplicitUndefined(t *testing.T
   if strict.AsBinaryExpression().OperatorToken.Kind != shimast.KindExclamationEqualsEqualsToken {
     t.Fatal("strict optional condition should only test value presence")
   }
+  strictValue := strict.AsBinaryExpression()
+  if strictValue.Right != property || strictValue.Left.Kind != shimast.KindIdentifier || strictValue.Left.Text() != "undefined" {
+    t.Fatal("strict optional condition must compare the requested value with undefined")
+  }
 
   explicit := cloneJoiner_optional_condition(IExpressionEntry{
     Input: property,
@@ -49,6 +53,10 @@ func TestCloneJoinerOptionalConditionDistinguishesExplicitUndefined(t *testing.T
   outer := explicit.AsBinaryExpression()
   if outer.OperatorToken.Kind != shimast.KindBarBarToken {
     t.Fatal("explicit undefined union should add a property-presence branch")
+  }
+  valuePresence := outer.Left.AsBinaryExpression()
+  if valuePresence.OperatorToken.Kind != shimast.KindExclamationEqualsEqualsToken || valuePresence.Right != property || valuePresence.Left.Kind != shimast.KindIdentifier || valuePresence.Left.Text() != "undefined" {
+    t.Fatal("explicit undefined union must retain the requested value-presence comparison")
   }
   if outer.Right.AsBinaryExpression().OperatorToken.Kind != shimast.KindInKeyword {
     t.Fatal("explicit undefined union should use the in operator")

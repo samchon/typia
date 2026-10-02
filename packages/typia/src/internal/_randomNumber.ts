@@ -14,9 +14,6 @@ import { _randomMultiple } from "./_randomMultiple";
  * source.
  *
  * @evidence contracts/common.md#principled-implementation The bounds are selected from the inclusive and exclusive values with the stricter winning, a missing side defaults to a window of one hundred, the source fraction is scaled into the selected interval using weighted finite endpoints when subtraction overflows; an exclusive bound hit exactly uses an interior midpoint or an exact adjacent binary64 value, and a step is handled by the decimal multiple generator.
- * @evidence contracts/performance.md#efficient-algorithms Scalar sampling consumes one draw with constant-time arithmetic. Overflowing widths use weighted endpoints, and exclusive boundaries use an exact adjacent binary64 value when needed; no rejection loop is added. Decimal multiple selection retains its existing bounded search.
- * @evidence contracts/performance.md#reuse-equivalent-work Selected bounds and the single source draw are reused within the call. Results are not shared across calls because invoking the supplied source is an observable effect; changed schemas or sources require fresh sampling, so there is no cross-call cache identity or invalidation state.
- * @evidence contracts/performance.md#bound-retention-and-release-resources The function owns only call-local boundary records and at most two eight-byte adjacency buffers. They become unreachable on return or failure; no source, schema or historical result is retained across calls, and there are no handles or running tasks to cancel.
  * @evidence contracts/common.md#clear-and-simple-design One function with private boundary helpers.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Errors are explicit for empty and infinite ranges.
  * @evidence contracts/common.md#meaningful-documentation The boundary helper explains the infinite bound rule.

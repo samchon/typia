@@ -34,7 +34,7 @@ interface AliasHolder {
  * 2. Generate the schema for a holder of each and require the documents to be
  *    equal.
  * 3. Require the member itself to be absent, so the parity cannot be satisfied by
- *    all three describing it wrongly in the same way.
+ *    both describing it wrongly in the same way.
  * 4. Require the neighboring data member to survive, so omission is confined to
  *    the function.
  *

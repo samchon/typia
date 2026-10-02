@@ -19,10 +19,10 @@ import typia, { IJsonSchemaCollection } from "typia";
  * @evidence contracts/testing.md#independent-expectations The discriminator topology rule is stated in the test and the unions are produced by typia.json.schemas; expected presence and absence are authored.
  * @evidence contracts/testing.md#distinguishing-cases Preserved, nested, mapping-less, synthetic, collapsed and 2.0 controls each flip the decision.
  * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. the tagged unions are produced by the native transform; conversion runs in process.
- * @evidence contracts/e2e.md#necessary-boundary Native unions and shape guards supply fixtures to version upgrade/downgrade. Authored discriminator mappings, copied refs and input-immutability assertions pin emitted-union/converter interoperability. Handwritten const/nullable/branch rows remain portable assertions in this case.
+ * @evidence contracts/e2e.md#necessary-boundary Native unions and shape guards supply fixtures to version upgrade/downgrade. Authored discriminator mappings, copied refs and input-immutability assertions pin emitted-union/converter interoperability. Three handwritten nullable/anyOf/enum union rows live in the discriminator_portable unit peer.
  * @evidence contracts/e2e.md#shared-execution This case shares the test-utils integration project and native-plugin artifact lifecycle with the other src/features exports. Its runtime rows reuse emitted schemas/callbacks in this invocation instead of starting a compiler host per input; it performs no independent installation or host launch.
  * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation owns its schema/definition objects and payloads; document callers parse fresh text before conversion. Compiler-artifact reuse cannot supply a prior runtime verdict. This case opens no persistent service/process handle; fixture-reader unit temporary files are owned and released by that separate unit.
- * @evidence contracts/e2e.md#preserved-coverage The previous inputs, producer calls and behavioral assertions remain in this exported DynamicExecutor case; portable rows described above have not yet been transferred to unit coverage. Producer parity and structural acceptance retain their stated oracle limits rather than certifying semantic correctness.
+ * @evidence contracts/e2e.md#preserved-coverage All original native inputs, producer calls and behavioral assertions remain here; the three original handwritten union rows move unchanged to the registered discriminator_portable unit peer. Producer parity and structural acceptance retain their stated oracle limits rather than certifying semantic correctness.
  */
 export const test_openapi_converter_discriminator = (): void => {
   for (const version of ["3.1", "3.2"] as const) {
@@ -150,43 +150,6 @@ export const test_openapi_converter_discriminator = (): void => {
     },
     required: ["explicit", "implicit"],
   });
-
-  TestEquality.equals(
-    "nullable atomic union",
-    clean(
-      OpenApiConverter.upgradeSchema({
-        components: {},
-        schema: { type: "string", nullable: true },
-      }),
-    ),
-    {
-      oneOf: [{ type: "string" }, { type: "null" }],
-    },
-  );
-  TestEquality.equals(
-    "ordinary anyOf union",
-    clean(
-      OpenApiConverter.upgradeSchema({
-        components: {},
-        schema: { anyOf: [{ type: "string" }, { type: "number" }] },
-      }),
-    ),
-    {
-      oneOf: [{ type: "string" }, { type: "number" }],
-    },
-  );
-  TestEquality.equals(
-    "enum-derived union",
-    clean(
-      OpenApiConverter.upgradeSchema({
-        components: {},
-        schema: { type: "string", enum: ["alpha", "beta"] },
-      }),
-    ),
-    {
-      oneOf: [{ const: "alpha" }, { const: "beta" }],
-    },
-  );
 
   const rewrittenFixture: IFixture = createFixture();
   const rewritten: OpenApi.IJsonSchema = OpenApiConverter.upgradeSchema({

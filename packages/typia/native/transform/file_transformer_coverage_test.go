@@ -18,16 +18,16 @@ import (
 //
 // Full command tests cover native rewrites through a compiler program, but the
 // file transformer also has nil/declaration guards, import injection ordering,
-// diagnostic recovery, and environment type-cast helpers. Those branches can be
+// diagnostic forwarding, and environment type-cast helpers. Those branches can be
 // covered with parsed source files and a synthetic context.
 //
 // 1. Preserve nil and declaration source files through the public transformer.
 // 2. Inject import statements after directive prologue expressions.
-// 3. Recover transformer diagnostics from a controlled panic path.
+// 3. Forward an authored diagnostic through the direct diagnostic hook.
 // 4. Exercise environment cast helpers and strict-option fallback helpers.
 //
-// @evidence contracts/testing.md#behavioral-verification The file transformer is called with nil, declaration and parsed source files, import injection and diagnostic recovery; guards are compared exactly and some branches only require that a statement was added.
-// @evidence contracts/testing.md#independent-expectations Authored sources state which files must stay unchanged; presence-only checks have no independent oracle.
+// @evidence contracts/testing.md#behavioral-verification The file transformer is called with nil, declaration and parsed source files; import injection preserves original statement identities around the authored import after the directive, and the direct diagnostic hook forwards the exact authored message once. The top-level transform only requires a non-nil file; panic recovery is not exercised.
+// @evidence contracts/testing.md#independent-expectations Authored sources state which files must stay unchanged, the directive/import/export order and the diagnostic text; the final non-nil file check has no independent content oracle.
 // @evidence contracts/testing.md#distinguishing-cases Nil, declaration and source inputs give guard negatives and one injection positive.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test parses in-memory sources with the typescript-go parser, with no filesystem fixture or process.
 func TestFileTransformerCoverage(t *testing.T) {
@@ -40,6 +40,9 @@ export const value = 1;
   )
   if file == nil {
     t.Fatal("source file parse failed")
+  }
+  if file.Statements == nil || len(file.Statements.Nodes) != 2 {
+    t.Fatal("authored directive/export fixture must have two statements")
   }
   transformer := FileTransformer.Transform(FileTransformer_IEnvironments{})
   if transformer(nil) != nil {
@@ -61,6 +64,12 @@ export const value = 1;
   })
   if injected == nil || len(injected.Statements.Nodes) != len(file.Statements.Nodes)+1 {
     t.Fatal("import injection did not add a statement")
+  }
+  if injected.Statements.Nodes[0] != file.Statements.Nodes[0] ||
+    injected.Statements.Nodes[1].Kind != shimast.KindImportDeclaration ||
+    injected.Statements.Nodes[1].AsImportDeclaration().ModuleSpecifier.Text() != "side-effect" ||
+    injected.Statements.Nodes[2] != file.Statements.Nodes[1] {
+    t.Fatal("injected import must follow the original directive and precede the original export")
   }
   if index := fileTransformer_find_import_injection_index(file); index != 1 {
     t.Fatalf("directive prologue injection index mismatch: %d", index)

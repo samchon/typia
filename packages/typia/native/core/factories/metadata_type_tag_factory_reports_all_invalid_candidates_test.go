@@ -20,7 +20,7 @@ import (
 //  3. Require the collected validation message to reach the factory errors.
 //
 // @evidence contracts/testing.md#behavioral-verification Analyze runs on a lone typia.tag object of kind default whose value metadata is a string atomic and not a literal; no metadata tag may be produced and exactly one error with messages must be retained.
-// @evidence contracts/testing.md#independent-expectations A rejected tag must always surface its diagnostic; the two inputs and the expected presence of errors are authored.
+// @evidence contracts/testing.md#independent-expectations A rejected tag must surface its diagnostic even without a valid companion; the single non-literal-value input and the expected empty tags plus one error are authored. The exact diagnostic text is not asserted.
 // @evidence contracts/testing.md#distinguishing-cases Only the lone invalid tag is asserted; a rejected tag beside a valid one is not asserted by this test.
 // @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the factory on constructed tags with no checker, filesystem fixture or process.
 func TestMetadataTypeTagFactoryReportsAllInvalidCandidates(t *testing.T) {

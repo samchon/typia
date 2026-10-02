@@ -42,7 +42,7 @@ const buildCart = typia.plain.createClassify<typeof Cart>();
  *
  * @evidence contracts/testing.md#behavioral-verification classify rebuilds array, Set and Map constructor seeds; the body executes real transformed callbacks and retains the original runner assertions.
  * @evidence contracts/testing.md#independent-expectations Handwritten seeds, class identity and declared method semantics establish expectations; no expected value is captured from emitted code.
- * @evidence contracts/testing.md#distinguishing-cases Two Item elements, two Set members and a Map class value retain their contents and instance methods; the Cart constructor sees reconstructed containers.
+ * @evidence contracts/testing.md#distinguishing-cases Two array items exercise class reconstruction and an element method; the Set seed exercises conversion to an array of length two without comparing member contents. The Map retains its key, class value and method, and Cart exposes its reconstructed item count.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_plain_classify_container_seed in the automated composite population; private fixture declarations and callbacks belong to this entry.
  * @evidence contracts/e2e.md#necessary-boundary Real typia native lowering must connect these TypeScript declarations to executable JavaScript; direct emitter inspection cannot detect wrong constructor identity or missing runtime bindings.
  * @evidence contracts/e2e.md#shared-execution These call sites share the automated suite project and its single worker, with no per-case compiler project, CLI invocation or subprocess.

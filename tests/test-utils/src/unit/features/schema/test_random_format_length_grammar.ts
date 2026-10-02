@@ -27,14 +27,15 @@ interface IEntry {
   random: (props?: { minLength?: number; maxLength?: number }) => string;
   is: (value: string) => boolean;
   /**
-   * Lengths the format's grammar expresses, read off its validator rather than
-   * off the generator: base64 spends four characters per three bytes; a dotted
-   * quad runs from `0.0.0.0` to `255.255.255.255`; an IPv6 address runs from
-   * the compressed `::` to a padded dotted-quad tail; an instant is either
-   * seconds-precise or carries a dot plus at least one digit, which is why 21
-   * is missing; a clock adds `Z` or a six-character offset to those, and RFC
-   * 3339 puts no ceiling on the fraction between them, so it is open above; a
-   * duration is `P` plus one designator.
+   * Authored lengths supported by the builtin generator's layout: base64 spends
+   * four characters per three bytes; a dotted quad runs from `0.0.0.0` to
+   * `255.255.255.255`; an IPv6 address runs from the compressed `::` to a
+   * padded dotted-quad tail; an instant is either seconds-precise or carries a
+   * dot plus at least one digit, which is why 21 is missing; a clock adds `Z`
+   * or a six-character offset to those, and RFC 3339 puts no ceiling on the
+   * fraction between them, so it is open above; a duration is `P` plus one
+   * designator. UUID generation uses the canonical 36-character layout; its
+   * predicate additionally accepts a urn:uuid prefix.
    */
   realizable: (length: number) => boolean;
 }
@@ -112,8 +113,8 @@ const MAX_LENGTH = 48;
 const DRAWS = 8;
 
 /**
- * Verifies every string-format generator covers the exact set of lengths its
- * own validator accepts.
+ * Verifies builtin string-format generators satisfy their supported layout
+ * lengths and reject windows those layouts cannot express.
  *
  * `typia.random<T>()` can only be written against a literal type, so the
  * per-format sibling test pins the end-to-end path at chosen lengths while this
@@ -121,7 +122,8 @@ const DRAWS = 8;
  * The two directions are what make the class impossible to half-fix: a
  * generator that widens its output would satisfy "never throws", and one that
  * keeps a fixed shape would satisfy "throws when asked for something odd"
- * (#2284).
+ * (#2284). The authored UUID layout is canonical text; this matrix does not
+ * require generation of the optional urn:uuid spelling its predicate accepts.
  *
  * 1. For every format and every length up to 48, draw with `minLength ===
  *    maxLength`.

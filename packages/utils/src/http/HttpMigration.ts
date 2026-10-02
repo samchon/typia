@@ -43,6 +43,9 @@ export namespace HttpMigration {
   /**
    * Convert OpenAPI document to migration application.
    *
+   * Selects HEAD, GET, POST, PUT, PATCH, DELETE and QUERY from paths and
+   * webhooks; OPTIONS, TRACE and additional operations are not migrated.
+   *
    * @param document OpenAPI document (any version)
    *
    * @returns Migration application with callable routes

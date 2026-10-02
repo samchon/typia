@@ -50,7 +50,7 @@ export interface _IProtobufWriter {
   /**
    * Write a signed 64-bit integer as a varint.
    *
-   * @evidence contracts/common.md#principled-implementation A signed 64-bit integer in varint form, taking a bigint or a number so values above the safe integer range stay exact.
+   * @evidence contracts/common.md#principled-implementation A signed 64-bit integer in varint form. Bigint inputs retain integer precision; number inputs retain only the precision already present in the number before conversion.
    * @evidence contracts/common.md#clear-and-simple-design One member.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
    * @evidence contracts/common.md#meaningful-documentation A one-line comment states the member's role.

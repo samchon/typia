@@ -25,7 +25,7 @@ const fixture = { stringifyRecord };
  *    assertions.
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from jsonStringifyConstantAtomicUnionRuntimeRunner; emitted-text presence alone cannot pass these assertions.
- * @evidence contracts/testing.md#independent-expectations Authored records combine kind and flag constants with ordinary count and name fields; parsed values and property counts must match every input field. Original finite=false additionally requires Infinity count to become JSON null in the default producer profile; finite=true primary execution checks the finite records.
+ * @evidence contracts/testing.md#independent-expectations A separate shallow snapshot captures every authored primitive field before calling the serializer; parsed values and property counts must match that snapshot, even if a faulty callback also mutates its input. Original finite=false additionally requires Infinity count to become JSON null in the default producer profile; finite=true primary execution checks the finite records.
  * @evidence contracts/testing.md#distinguishing-cases Preserves the literal runtime assertions below; the rest of the original runner's assertions remain below without dropping or skipping inputs.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_json_stringify_constant_atomic_union in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed jsonStringifyConstantAtomicUnionSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.
@@ -41,14 +41,15 @@ export const test_native_json_stringify_constant_atomic_union = (
   // keeps its original type and all result assertions below remain executable.
   const mod: any = fixture;
   const expectEqual: any = (name: any, input: any): any => {
+    const expected: any = { ...input };
     const text: any = mod.stringifyRecord(input);
     const parsed: any = JSON.parse(text);
-    for (const key of Object.keys(input)) {
-      if (parsed[key] !== input[key]) {
+    for (const key of Object.keys(expected)) {
+      if (parsed[key] !== expected[key]) {
         throw new Error(name + " mismatched property " + key + ": " + text);
       }
     }
-    if (Object.keys(parsed).length !== Object.keys(input).length) {
+    if (Object.keys(parsed).length !== Object.keys(expected).length) {
       throw new Error(name + " emitted unexpected property count: " + text);
     }
   };

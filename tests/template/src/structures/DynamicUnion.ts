@@ -3,11 +3,16 @@ import { ArrayUtil } from "@nestia/e2e";
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/**
+ * Supplies numeric and template-key index signatures with distinct value
+ * domains.
+ */
 export interface DynamicUnion {
   [key: number | `prefix_${string}` | `${string}_postfix`]: string;
   [key: `value_between_${number}_and_${number}`]: number;
 }
 export namespace DynamicUnion {
+  /** Constructs a fresh dictionary spanning all four authored key families. */
   export function generate(): DynamicUnion {
     const number = () => Math.random() - 0.5;
     const string = () => TestRandomGenerator.string();

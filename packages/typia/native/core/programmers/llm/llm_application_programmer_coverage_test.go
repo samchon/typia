@@ -25,7 +25,7 @@ import (
 // 3. Check object schema, function schema, hidden tag, and equals helpers.
 // 4. Merge property descriptions from summary and JSDoc description tags.
 //
-// @evidence contracts/testing.md#behavioral-verification LLM application validation is run on top-level and nested function metadata, schema delegation and an empty parameter list; error messages and counts are asserted.
+// @evidence contracts/testing.md#behavioral-verification LLM application validation is run on top-level and nested function metadata, schema delegation and an empty parameter list; diagnostic counts are asserted. Hidden and equals helpers have true/false controls and description text is checked; parameter/output conversions only require non-nil results.
 // @evidence contracts/testing.md#independent-expectations Authored metadata states which shapes are functions, dynamic keys and non-functions, and the expected reports follow the LLM application contract.
 // @evidence contracts/testing.md#distinguishing-cases Valid and invalid shapes are covered but share one test, so failures are located by message.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls programmers on constructed metadata with no checker, filesystem fixture or process.

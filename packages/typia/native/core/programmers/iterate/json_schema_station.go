@@ -14,7 +14,7 @@ type json_schema_station_props struct {
 
 // Json_schema_station_props is the argument record of Json_schema_station, which
 // converts a metadata schema to a JSON schema. BlockNever makes the conversion
-// return nil instead of a null-typed schema when the metadata yields no member,
+// return nil instead of a schema with no type restriction when metadata yields no member,
 // and Attribute holds the keywords that are merged into the result.
 //
 // @evidence contracts/common.md#principled-implementation It is the argument record of Json_schema_station, which converts a metadata schema to a JSON schema; its 4 fields (BlockNever, Components, Attribute, Metadata) are named so that a producer and a consumer cannot transpose them.

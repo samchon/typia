@@ -57,7 +57,7 @@ const eqPlain = typia.compare.createEquals<{
  * 3. Propagate every failed comparison to the shared suite runner.
  *
  * @evidence contracts/testing.md#behavioral-verification Both template arms, invalid prefix, nested wrappers, direct/factory calls, optional-union, literal-union and plain-object controls retain literal result and payload expectations.
- * @evidence contracts/testing.md#independent-expectations The retained literal expectations encode the authored type/value contract, not emitted-source patterns. Type-level equality assertions, where present, remain compiled independently of runtime comparisons.
+ * @evidence contracts/testing.md#independent-expectations Authored a_/b_ prefixes select the declared arms, invalid c_ rejects, and literal booleans/payloads retain selected-arm common/b fields. Clone expectations are separate literals rather than post-callback inputs; the optional-union control explicitly retains first-match projection semantics.
  * @evidence contracts/testing.md#distinguishing-cases Both template arms, invalid prefix, nested wrappers, direct/factory calls, optional-union, literal-union and plain-object controls retain literal result and payload expectations.
  * @evidence contracts/testing.md#execution-ownership The matching exported composite is discovered by TestServant in test-typia-automated. Private typed producers and deliberately unchecked JavaScript-style runtime inputs preserve the original test boundary.
  * @evidence contracts/e2e.md#necessary-boundary Real typia public calls are transformed and their callbacks execute in Node. Go unit assertions on metadata or emitted text cannot detect a runtime result, receiver or mutation defect.
@@ -95,8 +95,16 @@ export const test_native_compare_template_literal_union = (): void => {
   const right: any = { kind: "b_x", common: "same", b: "right" };
   expect("is left b member", mod.isTemplate(left), true);
   expect("is right b member", mod.isTemplate(right), true);
-  expectJson("clone left preserves b", mod.cloneTemplate(left), left);
-  expectJson("clone right preserves b", mod.cloneTemplate(right), right);
+  expectJson("clone left preserves b", mod.cloneTemplate(left), {
+    kind: "b_x",
+    common: "same",
+    b: "left",
+  });
+  expectJson("clone right preserves b", mod.cloneTemplate(right), {
+    kind: "b_x",
+    common: "same",
+    b: "right",
+  });
   expect("factory different b", mod.eqTemplateFactory(left, right), false);
   expect("direct different b", mod.eqTemplateDirect(left, right), false);
   expect(
@@ -160,16 +168,12 @@ export const test_native_compare_template_literal_union = (): void => {
   const nestedRight: any = { value: right };
   expect("nested is left", mod.isNested(nestedLeft), true);
   expect("nested is right", mod.isNested(nestedRight), true);
-  expectJson(
-    "nested clone left preserves b",
-    mod.cloneNested(nestedLeft),
-    nestedLeft,
-  );
-  expectJson(
-    "nested clone right preserves b",
-    mod.cloneNested(nestedRight),
-    nestedRight,
-  );
+  expectJson("nested clone left preserves b", mod.cloneNested(nestedLeft), {
+    value: { kind: "b_x", common: "same", b: "left" },
+  });
+  expectJson("nested clone right preserves b", mod.cloneNested(nestedRight), {
+    value: { kind: "b_x", common: "same", b: "right" },
+  });
   expect(
     "nested factory different b",
     mod.eqNestedFactory(nestedLeft, nestedRight),

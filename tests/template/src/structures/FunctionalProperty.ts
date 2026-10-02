@@ -1,7 +1,9 @@
 import { Spoiler } from "../utils/Spoiler";
 
+/** Supplies a record with required string and callable properties. */
 export interface FunctionalProperty {
   name: string;
+  /** Declares the required callable field in the record fixture. */
   closure: (value: number) => boolean;
 }
 export namespace FunctionalProperty {
@@ -10,6 +12,7 @@ export namespace FunctionalProperty {
   export const PRIMITIVE = false;
   export const RESOLVABLE = false;
 
+  /** Constructs a fresh record with the authored name and own arrow function. */
   export function generate(): FunctionalProperty {
     return {
       name: "name",

@@ -2,11 +2,13 @@ import { tags } from "typia";
 
 import { Spoiler } from "../utils/Spoiler";
 
+/** Supplies literal unions absorbed by default-annotated primitive domains. */
 export interface ConstantAtomicAbsorbed {
   id: "latest" | (string & tags.Default<"something">);
   age: -1 | (number & tags.Default<20>);
 }
 export namespace ConstantAtomicAbsorbed {
+  /** Constructs the clean object using the authored annotated-default values. */
   export const generate = (): ConstantAtomicAbsorbed => ({
     id: "something",
     age: 20,

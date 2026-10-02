@@ -1,8 +1,10 @@
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/** Supplies constructor-assigned public and non-public class data to producers. */
 export type ClassNonPublic = ClassNonPublic.Accessor;
 export namespace ClassNonPublic {
+  /** Retains private and protected runtime state beside two public strings. */
   export class Accessor {
     public constructor(
       readonly implicit: string,
@@ -12,11 +14,16 @@ export namespace ClassNonPublic {
     ) {}
     public static readonly CONSTANT: string = "some constant value";
 
+    /**
+     * Exposes a prototype method referencing private state for the fixture
+     * type.
+     */
     public getHidden(): boolean {
       return this.hidden;
     }
   }
 
+  /** Creates one class instance with all four constructor-assigned data members. */
   export function generate(): ClassNonPublic {
     return new Accessor(
       TestRandomGenerator.string(),

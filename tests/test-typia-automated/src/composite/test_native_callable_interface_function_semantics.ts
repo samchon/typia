@@ -144,7 +144,7 @@ void (null as unknown as [
  * 3. Propagate every failed comparison to the shared suite runner.
  *
  * @evidence contracts/testing.md#behavioral-verification Pure call/construct signatures, nested holders, inherited named/indexed hybrid members and global Function controls retain real-function and object-placeholder expectations.
- * @evidence contracts/testing.md#independent-expectations The retained literal expectations encode the authored type/value contract, not emitted-source patterns. Type-level equality assertions, where present, remain compiled independently of runtime comparisons.
+ * @evidence contracts/testing.md#independent-expectations Pure-call/construct alias equivalence and the documented functional-option contract establish real-function/object-placeholder expectations. The named/indexed hybrid controls preserve the structural fallback boundary explicitly retained by #2238 and merged #2250; they do not claim that every actual function fails TypeScript assignability to an indexed interface. Private Same/Assert checks independently compile the pure-spelling premises.
  * @evidence contracts/testing.md#distinguishing-cases Pure call/construct signatures, nested holders, inherited named/indexed hybrid members and global Function controls retain real-function and object-placeholder expectations. Each invocation checks one actual transform option. The ordinary suite invokes functional mode; the separate default-option batch must invoke default mode against a project transformed with functional disabled. Both option executions are required to establish preserved coverage.
  * @evidence contracts/testing.md#execution-ownership The matching exported composite is discovered by TestServant in test-typia-automated. Private typed producers and deliberately unchecked JavaScript-style runtime inputs preserve the original test boundary.
  * @evidence contracts/e2e.md#necessary-boundary Real typia public calls are transformed and their callbacks execute in Node. Go unit assertions on metadata or emitted text cannot detect a runtime result, receiver or mutation defect.
@@ -286,12 +286,12 @@ export const test_native_callable_interface_function_semantics = (
       );
     }
   }
-  // Index signatures are an independent hybrid boundary, and both named and
-  // indexed boundaries can arrive through interface inheritance. These valid
-  // function/class values intentionally omit the full hybrid shape, so existing
-  // structural handling rejects them. If either boundary is erased and the type
-  // is over-classified as a pure function, default mode skips it and functional
-  // mode accepts its typeof-function value.
+  // #2250 deliberately keeps own/inherited index signatures and inherited named
+  // members outside pure-function classification. These controls preserve that
+  // approved structural fallback: widening the pure-function classifier would
+  // skip them in default mode and accept their typeof-function values in
+  // functional mode. They do not establish general TypeScript assignability of
+  // arbitrary function values to indexed callable shapes.
   const hybridBoundaryRows: any = [
     ["directIndexedCallable", callable],
     ["factoryIndexedCallable", callable],

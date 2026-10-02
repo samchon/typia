@@ -30,7 +30,7 @@ import "testing"
 //  4. Require the accepted range to be int64's on every platform, not the
 //     compiling platform's `int`.
 //
-// @evidence contracts/testing.md#behavioral-verification Integer comment tag parsing is called on values beyond the int range and on in-range boundary values; out-of-range values must be rejected and reported, in-range ones parsed exactly.
+// @evidence contracts/testing.md#behavioral-verification Integer comment tag parsing is called on values at or beyond int64's unsupported upper bound, below its lower bound, and on accepted int64 boundary values; rejection requires a report, while accepted results are compared with authored int64 literals, including values beyond int32.
 // @evidence contracts/testing.md#independent-expectations The destination integer range and the documented rule that no value may wrap silently supply the expectations, which are authored numerals.
 // @evidence contracts/testing.md#distinguishing-cases Large positive and negative magnitudes are the negatives and boundary in-range values the positives.
 // @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the parser in memory with no checker, filesystem fixture or process.
@@ -107,8 +107,8 @@ func TestMetadataCommentTagFactoryRejectsOutOfRangeInteger(t *testing.T) {
   // These sit above int32 and below int64. A guard written against `int`
   // accepts them here and converts them out of range on `@ttsc/linux-arm` --
   // the same defect this test closes, moved to a platform the suite does not
-  // usually run on. `GOARCH=arm go vet ./core/factories/` is what executes this
-  // case for real; on a 64-bit host it is the declared type that carries it.
+  // usually run on. Cross-platform vet can check the destination types but
+  // does not execute this test; runtime portability needs a run on that target.
   for _, tuple := range []struct {
     value    string
     expected int64

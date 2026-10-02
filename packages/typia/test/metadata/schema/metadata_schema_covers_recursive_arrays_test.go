@@ -14,7 +14,7 @@ import (
 // non-recursive buckets disagree.
 //
 // 1. Build two self-referential array schemas with matching atomic buckets.
-// 2. Assert they cover each other through the visited-pair guard.
+// 2. Assert one covers the other through the visited-pair guard.
 // 3. Assert mismatched atomic buckets still fail despite the recursion guard.
 //
 // @evidence contracts/testing.md#behavioral-verification MetadataSchema_covers runs on two self-referential array schemas; matching atomics must terminate and cover, and mismatched atomics must still fail while the guard is active.

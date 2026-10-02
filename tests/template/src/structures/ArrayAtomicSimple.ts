@@ -1,8 +1,10 @@
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/** Supplies a tuple of arrays with three independent primitive element kinds. */
 export type ArrayAtomicSimple = [Array<boolean>, Array<number>, Array<string>];
 export namespace ArrayAtomicSimple {
+  /** Creates Boolean, integer and string arrays for the authored tuple. */
   export function generate(): ArrayAtomicSimple {
     return [
       TestRandomGenerator.array(TestRandomGenerator.boolean),

@@ -53,8 +53,8 @@ export namespace HttpLlm {
    *
    * Composes {@link IHttpLlmController} from OpenAPI document with connection
    * info. The controller feeds an LLM framework adapter such as
-   * `@typia/langchain` or `@typia/vercel` to expose all API operations as tools
-   * at once.
+   * `@typia/langchain` or `@typia/vercel` to expose composed API functions as
+   * tools at once.
    *
    * @param props Controller properties
    *
@@ -103,7 +103,9 @@ export namespace HttpLlm {
   /**
    * Convert OpenAPI document to LLM function calling application.
    *
-   * Converts API operations to LLM-callable functions.
+   * Converts API operations to LLM-callable functions. Migration selects its
+   * supported methods; human-only operations are omitted and operations that
+   * cannot be composed are reported as errors.
    *
    * @param props Composition properties
    *
@@ -112,7 +114,7 @@ export namespace HttpLlm {
    * @evidence contracts/common.md#principled-implementation The document is migrated and the migration result is composed into the LLM application with the three configuration values defaulted explicitly (strict false, maxLength 64, equals false), so a partial configuration is completed in one place.
    * @evidence contracts/common.md#clear-and-simple-design A thin function over HttpMigration.application and the composer.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The defaults are the documented ones and no document is special-cased.
-   * @evidence contracts/common.md#meaningful-documentation The doc says that each operation becomes a function; the property comments describe the document and configuration.
+   * @evidence contracts/common.md#meaningful-documentation The doc states supported-operation composition, human-only omission and error reporting; property comments describe the document and configuration.
    */
   export const application = (props: {
     /** OpenAPI document to convert. */
@@ -195,9 +197,10 @@ export namespace HttpLlm {
    *
    * @returns Full HTTP response
    *
-   * @throws Error only on connection failure
+   * @throws Error on invalid arguments, request serialization, connection or
+   *   response parsing failure
    *
-   * @evidence contracts/common.md#principled-implementation The call delegates to the function fetcher and returns the whole response, so error statuses are data and only connection failures throw.
+   * @evidence contracts/common.md#principled-implementation The call delegates to the function fetcher and returns the whole response, so error statuses are data. Argument checks, serialization, the connection and response parsing can still throw; propagation suppresses the status-based HttpError only.
    * @evidence contracts/common.md#clear-and-simple-design A one-line delegation.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts It adds no behavior beyond the fetcher.
    * @evidence contracts/common.md#meaningful-documentation The doc states the return and the thrown error.

@@ -53,7 +53,10 @@ func (LiteralFactory_Null) MarshalJSON() ([]byte, error) {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Order is explicit data and not recovered from sorting.
 // @evidence contracts/common.md#meaningful-documentation The doc states the ordering and skipping rules.
 type LiteralFactory_OrderedObject struct {
-  Keys   []string
+  // Keys specifies emission order; missing and nil-like values are omitted.
+  Keys []string
+
+  // Values supplies entries by key; entries absent from Keys are not emitted.
   Values map[string]any
 }
 

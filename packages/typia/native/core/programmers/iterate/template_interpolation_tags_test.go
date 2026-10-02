@@ -56,16 +56,16 @@ func TestTemplateCountCapturingGroups(t *testing.T) {
 // TestTemplateFullyConstrained gates which tag matrices earn a capture.
 //
 // A placeholder is only captured when every OR row contributes at least one
-// validate-able tag; otherwise some row admits the base type unconditionally and
+// runtime condition, including exclusion; otherwise some row admits the base type unconditionally and
 // honoring the others would reject values the type accepts.
 //
 //  1. Reject nil and empty matrices.
-//  2. Accept a matrix whose every row has a validate-able tag.
+//  2. Accept a matrix whose every row has a runtime condition.
 //  3. Reject a matrix with a row of only non-validating tags.
 //
-// @evidence contracts/testing.md#behavioral-verification The full-constraint gate is called on nil, empty, fully validating and partially validating tag matrices.
-// @evidence contracts/testing.md#independent-expectations A placeholder is captured only when every OR row has a validating tag; matrices and verdicts are authored.
-// @evidence contracts/testing.md#distinguishing-cases Nil, empty and partial matrices are negatives, and the fully constrained matrix is the positive.
+// @evidence contracts/testing.md#behavioral-verification The full-constraint gate is called on nil, empty, fully validating, mixed, exclusion-only and partially validating tag matrices, including an empty OR row.
+// @evidence contracts/testing.md#independent-expectations A placeholder is captured only when every OR row has a runtime condition, including exclusion; matrices and verdicts are authored.
+// @evidence contracts/testing.md#distinguishing-cases Nil, empty, empty-row and partial matrices are negatives; validating and exclusion-only matrices are positives.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls the private gate directly in the same package with no checker, filesystem fixture or process.
 func TestTemplateFullyConstrained(t *testing.T) {
   validating := nativemetadata.IMetadataTypeTag{Name: "Minimum<0>", Validate: "0 <= $input"}
@@ -79,6 +79,8 @@ func TestTemplateFullyConstrained(t *testing.T) {
     {"empty", [][]nativemetadata.IMetadataTypeTag{}, false},
     {"single", [][]nativemetadata.IMetadataTypeTag{{validating}}, true},
     {"mixed-row", [][]nativemetadata.IMetadataTypeTag{{schemaOnly, validating}}, true},
+    {"exclude-only", [][]nativemetadata.IMetadataTypeTag{{{Kind: "exclude", Schema: map[string]any{"not": map[string]any{"enum": []any{"no"}}}}}}, true},
+    {"empty-row", [][]nativemetadata.IMetadataTypeTag{{validating}, {}}, false},
     {"schema-only-row", [][]nativemetadata.IMetadataTypeTag{{schemaOnly}}, false},
     {"one-unconstrained-row", [][]nativemetadata.IMetadataTypeTag{{validating}, {schemaOnly}}, false},
   }
@@ -101,7 +103,7 @@ func TestTemplateFullyConstrained(t *testing.T) {
 //
 // @evidence contracts/testing.md#behavioral-verification The capture decision is called on number, bigint and string placeholders with validating tags and on boolean, unconstrained, nullable, optional and multi-bucket placeholders.
 // @evidence contracts/testing.md#independent-expectations Only sole required non-nullable primitives with runtime-checkable tags are captured; the verdicts are authored from that rule.
-// @evidence contracts/testing.md#distinguishing-cases Three accepted kinds and five rejected shapes separate capture from structural-only matching.
+// @evidence contracts/testing.md#distinguishing-cases Three accepted kinds and seven rejected shapes separate capture from structural-only matching.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls the private decision directly in the same package with no checker, filesystem fixture or process.
 func TestTemplateConstrainedCapture(t *testing.T) {
   minimum := [][]nativemetadata.IMetadataTypeTag{{{Name: "Minimum<0>", Validate: "0 <= $input"}}}
@@ -419,7 +421,7 @@ func TestTemplateBoundaryHelpers(t *testing.T) {
 //
 // @evidence contracts/testing.md#behavioral-verification The checker entry is built for sole templates with single-row, multi-row, whole-string and exclude tags and for a union of templates; condition counts and the inline expression are asserted.
 // @evidence contracts/testing.md#independent-expectations Authored tag matrices and the stated threading rule give expected row and condition counts.
-// @evidence contracts/testing.md#distinguishing-cases Five scenarios each change the matrix shape; the union case asserts no entry conditions and a non-nil expression.
+// @evidence contracts/testing.md#distinguishing-cases The original numeric, bigint, whole-string, exclusion and union scenarios change the matrix shape; the union case asserts no entry conditions and a non-nil expression.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestCheckTemplateInterpolationConditions(t *testing.T) {
   emit := shimprinter.NewEmitContext()
@@ -551,8 +553,8 @@ func TestCheckTemplateInterpolationConditions(t *testing.T) {
   }
 
   // 7. reducing an empty slice yields a literal (true/false) keyword.
-  if check_template_reduce(nil, shimast.KindBarBarToken) == nil {
-    t.Fatal("empty reduce should yield a keyword")
+  if check_template_reduce(nil, shimast.KindBarBarToken).Kind != shimast.KindTrueKeyword {
+    t.Fatal("empty reduce should yield the true keyword")
   }
 }
 

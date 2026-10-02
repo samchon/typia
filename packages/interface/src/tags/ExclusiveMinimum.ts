@@ -24,7 +24,7 @@ import { TagBase } from "./TagBase";
  *
  * @template Value The minimum bound (exclusive - value must be greater)
  *
- * @evidence contracts/common.md#principled-implementation The tag emits `N < $input` for numbers and `BigInt(N) < $input` for bigint and records `schema.exclusiveMinimum`; the bigint bound is rendered as a JSON number, inexact beyond the safe range. Its exclusivity list excludes Minimum.
+ * @evidence contracts/common.md#principled-implementation The tag emits N < $input for numbers and BigInt(N) < $input for bigint. Cast renders N as a JavaScript number literal before bigint conversion, while Numeric renders schema.exclusiveMinimum as a number type. Both retain the accepted number-representation precision limit; no arbitrary-precision bound is promised. Its exclusivity list excludes Minimum.
  * @evidence contracts/common.md#clear-and-simple-design Private Cast and Numeric helpers have one use each, mirroring ExclusiveMaximum so the two bounds read as a pair.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts A general template over the bound, with no special cases.
  * @evidence contracts/common.md#meaningful-documentation The comment states the strict lower bound, mutual exclusion with Minimum and shows a positive-number example.

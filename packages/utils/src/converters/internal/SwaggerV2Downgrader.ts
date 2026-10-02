@@ -14,11 +14,15 @@ import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
  * nullable and union schemas use the `x-nullable` and `x-oneOf` extensions. A
  * feature that Swagger 2.0 cannot express, such as request body examples or
  * mixed form and non-form media types, throws a TypeError instead of being
- * dropped.
+ * dropped by those checks. Other mappings remain lossy: webhooks and
+ * unsupported security schemes are omitted, parameter serialization annotations
+ * are dropped, and tuples become arrays without positional restrictions.
+ * Existing generated `.Nullable` definitions are reused without checking schema
+ * equivalence.
  *
- * @evidence contracts/common.md#principled-implementation The emended document becomes Swagger 2.0 only when every part can be expressed: servers must share host, base path and schemes, request bodies become one body or form-data parameter set, nullable and unions use extension keys and constants become enums; a part that cannot be expressed throws TypeError with a message and is not dropped.
+ * @evidence contracts/common.md#principled-implementation Servers are reduced to a shared host/base path and scheme set, bodies become body or formData parameters, unions and nullability use extension keys and constants become enums. Explicit media/server/form checks reject unsupported cases, but this is not universal loss prevention: webhooks and unsupported security forms are omitted, serialization annotations are dropped, tuple positions are approximated and existing generated nullable names are reused.
  * @evidence contracts/common.md#clear-and-simple-design A long namespace with private helpers per object kind, server reduction and schema rewriting; the failure cases are explicit checks rather than silent drops.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Loss is refused, and the helper that inlines references or enumerates types follows the stated rewrite and not a fixture.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Explicit representability checks reject the cases they cover; the remaining lossy mappings are disclosed. Reference inlining and enumeration follow schema structure rather than fixtures.
  * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the mappings and the rejection rule; the larger helpers carry their own comments.
  */
 export namespace SwaggerV2Downgrader {
@@ -32,7 +36,10 @@ export namespace SwaggerV2Downgrader {
    * @evidence contracts/common.md#meaningful-documentation A short comment states the role.
    */
   export interface IComponentsCollection {
+    /** Emended schemas used to resolve the source references. */
     original: OpenApi.IComponents;
+
+    /** Target definitions receiving converted schemas. */
     downgraded: Record<string, SwaggerV2.IJsonSchema>;
   }
 
@@ -721,9 +728,9 @@ export namespace SwaggerV2Downgrader {
    *
    * @returns Function that converts an emended schema to a Swagger 2.0 schema
    *
-   * @evidence contracts/common.md#principled-implementation Nullable and union schemas use the vendor extensions, tuples and constants become the nearest Swagger forms, references may be inlined where Swagger requires, and constructs that cannot be represented are rejected; each rewrite is the inverse of what the upgrader reads.
+   * @evidence contracts/common.md#principled-implementation Nullable and union schemas use vendor extensions, constants become enums and references use definitions. Tuples approximate positional members by an item union and prefix-length bounds, losing positional and optional-prefix constraints. Existing generated nullable definitions are reused without equivalence checking; these mappings are not exact inverses of every source schema.
    * @evidence contracts/common.md#clear-and-simple-design One large recursive function with helpers for nullable references, enumerations and form-data schemas.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts Rejection and documented extension keys are used in place of silent loss.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Documented extension keys express supported unions and nullability; tuple and generated-name limitations remain explicit rather than being claimed lossless.
    * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result; helpers carry comments.
    */
   export const downgradeSchema =

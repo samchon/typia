@@ -20,6 +20,7 @@ import (
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states when Replace runs.
 type MetadataCollection_IOptions struct {
+  // Replace rewrites a sanitized full name before unique-id allocation.
   Replace func(str string) string
 }
 
@@ -35,6 +36,7 @@ type MetadataCollection_IOptions struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The caches are per collection and are never process-wide, so an analysis cannot see another analysis's results.
 // @evidence contracts/common.md#meaningful-documentation The doc states what is owned, what is cached and who creates it.
 type MetadataCollection struct {
+  // Options controls the base-name rewrite used by this analysis's id allocator.
   Options *MetadataCollection_IOptions
 
   objects_       map[*nativechecker.Type]*MetadataObjectType
@@ -66,22 +68,33 @@ type MetadataCollection struct {
 }
 
 // MetadataCollection_ExploreCacheKey identifies one exploration in the cache: the
-// type plus the option and exploration flags that can change its result.
+// type plus the recorded option and exploration flags used by Explore_metadata.
+// Other member-analysis options must stay fixed within one collection. The key
+// is not a certificate of equivalence across all unrecorded exploration context.
 //
-// @evidence contracts/common.md#principled-implementation A cached schema is only valid for the same type explored under the same flags, so the flags are part of the key, which is a comparable struct.
+// @evidence contracts/common.md#principled-implementation Explore_metadata records the type and these varying option/exploration flags in a comparable key; reuse also depends on its eligibility guards and fixed member options within the collection.
 // @evidence contracts/common.md#clear-and-simple-design One flat comparable record.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the key identifies.
 type MetadataCollection_ExploreCacheKey struct {
-  Type       *nativechecker.Type
-  Escape     bool
-  Absorb     bool
-  Constant   bool
+  // Type identifies the checker type being explored.
+  Type *nativechecker.Type
+  // Escape records whether toJSON escape analysis is enabled.
+  Escape bool
+  // Absorb records structural analysis instead of a named alias wrapper.
+  Absorb bool
+  // Constant records whether literal-value alternatives are retained.
+  Constant bool
+  // Functional records whether callable alternatives are analyzed.
   Functional bool
-  Top        bool
-  Aliased    bool
-  Escaped    bool
-  Output     bool
+  // Top records the root exploration position.
+  Top bool
+  // Aliased records exploration inside an alias target.
+  Aliased bool
+  // Escaped records exploration inside a toJSON escape.
+  Escaped bool
+  // Output records a callable-output exploration position.
+  Output bool
 }
 
 // LookupTypeFullName / StoreTypeFullName memoize the pure type -> full-name
@@ -90,7 +103,7 @@ type MetadataCollection_ExploreCacheKey struct {
 // reports ask for the same type's name repeatedly within one analysis.
 //
 // @evidence contracts/common.md#principled-implementation The full name of a type is rebuilt from the checker on demand and repeats across the intersection analysis, the object emplacement and error reports, so it is memoized per collection, and a miss is reported instead of invented.
-// @evidence contracts/common.md#clear-and-simple-design A nil-safe map read.
+// @evidence contracts/common.md#clear-and-simple-design A nil-map-safe read on a non-nil collection.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The cache holds only the pure name and no analysis state.
 // @evidence contracts/common.md#meaningful-documentation The doc states what is memoized and which callers repeat it.
 func (collection *MetadataCollection) LookupTypeFullName(typ *nativechecker.Type) (string, bool) {
@@ -120,7 +133,7 @@ func (collection *MetadataCollection) StoreTypeFullName(typ *nativechecker.Type,
 // NewMetadataCollection creates an empty collection. The first option record is
 // used when given.
 //
-// @evidence contracts/common.md#principled-implementation Every registry map starts allocated so the methods never write to nil.
+// @evidence contracts/common.md#principled-implementation Shared-type registries and eager lookup maps start allocated; the full-name and display-name caches are initialized lazily by their stores.
 // @evidence contracts/common.md#clear-and-simple-design One constructor with a variadic options parameter.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts No state is shared between collections.
 // @evidence contracts/common.md#meaningful-documentation The doc states the option default.
@@ -160,7 +173,8 @@ func NewMetadataCollection(options ...*MetadataCollection_IOptions) *MetadataCol
 
 // Clone copies the registries, order lists, counters and caches so that the copy
 // can be assigned back as a rollback point. The type entries themselves are
-// shared with the original and keep any later edit.
+// shared with the original and keep any later edit. Cached pointer/slice values
+// and Options also remain shared; this is a registry snapshot, not a graph copy.
 //
 // @evidence contracts/common.md#principled-implementation The intersection analysis explores members on the real collection and restores the snapshot when the result is discarded, which needs every registry and counter copied.
 // @evidence contracts/common.md#clear-and-simple-design One struct literal of map and slice copies and one loop for the union lists.
@@ -206,9 +220,10 @@ func (collection *MetadataCollection) Clone() *MetadataCollection {
 }
 
 // LookupExploreCache returns a clone of the cached schema for the key, or false.
-// The clone keeps the caller from editing the cached value.
+// The clone gives the caller independent schema roots, records and rows within
+// MetadataSchema.Clone's documented shared-definition/payload boundary.
 //
-// @evidence contracts/common.md#principled-implementation A cached schema is handed out as a copy because explorations edit the schema they receive.
+// @evidence contracts/common.md#principled-implementation Explorations receive structurally cloned schemas for their root/row edits, while shared definitions and payload references retain the ownership boundary of Clone.
 // @evidence contracts/common.md#clear-and-simple-design A nil-safe map read and one Clone.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A nil or missing entry reports a miss.
 // @evidence contracts/common.md#meaningful-documentation The doc states the copy.
@@ -226,7 +241,7 @@ func (collection *MetadataCollection) LookupExploreCache(key MetadataCollection_
 // StoreExploreCache records a clone of value under the key; a nil collection, nil
 // key type or nil value is ignored.
 //
-// @evidence contracts/common.md#principled-implementation The stored schema is a copy so later edits of the caller's schema do not change the cache.
+// @evidence contracts/common.md#principled-implementation The stored schema owns the copied roots, records and rows within Clone's documented boundary; shared definitions and payload references are not made independent.
 // @evidence contracts/common.md#clear-and-simple-design Guards, a lazy map and one Clone.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Nothing is stored without a type or value.
 // @evidence contracts/common.md#meaningful-documentation The doc states the copy and the ignored cases.
@@ -498,7 +513,7 @@ const metadataCollection_duplicateSuffix = "-o"
 // scan rather than a collision. It exists because every anonymous type shares
 // the name `__type`. Always starting at zero rescans the whole run of previous
 // `__type` ids for each new one, which is quadratic in a program's anonymous
-// type count and cost 87s at 20k where resuming costs milliseconds.
+// type count. Resuming from the per-base counter avoids that repeated prefix scan.
 func metadataCollection_allocateName(taken map[string]bool, name string, from int) (string, int) {
   index := from
   allocated := metadataCollection_composeName(name, index)
@@ -770,7 +785,7 @@ func (collection *MetadataCollection) SetTupleRecursive(tuple *MetadataTupleType
 //
 // @evidence contracts/common.md#principled-implementation The ordered accessors give a deterministic list and each type converts itself.
 // @evidence contracts/common.md#clear-and-simple-design Four loops over the accessors.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts Nothing is filtered.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The ordered accessors supply non-nil registered entries; projection adds no further filter.
 // @evidence contracts/common.md#meaningful-documentation The doc states the order.
 func (collection *MetadataCollection) ToJSON() IMetadataComponents {
   objects := make([]IMetadataSchema_IObjectType, 0, len(collection.objects_))
@@ -871,10 +886,10 @@ func metadataCollection_qualifyOpenApiName(str string) string {
 // bounds whatever remains.
 const metadataCollection_qualifySeparator = "-"
 
-// metadataCollection_isIdentifierRune reports whether a rune can appear in a
-// TypeScript identifier, and therefore in a qualified name. Unicode letters
-// count: `Café.Member` is a real qualification whose dot must survive, even
-// though the final key escapes the accented rune.
+// metadataCollection_isIdentifierRune accepts Unicode letters and digits plus
+// underscore and dollar for the qualification-prefix scan. It is not a full
+// TypeScript identifier grammar. Accepted non-ASCII prefix runes are escaped
+// later when producing the final OpenAPI key.
 func metadataCollection_isIdentifierRune(ch rune) bool {
   return unicode.IsLetter(ch) ||
     unicode.IsDigit(ch) ||
@@ -882,7 +897,7 @@ func metadataCollection_isIdentifierRune(ch rune) bool {
     ch == '$'
 }
 
-// MetadataCollection_replaceOpenApi converts a metadata display name into an
+// MetadataCollection_replaceOpenApi converts a metadata full name into an
 // OpenAPI Components Object key. Keep this separate from the general metadata
 // replacement used by LLM `$defs`, for two reasons. OpenAPI restricts keys to
 // an ASCII grammar, while an LLM definition map can own arbitrary JSON object
@@ -891,7 +906,7 @@ func metadataCollection_isIdentifierRune(ch rune) bool {
 // `metadataCollection_qualifyOpenApiName`'s rule, which an LLM key does not.
 //
 // @evidence contracts/common.md#principled-implementation An OpenAPI key must stay inside an ASCII grammar and a dot in it is read as a namespace boundary, so the quoted literals, the characters outside the alphabet and the dots of nested renderings are escaped or rewritten, and any key that was altered in a way that could collide gets a hash of the original text appended.
-// @evidence contracts/common.md#clear-and-simple-design A single pass over the runes with three small private helpers for the quote state, the escape and the hash.
+// @evidence contracts/common.md#clear-and-simple-design A quoted-content rune pass is followed by namespace qualification, shared character replacement and a final alphabet pass; private helpers own escaping and the optional hash.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The disambiguation rests on the hash and the allocator, and the doc states why this replacer is separate from the general one.
 // @evidence contracts/common.md#meaningful-documentation The doc states the reasons for the separate rules.
 func MetadataCollection_replaceOpenApi(str string) string {

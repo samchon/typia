@@ -30,7 +30,7 @@ const build = typia.plain.createClassify<Zoo>();
  *
  * @evidence contracts/testing.md#behavioral-verification classify nests a type-only named interface as a plain object; the body executes real transformed callbacks and retains the original runner assertions.
  * @evidence contracts/testing.md#independent-expectations Handwritten seeds, class identity and declared method semantics establish expectations; no expected value is captured from emitted code.
- * @evidence contracts/testing.md#distinguishing-cases Zoo retains its real class prototype while the named interface Animal retains fox and four legs without referencing a nonexistent constructor.
+ * @evidence contracts/testing.md#distinguishing-cases Zoo retains its real class prototype while the type-only Animal field retains fox and four legs without an unbound-constructor exception. This body checks the nested field contents, not its exact object prototype.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_plain_classify_named_interface in the automated composite population; private fixture declarations and callbacks belong to this entry.
  * @evidence contracts/e2e.md#necessary-boundary Real typia native lowering must connect these TypeScript declarations to executable JavaScript; direct emitter inspection cannot detect wrong constructor identity or missing runtime bindings.
  * @evidence contracts/e2e.md#shared-execution These call sites share the automated suite project and its single worker, with no per-case compiler project, CLI invocation or subprocess.

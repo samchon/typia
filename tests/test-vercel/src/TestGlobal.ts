@@ -4,15 +4,27 @@ import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand";
 import typia from "typia";
 
+/**
+ * Integration-runner flags and optional live-provider experiment inputs.
+ *
+ * Only flag parsing is used by the automated runner. Environment and hosted
+ * document loading are lazy manual-experiment helpers, not hermetic test
+ * cases.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This support namespace owns no assertions; getArguments selects discovered integration cases, while getEnvironments and getSwagger supply optional manual experiment inputs.
+ * @evidence contracts/testing.md#independent-expectations Case assertions have their own authored oracles; this namespace does not establish expected model answers or certify its fetched OpenAPI document.
+ * @evidence contracts/testing.md#distinguishing-cases The runner's absent and repeated flag forms select cases, whereas the two lazy initializers are manual-only and do not expand automated coverage.
+ * @evidence contracts/testing.md#execution-ownership src/index.ts calls getArguments; experimental/tool-calling.ts and structured-output.ts call getEnvironments through explicit package scripts. getSwagger is currently unused, and no helper is registered as a test case.
+ */
 export namespace TestGlobal {
   /**
    * Loads and expands dotenv once for a manual provider experiment, then
    * validates the optional provider key in process.env.
    *
-   * @evidence contracts/common.md#principled-implementation The singleton initializer loads dotenv, expands substitutions and passes process.env to the declared optional-string assertion. It validates that shape without copying or reverting the environment mutations owned by dotenv.
-   * @evidence contracts/common.md#clear-and-simple-design A fixed singleton keeps initialization and the exported read separate; its initializer owns dotenv and assertion effects, and subsequent reads reuse the same environment object.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts dotenv uses its supported configuration/expansion APIs; no foreign method or global is replaced. process.env changes are the explicit purpose of this manual experiment setup.
-   * @evidence contracts/common.md#meaningful-documentation The native comment identifies manual provider use, first-read effects and the optional provider key shape. It does not claim to execute as a DynamicExecutor test.
+   * @evidence contracts/testing.md#behavioral-verification This manual support read initializes dotenv and asserts an optional string key, but owns no regression assertions or model-answer checks.
+   * @evidence contracts/testing.md#independent-expectations IEnvironments supplies the optional string shape; no provider response is used as an expected automated result.
+   * @evidence contracts/testing.md#distinguishing-cases Absent or string-valued provider key fits the declared manual input; Singleton retains initialization and process.env effects rather than isolating them as test fixtures.
+   * @evidence contracts/testing.md#execution-ownership The two experimental scripts call this helper; automated unit and integration cases never call it. Its initializer and IEnvironments are reviewed with this support owner.
    */
   export const getEnvironments = (): IEnvironments => environments.get();
 
@@ -21,10 +33,10 @@ export namespace TestGlobal {
    * provider experiments. Repeated reads share the same promise, including
    * rejection.
    *
-   * @evidence contracts/common.md#principled-implementation The singleton fetches the authored endpoint, parses its JSON and delegates version conversion to OpenApiConverter. It assumes the endpoint returns an OpenAPI document; HTTP status and document structure are not separately validated here.
-   * @evidence contracts/common.md#clear-and-simple-design One exported read delegates one fixed-document promise to the singleton. The private initializer owns network, JSON parsing and conversion without duplicating the converter.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts The fixed URL is the actual experiment input rather than an expected test output. Fetch and conversion use public APIs without patching a provider or selecting a result by fixture name.
-   * @evidence contracts/common.md#meaningful-documentation The native prose identifies the external document, manual-use purpose, promise reuse and retained rejection; it makes no claim of hermetic test execution.
+   * @evidence contracts/testing.md#behavioral-verification This optional support read fetches JSON and upgrades an OpenAPI document; no caller currently executes it and it contains no regression assertions.
+   * @evidence contracts/testing.md#independent-expectations The hosted document is a manual input, not an independent expected result; the helper assumes its shape and does not separately validate HTTP status or document structure.
+   * @evidence contracts/testing.md#distinguishing-cases Singleton retains the same document promise, including rejection; this reuse is implementation behavior, not evidence that cold/rejected fetch scenarios are tested.
+   * @evidence contracts/testing.md#execution-ownership No automated or experimental caller currently calls getSwagger. Its private fetch initializer is reviewed here without claiming network execution by either runner.
    */
   export const getSwagger = (): Promise<OpenApi.IDocument> => swagger.get();
 
@@ -32,10 +44,10 @@ export namespace TestGlobal {
    * Reads one value per occurrence of the requested double-dash flag. Missing
    * flags return an empty list.
    *
-   * @evidence contracts/common.md#principled-implementation The argv scan collects one following argument for each occurrence of the requested flag, preserving occurrence order. It does not treat a sequence of unprefixed words as several filter values.
-   * @evidence contracts/common.md#clear-and-simple-design One loop owns flag recognition and the result array; advancing past each consumed value keeps it from being interpreted as another flag.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts The requested key is compared with its complete double-dash spelling; no fixture or test outcome affects parsing.
-   * @evidence contracts/common.md#meaningful-documentation Native prose explains one-value-per-occurrence filtering and the absent-flag empty result, rather than claiming this runner helper is a behavioral test.
+   * @evidence contracts/testing.md#behavioral-verification This runner support scan owns no assertions; it supplies include/exclude values to the integration runner without swallowing any selected case failure.
+   * @evidence contracts/testing.md#independent-expectations Complete --key spelling and the following argv value define its input contract. Case expectations remain in the selected test functions.
+   * @evidence contracts/testing.md#distinguishing-cases Absent flags yield no filter, repeated flags preserve order, and a trailing flag without a value contributes nothing; this comment describes actual logic rather than claiming dedicated parsing coverage.
+   * @evidence contracts/testing.md#execution-ownership src/index.ts calls this support function before DynamicExecutor discovery; it is not itself a registered case and does not initialize the lazy environment or hosted document helpers.
    */
   export const getArguments = (key: string): string[] => {
     const values: string[] = [];

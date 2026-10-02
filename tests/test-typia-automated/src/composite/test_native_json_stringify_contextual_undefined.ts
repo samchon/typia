@@ -419,7 +419,7 @@ const fixture = {
  *    assertions.
  *
  * @evidence contracts/testing.md#behavioral-verification Runs the actual generated callbacks and retains every branch, input and throw from jsonStringifyContextualUndefinedRunner; emitted-text presence alone cannot pass these assertions.
- * @evidence contracts/testing.md#independent-expectations ECMAScript JSON.stringify and JSON.parse provide the independent serialization oracle for identical fresh inputs. Static/dynamic object omission, array null substitution, toJSON, sparse slots and optional-undefined rejection are checked across the original direct/factory family matrix.
+ * @evidence contracts/testing.md#independent-expectations ECMAScript JSON.stringify and JSON.parse provide the independent serialization oracle for equivalent fresh inputs. Static/dynamic object omission, array null substitution, toJSON and sparse slots are checked across direct/factory families. Invalid keep/tuple twins require guarded rejection; strict mode permits optional-undefined rejection or oracle-equivalent success and does not require rejection.
  * @evidence contracts/testing.md#distinguishing-cases Preserves the literal runtime assertions below; the rest of the original runner's assertions remain below without dropping or skipping inputs.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_native_json_stringify_contextual_undefined in the shared automated composite population; its local runner helpers are covered by this function and create no compiler or Node subprocess.
  * @evidence contracts/e2e.md#necessary-boundary Installed typia transforms the fully typed jsonStringifyContextualUndefinedSource call sites, and the worker executes their emitted JavaScript; pure Go emitter assertions cannot observe these JavaScript runtime results.
@@ -657,7 +657,7 @@ export const test_native_json_stringify_contextual_undefined = (
       }),
     ],
 
-    // toJSON controls: present, inherited, returning undefined, and non-callable.
+    // toJSON controls: present, inherited and returning undefined.
     [
       "jsonableProperty",
       "own toJSON",

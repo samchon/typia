@@ -7,18 +7,18 @@ import typia from "typia";
 /**
  * Verifies native parameter schemas represent both the authored string Status
  * and numeric Level enums, whether inline or referenced, and retain enum
- * cardinality and representative members.
+ * cardinality, plus representative members for referenced definitions.
  *
  * String versus number enums and supported reference/inline forms remain
- * distinct. The cardinality-plus-member checks do not certify every enum
- * member; full literal enum comparisons remain in parameters_spec_properties
- * and converter_matrix.
+ * distinct. Inline cardinality and referenced member checks do not certify
+ * every enum member; full literal enum comparisons remain in
+ * parameters_spec_properties and converter_matrix.
  *
  * 1. Execute the native calls for the declarations and inputs in this file.
  * 2. Compare the observed schema fragments or runtime results with the stated
  *    expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification Native parameter schemas represent both the authored string Status and numeric Level enums, whether inline or referenced, and retain enum cardinality and representative members.
+ * @evidence contracts/testing.md#behavioral-verification Native parameter schemas represent both the authored string Status and numeric Level enums, whether inline or referenced, and retain enum cardinality plus representative members for referenced definitions.
  * @evidence contracts/testing.md#independent-expectations Status and Level literal unions independently require three members and the pending/1 representatives. Explicit representation and referenced-definition type predicates prevent a wrong schema kind from bypassing enum checks.
  * @evidence contracts/testing.md#distinguishing-cases String versus number enums and supported reference/inline forms remain distinct. The cardinality-plus-member checks do not certify every enum member; full literal enum comparisons remain in parameters_spec_properties and converter_matrix.
  * @evidence contracts/testing.md#execution-ownership test_llm_parameters_enum is the matching exported DynamicExecutor entry under test-typia-schema start (ttsx src/index.ts). It executes typia.llm.parameters through the configured native typia plugin. Private callbacks and schema projections stay part of this case; direct utility-only semantics are not relabeled as proof of the producer.

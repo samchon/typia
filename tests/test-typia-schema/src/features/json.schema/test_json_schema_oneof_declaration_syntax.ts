@@ -18,8 +18,9 @@ import typia from "typia";
  *
  * 1. Declare one tagged union three ways: all `interface`, all `type` alias, and
  *    mixed.
- * 2. Assert all three emit an identical `discriminator`, and that `oneOf` is
- *    identical across them too.
+ * 2. Assert each spelling emits its declared component references and the
+ *    corresponding circle/square discriminator mapping, including an alias
+ *    chain that resolves to the original interfaces.
  * 3. Assert a union without a common literal tag, and one with a non-object
  *    member, still emit no discriminator.
  *

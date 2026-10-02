@@ -23,12 +23,12 @@ import typia, { Primitive, tags } from "typia";
  *
  * @evidence contracts/testing.md#behavioral-verification Recursive conditional aliases transform, validate and retain usable schema names.
  * @evidence contracts/testing.md#independent-expectations Authored date/nested accepted and rejected inputs, exact failure path and explicit self-reference/date-time checks anchor behavior.
- * @evidence contracts/testing.md#distinguishing-cases Five accepted/five rejected inputs, bounded names, recursive array union and separate named-recursion positive/negative controls remain.
+ * @evidence contracts/testing.md#distinguishing-cases Four accepted/five rejected inputs, bounded names, recursive array union and separate named-recursion positive/negative controls remain.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_validate_recursive_conditional_alias in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
  * @evidence contracts/e2e.md#necessary-boundary Native type naming must terminate when revisiting a conditional union and feed consistent recursive validator/schema references.
  * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
  * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
- * @evidence contracts/e2e.md#preserved-coverage Five accepted/five rejected inputs, bounded names, recursive array union and separate named-recursion positive/negative controls remain. Source review preserves the executable matrix; final native execution is tracked separately.
+ * @evidence contracts/e2e.md#preserved-coverage Four accepted/five rejected inputs, bounded names, recursive array union and separate named-recursion positive/negative controls remain. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_validate_recursive_conditional_alias = (): void => {
   type Node = Date | Node[];

@@ -9,13 +9,16 @@ import (
 
 // TestPlainClassifyStrategyEdgesTransform verifies abstract and tuple-rest constructor strategy boundaries.
 //
-// Abstract classes cannot be instantiated and therefore need field copying; a tuple-rest signature that accepts one seed still supplies a supported constructor contract.
+// An abstract construct signature is not publicly newable in TypeScript, so
+// classify mirrors the type-level contract with field copying. The abstract
+// modifier itself is erased in JavaScript. A tuple-rest signature that accepts
+// one seed still supplies a supported constructor contract.
 //
 // 1. An abstract constructor-negative form is paired with a concrete tuple-rest constructor-positive form.
 // 2. Abstract Shape emits Object.create(Shape.prototype) and no new Shape, while a tuple-rest Pair constructor emits new Pair.
 //
 // @evidence contracts/testing.md#behavioral-verification Abstract Shape emits Object.create(Shape.prototype) and no new Shape, while a tuple-rest Pair constructor emits new Pair.
-// @evidence contracts/testing.md#independent-expectations Abstract classes cannot be instantiated and therefore need field copying; a tuple-rest signature that accepts one seed still supplies a supported constructor contract.
+// @evidence contracts/testing.md#independent-expectations ClassifiableConstructor requires a publicly newable TypeScript signature, which an abstract class does not provide even though its abstract modifier is erased at runtime. Field copying therefore mirrors the public type contract; the concrete tuple-rest signature accepts one seed and supplies a constructor-positive control.
 // @evidence contracts/testing.md#distinguishing-cases An abstract constructor-negative form is paired with a concrete tuple-rest constructor-positive form.
 // @evidence contracts/testing.md#execution-ownership The native Go runner executes TestPlainClassifyStrategyEdgesTransform as a unit test. Captured runTransform calls operate on the isolated fixture project in process; output assertions and cleanup remain owned by these helpers without a compiler or Node subprocess.
 func TestPlainClassifyStrategyEdgesTransform(t *testing.T) {
@@ -75,7 +78,7 @@ func plainClassifyWriteProject(t *testing.T, prefix string, source string) strin
 const plainClassifyStrategyEdgesSource = `import typia from "typia";
 
 // ABSTRACT class: typeof Shape has only an ` + "`abstract new`" + ` signature, which is
-// not runtime-newable, so classify must FIELD-COPY the instance shape.
+// not publicly newable in TypeScript, so classify FIELD-COPYs the instance shape.
 export abstract class Shape {
   kind!: string;
   describe(): string {

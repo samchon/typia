@@ -7,7 +7,10 @@
  * @evidence contracts/common.md#meaningful-documentation A comment states the representation.
  */
 export interface _IDecimal {
+  /** Signed integer digits of the decimal representation. */
   coefficient: bigint;
+
+  /** Power of ten applied to the coefficient. */
   exponent: number;
 }
 
@@ -20,7 +23,10 @@ export interface _IDecimal {
  * @evidence contracts/common.md#meaningful-documentation A comment states the representation.
  */
 export interface _IDecimalRatio {
+  /** Exact dividend after aligning the decimal exponents. */
   numerator: bigint;
+
+  /** Exact nonzero divisor after aligning the decimal exponents. */
   denominator: bigint;
 }
 
@@ -129,7 +135,7 @@ export const _decimalPower = (exponent: number): bigint =>
 /**
  * Compute the greatest common divisor of two big integers.
  *
- * @evidence contracts/common.md#principled-implementation Euclid's algorithm on the absolute values returns the greatest common divisor, which terminates because the remainder strictly decreases.
+ * @evidence contracts/common.md#principled-implementation Euclid's remainder iteration accepts the signed integers and returns the absolute final divisor. The absolute remainder decreases on each nonterminal step, so it terminates; two zeros return zero.
  * @evidence contracts/common.md#clear-and-simple-design One loop.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts A recognized algorithm.
  * @evidence contracts/common.md#meaningful-documentation A one-line comment states what it returns.

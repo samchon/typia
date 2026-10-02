@@ -3,10 +3,12 @@ import { ArrayUtil } from "@nestia/e2e";
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/** Supplies a string-keyed dictionary whose values must be undefined. */
 export interface DynamicUndefined {
   [key: string]: undefined;
 }
 export namespace DynamicUndefined {
+  /** Constructs a fresh randomized dictionary with explicit undefined values. */
   export function generate(): DynamicUndefined {
     const output: DynamicUndefined = {};
     ArrayUtil.repeat(TestRandomGenerator.integer(3, 10), () => {

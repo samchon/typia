@@ -11,7 +11,7 @@ import { _randomInteger } from "../_randomInteger";
  *
  * The caller guarantees `count * minimum <= total <= count * maximum`; each
  * part is drawn from the range that still leaves the remaining parts
- * satisfiable.
+ * satisfiable. Counts, lengths and segment bounds are nonnegative integers.
  *
  * @evidence contracts/common.md#principled-implementation A total is split into parts within a range by drawing each part from the interval that still leaves the remaining parts satisfiable, so the caller's guarantee that the total is within `count * minimum` and `count * maximum` yields a valid composition without retrying.
  * @evidence contracts/common.md#clear-and-simple-design One function.
@@ -84,7 +84,7 @@ export const __randomDigits = (length: number): string => {
 };
 
 /**
- * Draws a decimal number of exactly `length` digits without a leading zero.
+ * Draws a positive integer count of decimal digits; a single digit may be zero.
  *
  * @evidence contracts/common.md#principled-implementation A number of the requested digit count without a leading zero, with one digit allowed to be zero, built from a nonzero first digit and random digits.
  * @evidence contracts/common.md#clear-and-simple-design One expression over the digit helper.

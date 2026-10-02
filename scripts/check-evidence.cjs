@@ -26,8 +26,12 @@ function checkEvidence(
   ),
 ) {
   let entries;
+  let testEntries;
   try {
     entries = fs.readdirSync(path.join(root, "packages"), {
+      withFileTypes: true,
+    });
+    testEntries = fs.readdirSync(path.join(root, "tests"), {
       withFileTypes: true,
     });
   } catch (error) {
@@ -38,8 +42,7 @@ function checkEvidence(
     .filter((entry) => entry.isDirectory())
     .map((entry) => `packages/${entry.name}/evidence.config.json`)
     .sort();
-  const tests = fs
-    .readdirSync(path.join(root, "tests"), { withFileTypes: true })
+  const tests = testEntries
     .filter(
       (entry) =>
         entry.isDirectory() &&
