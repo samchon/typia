@@ -33,7 +33,7 @@ Switch to parallel discovery with solo implementation only when the user explici
 1. Run Parallel Discovery and let the lead complete candidate adjudication and authorized publication.
 2. Stop every discovery agent before implementation begins.
 3. Read the base issue campaign's [solo development procedure](../issue-campaign/development.md).
-4. Put every implementation-ready issue into its one empty-claim pull request, use the current checkout without a worktree, run `pnpm format`, validate through ordinary CI, and complete solo Self-Review while CI runs.
+4. Put every implementation-ready issue into its one empty-claim pull request, use the current checkout without a worktree, validate through ordinary CI, and complete solo Self-Review while CI runs. Defer `pnpm format` to that procedure's final pre-merge cleanup gate.
 5. Apply that procedure's implementation, CI, merge, branch cleanup, and temporary-asset rules, but return here for the next parallel discovery round instead of switching to solo discovery.
 
 Do not infer solo implementation from quota concerns, a small issue count, or the fact that the lead performs publication. Only the user's explicit phase boundary selects it.
