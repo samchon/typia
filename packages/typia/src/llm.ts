@@ -46,7 +46,7 @@ export function controller(
  * - {@link schema} — Single type schema
  *
  * @template Class Target class or interface type
- * @template Config LLM schema configuration
+ * @template _Config LLM schema configuration
  *
  * @param name Controller identifier name
  * @param execute Executor instance
@@ -56,7 +56,7 @@ export function controller(
  */
 export function controller<
   Class extends Record<string, any>,
-  Config extends Partial<
+  _Config extends Partial<
     ILlmSchema.IConfig & {
       /**
        * Whether to disallow superfluous properties or not.
@@ -113,7 +113,7 @@ export function application(
  * - {@link schema} — Single type schema
  *
  * @template Class Target class or interface type
- * @template Config LLM schema configuration
+ * @template _Config LLM schema configuration
  *
  * @param config LLM application options
  *
@@ -121,7 +121,7 @@ export function application(
  */
 export function application<
   Class extends Record<string, any>,
-  Config extends Partial<
+  _Config extends Partial<
     ILlmSchema.IConfig & {
       /**
        * Whether to disallow superfluous properties or not.
@@ -180,13 +180,13 @@ export function structuredOutput(): never;
  * - {@link controller} — Application with executor
  *
  * @template T Target output type (object with static properties)
- * @template Config LLM schema configuration
+ * @template _Config LLM schema configuration
  *
  * @returns LLM structured output interface
  */
 export function structuredOutput<
   T extends Record<string, any>,
-  Config extends Partial<
+  _Config extends Partial<
     ILlmSchema.IConfig & {
       /**
        * Whether to disallow superfluous properties or not.
@@ -260,14 +260,14 @@ export function evaluation(): never;
  * - {@link structuredOutput} — Structured output generated as text by an LLM
  *
  * @template T Target decision type (object with static properties)
- * @template Config Decimal places of the evaluation model's answers, two by
+ * @template _Config Decimal places of the evaluation model's answers, two by
  *   default; a probability requirement finer than that is a compile error
  *
  * @returns LLM evaluation questions with a checked answer decoder
  */
 export function evaluation<
   T extends Record<string, any>,
-  Config extends Partial<ILlmEvaluation.IConfig> = {},
+  _Config extends Partial<ILlmEvaluation.IConfig> = {},
 >(): ILlmEvaluation<T>;
 
 /** @internal */
@@ -281,7 +281,7 @@ export function evaluation(): never {
 /**
  * Creates LLM parameters schema.
  *
- * @danger You must configure the generic argument `Parameters`
+ * @danger You must configure the generic argument `_Parameters`
  */
 export function parameters(): never;
 
@@ -303,14 +303,14 @@ export function parameters(): never;
  * - {@link controller} — Application with executor
  * - {@link schema} — Single type schema (not parameters-specific)
  *
- * @template Parameters Target parameters type (object with static properties)
- * @template Config LLM schema configuration
+ * @template _Parameters Target parameters type (object with static properties)
+ * @template _Config LLM schema configuration
  *
  * @returns LLM parameters schema
  */
 export function parameters<
-  Parameters extends Record<string, any>,
-  Config extends Partial<ILlmSchema.IConfig> = {},
+  _Parameters extends Record<string, any>,
+  _Config extends Partial<ILlmSchema.IConfig> = {},
 >(): ILlmSchema.IParameters;
 
 /** @internal */
@@ -321,7 +321,7 @@ export function parameters(): never {
 /**
  * Creates LLM type schema.
  *
- * @danger You must configure the generic argument `T`
+ * @danger You must configure the generic argument `_T`
  */
 export function schema(): never;
 
@@ -345,14 +345,14 @@ export function schema(): never;
  * - {@link controller} — Application with executor
  * - {@link parameters} — Parameters schema for structured output
  *
- * @template T Target type
- * @template Config LLM schema configuration
+ * @template _T Target type
+ * @template _Config LLM schema configuration
  *
  * @param $defs Shared schema definitions for `$ref` referencing
  *
  * @returns LLM type schema
  */
-export function schema<T, Config = {}>(
+export function schema<_T, _Config = {}>(
   $defs: Record<string, ILlmSchema>,
 ): ILlmSchema;
 
@@ -402,7 +402,7 @@ export function parse(input: string): never;
  * - {@link parameters} — Generate parameters schema from type
  *
  * @template Parameters Target parameters type (object with static properties)
- * @template Config LLM schema configuration
+ * @template _Config LLM schema configuration
  *
  * @param input Raw JSON string (potentially incomplete or malformed)
  *
@@ -410,7 +410,7 @@ export function parse(input: string): never;
  */
 export function parse<
   Parameters extends Record<string, any>,
-  Config extends Partial<ILlmSchema.IConfig> = {},
+  _Config extends Partial<ILlmSchema.IConfig> = {},
 >(input: string): IJsonParseResult<Parameters>;
 
 /** @internal */
@@ -446,7 +446,7 @@ export function parse(): never {
  * - {@link parameters} — Generate parameters schema from type
  *
  * @template Parameters Target parameters type (object with static properties)
- * @template Config LLM schema configuration
+ * @template _Config LLM schema configuration
  *
  * @param input Parsed arguments object from LLM (with potentially wrong types)
  *
@@ -454,7 +454,7 @@ export function parse(): never {
  */
 export function coerce<
   Parameters extends Record<string, any>,
-  Config extends Partial<ILlmSchema.IConfig> = {},
+  _Config extends Partial<ILlmSchema.IConfig> = {},
 >(input: Parameters): Parameters;
 
 /** @internal */
@@ -501,13 +501,13 @@ export function createParse(): never;
  * - {@link parameters} — Generate parameters schema from type
  *
  * @template Parameters Target parameters type (object with static properties)
- * @template Config LLM schema configuration
+ * @template _Config LLM schema configuration
  *
  * @returns Reusable parser function
  */
 export function createParse<
   Parameters extends Record<string, any>,
-  Config extends Partial<ILlmSchema.IConfig> = {},
+  _Config extends Partial<ILlmSchema.IConfig> = {},
 >(): (input: string) => IJsonParseResult<Parameters>;
 
 /** @internal */
@@ -548,13 +548,13 @@ export function createCoerce(): never;
  * - {@link parameters} — Generate parameters schema from type
  *
  * @template Parameters Target parameters type (object with static properties)
- * @template Config LLM schema configuration
+ * @template _Config LLM schema configuration
  *
  * @returns Reusable coercer function
  */
 export function createCoerce<
   Parameters extends Record<string, any>,
-  Config extends Partial<ILlmSchema.IConfig> = {},
+  _Config extends Partial<ILlmSchema.IConfig> = {},
 >(): (input: Parameters) => Parameters;
 
 /** @internal */

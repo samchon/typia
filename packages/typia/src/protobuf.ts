@@ -15,12 +15,12 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
 /**
  * Generates Protocol Buffer message schema.
  *
- * @danger You must configure the generic argument `T`
+ * @danger You must configure the generic argument `_T`
  */
 export function message(): never;
 
 /**
- * Generates Protocol Buffer message schema for type `T`.
+ * Generates Protocol Buffer message schema for type `_T`.
  *
  * Creates a `.proto` message definition string from a TypeScript type. Use for
  * sharing schemas with other languages/frameworks.
@@ -28,13 +28,13 @@ export function message(): never;
  * Protocol Buffer has limited expressiveness compared to TypeScript.
  * Incompatible types cause compilation errors.
  *
- * @template T Target type
+ * @template _T Target type
  *
  * @returns Protocol Buffer message schema string
  *
  * @see https://typia.io/docs/protobuf/message/#restrictions
  */
-export function message<T>(): string;
+export function message<_T>(): string;
 
 /** @internal */
 export function message(): never {
@@ -263,7 +263,7 @@ export function assertEncode<T>(
 ): Uint8Array;
 
 /** @internal */
-export function assertEncode<T>(
+export function assertEncode<_T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Uint8Array;
@@ -298,7 +298,7 @@ export function assertEncode(): never {
 export function isEncode<T>(input: T): Uint8Array | null;
 
 /** @internal */
-export function isEncode<T>(input: unknown): Uint8Array | null;
+export function isEncode<_T>(input: unknown): Uint8Array | null;
 
 /** @internal */
 export function isEncode(): never {
@@ -332,7 +332,7 @@ export function isEncode(): never {
 export function validateEncode<T>(input: T): IValidation<Uint8Array>;
 
 /** @internal */
-export function validateEncode<T>(input: unknown): IValidation<Uint8Array>;
+export function validateEncode<_T>(input: unknown): IValidation<Uint8Array>;
 
 /** @internal */
 export function validateEncode(): never {

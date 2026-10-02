@@ -9,7 +9,7 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
 /**
  * Generates metadata schemas for multiple types.
  *
- * @danger You must configure the generic argument `Types`
+ * @danger You must configure the generic argument `_Types`
  */
 export function schemas(): never;
 
@@ -20,11 +20,11 @@ export function schemas(): never;
  * the tuple. Collection types (Array, Tuple, Object) are stored in
  * `components`. Alias types are stored in `aliases`.
  *
- * @template Types Tuple of target types
+ * @template _Types Tuple of target types
  *
  * @returns Metadata schema collection
  */
-export function schemas<Types extends unknown[]>(): IMetadataSchemaCollection;
+export function schemas<_Types extends unknown[]>(): IMetadataSchemaCollection;
 
 /** @internal */
 export function schemas(): never {
@@ -34,7 +34,7 @@ export function schemas(): never {
 /**
  * Generates metadata schema for a single type.
  *
- * @danger You must configure the generic argument `Type`
+ * @danger You must configure the generic argument `_Type`
  */
 export function schema(): never;
 
@@ -43,11 +43,11 @@ export function schema(): never;
  *
  * Creates {@link IMetadataSchemaUnit} containing metadata for the type.
  *
- * @template Type Target type
+ * @template _Type Target type
  *
  * @returns Metadata schema unit
  */
-export function schema<Type>(): IMetadataSchemaUnit;
+export function schema<_Type>(): IMetadataSchemaUnit;
 
 /** @internal */
 export function schema(): never {
@@ -55,23 +55,23 @@ export function schema(): never {
 }
 
 /**
- * Gets the runtime type name of type `T`.
+ * Gets the runtime type name of type `_T`.
  *
- * @danger You must configure the generic argument `T`
+ * @danger You must configure the generic argument `_T`
  */
 export function name(): never;
 
 /**
- * Gets the runtime type name of type `T`.
+ * Gets the runtime type name of type `_T`.
  *
  * Returns a string representation of the type name.
  *
- * @template T Target type
- * @template Regular If `true`, returns regular (normalized) name
+ * @template _T Target type
+ * @template _Regular If `true`, returns regular (normalized) name
  *
  * @returns Type name string
  */
-export function name<T, Regular extends boolean = false>(): string;
+export function name<_T, _Regular extends boolean = false>(): string;
 
 /** @internal */
 export function name(): never {

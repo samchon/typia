@@ -344,7 +344,7 @@ export function isStringify<T>(input: T): string | null;
  * Converts value to JSON string with type checking (7x faster).
  *
  * Combines {@link is} with {@link stringify}. Returns `null` when input doesn't
- * match type `T`. Achieves ~7x faster performance than native
+ * match type `_T`. Achieves ~7x faster performance than native
  * `JSON.stringify()`.
  *
  * Related functions:
@@ -353,13 +353,13 @@ export function isStringify<T>(input: T): string | null;
  * - {@link assertStringify} — Throws instead of returning `null`
  * - {@link validateStringify} — Returns detailed validation errors
  *
- * @template T Type of input value
+ * @template _T Type of input value
  *
  * @param input Value to check and stringify
  *
  * @returns JSON string, or `null` if type check fails
  */
-export function isStringify<T>(input: unknown): string | null;
+export function isStringify<_T>(input: unknown): string | null;
 
 /** @internal */
 export function isStringify(): string | null {
@@ -402,13 +402,13 @@ export function validateStringify<T>(input: T): IValidation<string>;
  * - {@link assertStringify} — Throws on first error
  * - {@link isStringify} — Returns `null` instead of error details
  *
- * @template T Type of input value
+ * @template _T Type of input value
  *
  * @param input Value to validate and stringify
  *
  * @returns Validation result containing JSON string or errors
  */
-export function validateStringify<T>(input: unknown): IValidation<string>;
+export function validateStringify<_T>(input: unknown): IValidation<string>;
 
 /** @internal */
 export function validateStringify(): IValidation<string> {
@@ -522,7 +522,7 @@ export function createStringify<T>(): (input: T) => string {
 /**
  * Creates reusable {@link assertStringify} function.
  *
- * @danger You must configure the generic argument `T`
+ * @danger You must configure the generic argument `_T`
  */
 export function createAssertStringify(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -531,14 +531,14 @@ export function createAssertStringify(
 /**
  * Creates reusable {@link assertStringify} function.
  *
- * @template T Type of input value
+ * @template _T Type of input value
  *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
  *
  * @returns Reusable stringify function
  */
-export function createAssertStringify<T>(
+export function createAssertStringify<_T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): (
   input: unknown,
@@ -556,18 +556,18 @@ export function createAssertStringify(): (
 /**
  * Creates reusable {@link isStringify} function.
  *
- * @danger You must configure the generic argument `T`
+ * @danger You must configure the generic argument `_T`
  */
 export function createIsStringify(): never;
 
 /**
  * Creates reusable {@link isStringify} function.
  *
- * @template T Type of input value
+ * @template _T Type of input value
  *
  * @returns Reusable stringify function
  */
-export function createIsStringify<T>(): (input: unknown) => string | null;
+export function createIsStringify<_T>(): (input: unknown) => string | null;
 
 /** @internal */
 export function createIsStringify(): (input: unknown) => string | null {
@@ -577,18 +577,18 @@ export function createIsStringify(): (input: unknown) => string | null {
 /**
  * Creates reusable {@link validateStringify} function.
  *
- * @danger You must configure the generic argument `T`
+ * @danger You must configure the generic argument `_T`
  */
 export function createValidateStringify(): never;
 
 /**
  * Creates reusable {@link validateStringify} function.
  *
- * @template T Type of input value
+ * @template _T Type of input value
  *
  * @returns Reusable stringify function
  */
-export function createValidateStringify<T>(): (
+export function createValidateStringify<_T>(): (
   input: unknown,
 ) => IValidation<string>;
 
