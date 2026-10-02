@@ -21,14 +21,14 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:samchon"
   },
   "dependencies": {
     "@nestia/e2e": "catalog:utils",
     "@typia/interface": "workspace:^",
     "@typia/template": "workspace:^",
     "@typia/utils": "workspace:^",
-    "tgrid": "catalog:utils",
+    "tgrid": "catalog:samchon",
     "typia": "workspace:^",
     "uuid": "catalog:utils"
   }

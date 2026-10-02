@@ -24,10 +24,10 @@
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
     "rimraf": "catalog:utils",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:samchon"
   },
   "dependencies": {
-    "tstl": "catalog:utils",
+    "tstl": "catalog:samchon",
     "typia": "workspace:^",
     "uuid": "catalog:utils"
   }

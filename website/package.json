@@ -31,8 +31,8 @@
     "@monaco-editor/react": "^4.6.0",
     "@rollup/browser": "4.13.0",
     "@tailwindcss/postcss": "^4.1.13",
-    "@ttsc/playground": "catalog:typescript",
-    "@ttsc/wasm": "catalog:typescript",
+    "@ttsc/playground": "catalog:samchon",
+    "@ttsc/wasm": "catalog:samchon",
     "@typia/interface": "workspace:^",
     "@typia/legacy-transform": "npm:@typia/transform@12.0.2",
     "@typia/utils": "workspace:^",
@@ -48,8 +48,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^4.1.12",
-    "tgrid": "catalog:utils",
-    "tstl": "catalog:utils",
+    "tgrid": "catalog:samchon",
+    "tstl": "catalog:samchon",
     "typia": "workspace:^"
   },
   "devDependencies": {

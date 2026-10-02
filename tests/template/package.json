@@ -44,13 +44,13 @@
     "@nestia/e2e": "catalog:utils",
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:samchon"
   },
   "dependencies": {
     "chalk": "4.1.2",
     "randexp": "^0.5.3",
-    "tgrid": "catalog:utils",
-    "tstl": "catalog:utils",
+    "tgrid": "catalog:samchon",
+    "tstl": "catalog:samchon",
     "typia": "workspace:^",
     "uuid": "catalog:utils",
     "@typia/interface": "workspace:^",

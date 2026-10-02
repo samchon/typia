@@ -12,7 +12,7 @@ overrides:
   # the monorepo's langchain / mcp / vercel integrations keep their zod 3.x.
   zod@4: 4.1.12
 catalogs:
-  typescript:
+  samchon:
     # The ttsc family releases in lockstep, so the whole family takes its
     # version from the &ttsc anchor: set it on ttsc alone. @ttsc/unplugin peers
     # on its exact matching ttsc, and website.yml clones the ttsc sibling at
@@ -22,6 +22,10 @@ catalogs:
     '@ttsc/unplugin': *ttsc
     '@ttsc/playground': *ttsc
     '@ttsc/wasm': *ttsc
+    '@wrtnlabs/evidence': ^0.2.1
+    tstl: ^3.0.0
+    tgrid: ^1.2.1
+  typescript:
     ts-node: ^10.9.2
     typescript: ^7.0.2
   rolldown:
@@ -33,5 +37,3 @@ catalogs:
     openai: ^6.16.0
     rimraf: ^6.1.2
     uuid: ^13.0.0
-    tstl: ^3.0.0
-    tgrid: ^1.2.1

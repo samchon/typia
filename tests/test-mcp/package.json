@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@typia/template": "workspace:^",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:samchon"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.26.0",

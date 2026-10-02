@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@typia/template": "workspace:^",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:samchon"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^2.0.35",

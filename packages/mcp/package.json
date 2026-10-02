@@ -34,7 +34,7 @@
     "rimraf": "catalog:utils",
     "rolldown": "catalog:rolldown",
     "tinyglobby": "^0.2.12",
-    "ttsc": "catalog:typescript",
+    "ttsc": "catalog:samchon",
     "typescript": "catalog:typescript"
   },
   "sideEffects": false,

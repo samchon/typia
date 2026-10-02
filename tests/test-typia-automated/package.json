@@ -21,7 +21,7 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:samchon"
   },
   "dependencies": {
     "@nestia/e2e": "catalog:utils",
@@ -30,8 +30,8 @@
     "@typia/template": "workspace:^",
     "protobufjs": "7.2.5",
     "randexp": "^0.5.3",
-    "tgrid": "catalog:utils",
-    "tstl": "catalog:utils",
+    "tgrid": "catalog:samchon",
+    "tstl": "catalog:samchon",
     "typia": "workspace:^",
     "uuid": "catalog:utils"
   }

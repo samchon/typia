@@ -28,7 +28,7 @@
   "devDependencies": {
     "rimraf": "catalog:utils",
     "rolldown": "catalog:rolldown",
-    "ttsc": "catalog:typescript",
+    "ttsc": "catalog:samchon",
     "typescript": "catalog:typescript",
     "tinyglobby": "^0.2.12"
   },

@@ -28,7 +28,7 @@
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
     "@typia/template": "workspace:^",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:samchon"
   },
   "dependencies": {
     "@nestia/e2e": "catalog:utils",
@@ -36,7 +36,7 @@
     "@typia/interface": "workspace:^",
     "@typia/utils": "workspace:^",
     "chalk": "^5.6.2",
-    "tstl": "catalog:utils",
+    "tstl": "catalog:samchon",
     "typia": "workspace:^",
     "uuid": "catalog:utils"
   }

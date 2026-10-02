@@ -33,7 +33,7 @@ These four are never acceptable; choosing any one means the approach is already 
 - Match existing conventions. Before adding a file, function, or test, open a nearby peer and mirror its naming, location, and code style; don't create parallel structures.
 - Respect package boundaries. The shared native transform lives under `packages/typia/native`; don't fork a second transform into an adapter package or reintroduce a TypeScript-side transformer.
 - Keep package detection installation-safe. Resolve the target package root, as `packages/typia/src/transform.ts` does with `require.resolve("typia/package.json")`; workspace path substrings and hard-coded fixture names fail for npm consumers.
-- Use the workspace catalogs. `pnpm-workspace.yaml` owns `typescript`, `rolldown`, and `utils`; internal package references use `workspace:^`.
+- Use the workspace catalogs. `pnpm-workspace.yaml` owns `samchon`, `typescript`, `rolldown`, and `utils`; the ttsc family, Evidence, tstl and tgrid use `catalog:samchon`, and internal package references use `workspace:^`.
 - Keep local outputs local. Do not commit `.env` files or the `.tgz` artifacts generated under `experiments/tarballs/`.
 - Preserve the public contract in `.agents/skills/project/SKILL.md`. Renaming or removing `typia.*`, `@typia/interface` types, or the plugin descriptor shape is a deliberate product change, not incidental cleanup.
 - When public behavior changes, update the matching page under `website/src/content/docs/**` in the same change. Follow `.agents/skills/documentation/SKILL.md`.

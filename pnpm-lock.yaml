@@ -9,7 +9,7 @@ catalogs:
     rolldown:
       specifier: ^1.1.5
       version: 1.1.5
-  typescript:
+  samchon:
     '@ttsc/playground':
       specifier: ^0.30.4
       version: 0.30.4
@@ -19,9 +19,19 @@ catalogs:
     '@ttsc/wasm':
       specifier: ^0.30.4
       version: 0.30.4
+    '@wrtnlabs/evidence':
+      specifier: ^0.2.1
+      version: 0.2.1
+    tgrid:
+      specifier: ^1.2.1
+      version: 1.2.1
+    tstl:
+      specifier: ^3.0.0
+      version: 3.0.0
     ttsc:
       specifier: ^0.30.4
       version: 0.30.4
+  typescript:
     typescript:
       specifier: ^7.0.2
       version: 7.0.2
@@ -41,12 +51,6 @@ catalogs:
     rimraf:
       specifier: ^6.1.2
       version: 6.1.3
-    tgrid:
-      specifier: ^1.2.1
-      version: 1.2.1
-    tstl:
-      specifier: ^3.0.0
-      version: 3.0.0
     uuid:
       specifier: ^13.0.0
       version: 13.0.0
@@ -62,8 +66,8 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2(@vue/compiler-sfc@3.5.33)(prettier@3.8.3)(svelte@5.55.4(@typescript-eslint/types@8.59.0))
       '@wrtnlabs/evidence':
-        specifier: 0.2.0
-        version: 0.2.0(ttsc@0.30.4)(typescript@7.0.2)
+        specifier: catalog:samchon
+        version: 0.2.1(ttsc@0.30.4)(typescript@7.0.2)
       bumpp:
         specifier: ^10.4.1
         version: 10.4.1
@@ -74,7 +78,7 @@ importers:
         specifier: ^1.8.0
         version: 1.8.0(prettier@3.8.3)
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
       typescript:
         specifier: catalog:typescript
@@ -98,7 +102,7 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2
       tstl:
-        specifier: ^3.0.0
+        specifier: catalog:samchon
         version: 3.0.0
       typia:
         specifier: workspace:^
@@ -192,10 +196,10 @@ importers:
         specifier: catalog:utils
         version: 6.1.3
       tgrid:
-        specifier: ^0.10.0
-        version: 0.10.3
+        specifier: catalog:samchon
+        version: 1.2.1
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
       typescript:
         specifier: catalog:typescript
@@ -207,7 +211,7 @@ importers:
   config:
     devDependencies:
       '@ttsc/unplugin':
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4(ttsc@0.30.4)
       tinyglobby:
         specifier: ^0.2.12
@@ -244,7 +248,7 @@ importers:
         specifier: catalog:utils
         version: 6.1.3
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
 
   packages/interface:
@@ -253,7 +257,7 @@ importers:
         specifier: catalog:utils
         version: 6.1.3
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
       typescript:
         specifier: catalog:typescript
@@ -275,7 +279,7 @@ importers:
         specifier: ^0.2.12
         version: 0.2.16
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
       typescript:
         specifier: catalog:typescript
@@ -306,7 +310,7 @@ importers:
         specifier: ^0.2.12
         version: 0.2.16
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
       typescript:
         specifier: catalog:typescript
@@ -334,7 +338,7 @@ importers:
         specifier: ^0.2.12
         version: 0.2.16
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
       typescript:
         specifier: catalog:typescript
@@ -362,7 +366,7 @@ importers:
         specifier: catalog:rolldown
         version: 1.1.5
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
       typescript:
         specifier: catalog:typescript
@@ -384,7 +388,7 @@ importers:
         specifier: ^0.2.12
         version: 0.2.16
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
       typescript:
         specifier: catalog:typescript
@@ -415,7 +419,7 @@ importers:
         specifier: ^0.2.12
         version: 0.2.16
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
       typescript:
         specifier: catalog:typescript
@@ -424,7 +428,7 @@ importers:
   tests/debug:
     dependencies:
       tstl:
-        specifier: catalog:utils
+        specifier: catalog:samchon
         version: 3.0.0
       typia:
         specifier: workspace:^
@@ -443,7 +447,7 @@ importers:
         specifier: catalog:utils
         version: 6.1.3
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
 
   tests/template:
@@ -461,10 +465,10 @@ importers:
         specifier: ^0.5.3
         version: 0.5.3
       tgrid:
-        specifier: catalog:utils
+        specifier: catalog:samchon
         version: 1.2.1
       tstl:
-        specifier: catalog:utils
+        specifier: catalog:samchon
         version: 3.0.0
       typia:
         specifier: workspace:^
@@ -483,7 +487,7 @@ importers:
         specifier: catalog:utils
         version: 11.0.0
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
 
   tests/test-error:
@@ -499,7 +503,7 @@ importers:
         specifier: catalog:utils
         version: 6.1.3
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
 
   tests/test-interface:
@@ -515,7 +519,7 @@ importers:
         specifier: ^7.0.103
         version: 7.0.106(zod@4.4.3)
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
       typescript:
         specifier: catalog:typescript
@@ -555,7 +559,7 @@ importers:
         specifier: ^7.0.103
         version: 7.0.106(zod@4.4.3)
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
 
   tests/test-langchain:
@@ -601,7 +605,7 @@ importers:
         specifier: workspace:^
         version: link:../template
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
 
   tests/test-mcp:
@@ -635,7 +639,7 @@ importers:
         specifier: workspace:^
         version: link:../template
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
 
   tests/test-typia-automated:
@@ -659,10 +663,10 @@ importers:
         specifier: ^0.5.3
         version: 0.5.3
       tgrid:
-        specifier: catalog:utils
+        specifier: catalog:samchon
         version: 1.2.1
       tstl:
-        specifier: catalog:utils
+        specifier: catalog:samchon
         version: 3.0.0
       typia:
         specifier: workspace:^
@@ -678,7 +682,7 @@ importers:
         specifier: catalog:utils
         version: 11.0.0
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
 
   tests/test-typia-schema:
@@ -702,7 +706,7 @@ importers:
         specifier: 7.2.5
         version: 7.2.5
       tstl:
-        specifier: catalog:utils
+        specifier: catalog:samchon
         version: 3.0.0
       typia:
         specifier: workspace:^
@@ -721,7 +725,7 @@ importers:
         specifier: workspace:^
         version: link:../template
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
 
   tests/test-utils:
@@ -742,7 +746,7 @@ importers:
         specifier: ^5.6.2
         version: 5.6.2
       tstl:
-        specifier: catalog:utils
+        specifier: catalog:samchon
         version: 3.0.0
       typia:
         specifier: workspace:^
@@ -761,7 +765,7 @@ importers:
         specifier: workspace:^
         version: link:../template
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
 
   tests/test-utils-automated:
@@ -779,7 +783,7 @@ importers:
         specifier: workspace:^
         version: link:../../packages/utils
       tgrid:
-        specifier: catalog:utils
+        specifier: catalog:samchon
         version: 1.2.1
       typia:
         specifier: workspace:^
@@ -795,7 +799,7 @@ importers:
         specifier: catalog:utils
         version: 11.0.0
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
 
   tests/test-vercel:
@@ -838,7 +842,7 @@ importers:
         specifier: workspace:^
         version: link:../template
       ttsc:
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
 
   website:
@@ -853,10 +857,10 @@ importers:
         specifier: ^4.1.13
         version: 4.3.0
       '@ttsc/playground':
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.30.4)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)
       '@ttsc/wasm':
-        specifier: catalog:typescript
+        specifier: catalog:samchon
         version: 0.30.4
       '@typia/interface':
         specifier: workspace:^
@@ -904,10 +908,10 @@ importers:
         specifier: ^4.1.12
         version: 4.3.0
       tgrid:
-        specifier: catalog:utils
+        specifier: catalog:samchon
         version: 1.2.1
       tstl:
-        specifier: catalog:utils
+        specifier: catalog:samchon
         version: 3.0.0
       typia:
         specifier: workspace:^
@@ -2891,8 +2895,8 @@ packages:
   '@workflow/serde@4.1.0':
     resolution: {integrity: sha512-pav4F2BoirECWR7Nf1TKt+2eETcBj7jj4cBefQ8VXQCA6NPkaKeLfj/zMgi+3zYV5ZIBT4GuUiphsj0/b9hPQQ==}
 
-  '@wrtnlabs/evidence@0.2.0':
-    resolution: {integrity: sha512-gwKaHKEALmpPiw60eFUhAyMFZ6dBZ2H0MgDUS8eGsrcYFQIY+E1OllmUEa47etM0X3SGNZHe5cCZNkKtIoGhuw==}
+  '@wrtnlabs/evidence@0.2.1':
+    resolution: {integrity: sha512-rrl16SySOSxmiWCxU+x6gcNCFi48K46PMlwMHOeTh8RGR9NsjHxHcF35nVT4WbBYq02tSzlOz71CihOm56XEhQ==}
     hasBin: true
     peerDependencies:
       ttsc: ^0.30.1
@@ -6072,9 +6076,6 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  tgrid@0.10.3:
-    resolution: {integrity: sha512-EWIdHvc1BOX0p88P/lg8wXk1nnNmXCc6wf2mm7S/wxAWUXdAfk1klBBbM7FC+//tSlLHy6ITlmZHWxe+XmrNJg==}
-
   tgrid@1.2.1:
     resolution: {integrity: sha512-8E37I7G5RiMlwNmsiA6y/FAiKTEGU1Hg4t0Set0WAcRdMnLugXzjRx9bBduF1YROT/hdcS8BNefSPKNHmwYtYA==}
 
@@ -8678,7 +8679,7 @@ snapshots:
 
   '@workflow/serde@4.1.0': {}
 
-  '@wrtnlabs/evidence@0.2.0(ttsc@0.30.4)(typescript@7.0.2)':
+  '@wrtnlabs/evidence@0.2.1(ttsc@0.30.4)(typescript@7.0.2)':
     dependencies:
       '@prisma/prisma-schema-wasm': 7.10.0-2.d0368e25c88e68caa4d283b5f2d88d1b76ed9356
       '@typia/interface': 14.0.6
@@ -12561,18 +12562,6 @@ snapshots:
       acorn: 8.18.0
       commander: 2.20.3
       source-map-support: 0.5.21
-
-  tgrid@0.10.3:
-    dependencies:
-      '@types/node': 20.19.39
-      '@types/websocket': 1.0.10
-      '@types/ws': 7.4.7
-      import2: 1.0.3
-      tstl: 3.0.0
-      ws: 7.5.10
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
 
   tgrid@1.2.1:
     dependencies:
