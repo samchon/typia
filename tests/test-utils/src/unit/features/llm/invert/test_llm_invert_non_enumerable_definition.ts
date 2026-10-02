@@ -18,7 +18,6 @@ import { LlmSchemaConverter, OpenApiTypeChecker } from "@typia/utils";
  *    with a second, legal, enumerable key.
  * 2. Invert references to both.
  * 3. Assert each resolves to a distinct component carrying its own content.
- *
  */
 export const test_llm_invert_non_enumerable_definition = (): void => {
   const $defs: Record<string, ILlmSchema> = {

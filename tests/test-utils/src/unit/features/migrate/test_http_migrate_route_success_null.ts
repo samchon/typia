@@ -16,7 +16,6 @@ import { HttpMigration } from "@typia/utils";
  *    content object.
  * 2. Migrate the document.
  * 3. Assert the route's success is null.
- *
  */
 export const test_http_migrate_route_success_null = (): void => {
   const document: OpenApi.IDocument = {

@@ -16,7 +16,6 @@ import vm from "node:vm";
  * 2. Reject a same-named class, a spoofed `constructor` property, an error from
  *    another realm and a subclass instance.
  * 3. Reject nullish and primitive throws without raising from the matcher.
- *
  */
 export const test_error_class_identity = (): void => {
   class TypeGuardError extends Error {}

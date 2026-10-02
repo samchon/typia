@@ -13,7 +13,6 @@ import assert from "node:assert/strict";
  *    fixture.
  * 2. Inject each non-Boolean value only on clean calls and only on negative calls.
  * 3. Check the helper-specific boundary without loading a native producer.
- *
  */
 export const test_boolean_predicate_equals_results = (): void => {
   const fixture = {

@@ -17,7 +17,6 @@ import {
  * 1. Resolve variadic tuples with required head and suffix positions.
  * 2. Apply every notation family to a suffix-only variadic tuple.
  * 3. Preserve mutable and readonly shapes without widening to union arrays.
- *
  */
 export type TupleHelperVariadicBoundaryCases = [
   Assert<IsEqual<ResolvedVariadic, ExpectedResolvedVariadic>>,

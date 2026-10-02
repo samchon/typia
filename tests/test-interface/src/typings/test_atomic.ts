@@ -11,7 +11,6 @@ import { Atomic } from "@typia/interface";
  * 1. Compare `Atomic.Type` and `Atomic.Literal` with their unions.
  * 2. Probe individual `Atomic.Mapper` entries.
  * 3. Confirm `keyof Atomic.Mapper` equals `Atomic.Literal`.
- *
  */
 export type AtomicCases = [
   Assert<IsEqual<Atomic.Type, boolean | number | string | bigint>>,

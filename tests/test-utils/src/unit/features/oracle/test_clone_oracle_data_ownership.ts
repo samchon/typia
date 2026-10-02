@@ -13,7 +13,6 @@ import assert from "node:assert/strict";
  * 2. Reject source property, reference, prototype and array-length mutation.
  * 3. Exercise empty, nullable, cyclic, aliased and class-projection boundaries
  *    without preparing a native producer.
- *
  */
 export const test_clone_oracle_data_ownership = (): void => {
   type Input = { nested: { value: number }; nullable: null; empty: unknown[] };

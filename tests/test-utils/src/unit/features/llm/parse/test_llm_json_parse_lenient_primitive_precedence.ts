@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  *    tokens with and without following JSON, malformed minus prefixes and
  *    longer invalid keywords.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_primitive_precedence = (): void => {
   // true + object → true wins (prefix match via input.startsWith("true"))

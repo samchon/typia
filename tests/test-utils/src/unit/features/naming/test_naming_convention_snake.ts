@@ -18,7 +18,6 @@ import { NamingConvention } from "@typia/utils";
  * 2. Convert leading-underscore inputs with and without word separation.
  * 3. Convert underscore-plus-case-boundary and all-caps keys (#2193).
  * 4. Convert degenerate inputs (empty, underscores only, acronym runs).
- *
  */
 export const test_naming_convention_snake = (): void => {
   const expectations: [string, string][] = [

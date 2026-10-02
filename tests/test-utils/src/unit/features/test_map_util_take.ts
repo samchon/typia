@@ -12,7 +12,6 @@ import { MapUtil } from "@typia/utils";
  * 2. Generate an absent entry once and reuse it on the next lookup.
  * 3. Keep distinct object keys separate, avoid insertion after a throw and
  *    preserve mutations made by the callback itself.
- *
  */
 export const test_map_util_take = (): void => {
   for (const value of [

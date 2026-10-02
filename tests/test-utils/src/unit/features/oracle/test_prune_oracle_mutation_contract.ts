@@ -11,7 +11,6 @@ import assert from "node:assert/strict";
  * 1. Run surplus-only deletion on an authored numeric-field fixture.
  * 2. Reject no-ops with and without the old source marker.
  * 3. Reject deletion and replacement of the authored field.
- *
  */
 export const test_prune_oracle_mutation_contract = (): void => {
   for (const helper of [_test_plain_prune, _test_plain_isPrune]) {

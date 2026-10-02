@@ -19,7 +19,6 @@ import { TestGlobal } from "../../../../TestGlobal";
  * 1. Compose the application from the checked-in swagger fixture.
  * 2. Find the function for POST /{index}/{level}/{optimal}/body.
  * 3. Assert its tags equal the fixture's ["body", "post"].
- *
  */
 export const test_http_llm_function_tags = async (): Promise<void> => {
   const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument(

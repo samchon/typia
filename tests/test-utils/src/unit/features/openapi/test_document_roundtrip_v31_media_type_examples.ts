@@ -16,7 +16,6 @@ import { OpenApiConverter } from "@typia/utils";
  *    examples as a map.
  * 3. Downgrade back to OpenAPI 3.1 and assert schema examples are arrays while
  *    media examples remain a map.
- *
  */
 export const test_document_roundtrip_v31_media_type_examples = (): void => {
   const input: OpenApiV3_1.IDocument = {

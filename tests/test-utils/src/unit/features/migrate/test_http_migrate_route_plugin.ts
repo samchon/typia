@@ -18,7 +18,6 @@ import { HttpMigration } from "@typia/utils";
  * 2. Migrate the document.
  * 3. Assert the comment equals the description, the connection parameter tag and
  *    the specification tag with its blank line.
- *
  */
 export const test_http_migrate_route_plugin = async (): Promise<void> => {
   const document: OpenApi.IDocument = {

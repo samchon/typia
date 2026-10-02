@@ -11,7 +11,6 @@ import assert from "node:assert/strict";
  * 1. Accept matching positive/negative zero and NaN controls.
  * 2. Reject opposite zero signs in both argument orders and nested data.
  * 3. Require equals, subset and difference to preserve that distinction.
- *
  */
 export const test_equality_signed_zero = (): void => {
   assert.equal(1 / 0, Infinity);

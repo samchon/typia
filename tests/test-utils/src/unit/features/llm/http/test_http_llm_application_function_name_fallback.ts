@@ -24,7 +24,6 @@ import { TestGlobal } from "../../../../TestGlobal";
  * 2. Assert the names are identical across compositions, unique, at most
  *    `maxLength`, and of the composer's own grammar.
  * 3. Assert a `maxLength` below 2, which no shortened name fits, throws.
- *
  */
 export const test_http_llm_application_function_name_fallback =
   async (): Promise<void> => {

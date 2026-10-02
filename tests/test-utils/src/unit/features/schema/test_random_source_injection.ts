@@ -16,7 +16,6 @@ import { _randomString } from "typia/lib/internal/_randomString";
  * 1. Pin primitive, string, array and candidate draws at both source endpoints.
  * 2. Check exclusive bounds, exact decimal multiples and empty-range failures.
  * 3. Call each builtin without a source on a single-result domain.
- *
  */
 export const test_random_source_injection = (): void => {
   const low = (): number => 0;

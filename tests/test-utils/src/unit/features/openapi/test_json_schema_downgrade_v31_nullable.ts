@@ -13,7 +13,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 2. Downgrade a nullable reference to a non-nullable target.
  * 3. Downgrade a nullable object and compare the schema with the downgraded
  *    components.
- *
  */
 export const test_json_schema_downgrade_v31_nullable = (): void => {
   test_originally_nullable();

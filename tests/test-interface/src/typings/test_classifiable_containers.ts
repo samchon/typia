@@ -12,7 +12,6 @@ import { Classifiable } from "@typia/interface";
  * 1. Build each container over a method-bearing class `Box`.
  * 2. Apply `Classifiable` and compare against the plain-element container.
  * 3. Assert array elements still demand their required data members.
- *
  */
 export type ClassifiableContainerCases = [
   // arrays

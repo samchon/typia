@@ -17,7 +17,6 @@ import { CalculatorApi } from "../../structures/CalculatorApi";
  *
  * 1. Generate the value from the types declared in this file.
  * 2. Assert the properties listed above.
- *
  */
 export const test_vercel_http_controller_register = async (): Promise<void> => {
   // 1. Create a controller from a checked-in OpenAPI document

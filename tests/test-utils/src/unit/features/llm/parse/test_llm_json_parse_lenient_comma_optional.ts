@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Parse object members and arrays with omitted commas across scalar and nested
  *    value kinds.
  * 2. Compare complete outputs for missing and mixed present-or-missing separators.
- *
  */
 export const test_llm_json_parse_lenient_comma_optional = (): void => {
   // =========================================================================

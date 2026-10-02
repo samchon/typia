@@ -27,7 +27,6 @@ import {
  * 4. Assert `upgradeComponents()` and `downgradeDocument()` normalize a raw
  *    emended input on entry too, that normalization adds no holder the input
  *    left out, and that an absent holder the input carries is kept as it is.
- *
  */
 export const test_openapi_emended_items_omitted_boundary = (): void => {
   const bare = { type: "array" } as unknown as OpenApi.IJsonSchema;

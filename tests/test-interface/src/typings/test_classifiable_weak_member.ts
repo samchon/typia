@@ -13,7 +13,6 @@ import { Classifiable } from "@typia/interface";
  * 1. A class's `WeakSet`/`WeakMap` members vanish from the classified shape.
  * 2. A class's `Set`/`Map` members are kept and classified (array form allowed).
  * 3. The remaining data property survives unchanged.
- *
  */
 export type ClassifiableWeakMemberCases = [
   Assert<IsEqual<Classifiable<WithWeak>, { id: number }>>,

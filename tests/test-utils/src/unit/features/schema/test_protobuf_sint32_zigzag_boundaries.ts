@@ -15,7 +15,6 @@ import { _ProtobufWriter } from "typia/lib/internal/_ProtobufWriter";
  * 1. Size, write and read each value around the 2^30 and 2^31 boundaries.
  * 2. Require the writer to fill exactly the size that the sizer announced.
  * 3. Require the reader to return the original value and the canonical bytes.
- *
  */
 export const test_protobuf_sint32_zigzag_boundaries = (): void => {
   for (const [value, bytes] of VECTORS) {

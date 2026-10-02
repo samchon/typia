@@ -1,6 +1,4 @@
-/**
- * Arithmetic receiver used by native controller and LangChain tool cases.
- */
+/** Arithmetic receiver used by native controller and LangChain tool cases. */
 export class Calculator {
   /**
    * Add two numbers.
@@ -50,9 +48,7 @@ export class Calculator {
   }
 }
 export namespace Calculator {
-  /**
-   * Required numeric operands used by every arithmetic method.
-   */
+  /** Required numeric operands used by every arithmetic method. */
   export interface IProps {
     /** First operand */
     x: number;
@@ -61,9 +57,7 @@ export namespace Calculator {
     y: number;
   }
 
-  /**
-   * Result of a calculation.
-   */
+  /** Result of a calculation. */
   export interface IResult {
     /** Calculated value */
     value: number;

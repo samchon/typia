@@ -29,7 +29,6 @@ import {
  *    a malformed `~` escape names no component.
  * 6. Assert the type checker, the validator, and the LLM converter answer every
  *    spelling alike, including a percent-encoded separator and a literal `%`.
- *
  */
 export const test_openapi_reference_key_escaped = (): void => {
   const reference = { $ref: "#/components/schemas/A~1B" };

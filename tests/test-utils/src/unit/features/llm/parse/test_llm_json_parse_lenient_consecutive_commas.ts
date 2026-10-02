@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Parse repeated, leading and trailing commas in arrays and objects.
  * 2. Compare complete dense values, including all-comma containers and commas
  *    around an unquoted key.
- *
  */
 export const test_llm_json_parse_lenient_consecutive_commas = (): void => {
   // Double comma in array

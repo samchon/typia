@@ -12,7 +12,6 @@ import { LlmJson } from "@typia/utils";
  *    object and array data.
  * 2. Compare complete recovered values, including trailing EOF comments and the
  *    single-slash input.
- *
  */
 export const test_llm_json_parse_lenient_comments_edge = (): void => {
   // Comment containing JSON-like content

@@ -12,7 +12,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 1. Build an emended oneOf of integer, string and null with a title and example.
  * 2. Downgrade it to 3.0.
  * 3. Assert both remaining branches are nullable and the title and example remain.
- *
  */
 export const test_json_schema_downgrade_v30_example = (): void => {
   const input: OpenApi.IJsonSchema = {

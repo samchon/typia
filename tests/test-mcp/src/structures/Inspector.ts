@@ -5,7 +5,6 @@
  * responds to the MCP handshake immediately and builds the graph only on the
  * first tool call, so a large project cannot make the client give up before the
  * tools are advertised.
- *
  */
 export class Inspector {
   private readonly state: () => Inspector.IState;
@@ -20,32 +19,22 @@ export class Inspector {
    * @param props Query to run against the graph
    *
    * @returns The matching answer
-   *
    */
   public inspect(props: Inspector.IProps): Inspector.IResult {
     return { answer: `${props.query}=${this.state().value}` };
   }
 }
 export namespace Inspector {
-  /**
-   * Resident value supplied on demand.
-   *
-   */
+  /** Resident value supplied on demand. */
   export interface IState {
     value: number;
   }
-  /**
-   * Inspection query reflected into tool arguments.
-   *
-   */
+  /** Inspection query reflected into tool arguments. */
   export interface IProps {
     /** Question to answer from the graph */
     query: string;
   }
-  /**
-   * Inspection answer reflected into structured output.
-   *
-   */
+  /** Inspection answer reflected into structured output. */
   export interface IResult {
     /** Answer text */
     answer: string;

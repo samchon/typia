@@ -14,7 +14,6 @@ import { HttpMigration } from "@typia/utils";
  *    all].
  * 2. Migrate the document.
  * 3. Assert the accessors are auth.logout and auth._logout.all.
- *
  */
 export const test_http_migrate_route_accessor_slice = (): void => {
   const document: OpenApi.IDocument = {

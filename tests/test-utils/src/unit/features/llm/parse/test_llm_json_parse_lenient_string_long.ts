@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise 10000 literal characters, 500 independently constructed escape
  *    segments, 200 numbered keys and 500 array elements.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_string_long = (): void => {
   // Very long string value

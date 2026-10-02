@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise double colons, missing keys/colons/values, colons in arrays,
  *    semicolons and equals signs.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_object_syntax_error = (): void => {
   // Double colon

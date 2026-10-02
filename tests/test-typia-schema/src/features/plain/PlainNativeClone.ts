@@ -1,9 +1,7 @@
 import { TestValidator } from "@nestia/e2e";
 import { TestEquality } from "@typia/template/equality";
 
-/**
- * Asserts a cloned DataView is an independent view over its own buffer.
- */
+/** Asserts a cloned DataView is an independent view over its own buffer. */
 export const assertDataViewClone = (
   label: string,
   input: DataView,
@@ -53,9 +51,7 @@ export const assertDataViewClone = (
   }
 };
 
-/**
- * Asserts a cloned typed array owns its own copy of the elements.
- */
+/** Asserts a cloned typed array owns its own copy of the elements. */
 export const assertTypedArrayClone = (
   label: string,
   input: Uint16Array | Uint8Array,
@@ -85,9 +81,7 @@ export const assertTypedArrayClone = (
   }
 };
 
-/**
- * Asserts a cloned Buffer owns its own bytes.
- */
+/** Asserts a cloned Buffer owns its own bytes. */
 export const assertBufferClone = (
   label: string,
   input: ArrayBuffer | SharedArrayBuffer,
@@ -117,9 +111,7 @@ export const assertBufferClone = (
   }
 };
 
-/**
- * Asserts a cloned Blob has the same size, type and bytes.
- */
+/** Asserts a cloned Blob has the same size, type and bytes. */
 export const assertBlobClone = async (
   label: string,
   input: Blob,
@@ -136,9 +128,7 @@ export const assertBlobClone = async (
   );
 };
 
-/**
- * Asserts a cloned File has the same name, size, type and bytes.
- */
+/** Asserts a cloned File has the same name, size, type and bytes. */
 export const assertFileClone = async (
   label: string,
   input: File,

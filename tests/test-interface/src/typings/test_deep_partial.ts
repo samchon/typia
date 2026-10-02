@@ -10,7 +10,6 @@ import { DeepPartial } from "@typia/interface";
  * 1. Make a two-level object deeply optional.
  * 2. Apply through arrays of objects.
  * 3. Confirm primitives and functions are returned as-is.
- *
  */
 export type DeepPartialCases = [
   Assert<

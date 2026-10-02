@@ -13,7 +13,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 1. Convert strict objects with partial and missing required lists.
  * 2. Assert non-empty optional properties are rejected.
  * 3. Assert an empty object without `required` is accepted and restored.
- *
  */
 export const test_llm_schema_parity_converter_strict_rejection = (): void => {
   const optional = LlmSchemaConverter.schema({

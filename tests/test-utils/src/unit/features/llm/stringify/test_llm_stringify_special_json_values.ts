@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  *
  * 1. Author failure data and error paths for the stated scenarios.
  * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
- *
  */
 export const test_llm_stringify_special_json_values = (): void => {
   // Test case: Special values that JSON.stringify handles specially

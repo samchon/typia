@@ -11,7 +11,6 @@ import { Primitive, tags } from "@typia/interface";
  * 1. Convert atomics, Date, bigint, and native classes individually.
  * 2. Convert a method-bearing nested class.
  * 3. Confirm a `toJSON`-bearing type uses its serialized return.
- *
  */
 export type PrimitiveCoreCases = [
   Assert<IsEqual<Primitive<Date>, string & tags.Format<"date-time">>>,

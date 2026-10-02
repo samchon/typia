@@ -14,7 +14,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  *    original scalar positions.
  * 2. Retain every original failure accessor and contrast an ordinary numeric
  *    array.
- *
  */
 export const test_llm_schema_tuple = (): void => {
   const collection: IJsonSchemaCollection = {

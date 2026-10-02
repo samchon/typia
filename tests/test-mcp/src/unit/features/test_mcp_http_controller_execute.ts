@@ -22,7 +22,6 @@ import { CalculatorApi } from "../../structures/CalculatorApi";
  * 2. Assert `tools/list` exposes the operation with its response `outputSchema`.
  * 3. Call it and assert the response body arrives as `structuredContent` with no
  *    text duplicate.
- *
  */
 export const test_mcp_http_controller_execute = async (): Promise<void> => {
   const controller: IHttpLlmController = HttpLlm.controller({

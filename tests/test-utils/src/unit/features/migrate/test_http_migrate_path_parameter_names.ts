@@ -11,7 +11,6 @@ import { HttpMigration } from "@typia/utils";
  * 1. Compose ordered, reversed, missing, duplicate, and wrong-name declarations.
  * 2. Compare the resulting placeholder schemas and synthesized parameter.
  * 3. Require deterministic errors for duplicate and incompatible name sets.
- *
  */
 export const test_http_migrate_path_parameter_names =
   async (): Promise<void> => {

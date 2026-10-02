@@ -12,7 +12,6 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
  * 1. Compose a route with colliding path and cookie group names.
  * 2. Check that the LLM schema advertises two distinct required properties.
  * 3. Execute both arguments and require the correct path and Cookie header.
- *
  */
 export const test_http_migrate_cookie_key_collision =
   async (): Promise<void> => {

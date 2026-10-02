@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise brackets at key/value positions, repeated closers, mixed array
  *    delimiters and nested object/array contexts.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_object_mismatched_brackets =
   (): void => {

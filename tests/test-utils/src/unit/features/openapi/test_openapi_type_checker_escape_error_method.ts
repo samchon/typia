@@ -12,7 +12,6 @@ import { OpenApiTypeChecker } from "@typia/utils";
  * 1. Escape a reference whose component is missing.
  * 2. Escape a recursive reference with recursion disabled.
  * 3. Require both failures to name the escape operation.
- *
  */
 export const test_openapi_type_checker_escape_error_method = (): void => {
   const components: OpenApi.IComponents = {

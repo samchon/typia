@@ -33,7 +33,6 @@ import { TestGlobal } from "../../../TestGlobal";
  * 3. Assert the collections are empty, and that at least one fixture carried a key
  *    the URI-fragment charset forbids, so the check cannot pass on tidy inputs
  *    alone.
- *
  */
 export const test_document_references_resolve = async (): Promise<void> => {
   const unresolved: string[] = [];

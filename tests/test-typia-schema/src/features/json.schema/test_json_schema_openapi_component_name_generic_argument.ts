@@ -3,42 +3,30 @@ import { OpenApi } from "@typia/interface";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
-/**
- * Provides the actual qualification in the generic argument fixture.
- */
+/** Provides the actual qualification in the generic argument fixture. */
 export namespace Ns {
-  /**
-   * THE INNER PAYLOAD.
-   */
+  /** THE INNER PAYLOAD. */
   export interface Inner {
     c: boolean;
   }
 }
 
-/**
- * THE GENERIC WRAPPER.
- */
+/** THE GENERIC WRAPPER. */
 export interface Gen<T> {
   v: T;
 }
 
-/**
- * DANGER: a completely unrelated audit-log record type.
- */
+/** DANGER: a completely unrelated audit-log record type. */
 export interface GenNs {
   unrelated: string;
 }
 
-/**
- * MERGED PARENT.
- */
+/** MERGED PARENT. */
 export interface Merged {
   m: string;
 }
 export namespace Merged {
-  /**
-   * MERGED CHILD.
-   */
+  /** MERGED CHILD. */
   export interface Child {
     n: string;
   }

@@ -12,7 +12,6 @@ import { primitive_equal_to } from "@typia/template/primitive-equality";
  * 2. Pin a dropped key, a changed value, and a shorter array as unequal in both
  *    orders.
  * 3. Require the tracer to name the first differing path.
- *
  */
 export const test_automated_primitive_equal_to_oracle = (): void => {
   const wrong: string[] = [];

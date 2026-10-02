@@ -13,7 +13,6 @@ import assert from "node:assert/strict";
  * 1. Resolve direct, escaped and long alias chains to their original leaf.
  * 2. Retain nested references and diagnose missing or malformed alias targets.
  * 3. Reject self and multi-key cycles and distinguish own from inherited keys.
- *
  */
 export const test_openapi_unreference_alias_chains = (): void => {
   const leaf: OpenApi.IJsonSchema = {

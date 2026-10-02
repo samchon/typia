@@ -13,7 +13,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 1. Convert an authored article object with three literal format alternatives.
  * 2. Compare the complete format enum and contrast an unconstrained string
  *    property.
- *
  */
 export const test_llm_schema_enum = (): void => {
   const collection: IJsonSchemaCollection = {

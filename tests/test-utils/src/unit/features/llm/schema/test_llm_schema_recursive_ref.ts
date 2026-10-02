@@ -14,7 +14,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  *    Department.
  * 2. Compare success, the complete independently authored definition and the root
  *    reference.
- *
  */
 export const test_llm_schema_recursive_ref = (): void => {
   const $defs: Record<string, ILlmSchema> = {};

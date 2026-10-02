@@ -11,7 +11,6 @@ import { OpenApiV3_1, OpenApiV3_2 } from "@typia/interface";
  * 1. Check nullable scalar, array and object defaults against both versions.
  * 2. Check each composition/reference keyword independently and together.
  * 3. Reject an unknown type name and malformed composition/reference values.
- *
  */
 export type OpenApiMixedSchemaCases = [
   Assert<Accepted<{ type: ["string", "null"] }>>,

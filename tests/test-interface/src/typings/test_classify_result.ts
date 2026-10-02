@@ -9,7 +9,6 @@ import { ClassifyResult } from "@typia/interface";
  * `prototype`. For an instance type (the common `classify<User>` call) and any
  * non-class type the result is `T` unchanged. The conditional distributes over
  * a union, so a mixed `typeof A | number` maps per-member to `A | number`.
- *
  */
 export type ClassifyResultCases = [
   // class TYPE (typeof C) -> the INSTANCE, not the constructor

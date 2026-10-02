@@ -10,13 +10,11 @@ import typia from "typia";
  * Only flag parsing is used by the automated runner. Environment and hosted
  * document loading are lazy manual-experiment helpers, not hermetic test
  * cases.
- *
  */
 export namespace TestGlobal {
   /**
    * Loads and expands dotenv once for a manual provider experiment, then
    * validates the optional provider key in process.env.
-   *
    */
   export const getEnvironments = (): IEnvironments => environments.get();
 
@@ -24,14 +22,12 @@ export namespace TestGlobal {
    * Fetches and upgrades the hosted shopping OpenAPI document once for manual
    * provider experiments. Repeated reads share the same promise, including
    * rejection.
-   *
    */
   export const getSwagger = (): Promise<OpenApi.IDocument> => swagger.get();
 
   /**
    * Reads one value per occurrence of the requested double-dash flag. Missing
    * flags return an empty list.
-   *
    */
   export const getArguments = (key: string): string[] => {
     const values: string[] = [];

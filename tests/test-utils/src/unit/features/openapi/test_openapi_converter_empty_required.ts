@@ -18,7 +18,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 1. Upgrade Swagger/OpenAPI documents containing optional-only objects.
  * 2. Downgrade an emended OpenAPI document containing `required: []`.
  * 3. Assert every converted object keeps its shape and empty `required`.
- *
  */
 export const test_openapi_converter_empty_required = (): void => {
   const upgraded = [

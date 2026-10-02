@@ -19,7 +19,6 @@ import { TestGlobal } from "../../../TestGlobal";
  * 1. Migrate every example document.
  * 2. Migrate its output again, directly and after 3.1 and 3.0 downgrades.
  * 3. Assert every route's body, query, header, and response references stay.
- *
  */
 export const test_http_migrate_remigration_keeps_names =
   async (): Promise<void> => {

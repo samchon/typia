@@ -24,7 +24,6 @@ import { TestGlobal } from "../../../../TestGlobal";
  *    assert the parameter schema is an object.
  * 3. Assert the property keys equal the route's path-parameter keys followed by
  *    headers, cookies, query and body when present.
- *
  */
 export const test_http_llm_application = async (): Promise<void> => {
   const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument(

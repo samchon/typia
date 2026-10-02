@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise no newline, newline-only, same-line text, spaces, first-of-multiple
  *    blocks, quoted markers, CRLF and empty-gap fences.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_markdown_edge = (): void => {
   // "```json" with no newline at all → extractMarkdownCodeBlock returns null

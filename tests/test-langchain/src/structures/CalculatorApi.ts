@@ -11,9 +11,7 @@ export namespace CalculatorApi {
   /** API version declared in the document's `info`. */
   export const VERSION = "3.2.1";
 
-  /**
-   * Compose a fresh calculator document for the portable HTTP-tool case.
-   */
+  /** Compose a fresh calculator document for the portable HTTP-tool case. */
   export const document = (): OpenApiV3_1.IDocument => ({
     openapi: "3.1.0",
     info: { title: "Calculator API", version: VERSION },

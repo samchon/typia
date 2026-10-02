@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  *
  * 1. Author failure data and error paths for the stated scenarios.
  * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
- *
  */
 export const test_llm_stringify_primitive_root = (): void => {
   // Test case: Root level is a primitive value (not object or array)

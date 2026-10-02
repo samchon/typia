@@ -23,7 +23,6 @@ import { OpenApiValidator } from "@typia/utils";
  * 1. Cross every `additionalProperties` form with both `equals` values.
  * 2. Require a mixed document to answer both objects correctly at once.
  * 3. Pin the reported path so a rejection stays diagnosable.
- *
  */
 export const test_openapi_validator_object_additional_properties = (): void => {
   const build = (

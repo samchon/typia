@@ -10,7 +10,6 @@ import { CamelCase, KebabCase, PascalCase, SnakeCase } from "@typia/interface";
  * 1. Declare snake-keyed and camel-keyed string records.
  * 2. Apply each notation alias to its matching source record.
  * 3. Require broad string keys and the correctly converted nested value type.
- *
  */
 export type NotationDynamicKeyTypeCases = [
   Assert<

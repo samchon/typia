@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise backticks, quotes, HTML, URLs, regex/SQL/template/code text,
  *    punctuation and comment-looking strings.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_string_special_chars = (): void => {
   // String with backticks

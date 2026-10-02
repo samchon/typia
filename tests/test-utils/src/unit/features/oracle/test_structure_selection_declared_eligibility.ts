@@ -11,7 +11,6 @@ import assert from "node:assert/strict";
  * 1. Compare ordinary and equality populations against explicit flag scenarios.
  * 2. Check absent flags, prototype inheritance and missing declaration errors.
  * 3. Retain candidate order and ignore non-source entries and the index barrel.
- *
  */
 export const test_structure_selection_declared_eligibility = (): void => {
   const scenarios: {

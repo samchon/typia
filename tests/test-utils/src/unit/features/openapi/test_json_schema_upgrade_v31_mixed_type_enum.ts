@@ -13,7 +13,6 @@ import { OpenApiConverter, OpenApiValidator } from "@typia/utils";
  * 1. Upgrade type arrays whose enum has values for only some listed types.
  * 2. Require the emended union to hold only those enum values.
  * 3. Validate a value that the enum excludes and one that it admits.
- *
  */
 export const test_json_schema_upgrade_v31_mixed_type_enum = (): void => {
   const numbers = upgrade({

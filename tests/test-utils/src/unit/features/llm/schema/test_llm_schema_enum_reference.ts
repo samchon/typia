@@ -14,7 +14,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 1. Convert the authored inline constant and two-constant referenced definition.
  * 2. Assert success, two union alternatives and the independently expected
  *    referenced enum.
- *
  */
 export const test_llm_schema_enum_reference = (): void => {
   const components: OpenApi.IComponents = {

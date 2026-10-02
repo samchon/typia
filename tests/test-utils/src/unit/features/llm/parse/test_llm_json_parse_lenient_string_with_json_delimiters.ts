@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise individual/combined delimiters, quoted JSON text and arrays of
  *    JSON-looking strings.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_string_with_json_delimiters =
   (): void => {

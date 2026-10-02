@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  *
  * 1. Author failure data and error paths for the stated scenarios.
  * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
- *
  */
 export const test_llm_stringify_root_array_error = (): void => {
   // Test case: Root level is an array with error on the array itself

@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise 515 unclosed object levels and the required depth diagnostic;
  *    511/512/513-level twins distinguish the value-depth boundary.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_max_depth = (): void => {
   // Test that deeply nested structures beyond MAX_DEPTH (512) produce errors

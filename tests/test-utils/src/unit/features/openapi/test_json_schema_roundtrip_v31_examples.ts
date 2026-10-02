@@ -14,7 +14,6 @@ import { OpenApiConverter } from "@typia/utils";
  *    levels.
  * 3. Upgrade the raw schema back and assert example values reappear under
  *    deterministic `v0`, `v1` keys.
- *
  */
 export const test_json_schema_roundtrip_v31_examples = (): void => {
   const input: OpenApi.IJsonSchema = {

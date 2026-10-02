@@ -12,7 +12,6 @@ import { LlmJson } from "@typia/utils";
  *    CRLF whitespace.
  * 2. Compare complete data with a compressed input control and assert the
  *    missing-value diagnostic kind.
- *
  */
 export const test_llm_json_parse_lenient_whitespace_variations = (): void => {
   // Whitespace only (various types)

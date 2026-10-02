@@ -11,7 +11,6 @@ import { Resolved } from "@typia/interface";
  * 1. Resolve mutable, readonly, and branded arrays plus tuple variants.
  * 2. Resolve mutable and readonly sets and maps.
  * 3. Confirm nested methods disappear without losing container readonlyness.
- *
  */
 export type ResolvedReadonlyContainerCases = [
   Assert<IsEqual<Resolved<Mutable[]>, Plain[]>>,

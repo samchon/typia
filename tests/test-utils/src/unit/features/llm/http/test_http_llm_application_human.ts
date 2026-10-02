@@ -17,7 +17,6 @@ import { TestGlobal } from "../../../../TestGlobal";
  * 2. Copy the document and set x-samchon-human on one operation, then compose
  *    again.
  * 3. Assert the flagged variant has exactly one function fewer.
- *
  */
 export const test_http_llm_application_human = async (): Promise<void> => {
   const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument(

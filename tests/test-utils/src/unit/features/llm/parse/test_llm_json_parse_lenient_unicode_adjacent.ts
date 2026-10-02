@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise adjacent/basic/BMP/control/language characters, hex case and
  *    digit-class neighbors G/g/colon/at-sign.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_unicode_adjacent = (): void => {
   // Adjacent non-surrogate unicode escapes

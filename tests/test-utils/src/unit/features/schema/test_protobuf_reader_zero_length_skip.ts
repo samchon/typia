@@ -17,7 +17,6 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  * 3. Assert every skip lands on the exact following byte, that a zero-length skip
  *    honors an enclosing `fork` boundary, and that truncated fields are still
  *    rejected atomically.
- *
  */
 export const test_protobuf_reader_zero_length_skip = (): void => {
   assertSkip("zero-length LEN before another field", [0x00, 0x0a], 1, (r) =>

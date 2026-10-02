@@ -10,7 +10,6 @@ import { OmitNever } from "@typia/interface";
  * 1. Remove the lone `never` member from a mixed object.
  * 2. Confirm optional and `undefined`-valued members are retained.
  * 3. Reduce an all-`never` object to the empty object type.
- *
  */
 export type OmitNeverCases = [
   Assert<

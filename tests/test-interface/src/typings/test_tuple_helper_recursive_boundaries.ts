@@ -17,7 +17,6 @@ import {
  * 1. Resolve a recursive tuple and inspect its transformed head.
  * 2. Apply every notation family to a recursive tuple.
  * 3. Confirm each notation head is renamed while compilation terminates.
- *
  */
 export type TupleHelperRecursiveBoundaryCases = [
   Assert<IsEqual<Resolved<RecursiveResolved>[0], string>>,

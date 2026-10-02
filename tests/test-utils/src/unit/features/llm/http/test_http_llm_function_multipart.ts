@@ -16,7 +16,6 @@ import { TestGlobal } from "../../../../TestGlobal";
  * 1. Compose the application from the checked-in swagger fixture.
  * 2. Search application.errors for POST /{index}/{level}/{optimal}/multipart.
  * 3. Assert the error entry exists.
- *
  */
 export const test_http_llm_function_multipart = async (): Promise<void> => {
   const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument(

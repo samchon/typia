@@ -13,7 +13,6 @@ import { HttpLlm } from "@typia/utils";
  * 2. Preserve the original surplus-field rejection and diagnostic assertion.
  * 3. Check valid, wrong-type, missing-field and surplus-field inputs in both
  *    modes.
- *
  */
 export const test_llm_applicationEquals = (): void => {
   const application = HttpLlm.application({

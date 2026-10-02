@@ -13,7 +13,6 @@ import { OpenApiTypeChecker } from "@typia/utils";
  * 1. Assert covering pairs: number over integer, multiples, constant subsets and
  *    minimum, maximum and exclusive-bound relations.
  * 2. Assert the reversed or tighter non-covering twin of each relation.
- *
  */
 export const test_json_schema_type_checker_cover_number = (): void => {
   //----

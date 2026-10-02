@@ -12,7 +12,6 @@ import { Classifiable } from "@typia/interface";
  * 1. Build `Dealer → Garage → Car → Engine/Wheel → native` (5 levels).
  * 2. Apply `Classifiable` at every level.
  * 3. Compare against the exhaustive plain shape, methods omitted throughout.
- *
  */
 export type ClassifiableDeepNestedCases = [
   Assert<IsEqual<Classifiable<Engine>, PlainEngine>>,

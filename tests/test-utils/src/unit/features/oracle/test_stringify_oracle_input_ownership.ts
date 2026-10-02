@@ -15,7 +15,6 @@ import assert from "node:assert/strict";
  * 2. Reject callbacks that mutate the input before serializing, drop or add
  *    members, return stale or malformed text, or answer an omitted value.
  * 3. Require every rejection to carry the scenario's own failure message.
- *
  */
 export const test_stringify_oracle_input_ownership = (): void => {
   const MESSAGE: string = "stringify failure";

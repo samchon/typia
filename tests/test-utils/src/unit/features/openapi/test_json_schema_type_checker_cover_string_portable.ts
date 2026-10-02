@@ -6,7 +6,6 @@ import { OpenApiTypeChecker } from "@typia/utils";
  *
  * The original enum, length and pattern inputs and their literal verdicts move
  * here from the native format-population sweep without changing either.
- *
  */
 export const test_json_schema_type_checker_cover_string_portable = (): void => {
   // SUCCESS SCENARIOS

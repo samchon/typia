@@ -15,7 +15,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  *    mode.
  * 2. Retain the original root/nested subset assertions and contrast default mode
  *    at both levels.
- *
  */
 export const test_llm_schema_strict_additionalProperties = (): void => {
   const collection: IJsonSchemaCollection = {

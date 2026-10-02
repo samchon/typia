@@ -15,7 +15,6 @@ import { Classifiable } from "@typia/interface";
  * 1. `from` wins over an available constructor and field copy.
  * 2. A single-argument constructor wins over field copy.
  * 3. Neither a usable `from` nor a single-argument constructor → field copy.
- *
  */
 export type ClassifiableStrategyPrecedenceCases = [
   // 1. `from` wins even though the ctor is single-arg and the class is

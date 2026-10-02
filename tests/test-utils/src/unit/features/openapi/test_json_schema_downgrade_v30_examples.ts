@@ -13,7 +13,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 1. Build an emended schema with named examples.
  * 2. Downgrade it to OpenAPI 3.0.
  * 3. Assert the resulting Schema Object does not contain `examples`.
- *
  */
 export const test_json_schema_downgrade_v30_examples = (): void => {
   const input: OpenApi.IJsonSchema = {

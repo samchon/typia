@@ -20,7 +20,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  *    target has distinct type prose.
  * 2. Retain the original owner-description and reference-description checks and
  *    contrast default mode.
- *
  */
 export const test_llm_schema_strict_description = () => {
   const collection: IJsonSchemaCollection = {

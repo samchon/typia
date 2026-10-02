@@ -14,7 +14,6 @@ import { HttpLlm, HttpMigration, OpenApiConverter } from "@typia/utils";
  * 2. Downgrade the serialization metadata without leaking unsupported fields.
  * 3. Require LLM validation to advertise and accept every flattened value.
  * 4. Execute the route and compare the exact merged Cookie header.
- *
  */
 export const test_http_migrate_cookie_serialization_contract =
   async (): Promise<void> => {

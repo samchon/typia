@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  *    strings, nested arrays, multiple value kinds and partial
  *    function-call/response text.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_mixed_unclosed_deep = (): void => {
   // Object -> array -> object, all unclosed

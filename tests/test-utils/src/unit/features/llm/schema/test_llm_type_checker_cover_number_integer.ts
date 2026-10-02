@@ -13,7 +13,6 @@ import { LlmTypeChecker } from "@typia/utils";
  * 1. Compare plain, bounded and multiple-of number schemas with integers.
  * 2. Require coverage where the number schema is the wider one.
  * 3. Require refusal for a narrower number, the reverse direction and enums.
- *
  */
 export const test_llm_type_checker_cover_number_integer = (): void => {
   const number = (props: Partial<ILlmSchema.INumber> = {}): ILlmSchema =>

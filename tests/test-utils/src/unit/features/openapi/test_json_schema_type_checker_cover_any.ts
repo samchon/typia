@@ -10,7 +10,6 @@ import { OpenApiTypeChecker } from "@typia/utils";
  *
  * 1. Check that any covers a nullable string and a string or number union.
  * 2. Check that those unions do not cover any.
- *
  */
 export const test_json_schema_type_checker_cover_any = (): void => {
   TestEquality.equals(

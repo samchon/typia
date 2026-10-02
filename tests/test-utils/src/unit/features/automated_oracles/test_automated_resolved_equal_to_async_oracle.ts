@@ -16,7 +16,6 @@ import { resolved_equal_to_async } from "@typia/template/resolved-equality-async
  * 1. Reject a changed size, media type, name, and modification time.
  * 2. Reject same-size different bytes, which only the awaited pass can see.
  * 3. Round trip through a real `FormData` and require the result accepted.
- *
  */
 export const test_automated_resolved_equal_to_async_oracle =
   async (): Promise<void> => {

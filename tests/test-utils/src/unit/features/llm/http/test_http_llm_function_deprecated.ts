@@ -21,7 +21,6 @@ import { TestGlobal } from "../../../../TestGlobal";
  * 2. Find the function for GET /nothing, the operation the fixture marks
  *    deprecated.
  * 3. Assert its deprecated flag is true.
- *
  */
 export const test_http_llm_function_deprecated = async (): Promise<void> => {
   const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument(

@@ -13,7 +13,6 @@ import { Classifiable } from "@typia/interface";
  * 1. The optional method key is dropped from the classified shape.
  * 2. The classified shape equals the data-only `{ id: number }`.
  * 3. A live instance of the class is assignable to its classified shape.
- *
  */
 export type ClassifiableOptionalMethodCases = [
   Assert<IsEqual<Classifiable<WithOptionalMethod>, { id: number }>>,

@@ -15,7 +15,6 @@ import { NamingConvention } from "@typia/utils";
  *    inputs.
  * 2. Localize inputs whose tail must survive untouched, including acronym runs.
  * 3. Localize the empty string and require `""` rather than a throw.
- *
  */
 export const test_naming_convention_localize = (): void => {
   const expectations: [string, string][] = [

@@ -14,7 +14,6 @@ import { Classifiable } from "@typia/interface";
  *    but a nested `any` property survives unchanged.
  * 2. An instance `from` method leaves only the property shape.
  * 3. `Classifiable<typeof Date>` is the `new Date(x)` constructor seed.
- *
  */
 export type ClassifiableGuardCases = [
   Assert<[Classifiable<any>] extends [never] ? true : false>,

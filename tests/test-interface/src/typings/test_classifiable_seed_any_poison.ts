@@ -13,7 +13,6 @@ import { Classifiable } from "@typia/interface";
  * 1. A `static from(json: any)` factory leaves only the property shape.
  * 2. A `static from(x: unknown)` factory likewise contributes no widening arm.
  * 3. The resolved type stays the strict property shape, never `any`/`unknown`.
- *
  */
 export type ClassifiableSeedAnyPoisonCases = [
   Assert<

@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise quoted braces/brackets, escaped quotes, multiple strings, empty and
  *    unclosed root strings, and a trailing escaped backslash.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_findJsonStart_junk_strings =
   (): void => {

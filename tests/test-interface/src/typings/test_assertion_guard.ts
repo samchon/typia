@@ -10,7 +10,6 @@ import { AssertionGuard } from "@typia/interface";
  * 1. Compare `AssertionGuard<T>` with the literal assertion signature.
  * 2. Call the guard and use the narrowed value.
  * 3. Confirm the value stays `unknown` without the guard call.
- *
  */
 export type AssertionGuardCases = [
   Assert<
@@ -35,7 +34,6 @@ declare const guard: AssertionGuard<{ id: number }>;
  *
  * 1. Typecheck the authored signature or constraint.
  * 2. Require the stated acceptance or expected diagnostic.
- *
  */
 export const narrowed = (x: unknown): number => {
   guard(x);
@@ -50,7 +48,6 @@ export const narrowed = (x: unknown): number => {
  *
  * 1. Typecheck the authored signature or constraint.
  * 2. Require the stated acceptance or expected diagnostic.
- *
  */
 export const notNarrowed = (x: unknown): number =>
   // @ts-expect-error `x` is still `unknown` until the guard asserts it.

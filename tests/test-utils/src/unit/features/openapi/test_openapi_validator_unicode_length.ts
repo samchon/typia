@@ -12,7 +12,6 @@ import { OpenApiValidator } from "@typia/utils";
  * 1. Check ASCII, BMP, astral, mixed, combining, and unpaired-surrogate text.
  * 2. Exercise exact one- and two-character min/max boundaries.
  * 3. Require the public validator to agree with the code-point oracle.
- *
  */
 export const test_openapi_validator_unicode_length = (): void => {
   const values: Array<[value: string, length: number]> = [

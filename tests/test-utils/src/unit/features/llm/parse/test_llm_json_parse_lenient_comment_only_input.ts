@@ -12,7 +12,6 @@ import { LlmJson } from "@typia/utils";
  *    without a value.
  * 2. Compare failure and diagnostic expectations, then check object and scalar
  *    inputs following line, block, empty and CRLF comments.
- *
  */
 export const test_llm_json_parse_lenient_comment_only_input = (): void => {
   // Single-line comment only

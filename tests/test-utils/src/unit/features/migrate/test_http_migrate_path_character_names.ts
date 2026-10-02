@@ -27,7 +27,6 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
  * 4. Assert ordinary paths keep their exact accessors and component names, the
  *    letters of any script stay distinct, and function names joined from
  *    accessors stay unique.
- *
  */
 export const test_http_migrate_path_character_names = (): void => {
   const characters: string[] = [

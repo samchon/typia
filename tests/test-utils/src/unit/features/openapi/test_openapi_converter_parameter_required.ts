@@ -25,7 +25,6 @@ import { OpenApiConverter } from "@typia/utils";
  *    overridden at the operation level.
  * 4. Assert omitted optional values, explicit `false`, required `true`, and
  *    parameter override semantics are preserved.
- *
  */
 export const test_openapi_converter_parameter_required = (): void => {
   const swagger: SwaggerV2.IDocument = OpenApiConverter.downgradeDocument(

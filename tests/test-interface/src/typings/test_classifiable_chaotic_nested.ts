@@ -12,7 +12,6 @@ import { Classifiable } from "@typia/interface";
  * 1. Declare `Company` → `Person` → `Address` with the full member zoo.
  * 2. Apply `Classifiable<Company>` once.
  * 3. Compare against the exhaustive plain shape, methods omitted throughout.
- *
  */
 export type ClassifiableChaoticCases = [
   Assert<IsEqual<Classifiable<Company>, PlainCompany>>,

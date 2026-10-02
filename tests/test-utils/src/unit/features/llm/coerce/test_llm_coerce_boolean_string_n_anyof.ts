@@ -24,7 +24,6 @@ interface IBooleanNullUnion {
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.
  * 2. Call LlmJson directly and compare every retained result distinction.
- *
  */
 export const test_llm_coerce_boolean_string_n_anyof = (): void => {
   // "n" -> false when boolean in union, no null

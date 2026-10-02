@@ -12,7 +12,6 @@ import { Classifiable } from "@typia/interface";
  * 1. Form unions and intersections over method-bearing classes.
  * 2. Apply `Classifiable` and compare against the distributed / merged shape.
  * 3. Confirm a discriminated union narrows correctly after classification.
- *
  */
 export type ClassifiableUnionIntersectionCases = [
   // union of classes distributes member-wise

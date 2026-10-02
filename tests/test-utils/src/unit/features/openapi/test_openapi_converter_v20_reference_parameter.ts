@@ -23,7 +23,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 3. Assert an unresolvable or cyclic reference throws the representability
  *    `TypeError` instead of being dropped, and that a nullable reference in a
  *    form field reads back too.
- *
  */
 export const test_openapi_converter_v20_reference_parameter = (): void => {
   const components: OpenApi.IComponents = {

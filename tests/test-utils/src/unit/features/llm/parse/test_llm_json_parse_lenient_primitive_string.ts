@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Parse ordinary, escaped, empty, unfinished and Unicode-escaped root strings.
  * 2. Compare success and complete decoded text, including every standard escape
  *    type.
- *
  */
 export const test_llm_json_parse_lenient_primitive_string = (): void => {
   // Simple string at root

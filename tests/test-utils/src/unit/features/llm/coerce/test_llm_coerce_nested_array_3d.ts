@@ -16,7 +16,6 @@ interface ICube3D {
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.
  * 2. Call LlmJson directly and compare every retained result distinction.
- *
  */
 export const test_llm_coerce_nested_array_3d = (): void => {
   const parameters: ILlmSchema.IParameters = {

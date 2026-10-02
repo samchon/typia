@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise minus-only, trailing decimal, incomplete exponent and exponent sign,
  *    with literal recovered zero/one expectations.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_number_incomplete = (): void => {
   // Incomplete negative (just minus sign) - Number("-") = NaN -> 0

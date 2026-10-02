@@ -18,7 +18,6 @@ import { TestGlobal } from "../../../TestGlobal";
  * 1. Upgrade the checked-in shopping example and migrate it.
  * 2. Find POST /shoppings/sellers/sales.
  * 3. Assert its accessor is shoppings.sellers.sales.create.
- *
  */
 export const test_http_migrate_route_accessor = async (): Promise<void> => {
   const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument(

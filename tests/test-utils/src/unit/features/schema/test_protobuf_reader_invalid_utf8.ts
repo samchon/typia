@@ -14,7 +14,6 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  *    strings without altering a single code point.
  * 2. Reject every authoritative malformed UTF-8 class with one stable error.
  * 3. Read the same malformed octets through `bytes()` without changing them.
- *
  */
 export const test_protobuf_reader_invalid_utf8 = (): void => {
   for (const [label, text] of VALID_TEXTS) {

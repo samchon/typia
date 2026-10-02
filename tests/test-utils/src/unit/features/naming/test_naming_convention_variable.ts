@@ -22,7 +22,6 @@ import { NamingConvention } from "@typia/utils";
  * 3. Pin ordinary and contextual names that must stay valid.
  * 4. Assert the deliberate `module` policy, the identifier-shape boundaries, and
  *    that repeated calls are stable.
- *
  */
 export const test_naming_convention_variable = (): void => {
   // 1. THE ENGINE IS THE ORACLE

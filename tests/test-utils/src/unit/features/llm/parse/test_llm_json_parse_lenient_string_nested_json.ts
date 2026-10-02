@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise quoted object/array text, multiple escape layers, code delimiters
  *    and nested control-escape text.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_string_nested_json = (): void => {
   // String value containing properly escaped JSON

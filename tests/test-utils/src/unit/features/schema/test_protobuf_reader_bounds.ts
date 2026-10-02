@@ -12,7 +12,6 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  * 1. Read zero-length, exact-end, and sliced-buffer payloads successfully.
  * 2. Reject one-byte-short bytes, strings, float, double, and skip payloads.
  * 3. Assert every rejected read reports the stable overflow and keeps its index.
- *
  */
 export const test_protobuf_reader_bounds = (): void => {
   const empty: _ProtobufReader = new _ProtobufReader(Uint8Array.of(0));

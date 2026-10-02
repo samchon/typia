@@ -16,7 +16,6 @@ import { HttpMigration } from "@typia/utils";
  * 1. Migrate a document with the path /case/switch/do/while.
  * 2. Read the first route's accessor.
  * 3. Assert the segments are _case, _switch, _do, _while and get.
- *
  */
 export const test_http_migrate_route_accessor_reserved = (): void => {
   const document: OpenApi.IDocument = {

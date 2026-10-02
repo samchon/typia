@@ -29,7 +29,6 @@ import assert from "node:assert/strict";
  *
  * Native `node:assert` checks the comparison outcomes and diagnostic paths; the
  * oracle under test never decides whether those expectations pass.
- *
  */
 export const test_equality_oracle = (): void => {
   const date = (text: string): Date => new Date(text);

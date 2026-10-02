@@ -11,7 +11,6 @@ import { LlmJson, dedent } from "@typia/utils";
  * 1. Preserve dollar metacharacters and marker-like literals and values.
  * 2. Remove common template indentation while preserving multiline values.
  * 3. Check empty, blank, mixed-indent and adjacent-interpolation boundaries.
- *
  */
 export const test_dedent_interpolation = (): void => {
   for (const value of [

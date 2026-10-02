@@ -21,7 +21,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 2. Invert it without `config.strict`.
  * 3. Assert no constraint keyword is invented.
  * 4. Assert the description survives verbatim.
- *
  */
 export const test_llm_invert_description_tag_prose_not_promoted = (): void => {
   const description: string = [

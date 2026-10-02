@@ -11,7 +11,6 @@ import assert from "node:assert/strict";
  * 1. Accept an independently authored complete document and its boundary twins.
  * 2. Change one field at a time and require the guard to reject at that path.
  * 3. Preserve the former ordinary-assert surplus/undefined/sparse-array policy.
- *
  */
 export const test_protobuf_varint_corpus_shape = (): void => {
   const baseline = document();

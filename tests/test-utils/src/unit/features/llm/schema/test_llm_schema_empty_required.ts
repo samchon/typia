@@ -18,7 +18,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  *    entry.
  * 2. Compare the complete JSON-visible shells against independently authored
  *    literals.
- *
  */
 export const test_llm_schema_empty_required = (): void => {
   const nonStrict = LlmSchemaConverter.schema({

@@ -4,9 +4,7 @@ import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand";
 import typia from "typia";
 
-/**
- * Integration-runner filters and manual provider-experiment preparation.
- */
+/** Integration-runner filters and manual provider-experiment preparation. */
 export namespace TestGlobal {
   /**
    * Loads and expands dotenv once for a manual provider experiment, then

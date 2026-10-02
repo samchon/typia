@@ -17,7 +17,6 @@ import {
  * 1. Upgrade URL-encoded and dual-media file operations.
  * 2. Verify binary schemas and HTTP migration accept the resulting bodies.
  * 3. Downgrade again and assert the file field and media lists return.
- *
  */
 export const test_document_roundtrip_v20_urlencoded_file = (): void => {
   const file = {

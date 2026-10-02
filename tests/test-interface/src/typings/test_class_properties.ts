@@ -11,7 +11,6 @@ import { ClassProperties } from "@typia/interface";
  * 1. Strip the method from a class with a nested class member.
  * 2. Confirm the nested class is preserved verbatim (not flattened).
  * 3. Confirm a getter-backed member survives.
- *
  */
 export type ClassPropertiesCases = [
   Assert<IsEqual<ClassProperties<Bar>, { x: number }>>,

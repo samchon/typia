@@ -17,7 +17,6 @@ import { _randomFormatDatetime } from "typia/lib/internal/_randomFormatDatetime"
  * 2. Require every draw to land inside it.
  * 3. Require `maximum: 0` to mean the epoch itself rather than `NaN`, and the
  *    unbounded call to keep its present-day upper bound.
- *
  */
 export const test_random_format_date_epoch_bounds = (): void => {
   const minimum: number = Date.UTC(2000, 0, 1);

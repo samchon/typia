@@ -20,7 +20,6 @@ import { TestGlobal } from "../../../TestGlobal";
  * 1. Upgrade the checked-in shopping example and migrate it.
  * 2. Find PUT /shoppings/sellers/sales/{id}.
  * 3. Assert the comment starts with its summary and includes the description text.
- *
  */
 export const test_http_migrate_route_comment = async (): Promise<void> => {
   const swagger: OpenApi.IDocument = OpenApiConverter.upgradeDocument(

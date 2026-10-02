@@ -12,7 +12,6 @@ import { LlmJson } from "@typia/utils";
  *    variants.
  * 2. Assert the boolean result for each spelling and require the ambiguous n input
  *    to fail.
- *
  */
 export const test_llm_json_parse_lenient_boolean_coercion = (): void => {
   // "yes" -> true

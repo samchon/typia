@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  *    newline/text, root EOF input and a closed incomplete escape with complete
  *    recovered data.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_unicode_truncation_systematic =
   (): void => {

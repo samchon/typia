@@ -14,7 +14,6 @@ import { Classifiable } from "@typia/interface";
  * 1. A `null` / `undefined` / `null | undefined` field survives unchanged.
  * 2. A null-payload discriminated-union arm keeps its `value` key.
  * 3. Methods are still stripped next to a nullish field.
- *
  */
 export type ClassifiableNullishMemberCases = [
   Assert<

@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise plain, fenced, prefixed and commented failures, nested and multiple
  *    errors, and a valid sibling before invalid text.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_error_output_format = (): void => {
   const JSON_VALUE_EXPECTED =

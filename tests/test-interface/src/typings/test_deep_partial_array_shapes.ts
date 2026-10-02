@@ -12,7 +12,6 @@ import { DeepPartial } from "@typia/interface";
  * 1. Recurse through mutable and readonly arrays of nested objects.
  * 2. Preserve mutable and readonly fixed tuples.
  * 3. Preserve optional and variadic tuple elements while partializing values.
- *
  */
 export type DeepPartialArrayShapeCases = [
   Assert<

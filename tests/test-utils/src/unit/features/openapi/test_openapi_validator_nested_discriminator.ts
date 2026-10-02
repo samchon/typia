@@ -14,7 +14,6 @@ import { OpenApiValidator } from "@typia/utils";
  * 2. Accept a valid value from every level under both branch permutations.
  * 3. Reject invalid present middle/top keys at their exact diagnostic paths.
  * 4. Keep the first matching object discriminator responsible for ambiguity.
- *
  */
 export const test_openapi_validator_nested_discriminator = (): void => {
   const base: OpenApi.IJsonSchema.IObject = {

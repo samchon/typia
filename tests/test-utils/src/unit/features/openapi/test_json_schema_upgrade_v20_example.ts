@@ -12,7 +12,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 1. Build a Swagger 2 integer schema with x-nullable, an example and a title.
  * 2. Upgrade it.
  * 3. Assert a oneOf of integer and null with the title and example.
- *
  */
 export const test_json_schema_upgrade_v20_example = (): void => {
   const input: SwaggerV2.IJsonSchema = {

@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise nu/nul/null versus n, object and array values, and a nullable
  *    identifier used as a key.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_null_after_length2 = (): void => {
   // "nu" should match null (length >= 2)

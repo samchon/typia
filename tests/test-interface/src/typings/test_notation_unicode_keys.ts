@@ -28,7 +28,6 @@ import { CamelCase, KebabCase, PascalCase, SnakeCase } from "@typia/interface";
  *    single-character key, a combining mark, and full-case-conversion
  *    characters.
  * 2. Assert `CamelCase`/`PascalCase` over a word-final sigma key.
- *
  */
 export type NotationUnicodeKeysCases = [
   Assert<IsEqual<CamelCase<Battery>, ExpectedCamel>>,

@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise invalid identifier text and at/hash/percent tokens in objects and
  *    arrays, including a valid property before the error.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_invalid_value = (): void => {
   // Invalid character as value (not a valid JSON token)

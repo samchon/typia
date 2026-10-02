@@ -12,7 +12,6 @@ import { OpenApiTypeChecker } from "@typia/utils";
  * 1. Check positive and negative numeric/string constant containment.
  * 2. Check inclusive/exclusive ranges and exact decimal divisibility.
  * 3. Check arrays, tuples, uniqueness, and reference-flattened constraints.
- *
  */
 export const test_json_schema_type_checker_cover_constraints = (): void => {
   const components: OpenApi.IComponents = {

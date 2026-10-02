@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  *    leading zeros and root numbers; Object.is distinguishes positive and
  *    negative zero.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_number_edge_cases = (): void => {
   // Zero

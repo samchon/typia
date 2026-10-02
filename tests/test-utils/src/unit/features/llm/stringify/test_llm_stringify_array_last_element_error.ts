@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  *
  * 1. Author failure data and error paths for the stated scenarios.
  * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
- *
  */
 export const test_llm_stringify_array_last_element_error = (): void => {
   // Test case: Error on the last element of an array

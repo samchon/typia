@@ -15,7 +15,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 2. Upgrade the schema to typia's emended representation.
  * 3. Assert every raw examples array is converted to a deterministic `v0`, `v1`
  *    record.
- *
  */
 export const test_json_schema_upgrade_v31_examples = (): void => {
   const input: OpenApiV3_1.IJsonSchema = {

@@ -13,7 +13,6 @@ import { OpenApiValidator } from "@typia/utils";
  * 2. Require every independent property and array-index failure.
  * 3. Make a failing array constraint suppress its redundant child failures.
  * 4. Keep a referenced array union's selected indexed failure.
- *
  */
 export const test_openapi_validator_report_path_boundary = (): void => {
   const input = {

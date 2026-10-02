@@ -12,7 +12,6 @@ import assert from "node:assert/strict";
  * 2. Reject malformed statuses independently of correct input pruning.
  * 3. Reject missing, changed and equal-but-distinct report data while allowing
  *    original primitive, empty and special-number values.
- *
  */
 export const test_prune_validation_success_report = (): void => {
   type Input = Record<string, unknown>;

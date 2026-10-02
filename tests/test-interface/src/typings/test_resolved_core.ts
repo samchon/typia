@@ -11,7 +11,6 @@ import { Resolved } from "@typia/interface";
  * 1. Resolve atomics, Date, bigint, and a typed array.
  * 2. Resolve a method-bearing nested class and a Set/Map of it.
  * 3. Confirm weak collections become `never`.
- *
  */
 export type ResolvedCoreCases = [
   Assert<IsEqual<Resolved<Date>, Date>>,

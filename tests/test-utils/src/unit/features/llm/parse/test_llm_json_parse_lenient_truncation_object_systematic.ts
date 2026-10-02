@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise opening/partial/complete keys, colons, string/number values, commas
  *    and nested object prefixes through complete input.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_truncation_object_systematic =
   (): void => {

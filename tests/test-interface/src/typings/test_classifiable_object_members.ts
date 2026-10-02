@@ -14,7 +14,6 @@ import { Classifiable } from "@typia/interface";
  * 2. Apply `Classifiable` and compare against the hand-written plain shape.
  * 3. Assert a live instance is assignable, while a literal freshly carrying the
  *    method, or dropping a required member, is rejected.
- *
  */
 export type ClassifiableObjectMemberCases = [
   Assert<IsEqual<Classifiable<User>, ExpectedUser>>,

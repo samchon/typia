@@ -14,7 +14,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  *    descriptions absent.
  * 2. Retain reference presence and compare every exact pointer and numeric target
  *    field.
- *
  */
 export const test_llm_schema_reference_escaped_description_of_name =
   (): void => {

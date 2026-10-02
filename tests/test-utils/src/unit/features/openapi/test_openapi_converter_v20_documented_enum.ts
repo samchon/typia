@@ -18,7 +18,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 2. Assert each carries `type` and `enum` beside `x-oneOf`.
  * 3. Assert upgrading returns the original annotated `oneOf`, and that a mixed
  *    union and a schema-level definition stay untouched.
- *
  */
 export const test_openapi_converter_v20_documented_enum = (): void => {
   const documented: OpenApi.IJsonSchema = {

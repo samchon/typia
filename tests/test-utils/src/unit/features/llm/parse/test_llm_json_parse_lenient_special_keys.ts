@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise spaces, quotes, Unicode, empty/numeric keys, newline/tab/backslash
  *    escapes and punctuation.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_special_keys = (): void => {
   // Key with spaces

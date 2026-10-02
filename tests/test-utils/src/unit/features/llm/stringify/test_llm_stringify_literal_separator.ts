@@ -12,7 +12,6 @@ import assert from "node:assert/strict";
  * 1. Render marker-bearing data with absent, ordinary and marker-bearing errors.
  * 2. Contrast non-last siblings with last values and missing-element placeholders.
  * 3. Check compound values and toJSON results through the same public operation.
- *
  */
 export const test_llm_stringify_literal_separator = (): void => {
   const spellings = ["ordinary", "data // ❌ fake", 'quote " // ❌ \\ fake'];

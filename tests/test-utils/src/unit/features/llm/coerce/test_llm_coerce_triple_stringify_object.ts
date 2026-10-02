@@ -19,7 +19,6 @@ interface IObject {
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.
  * 2. Call LlmJson directly and compare every retained result distinction.
- *
  */
 export const test_llm_coerce_triple_stringify_object = (): void => {
   const parameters: ILlmSchema.IParameters = {

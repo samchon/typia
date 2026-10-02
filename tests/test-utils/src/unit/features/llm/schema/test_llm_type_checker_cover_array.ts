@@ -13,7 +13,6 @@ import { LlmSchemaConverter, LlmTypeChecker } from "@typia/utils";
  * 1. Convert authored 2D/3D point, geometry, plan and box component graphs.
  * 2. Retain the ten directional and mixed-union comparisons and add equal-shape
  *    positive controls.
- *
  */
 export const test_llm_type_checker_cover_array = () => {
   const collection: IJsonSchemaCollection = {

@@ -21,7 +21,6 @@ import { _isLegalDeclaration } from "../../internal/_isLegalDeclaration";
  * 2. Assert each pair resolves to distinct, legal keys rather than colliding.
  * 3. Assert numeric-leading and `connection` escaping are unchanged.
  * 4. Compile each declaration, since duplicate parameters are a `SyntaxError`.
- *
  */
 export const test_http_migrate_route_parameter_key_escape = (): void => {
   const path = (route: string, names: string[]) => ({

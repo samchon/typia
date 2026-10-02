@@ -7,7 +7,6 @@ import { OpenApiConverter } from "@typia/utils";
  *
  * The original three schemas and literal expected outputs move unchanged from
  * the native tagged-union interoperability peer.
- *
  */
 export const test_openapi_converter_discriminator_portable = (): void => {
   TestEquality.equals(

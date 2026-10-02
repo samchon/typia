@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  *    content; these outputs do not alone prove which extraction route
  *    executed.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_markdown_case_insensitive =
   (): void => {

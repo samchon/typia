@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise object/array suffix prose, adjacent objects, extra closers and an
  *    object followed by an array.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_trailing_junk = (): void => {
   // LLM may add explanatory text after JSON output

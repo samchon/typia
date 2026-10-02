@@ -11,7 +11,6 @@ import { OpenApiTypeChecker } from "@typia/utils";
  *
  * 1. Check that string-or-null covers string.
  * 2. Check that string does not cover string-or-null.
- *
  */
 export const test_json_schema_type_checker_cover_nullable = (): void => {
   TestEquality.equals(

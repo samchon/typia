@@ -15,7 +15,6 @@ import { resolved_equal_to } from "@typia/template/resolved-equality";
  * 1. Pin the positive shape of every comparison contract.
  * 2. Move exactly one observable property away from it.
  * 3. Require the oracle to reject the twin while accepting the original.
- *
  */
 export const test_automated_resolved_equal_to_oracle = (): void => {
   const wrong: string[] = [];

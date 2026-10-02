@@ -7,7 +7,6 @@ import assert from "node:assert/strict";
  * A callable value can carry the same thenable or async-iterator protocol as an
  * object. Returning it must not be mistaken for a completed synchronous task.
  * Native promise resolution and iteration establish those fixture protocols.
- *
  */
 export const test_equality_async_result_refusal = async (): Promise<void> => {
   const message =

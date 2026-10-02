@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise complete arrays, mixed object/array nesting, three-level EOF input,
  *    sibling containers and ten array levels.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_deep_nesting_arrays = (): void => {
   // Deeply nested arrays

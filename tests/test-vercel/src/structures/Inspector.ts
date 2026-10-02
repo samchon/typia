@@ -3,7 +3,6 @@
  *
  * Holds expensive state behind a closure so tool conversion can be checked
  * without building that state.
- *
  */
 export class Inspector {
   private readonly state: () => Inspector.IState;
@@ -18,33 +17,23 @@ export class Inspector {
    * @param props Query to run against the state
    *
    * @returns The matching answer
-   *
    */
   public inspect(props: Inspector.IProps): Inspector.IResult {
     return { answer: `${props.query}=${this.state().value}` };
   }
 }
 export namespace Inspector {
-  /**
-   * Value supplied by the deferred fixture source.
-   *
-   */
+  /** Value supplied by the deferred fixture source. */
   export interface IState {
     /** Deferred numeric value. */
     value: number;
   }
-  /**
-   * Query consumed by the inspection fixture.
-   *
-   */
+  /** Query consumed by the inspection fixture. */
   export interface IProps {
     /** Question to answer from the state */
     query: string;
   }
-  /**
-   * Answer returned by the inspection fixture.
-   *
-   */
+  /** Answer returned by the inspection fixture. */
   export interface IResult {
     /** Answer text */
     answer: string;

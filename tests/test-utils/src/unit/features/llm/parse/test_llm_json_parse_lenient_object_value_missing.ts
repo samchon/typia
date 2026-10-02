@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise missing values before closers/commas, later valid properties, and
  *    key-only/key-colon EOF input.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_object_value_missing = (): void => {
   // Value missing after colon - should return undefined for that key

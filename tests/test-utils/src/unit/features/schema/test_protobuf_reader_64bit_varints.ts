@@ -11,7 +11,6 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  * 1. Decode canonical unsigned vectors around bits 31, 32, 53, 63, and 64.
  * 2. Decode both signed extrema and their adjacent ordinary values.
  * 3. Decode the ZigZag extrema and neighboring values from canonical bytes.
- *
  */
 export const test_protobuf_reader_64bit_varints = (): void => {
   for (const [bytes, expected] of UINT64_VECTORS)

@@ -11,7 +11,6 @@ import { Singleton } from "@typia/utils";
  * 1. Preserve falsy values and the first successful call's argument.
  * 2. Retry after a synchronous initialization failure.
  * 3. Retain the same rejected promise and observe its original rejection.
- *
  */
 export const test_singleton_lifecycle = async (): Promise<void> => {
   for (const value of [false, 0, -0, "", null, undefined, NaN]) {

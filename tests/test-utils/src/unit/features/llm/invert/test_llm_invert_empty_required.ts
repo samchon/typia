@@ -12,7 +12,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 1. Invert an empty LLM object schema.
  * 2. Assert object shell fields are preserved.
  * 3. Assert the OpenAPI result omits empty `required`.
- *
  */
 export const test_llm_invert_empty_required = (): void => {
   const inverted = LlmSchemaConverter.invert({

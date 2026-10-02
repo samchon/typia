@@ -24,7 +24,6 @@ import { StandardSchemaV1 } from "@typia/interface";
  * 1. Assert the two interfaces are identical, generic and defaulted.
  * 2. Assert the same for every member of the namespace.
  * 3. Assert the inference helpers read back the type arguments.
- *
  */
 export type StandardSchemaV1ConformanceCases = [
   // the interface itself

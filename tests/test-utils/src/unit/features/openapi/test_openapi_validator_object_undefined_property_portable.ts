@@ -7,7 +7,6 @@ import { OpenApiValidator } from "@typia/utils";
  *
  * These seven original literal verdicts move from the native interoperability
  * peer with their schemas and payloads unchanged.
- *
  */
 export const test_openapi_validator_object_undefined_property_portable =
   (): void => {

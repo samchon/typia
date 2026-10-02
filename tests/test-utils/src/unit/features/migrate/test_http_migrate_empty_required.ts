@@ -18,7 +18,6 @@ import { HttpMigration } from "@typia/utils";
  *    query/header parameters, request bodies, and response bodies.
  * 2. Resolve synthesized and referenced route schemas.
  * 3. Assert every object keeps its shape and omits empty `required`.
- *
  */
 export const test_http_migrate_empty_required = (): void => {
   const document: OpenApi.IDocument = {

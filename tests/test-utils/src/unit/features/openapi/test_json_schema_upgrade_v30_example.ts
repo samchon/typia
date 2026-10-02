@@ -12,7 +12,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 1. Build an OpenAPI 3.0 nullable integer schema with an example and a title.
  * 2. Upgrade it.
  * 3. Assert a oneOf of integer and null with the title and example.
- *
  */
 export const test_json_schema_upgrade_v30_example = (): void => {
   const input: OpenApiV3.IJsonSchema = {

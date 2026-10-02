@@ -14,7 +14,6 @@ import path from "node:path";
  * 1. Create an isolated checkout fixture with no owner directories.
  * 2. Check missing packages, then missing tests after creating packages.
  * 3. Remove the owned fixture on both success and failure.
- *
  */
 export const test_evidence_owner_directory_failure = (): void => {
   const { checkEvidence } = require(

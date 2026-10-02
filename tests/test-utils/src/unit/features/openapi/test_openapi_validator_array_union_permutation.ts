@@ -12,7 +12,6 @@ import { OpenApiValidator } from "@typia/utils";
  * 1. Build two non-covering array branches with an overlapping first element.
  * 2. Require the same valid value to pass under both branch permutations.
  * 3. Require invalid arrays to fail and object discriminators to keep detail.
- *
  */
 export const test_openapi_validator_array_union_permutation = (): void => {
   const pattern: OpenApi.IJsonSchema.IArray = {

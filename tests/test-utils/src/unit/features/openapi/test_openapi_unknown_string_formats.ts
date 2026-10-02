@@ -11,7 +11,6 @@ import assert from "node:assert/strict";
  * 1. Exercise unknown and inherited names through dispatch and both consumers.
  * 2. Preserve string type, pattern and length decisions independently.
  * 3. Check positive and negative registered-format controls repeatedly.
- *
  */
 export const test_openapi_unknown_string_formats = (): void => {
   const unknown = [

@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise tru/fal/nul, single-letter booleans, commas, closing
  *    braces/brackets, multiple partial tokens and nested containers.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_incomplete_keyword_followed =
   (): void => {

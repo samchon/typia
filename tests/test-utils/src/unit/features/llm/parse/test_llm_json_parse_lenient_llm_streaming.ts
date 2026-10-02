@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise opening container, partial/complete keys, colon, partial/complete
  *    values, comma, numeric value and nested array prefixes.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_llm_streaming = (): void => {
   // Simulate progressive streaming: each chunk is a longer prefix

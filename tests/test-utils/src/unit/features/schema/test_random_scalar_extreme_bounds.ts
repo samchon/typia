@@ -2,10 +2,7 @@ import assert from "node:assert/strict";
 import { _randomInteger } from "typia/lib/internal/_randomInteger";
 import { _randomNumber } from "typia/lib/internal/_randomNumber";
 
-/**
- * Verifies finite scalar generation across binary64 boundary cases.
- *
- */
+/** Verifies finite scalar generation across binary64 boundary cases. */
 export const test_random_scalar_extreme_bounds = (): void => {
   for (const draw of [0, 0.5, 1 - Number.EPSILON]) {
     for (const type of ["integer", "number"] as const) {

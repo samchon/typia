@@ -10,7 +10,6 @@ import { SpecialFields } from "@typia/interface";
  * 1. Select number-valued keys from a mixed object.
  * 2. Select method keys via `Function`, and `never`-valued keys via `never`.
  * 3. Confirm a no-match query yields `never`.
- *
  */
 export type SpecialFieldsCases = [
   Assert<

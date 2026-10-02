@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise opening bracket, value/comma/string/keyword boundaries and nested
  *    object/array prefixes through the complete array.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_truncation_array_systematic =
   (): void => {

@@ -14,7 +14,6 @@ import { LlmJson, LlmSchemaConverter, LlmTypeChecker } from "@typia/utils";
  *    reference inputs.
  * 2. Check conversion/traversal/coercion/validation/coverage and discriminator
  *    wiring with retained independent distinctions.
- *
  */
 export const test_llm_schema_json_pointer_references = (): void => {
   const valid = [

@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise raw tab/newline/return/CRLF and escaped NBSP, null and bell
  *    characters.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_string_control_chars = (): void => {
   // String with raw tab character (should be handled leniently)

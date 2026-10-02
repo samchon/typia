@@ -11,7 +11,6 @@ import { CamelCase } from "@typia/interface";
  * 1. Camelize a battery of representative key spellings.
  * 2. Camelize through nested objects and arrays.
  * 3. Confirm Date survives and a method member becomes `never`.
- *
  */
 export type CamelCaseCases = [
   Assert<IsEqual<CamelCase<Battery>, ExpectedBattery>>,

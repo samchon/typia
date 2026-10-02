@@ -23,7 +23,6 @@ import { OpenApiValidator } from "@typia/utils";
  *    format.
  * 3. Keep the negative regressions: a bare integer/number invents no format, and a
  *    number never echoes a format its validator does not report.
- *
  */
 export const test_openapi_naming_numeric_constraints = (): void => {
   const matrix: Array<{

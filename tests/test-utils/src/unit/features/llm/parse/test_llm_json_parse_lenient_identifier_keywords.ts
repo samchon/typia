@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise uppercase/mixed keywords, NaN/Infinity/undefined, boolean aliases,
  *    longer identifiers, missing opening quotes and EOF recovery.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_identifier_keywords = (): void => {
   // Uppercase TRUE - not recognized as boolean (treated as invalid identifier)

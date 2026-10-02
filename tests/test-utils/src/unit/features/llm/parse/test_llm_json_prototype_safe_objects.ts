@@ -13,7 +13,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise native/fallback reserved keys, nested constructor keys, inherited
  *    required fields, reserved-name coercion and cyclic schema aliases.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_prototype_safe_objects = (): void => {
   for (const [label, input] of [

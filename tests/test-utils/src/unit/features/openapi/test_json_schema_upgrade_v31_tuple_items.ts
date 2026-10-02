@@ -14,7 +14,6 @@ import { OpenApiConverter, OpenApiValidator } from "@typia/utils";
  * 2. Downgrade emended tuples and compare independently authored raw fields.
  * 3. Validate roundtrip rest and minimum-length boundaries, including empty closed
  *    tuples and ordinary arrays with boolean or omitted items.
- *
  */
 export const test_json_schema_upgrade_v31_tuple_items = (): void => {
   const schemaRest = upgrade({

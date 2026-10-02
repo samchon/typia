@@ -1,7 +1,4 @@
-/**
- * Fixed Markdown-bearing controller output for adapter delivery checks.
- *
- */
+/** Fixed Markdown-bearing controller output for adapter delivery checks. */
 export class TicketSearch {
   /**
    * Search support tickets.
@@ -9,7 +6,6 @@ export class TicketSearch {
    * @param props Search query
    *
    * @returns Matching ticket summary in Markdown
-   *
    */
   public searchTickets(props: TicketSearch.IProps): TicketSearch.IResult {
     void props;
@@ -20,19 +16,13 @@ export class TicketSearch {
 }
 
 export namespace TicketSearch {
-  /**
-   * Required query argument used to call the fixture tool.
-   *
-   */
+  /** Required query argument used to call the fixture tool. */
   export interface IProps {
     /** Search query */
     query: string;
   }
 
-  /**
-   * Markdown summary returned by the fixture.
-   *
-   */
+  /** Markdown summary returned by the fixture. */
   export interface IResult {
     /** Markdown text for model-facing ticket context */
     content: string;

@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise punctuation, numbers, quoted text, long and multilingual prefixes,
  *    array-looking text, and trailing objects or prose.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_findJsonStart_junk_prefix =
   (): void => {

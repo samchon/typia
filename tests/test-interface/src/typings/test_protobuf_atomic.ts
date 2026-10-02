@@ -10,7 +10,6 @@ import { ProtobufAtomic } from "@typia/interface";
  * 1. Compare the full union and each sub-union with their literals.
  * 2. Confirm `Numeric` and `BigNumeric` are assignable to `ProtobufAtomic`.
  * 3. Confirm `BigNumeric` is assignable to `Numeric`.
- *
  */
 export type ProtobufAtomicCases = [
   Assert<

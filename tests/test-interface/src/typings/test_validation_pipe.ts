@@ -11,7 +11,6 @@ import { ValidationPipe } from "@typia/interface";
  * 1. Compare `ValidationPipe` with the explicit two-arm union.
  * 2. Narrow on `success` and read `data` / `errors`.
  * 3. Confirm reading `data` without narrowing is rejected.
- *
  */
 export type ValidationPipeCases = [
   Assert<
@@ -31,7 +30,6 @@ export type ValidationPipeCases = [
  *
  * 1. Typecheck the authored signature or constraint.
  * 2. Require the stated acceptance or expected diagnostic.
- *
  */
 export const read = (r: ValidationPipe<number, Error>): number =>
   r.success ? r.data : r.errors.length;
@@ -44,7 +42,6 @@ export const read = (r: ValidationPipe<number, Error>): number =>
  *
  * 1. Typecheck the authored signature or constraint.
  * 2. Require the stated acceptance or expected diagnostic.
- *
  */
 export const bad = (r: ValidationPipe<number, Error>): number =>
   // @ts-expect-error `data` exists only on the success arm.

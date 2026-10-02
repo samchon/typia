@@ -17,7 +17,6 @@ import { HttpMigration } from "@typia/utils";
  * 1. Resolve an own `toString` query-object component.
  * 2. Ignore an inherited-only component with the same object shape.
  * 3. Require route composition to preserve own component membership.
- *
  */
 export const test_http_migrate_prototype_safe_components = (): void => {
   const schemas = Object.assign(

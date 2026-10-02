@@ -25,7 +25,6 @@ import assert from "node:assert/strict";
  *
  * Native `node:assert` verifies the caught outcome independently of the shared
  * comparison under test.
- *
  */
 export const test_total_comparison_shape = (): void => {
   interface IReport {

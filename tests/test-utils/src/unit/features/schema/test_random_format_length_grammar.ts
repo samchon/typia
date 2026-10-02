@@ -131,7 +131,6 @@ const DRAWS = 8;
  *    format's own validator accepts.
  * 3. Require an unrealizable length to throw instead of yielding an invalid value,
  *    and require one-sided windows to respect their single bound.
- *
  */
 export const test_random_format_length_grammar = (): void => {
   const failures: string[] = [];

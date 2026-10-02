@@ -13,7 +13,6 @@ import { Classifiable } from "@typia/interface";
  * 2. A `ReadonlyMap<string, Box>` becomes `ReadonlyMap<string, Plain> | [string,
  *    Plain][]`.
  * 3. The method-bearing element `Box` is classified to plain `Plain`.
- *
  */
 export type ClassifiableReadonlyCollectionCases = [
   Assert<IsEqual<Classifiable<ReadonlySet<Box>>, ReadonlySet<Plain> | Plain[]>>,

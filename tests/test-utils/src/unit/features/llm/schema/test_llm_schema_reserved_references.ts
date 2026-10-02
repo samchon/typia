@@ -24,7 +24,6 @@ import {
  *    definitions.
  * 2. Assert own-key presence, unchanged prototypes, unresolved-reference failure
  *    and version-conversion preservation.
- *
  */
 export const test_llm_schema_reserved_references = (): void => {
   const schemas = Object.fromEntries([

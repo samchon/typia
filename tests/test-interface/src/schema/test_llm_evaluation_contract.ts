@@ -17,7 +17,6 @@ import type { Experimental_EvaluationQuestion as EvaluationQuestion } from "ai";
  * 2. Assert every question type is assignable to AI SDK's question type, and a
  *    question map to its `experimental_evaluate` input.
  * 3. Assert `tags.Probability` keeps booleans and literals assignable.
- *
  */
 export type LlmEvaluationContractCases = [
   // the local shape

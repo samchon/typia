@@ -15,7 +15,6 @@ import { LlmSchemaConverter, LlmTypeChecker } from "@typia/utils";
  *    optional-string members.
  * 2. Retain both original any coverage checks and assert both reverse negative
  *    directions.
- *
  */
 export const test_llm_type_checker_cover_any = () => {
   const collection: IJsonSchemaCollection = {

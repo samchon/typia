@@ -13,7 +13,6 @@ import assert from "node:assert/strict";
  * 1. Validate a clean object against an authored union's valid branch.
  * 2. Spoil its numeric field with missing, malformed and cyclic neighbor refs.
  * 3. Require the helper to identify each reference failure explicitly.
- *
  */
 export const test_openapi_validation_invalid_references = (): void => {
   const leaf: OpenApi.IJsonSchema = {

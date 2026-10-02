@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise multiple emoji, mixed text, high-regular/high-high/lone-low code
  *    units and EOF pair/high-surrogate values.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_unicode_multiple_surrogates =
   (): void => {

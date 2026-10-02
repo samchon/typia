@@ -29,7 +29,6 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  *    group-contained lengths and as a group's field tag.
  * 3. Preserve the decoded value of every accepted row, exact pointer advancement,
  *    and the trailing byte behind it.
- *
  */
 export const test_protobuf_reader_varint_bounds = (): void => {
   const entries: ProtobufVarintCorpus.IEntry[] = ProtobufVarintCorpus.entries();

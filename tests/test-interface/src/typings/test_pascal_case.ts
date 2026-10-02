@@ -11,7 +11,6 @@ import { PascalCase } from "@typia/interface";
  * 1. Pascalize a battery of representative key spellings.
  * 2. Pascalize through nested objects and arrays.
  * 3. Confirm Date survives and a method member becomes `never`.
- *
  */
 export type PascalCaseCases = [
   Assert<IsEqual<PascalCase<Battery>, ExpectedBattery>>,

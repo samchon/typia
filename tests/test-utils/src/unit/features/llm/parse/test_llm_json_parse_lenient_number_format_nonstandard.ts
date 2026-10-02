@@ -12,7 +12,6 @@ import { LlmJson } from "@typia/utils";
  *    hex/octal/binary prefixes, trailing identifiers, double signs,
  *    safe-integer overflow and large/infinite exponents.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_number_format_nonstandard =
   (): void => {

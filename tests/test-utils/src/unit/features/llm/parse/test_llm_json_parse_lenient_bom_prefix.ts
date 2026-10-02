@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  *
  * 1. Prefix an object, an array and a whitespace-separated object with U+FEFF.
  * 2. Assert success and compare each result to its literal JSON data.
- *
  */
 export const test_llm_json_parse_lenient_bom_prefix = (): void => {
   // UTF-8 BOM prefix before JSON object

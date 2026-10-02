@@ -14,7 +14,6 @@ import { _stringLengthLte } from "typia/lib/internal/_stringLengthLte";
  * 1. Compare both helpers with a code-point-count oracle over boundary values.
  * 2. Count reads with a test-owned iterable probe, leaving global methods intact.
  * 3. Require zero-bound checks to return without opening the iterator at all.
- *
  */
 export const test_validate_string_length_short_circuit = (): void => {
   const values: string[] = [

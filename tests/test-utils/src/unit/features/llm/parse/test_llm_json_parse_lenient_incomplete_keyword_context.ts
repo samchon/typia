@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise true/false/null prefixes, one-letter booleans, comma boundaries and
  *    mixed complete values.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_incomplete_keyword_context =
   (): void => {

@@ -10,7 +10,6 @@ import { SnakeCase } from "@typia/interface";
  * 1. Snake-case a battery of representative key spellings.
  * 2. Snake-case through nested objects and arrays.
  * 3. Confirm Date survives and a method member becomes `never`.
- *
  */
 export type SnakeCaseCases = [
   Assert<IsEqual<SnakeCase<Battery>, ExpectedBattery>>,

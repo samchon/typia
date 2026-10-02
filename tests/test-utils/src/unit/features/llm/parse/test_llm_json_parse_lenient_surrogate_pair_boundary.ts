@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise closed and EOF strings, complete/lone/high-high pairs, text/escape
  *    neighbors, invalid low hex, multiple emoji and flag code units.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_surrogate_pair_boundary = (): void => {
   // High surrogate at exact end of closed string

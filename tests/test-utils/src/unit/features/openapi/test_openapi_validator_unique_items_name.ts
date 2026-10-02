@@ -14,7 +14,6 @@ import { OpenApiValidator } from "@typia/utils";
  * 2. Read the expected type of the reported error.
  * 3. Require the uniqueness tag only for `true`, and duplicates accepted for
  *    `false`.
- *
  */
 export const test_openapi_validator_unique_items_name = (): void => {
   const schema = (uniqueItems?: boolean): OpenApi.IJsonSchema => ({

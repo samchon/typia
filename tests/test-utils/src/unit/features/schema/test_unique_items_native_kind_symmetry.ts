@@ -2,10 +2,7 @@ import { OpenApiValidator } from "@typia/utils";
 import assert from "node:assert/strict";
 import { _isUniqueItems } from "typia/lib/internal/_isUniqueItems";
 
-/**
- * Verifies native equality categories in both operand orders.
- *
- */
+/** Verifies native equality categories in both operand orders. */
 export const test_unique_items_native_kind_symmetry = (): void => {
   const factories: [string, () => object][] = [
     ["Set", () => new Set([1])],

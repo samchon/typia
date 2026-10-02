@@ -12,7 +12,6 @@ import assert from "node:assert/strict";
  * 1. Compare complete data for closed and EOF-truncated escape prefixes.
  * 2. Contrast valid hexadecimal and surrogate escapes with malformed text.
  * 3. Verify following fields through direct and schema-directed parsing.
- *
  */
 export const test_llm_json_parse_unicode_string_boundary = (): void => {
   const cases: Array<[string, string, unknown]> = [

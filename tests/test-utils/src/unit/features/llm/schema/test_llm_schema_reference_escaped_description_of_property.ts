@@ -15,7 +15,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  *    in strict mode.
  * 2. Retain the original missing-description assertion and compare the exact
  *    reference and target fields.
- *
  */
 export const test_llm_schema_reference_escaped_description_of_property =
   (): void => {

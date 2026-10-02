@@ -19,7 +19,6 @@ import { TestGlobal } from "../../../../TestGlobal";
  * 2. Assert at least one route accessor joined by underscores exceeds 64
  *    characters.
  * 3. Assert every function name is at most 64 characters and all names are unique.
- *
  */
 export const test_http_llm_application_function_name_length =
   async (): Promise<void> => {

@@ -18,7 +18,6 @@ import assert from "node:assert/strict";
  * 2. Preserve coverage when only the covering schema makes that key optional.
  * 3. Repeat the distinction through nested objects and local references.
  * 4. Preserve all eight authored additional-property/required rows moved from E2E.
- *
  */
 export const test_schema_cover_required_properties = (): void => {
   const required = {

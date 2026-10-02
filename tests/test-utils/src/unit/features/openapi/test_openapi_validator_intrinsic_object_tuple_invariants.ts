@@ -15,7 +15,6 @@ import { OpenApiValidator } from "@typia/utils";
  * 2. Reject non-finite numbers and unresolved inherited references.
  * 3. Exercise tuple min/max/unique, optional prefixes, required present elements,
  *    typed rest items, false rest items, and empty tuples.
- *
  */
 export const test_openapi_validator_intrinsic_object_tuple_invariants =
   (): void => {

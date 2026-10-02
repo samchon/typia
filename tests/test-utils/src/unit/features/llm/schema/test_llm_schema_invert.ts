@@ -14,7 +14,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  *    schemas with the original constraints.
  * 2. Retain each original constraint comparison and add strict descriptor
  *    restoration with an ordinary-prose control.
- *
  */
 export const test_llm_schema_invert = (): void => {
   const validate = (title: string, schema: ILlmSchema): void => {

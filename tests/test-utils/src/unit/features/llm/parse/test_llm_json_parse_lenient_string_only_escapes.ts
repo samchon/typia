@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise newlines, tabs, quotes, backslashes, alternating controls,
  *    known/unknown mixtures and Unicode-only content.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_string_only_escapes = (): void => {
   // String that is entirely escape sequences

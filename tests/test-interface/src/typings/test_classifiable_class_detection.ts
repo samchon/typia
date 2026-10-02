@@ -20,7 +20,6 @@ import { Classifiable } from "@typia/interface";
  * 2. A data field named `prototype` is field-copied whole, not treated as a class.
  * 3. `from` returning an unrelated/`any` type is ignored; `from` returning
  *    `Instance | null` is honored.
- *
  */
 export type ClassifiableClassDetectionCases = [
   Assert<IsEqual<Classifiable<typeof Singleton>, { value: number }>>,

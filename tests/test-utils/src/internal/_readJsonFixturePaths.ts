@@ -7,7 +7,6 @@ import path from "path";
  * Flat files and nested directories are both supported. Symlinks are not
  * followed, so directory cycles cannot expand this fixture walk. Callers read
  * and parse each file afresh; this helper shares no mutable document state.
- *
  */
 export const _readJsonFixturePaths = async (
   root: string,

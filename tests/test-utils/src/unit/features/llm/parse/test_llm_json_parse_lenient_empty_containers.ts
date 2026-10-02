@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Parse empty object and array inputs, then nested and repeated empty
  *    containers.
  * 2. Compare every returned shape and include whitespace-surrounded empty inputs.
- *
  */
 export const test_llm_json_parse_lenient_empty_containers = (): void => {
   // Empty object

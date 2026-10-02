@@ -17,7 +17,6 @@ import { NamingConvention } from "@typia/utils";
  * 2. Convert underscore-plus-case-boundary, all-caps, and trailing-underscore keys
  *    (#2193), including the `a_b_c` single-char-middle asymmetry.
  * 3. Convert degenerate inputs (empty, underscores only, single word).
- *
  */
 export const test_naming_convention_camel = (): void => {
   const expectations: [string, string][] = [

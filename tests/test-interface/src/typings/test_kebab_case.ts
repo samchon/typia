@@ -10,7 +10,6 @@ import { KebabCase } from "@typia/interface";
  * 1. Kebab-case a battery of representative key spellings.
  * 2. Kebab-case through nested objects and arrays.
  * 3. Confirm Date survives and a method member becomes `never`.
- *
  */
 export type KebabCaseCases = [
   Assert<IsEqual<KebabCase<Battery>, ExpectedBattery>>,

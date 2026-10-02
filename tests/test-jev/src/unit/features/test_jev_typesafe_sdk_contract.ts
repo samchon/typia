@@ -16,7 +16,6 @@ import { TestEquality } from "@typia/template/equality";
  * 2. Assert a converted question map fits the `systemOne` request.
  * 3. Assert a converted score keeps its two-level tuple at runtime; the SDK answer
  *    map needs no check, because `decode()` takes `unknown`.
- *
  */
 export const test_jev_typesafe_sdk_contract = (): void => {
   // each element type is `true` only when the assignment holds

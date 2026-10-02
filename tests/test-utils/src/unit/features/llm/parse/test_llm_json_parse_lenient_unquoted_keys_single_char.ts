@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Parse dollar and underscore keys separately, together and with a nested
  *    value.
  * 2. Compare complete data for dollar-digit and underscore-dollar names as well.
- *
  */
 export const test_llm_json_parse_lenient_unquoted_keys_single_char =
   (): void => {

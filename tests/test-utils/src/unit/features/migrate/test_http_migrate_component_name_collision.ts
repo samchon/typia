@@ -20,7 +20,6 @@ import { HttpMigration, OpenApiConverter } from "@typia/utils";
  * 3. Assert the path order, not the document order, decides the plain component
  *    name and accessor, that migrating the migrated document again keeps every
  *    name, and that a failed route takes no name from a valid one.
- *
  */
 export const test_http_migrate_component_name_collision = (): void => {
   const object = (key: string): OpenApi.IJsonSchema.IObject => ({

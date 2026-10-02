@@ -15,7 +15,6 @@ import { LlmSchemaConverter, OpenApiTypeChecker } from "@typia/utils";
  *    complete component field constraints.
  * 2. Remove only discriminator metadata and require the same variants without an
  *    invented discriminator.
- *
  */
 export const test_llm_schema_discriminator = (): void => {
   const $defs: Record<string, ILlmSchema> = {

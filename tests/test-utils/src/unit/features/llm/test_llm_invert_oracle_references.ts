@@ -14,7 +14,6 @@ import { _test_llm_invert } from "../../../internal/_test_llm_invert";
  *    references.
  * 2. Reject a different target, missing target, inherited target and alias cycle.
  * 3. Compare independently authored recursive objects without infinite expansion.
- *
  */
 export const test_llm_invert_oracle_references = (): void => {
   const compare = (

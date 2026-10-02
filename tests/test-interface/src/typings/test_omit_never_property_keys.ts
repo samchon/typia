@@ -13,7 +13,6 @@ declare const retained: unique symbol;
  * 1. Mix string, number, and symbol `never` properties with ordinary data.
  * 2. Apply `OmitNever` to the object.
  * 3. Require only the ordinary string, number, and symbol data keys to remain.
- *
  */
 export type OmitNeverPropertyKeyCases = [
   Assert<

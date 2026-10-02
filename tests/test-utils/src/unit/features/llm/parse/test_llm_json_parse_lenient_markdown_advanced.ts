@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise marker/closer whitespace, multiple blocks, empty/whitespace-only
  *    content, incomplete nesting, CRLF and surrounding prose.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_markdown_advanced = (): void => {
   // Markdown with extra whitespace after ```json

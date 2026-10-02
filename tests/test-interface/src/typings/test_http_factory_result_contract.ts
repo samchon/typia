@@ -20,7 +20,6 @@ interface IPlain {
  * 1. Compare all thirteen HTTP factories with their exact direct return types.
  * 2. Preserve the plain-interface result control.
  * 3. Reject method calls on four representative decoded class results.
- *
  */
 export type HttpFactoryResultCases = [
   Assert<
@@ -125,7 +124,6 @@ declare const assertHeadersResult: ReturnType<
  * Each result declaration uses the exact original factory return type; it
  * replaces an unevaluated factory call so no native producer is needed merely
  * to typecheck whether twice is callable.
- *
  */
 export const methodOnFactoryResult = () => [
   // @ts-expect-error a decoded Query has no callable twice method.

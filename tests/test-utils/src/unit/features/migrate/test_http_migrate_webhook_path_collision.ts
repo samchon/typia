@@ -19,7 +19,6 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
  *    schema, with no error, and that the path operations keep their plain
  *    accessors and component names while a colliding webhook's are escaped.
  * 3. Assert `HttpLlm` names one function per route after its accessor.
- *
  */
 export const test_http_migrate_webhook_path_collision = (): void => {
   const response = (key: string): OpenApi.IOperation.IResponse => ({

@@ -11,7 +11,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  *
  * 1. Convert an authored null/number OpenAPI union.
  * 2. Compare both complete LLM alternatives and the number-only negative twin.
- *
  */
 export const test_llm_schema_nullable = (): void => {
   const collection: IJsonSchemaCollection = {

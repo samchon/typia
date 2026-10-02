@@ -11,7 +11,6 @@ import { DeepPartial } from "@typia/interface";
  * 1. Apply `DeepPartial` to parameterized, rest, overloaded, and generic calls.
  * 2. Apply it to concrete and abstract constructor signatures.
  * 3. Preserve the same signatures through nested properties and unions.
- *
  */
 export type DeepPartialCallableCases = [
   Assert<IsEqual<DeepPartial<Parameterized>, Parameterized>>,

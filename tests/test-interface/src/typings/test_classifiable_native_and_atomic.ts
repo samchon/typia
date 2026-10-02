@@ -13,7 +13,6 @@ import { Classifiable } from "@typia/interface";
  * 1. Apply `Classifiable` to each native class and boxed/atomic type.
  * 2. Compare against the preserved native or unwrapped primitive.
  * 3. Confirm native members survive intact when nested inside a class.
- *
  */
 export type ClassifiableNativeAtomicCases = [
   // native classes preserved

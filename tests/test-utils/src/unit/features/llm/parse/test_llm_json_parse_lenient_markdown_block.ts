@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise fences before/after prose, unclosed fences, quoted markers, arrays,
  *    nesting, plain backticks, comments and unquoted keys.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_markdown_block = (): void => {
   // Basic markdown code block

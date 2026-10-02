@@ -21,7 +21,6 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  *    varint the buffer truncates before that limit still reports overflow.
  * 3. Assert every fault carries the standard prefix and restores the reader, and
  *    that legal wire types and legal ten-byte values are left untouched.
- *
  */
 export const test_protobuf_reader_unknown_field_faults = (): void => {
   //----

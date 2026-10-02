@@ -15,7 +15,6 @@ import { TestEquality } from "@typia/template/equality";
  * 2. Convert them to the native wire format.
  * 3. Assert the renamed booleans, the passed-through choice and score, the own
  *    `__proto__` key, and the unchanged input.
- *
  */
 export const test_jev_questions = (): void => {
   const empty: Record<string, IJevQuestion> = toJevQuestions({});

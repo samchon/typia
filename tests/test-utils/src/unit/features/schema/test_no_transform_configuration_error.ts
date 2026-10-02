@@ -37,7 +37,6 @@ const EXPECTED = [
  * 1. Alias `typia.json.schema` so the invocation remains untransformed.
  * 2. Require the fallback to identify the API, supported toolchains, diagnostic
  *    command, unsupported compilers, and setup documentation.
- *
  */
 export const test_no_transform_configuration_error = (): void => {
   const schema: () => never = typia.json.schema;

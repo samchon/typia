@@ -16,7 +16,6 @@ import { Classifiable } from "@typia/interface";
  * 2. A `constructor(seed: String)` (boxed) yields `string`, not `string[]`.
  * 3. A tuple seed PRESERVES its shape (arity/positions/readonly), while a `Set`
  *    seed — which has no JSON form of its own — renders as its element array.
- *
  */
 export type ClassifiableSeedRecursionCases = [
   Assert<IsEqual<Classifiable<typeof NestedSeed>, { inner: PlainInner }>>,

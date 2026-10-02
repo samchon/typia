@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise positive/negative numbers, strings, both booleans, null, surrounding
  *    prose and an escaped newline.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_markdown_primitive = (): void => {
   // Number in markdown code block

@@ -13,7 +13,6 @@ import assert from "node:assert/strict";
  * 1. Author discriminated object schemas with ordinary and escaped aliases.
  * 2. Check clean acceptance and literal spoiled paths at root and nested sites.
  * 3. Execute the shared oracle with those authored inputs and spoiler paths.
- *
  */
 export const test_openapi_validation_reference_paths = (): void => {
   const scenarios = [

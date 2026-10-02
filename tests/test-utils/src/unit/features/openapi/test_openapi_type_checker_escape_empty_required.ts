@@ -12,7 +12,6 @@ import { OpenApiTypeChecker } from "@typia/utils";
  * 1. Escape a referenced optional-only object schema.
  * 2. Escape a `oneOf` wrapper carrying an empty `required` sibling.
  * 3. Assert escaped objects and wrappers do not own a `required` key.
- *
  */
 export const test_openapi_type_checker_escape_empty_required = (): void => {
   const escaped = OpenApiTypeChecker.escape({

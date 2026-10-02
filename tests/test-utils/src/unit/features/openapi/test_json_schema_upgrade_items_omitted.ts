@@ -21,7 +21,6 @@ import { OpenApiConverter, OpenApiValidator } from "@typia/utils";
  * 2. Require each upgrade to emit the open `items: {}` array form.
  * 3. Validate empty, populated, and non-array values against each result.
  * 4. Require a present `items` to survive untouched beside the omitted case.
- *
  */
 export const test_json_schema_upgrade_items_omitted = (): void => {
   const versions: [string, OpenApi.IJsonSchema][] = [

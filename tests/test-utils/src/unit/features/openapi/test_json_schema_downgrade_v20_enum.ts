@@ -13,7 +13,6 @@ import { OpenApiConverter, OpenApiTypeChecker } from "@typia/utils";
  * 1. Downgrade scalar string, number, and boolean constants.
  * 2. Group duplicate same-type constants and preserve mixed-type branches.
  * 3. Assert top-level attributes and nullable union behavior remain intact.
- *
  */
 export const test_json_schema_downgrade_v20_enum = (): void => {
   const convert = (schema: OpenApi.IJsonSchema): SwaggerV2.IJsonSchema =>

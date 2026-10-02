@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise positive/negative/zero-leading decimals, lower/uppercase exponents,
  *    signs and combined decimal/exponent values.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_number_in_lenient_path = (): void => {
   // =========================================================================

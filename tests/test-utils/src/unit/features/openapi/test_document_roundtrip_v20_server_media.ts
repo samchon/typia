@@ -16,7 +16,6 @@ import { OpenApiConverter } from "@typia/utils";
  *    precedence.
  * 3. Downgrade the emended document and verify schemes, host, basePath, consumes,
  *    and produces remain semantically equivalent.
- *
  */
 export const test_document_roundtrip_v20_server_media = (): void => {
   const input: SwaggerV2.IDocument = {

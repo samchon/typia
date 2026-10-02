@@ -16,7 +16,6 @@ import { _readJsonFixturePaths } from "../../../internal/_readJsonFixturePaths";
  * 1. Create flat, nested and non-JSON files in a fresh temporary directory.
  * 2. Compare the selected native paths with the two authored JSON filenames.
  * 3. Require an empty directory to fail and release the temporary tree in finally.
- *
  */
 export const test_json_fixture_population = async (): Promise<void> => {
   const root: string = await fs.promises.mkdtemp(

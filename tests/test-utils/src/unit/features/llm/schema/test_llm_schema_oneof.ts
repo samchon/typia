@@ -15,7 +15,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 2. Retain success, exact alternative count and every independently expected
  *    discriminator literal, then compare all four exact references and their
  *    mapping.
- *
  */
 export const test_llm_schema_oneof = (): void => {
   const collection: IJsonSchemaCollection = {

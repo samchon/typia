@@ -21,7 +21,6 @@ import { NamingConvention } from "@typia/utils";
  * 2. Assert every strict-mode future reserved word is reserved.
  * 3. Assert `eval`/`arguments` are not reserved words, though not valid bindings.
  * 4. Assert ordinary names are not reserved, and pin the `module` policy.
- *
  */
 export const test_naming_convention_reserved = (): void => {
   // 1. ECMAScript ReservedWord (ECMA-262, Keywords and Reserved Words)

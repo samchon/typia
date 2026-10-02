@@ -11,7 +11,6 @@ import { OpenApiV3_1, OpenApiV3_2 } from "@typia/interface";
  * 1. Check false, true, schema and omitted items with and without a prefix.
  * 2. Preserve legacy tuple items and mixed array/null boolean items.
  * 3. Reject numeric and string items in ordinary and mixed array schemas.
- *
  */
 export type OpenApiArrayItemsCases = [
   Assert<ArrayAccepted<{ type: "array"; prefixItems: [{ type: "string" }] }>>,

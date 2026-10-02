@@ -27,7 +27,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * @param llm LLM schema to invert
  * @param $defs Definitions `llm` was written into
  * @param json OpenAPI schema of the same type
- *
  */
 export const _test_llm_invert = (
   title: string,

@@ -11,7 +11,6 @@ import { _isUniqueItems } from "typia/lib/internal/_isUniqueItems";
  * 1. Compare independently authored duplicate and distinct container twins.
  * 2. Preserve ordering, visible-byte, brand, key and cyclic-state distinctions.
  * 3. Keep optional platform branches without replacing absent constructors.
- *
  */
 export const test_validate_unique_items_structural_helper = (): void => {
   const duplicateObject = { id: 1 };

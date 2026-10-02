@@ -10,7 +10,6 @@ import assert from "node:assert/strict";
  * 1. Validate dotted, encoded and exploded names against the format.
  * 2. Reject empty dotted runs and a misplaced operator.
  * 3. Check both direct validation and constant-schema coverage decisions.
- *
  */
 export const test_openapi_uri_template_dotted_variables = (): void => {
   const schema = { type: "string" as const, format: "uri-template" };

@@ -13,7 +13,6 @@ declare const miss: unique symbol;
  * 1. Declare matching and non-matching string, number, and symbol properties.
  * 2. Select the number-valued keys.
  * 3. Require the exact three-kind key union without false positives.
- *
  */
 export type SpecialFieldsPropertyKeyCases = [
   Assert<

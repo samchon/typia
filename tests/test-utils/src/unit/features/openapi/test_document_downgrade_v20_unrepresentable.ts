@@ -15,7 +15,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 3. Attempt to downgrade request and response media entries with different
  *    schemas or unrepresentable examples.
  * 4. Assert every lossy case reports a TypeError with its exact diagnostic.
- *
  */
 export const test_document_downgrade_v20_unrepresentable = (): void => {
   const document = (props: Partial<OpenApi.IDocument>): OpenApi.IDocument => ({

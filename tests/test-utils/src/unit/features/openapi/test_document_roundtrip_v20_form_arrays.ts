@@ -13,7 +13,6 @@ import { OpenApiConverter, OpenApiTypeChecker } from "@typia/utils";
  * 1. Upgrade nested and nullable Swagger form array parameters.
  * 2. Assert the emended field shapes retain both array boundaries and null.
  * 3. Downgrade the document and compare the original parameter contracts.
- *
  */
 export const test_document_roundtrip_v20_form_arrays = (): void => {
   const input: SwaggerV2.IDocument = {

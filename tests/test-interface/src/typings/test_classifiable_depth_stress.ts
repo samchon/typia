@@ -15,7 +15,6 @@ import { Classifiable } from "@typia/interface";
  * 1. Declare nine interlinked classes forming deep + wide + cyclic structure.
  * 2. Resolve `Classifiable` over the root and assign a deep plain value.
  * 3. Assert a leaf class flattens to its method-free property shape.
- *
  */
 export type ClassifiableDepthStressCases = [
   Assert<IsEqual<Classifiable<Leaf>, PlainLeaf>>,

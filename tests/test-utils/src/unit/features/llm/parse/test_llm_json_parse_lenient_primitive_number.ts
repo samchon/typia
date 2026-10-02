@@ -9,7 +9,6 @@ import { LlmJson } from "@typia/utils";
  *
  * 1. Parse an integer, a negative decimal and a whitespace-prefixed integer.
  * 2. Assert both successful parsing and each exact numeric value.
- *
  */
 export const test_llm_json_parse_lenient_primitive_number = (): void => {
   // Primitive number at root level (no junk skipping)

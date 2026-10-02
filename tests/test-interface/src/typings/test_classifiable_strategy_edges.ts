@@ -13,7 +13,6 @@ import { Classifiable } from "@typia/interface";
  * 1. Default / no-arg constructors collapse to the property shape only.
  * 2. Rest-parameter constructor and two-argument `from` behave per the rule.
  * 3. A cyclic class recurses through the property arm (methods omitted).
- *
  */
 export type ClassifiableStrategyEdgeCases = [
   // default constructor → property shape only (must NOT become `unknown`)

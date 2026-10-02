@@ -17,7 +17,6 @@ import { TestGlobal } from "../../../../TestGlobal";
  * 1. Load the swagger fixture and upgrade it to the emended format.
  * 2. Compose the application through `HttpLlm.application()`.
  * 3. Assert `application.version` mirrors `document.info.version`.
- *
  */
 export const test_http_llm_application_version = async (): Promise<void> => {
   const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument(

@@ -16,7 +16,6 @@ import { CamelCase, KebabCase, PascalCase, SnakeCase } from "@typia/interface";
  * 1. Assert `SnakeCase`/`KebabCase`/`CamelCase`/`PascalCase` over the witness
  *    interface.
  * 2. Cover trailing, leading, and internal underscores plus all-caps segments.
- *
  */
 export type NotationUnderscoreBoundaryCases = [
   Assert<IsEqual<SnakeCase<Battery>, ExpectedSnake>>,

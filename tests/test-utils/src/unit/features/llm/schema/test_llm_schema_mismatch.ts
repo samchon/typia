@@ -13,7 +13,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  *    absent component names.
  * 2. Retain every exact failure accessor, then restore the valid references and
  *    require conversion success.
- *
  */
 export const test_llm_schema_mismatch = (): void => {
   const collection: IJsonSchemaCollection = {

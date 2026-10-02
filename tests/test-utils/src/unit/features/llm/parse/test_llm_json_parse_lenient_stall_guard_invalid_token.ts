@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  *    alternating closers, retained own missing-value fields and mixed nested
  *    recovery.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_stall_guard_invalid_token =
   (): void => {

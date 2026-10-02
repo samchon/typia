@@ -14,7 +14,6 @@ import { HttpError, HttpMigration } from "@typia/utils";
  *    bodies.
  * 2. Read repeated Set-Cookie fields and structured HttpError JSON.
  * 3. Check every host/path slash boundary without rewriting the base path.
- *
  */
 export const test_http_migrate_response_contract = async (): Promise<void> => {
   const application = HttpMigration.application(document);

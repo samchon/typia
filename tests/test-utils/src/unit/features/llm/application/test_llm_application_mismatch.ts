@@ -16,7 +16,6 @@ import { HttpLlm } from "@typia/utils";
  * 1. Compose three request bodies referring to absent component names.
  * 2. Compare the original rejected population and all diagnostic accessors.
  * 3. Correct only the three reference names and require valid body acceptance.
- *
  */
 export const test_llm_application_mismatch = (): void => {
   const collection: IJsonSchemaCollection = {

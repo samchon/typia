@@ -13,7 +13,6 @@ import assert from "node:assert/strict";
  * 1. Assert literal leaf and ambiguous-owner diagnostics on authored schemas.
  * 2. Execute valid and deliberately missing, extra or repeated spoiler oracles.
  * 3. Cover array discrimination, empty values and invalid path syntax.
- *
  */
 export const test_openapi_validation_path_grouping = (): void => {
   const schema: OpenApi.IJsonSchema = {

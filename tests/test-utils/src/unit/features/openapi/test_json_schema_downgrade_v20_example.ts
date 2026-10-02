@@ -12,7 +12,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 1. Build an emended schema oneOf integer and null with a title and example.
  * 2. Downgrade it to Swagger 2.
  * 3. Assert an integer with x-nullable, the title and the example.
- *
  */
 export const test_json_schema_downgrade_v20_example = (): void => {
   const input: OpenApi.IJsonSchema = {

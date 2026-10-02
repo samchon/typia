@@ -14,7 +14,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 1. Build an OpenAPI 3.2 string schema with raw examples.
  * 2. Upgrade the schema to typia's emended representation.
  * 3. Assert the array is converted to a deterministic named record.
- *
  */
 export const test_json_schema_upgrade_v32_examples = (): void => {
   const input: OpenApiV3_2.IJsonSchema = {

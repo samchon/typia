@@ -11,7 +11,6 @@ import { tags } from "@typia/interface";
  * 1. Accept readonly, mutable, empty, and bigint-containing tuples.
  * 2. Preserve the array target and JSON-safe bigint schema value.
  * 3. Reject open mutable and readonly array types at the generic boundary.
- *
  */
 export type DefaultArrayCases = [
   tags.Default<typeof HEADERS>,
@@ -35,7 +34,6 @@ type BigintProps = NonNullable<tags.Default<readonly [1n, 2n]>["typia.tag"]>;
  *
  * 1. Typecheck the authored signature or constraint.
  * 2. Require the stated acceptance or expected diagnostic.
- *
  */
 export type MutableOpenArrayDefault =
   // @ts-expect-error an open array does not carry one concrete default value.
@@ -50,7 +48,6 @@ export type MutableOpenArrayDefault =
  *
  * 1. Typecheck the authored signature or constraint.
  * 2. Require the stated acceptance or expected diagnostic.
- *
  */
 export type ReadonlyOpenArrayDefault =
   // @ts-expect-error a readonly open array is not a literal tuple either.

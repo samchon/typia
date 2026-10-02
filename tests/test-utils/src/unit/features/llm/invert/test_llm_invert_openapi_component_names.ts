@@ -16,7 +16,6 @@ import { LlmSchemaConverter, OpenApiTypeChecker } from "@typia/utils";
  * 2. Invert them in several orders.
  * 3. Assert every allocated key is legal, keys stay distinct and the mapping is
  *    order independent.
- *
  */
 export const test_llm_invert_openapi_component_names = (): void => {
   const keys: string[] = [

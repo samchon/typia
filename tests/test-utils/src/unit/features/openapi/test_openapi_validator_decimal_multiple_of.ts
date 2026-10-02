@@ -12,7 +12,6 @@ import { OpenApiValidator } from "@typia/utils";
  * 1. Accept decimal, negative, integer, scientific, and extreme finite cases.
  * 2. Reject nearby values whose exact decimal quotient is not an integer.
  * 3. Exercise both number and integer schemas through the public validator.
- *
  */
 export const test_openapi_validator_decimal_multiple_of = (): void => {
   const matrices: Array<{

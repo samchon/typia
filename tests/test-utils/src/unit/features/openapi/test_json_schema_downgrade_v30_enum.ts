@@ -11,7 +11,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 1. Build an emended oneOf of three string constants with title and description.
  * 2. Downgrade it to 3.0.
  * 3. Assert a string enum with the same annotations.
- *
  */
 export const test_json_schema_downgrade_v30_enum = () => {
   const schema: OpenApi.IJsonSchema = {

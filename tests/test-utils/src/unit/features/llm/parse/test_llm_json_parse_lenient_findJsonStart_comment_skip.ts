@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise line/block/multiple comments, nested structural text, EOF line
  *    comments and comments within the recovered object.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_findJsonStart_comment_skip =
   (): void => {

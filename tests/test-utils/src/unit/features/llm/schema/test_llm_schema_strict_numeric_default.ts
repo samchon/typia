@@ -20,7 +20,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  *    reference inputs.
  * 2. Compare exact description strings and assert removal of the original default
  *    field.
- *
  */
 export const test_llm_schema_strict_numeric_default = (): void => {
   const cases: Array<{

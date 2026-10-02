@@ -10,7 +10,6 @@ import { Primitive, tags } from "@typia/interface";
  * 1. Compare every tuple and array form with its authored output type.
  * 2. Accept valid empty/short/long repeats and reject changed literals or
  *    unconverted members.
- *
  */
 export type PrimitiveVariadicTupleCases = [
   Assert<IsEqual<LiteralVariadic, ExpectedLiteralVariadic>>,

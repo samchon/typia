@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise quote, backslash, slash, backspace, formfeed, newline, carriage
  *    return and tab fields.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_escape_standard_path = (): void => {
   // Test all standard escape sequences

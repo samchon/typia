@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Parse comments around object keys, colons, values and array elements.
  * 2. Compare complete data for quoted delimiters, unfinished, empty and
  *    consecutive comments.
- *
  */
 export const test_llm_json_parse_lenient_comments = (): void => {
   // Single-line comment after value

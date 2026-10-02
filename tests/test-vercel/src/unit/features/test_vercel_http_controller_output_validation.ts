@@ -16,7 +16,6 @@ import type { Tool } from "ai";
  * 2. Accept a valid body through the public Vercel tool.
  * 3. Reject a wrong nested body with an actionable validation path.
  * 4. Preserve a thrown HTTP executor exception in the failure branch.
- *
  */
 export const test_vercel_http_controller_output_validation =
   async (): Promise<void> => {

@@ -15,7 +15,6 @@ declare const symbolData: unique symbol;
  * 2. Mix them with optional data, numeric/symbol data, an accessor, overloads, and
  *    inherited members.
  * 3. Require the shallow data-only object with modifiers intact.
- *
  */
 export type ClassPropertiesOptionalMethodCases = [
   Assert<

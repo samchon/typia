@@ -15,7 +15,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 2. Downgrade the emended schemas to 3.1 and 3.0.
  * 3. Assert exact equivalents normalize and custom or conflicting metadata is
  *    preserved.
- *
  */
 export const test_json_schema_byte_content_encoding = (): void => {
   const components: OpenApiV3_1.IComponents = {

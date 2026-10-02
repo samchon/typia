@@ -21,7 +21,6 @@ import { _isLegalDeclaration } from "../../internal/_isLegalDeclaration";
  * 2. Assert every accessor segment and parameter key is a legal binding.
  * 3. Compile the SDK-shaped declaration each route implies.
  * 4. Assert the already-escaped and ordinary routes keep their exact names.
- *
  */
 export const test_http_migrate_route_accessor_identifier = (): void => {
   const words: string[] = [

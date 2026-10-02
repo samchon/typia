@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise all JSON value kinds, nested mixtures, homogeneous null/boolean
  *    arrays, a singleton and escaped string elements.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_mixed_types_array = (): void => {
   // Array with every JSON type

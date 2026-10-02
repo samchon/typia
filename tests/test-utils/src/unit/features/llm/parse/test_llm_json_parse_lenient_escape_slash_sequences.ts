@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise escaped and plain slashes, two/three/four backslashes, and unknown
  *    followed by known escapes.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_escape_slash_sequences = (): void => {
   // Escaped forward slash (valid JSON but rarely used)

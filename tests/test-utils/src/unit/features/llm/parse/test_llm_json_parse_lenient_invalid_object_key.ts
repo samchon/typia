@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  *    valid identifier and quoted-key controls belong to the corresponding key
  *    units.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_invalid_object_key = (): void => {
   // Object key starting with a number is invalid (not a valid identifier)

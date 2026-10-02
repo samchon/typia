@@ -11,7 +11,6 @@ import { LlmJson } from "@typia/utils";
  *    quotes/tabs/newlines, literal backslash-n and all standard escapes
  *    together.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_string_consecutive_escapes =
   (): void => {

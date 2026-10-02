@@ -10,7 +10,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise empty/whitespace input, opener/closer twins, every single digit,
  *    minus, boolean/null prefixes, punctuation and plain text.
  * 2. Compare the retained results with literal expectations.
- *
  */
 export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
   // Single { → empty object

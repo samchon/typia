@@ -22,7 +22,6 @@ import vm from "node:vm";
  *
  *   Inputs are authored fixture identifiers or names produced from those
  *   fixtures. This parser oracle does not sanitize arbitrary source fragments.
- *
  */
 export const _isLegalDeclaration = (props: {
   name: string;

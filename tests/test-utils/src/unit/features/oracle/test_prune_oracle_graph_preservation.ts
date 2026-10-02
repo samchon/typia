@@ -13,7 +13,6 @@ import assert from "node:assert/strict";
  * 2. Reject lost, replaced and changed branches, array contents and prototypes.
  * 3. Preserve authored prefix keys and shared/cyclic identities, and handle
  *    primitive and empty fixtures without inventing declared properties.
- *
  */
 export const test_prune_oracle_graph_preservation = (): void => {
   const make = () => ({

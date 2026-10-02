@@ -14,7 +14,6 @@ import { NamingConvention } from "@typia/utils";
  * 1. Collect every helper that maps a string to a string.
  * 2. Apply each to the empty string.
  * 3. Require `""` from all of them, with no throw.
- *
  */
 export const test_naming_convention_empty = (): void => {
   const helpers: [string, (str: string) => string][] = [

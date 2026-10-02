@@ -20,7 +20,6 @@ import { TestGlobal } from "../../../TestGlobal";
  * 1. Upgrade the checked-in swagger fixture and migrate it.
  * 2. Find GET /nothing, whose 200 response has empty JSON content.
  * 3. Assert the route exists and its success is null.
- *
  */
 export const test_http_migrate_route_return_type_void =
   async (): Promise<void> => {

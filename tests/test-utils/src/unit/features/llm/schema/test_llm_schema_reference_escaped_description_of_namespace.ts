@@ -14,7 +14,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  *    Something.INested.IDeep and their original distinct prose.
  * 2. Retain reference presence and compare all three exact pointers and numeric
  *    target fields.
- *
  */
 export const test_llm_schema_reference_escaped_description_of_namespace =
   (): void => {

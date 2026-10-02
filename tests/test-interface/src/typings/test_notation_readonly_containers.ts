@@ -11,7 +11,6 @@ import { CamelCase, KebabCase, PascalCase, SnakeCase } from "@typia/interface";
  * 1. Convert one array/tuple/set/map composite in every notation.
  * 2. Pin optional-only tuples and mutable sets/maps separately.
  * 3. Keep the transformed nested member keys specific to each naming family.
- *
  */
 export type NotationReadonlyContainerCases = [
   Assert<
