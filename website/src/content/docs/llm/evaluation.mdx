@@ -43,16 +43,19 @@ import typia from "typia";
 enum Department {
   /**
    * Payments, invoicing, refunds.
+   * 
    * @probability 0.8
    */
   billing = "billing",
   /**
    * Bugs, outages, integrations.
+   * 
    * @probability 0.5
    */
   technical = "technical",
   /**
    * Pricing, upgrades, new accounts.
+   * 
    * @probability 0.5
    */
   sales = "sales",
@@ -61,8 +64,10 @@ enum Department {
 enum Frustration {
   /** Calm or neutral */
   calm = 0,
+  
   /** Annoyed but cooperative */
   annoyed = 1,
+
   /** Angry or threatening to leave */
   angry = 2,
 }
@@ -80,13 +85,12 @@ interface ITicketTriage {
   /** Which products does the customer mention? */
   products: Array<"card" | "loan" | "deposit">;
 
-  refund: {
-    /**
-     * Does the customer ask for a refund?
-     * @probability 0.8
-     */
-    requested: boolean;
-  };
+  /**
+   * Does the customer ask for a refund?
+   * 
+   * @probability 0.8
+   */
+  refund: boolean
 }
 
 const ticket = "I was charged twice. Refund it now, or I leave.";

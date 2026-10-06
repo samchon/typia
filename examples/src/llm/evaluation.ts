@@ -45,10 +45,8 @@ interface ITicketTriage {
   /** Which products does the customer mention? */
   products: Array<"card" | "loan" | "deposit">;
 
-  refund: {
-    /** Does the customer ask for a refund? */
-    requested: boolean & tags.Probability<0.8>;
-  };
+  /** Does the customer ask for a refund? */
+  refund: boolean & tags.Probability<0.8>;
 }
 
 const main = async (): Promise<void> => {
