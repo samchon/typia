@@ -31,7 +31,7 @@ catalogs:
   rolldown:
     rolldown: ^1.1.5
   utils:
-    '@nestia/e2e': ^10.0.2
+    '@nestia/e2e': ^14.0.3
     '@types/node': ^25.3.0
     '@types/uuid': ^11.0.0
     openai: ^6.16.0
