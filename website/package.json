@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/website",
-  "version": "15.1.1-next.0",
+  "version": "15.1.0",
   "description": "Typia Guide Documents",
   "scripts": {
     "build": "npm run build:prepare && next build && npm run build:finalize",
@@ -37,7 +37,7 @@
     "@typia/legacy-transform": "npm:@typia/transform@12.0.2",
     "@typia/utils": "workspace:^",
     "lz-string": "^1.5.0",
-    "monaco-editor": "^0.52.0",
+    "monaco-editor": "^0.50.0",
     "next": "^15.3.4",
     "nextra": "^4.6.0",
     "nextra-theme-blog": "^4.6.1",
