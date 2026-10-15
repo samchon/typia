@@ -2370,6 +2370,11 @@ packages:
     cpu: [x64]
     os: [darwin]
 
+  '@ttsc/linux-arm64@0.33.0-next.1':
+    resolution: {integrity: sha512-M7uYPg8T8V6ThM2KAHr9xCeBJMwUcKYA7ylVcaB3NfT+26Wvl4sVdL1dhIbrlkIHHcco/nqpKMl3Eumwio6nug==}
+    cpu: [arm64]
+    os: [linux]
+
   '@ttsc/linux-arm@0.33.0-next.1':
     resolution: {integrity: sha512-KXCNosFIEZEI3ZTemjQbb5Ppq1KcHj/p2GC7FDbAi24MZuPqqNnrMXn2sV2eBI9wYprDc6Ej1CVXqhl+Z0/ALQ==}
     cpu: [arm]
@@ -8119,6 +8124,9 @@ snapshots:
   '@ttsc/darwin-x64@0.33.0-next.1':
     optional: true
 
+  '@ttsc/linux-arm64@0.33.0-next.1':
+    optional: true
+
   '@ttsc/linux-arm@0.33.0-next.1':
     optional: true
 
@@ -12667,6 +12675,7 @@ snapshots:
       '@ttsc/darwin-arm64': 0.33.0-next.1
       '@ttsc/darwin-x64': 0.33.0-next.1
       '@ttsc/linux-arm': 0.33.0-next.1
+      '@ttsc/linux-arm64': 0.33.0-next.1
       '@ttsc/linux-x64': 0.33.0-next.1
       '@ttsc/win32-arm64': 0.33.0-next.1
       '@ttsc/win32-x64': 0.33.0-next.1
