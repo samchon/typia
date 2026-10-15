@@ -11,14 +11,14 @@ catalogs:
       version: 1.1.5
   samchon:
     '@ttsc/playground':
-      specifier: ^0.30.4
-      version: 0.30.4
+      specifier: 0.33.0-next.1
+      version: 0.33.0-next.1
     '@ttsc/unplugin':
-      specifier: ^0.30.4
-      version: 0.30.4
+      specifier: 0.33.0-next.1
+      version: 0.33.0-next.1
     '@ttsc/wasm':
-      specifier: ^0.30.4
-      version: 0.30.4
+      specifier: 0.33.0-next.1
+      version: 0.33.0-next.1
     '@wrtnlabs/evidence':
       specifier: ^0.2.1
       version: 0.2.1
@@ -29,8 +29,8 @@ catalogs:
       specifier: ^3.0.0
       version: 3.0.0
     ttsc:
-      specifier: ^0.30.4
-      version: 0.30.4
+      specifier: 0.33.0-next.1
+      version: 0.33.0-next.1
   typescript:
     typescript:
       specifier: ^7.0.2
@@ -67,7 +67,7 @@ importers:
         version: 6.0.2(@vue/compiler-sfc@3.5.33)(prettier@3.8.3)(svelte@5.55.4(@typescript-eslint/types@8.59.0))
       '@wrtnlabs/evidence':
         specifier: catalog:samchon
-        version: 0.2.1(ttsc@0.30.4)(typescript@7.0.2)
+        version: 0.2.1(ttsc@0.33.0-next.1)(typescript@7.0.2)
       bumpp:
         specifier: ^10.4.1
         version: 10.4.1
@@ -79,7 +79,7 @@ importers:
         version: 1.8.0(prettier@3.8.3)
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -200,7 +200,7 @@ importers:
         version: 1.2.1
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -212,7 +212,7 @@ importers:
     devDependencies:
       '@ttsc/unplugin':
         specifier: catalog:samchon
-        version: 0.30.4(ttsc@0.30.4)
+        version: 0.33.0-next.1(ttsc@0.33.0-next.1)
       tinyglobby:
         specifier: ^0.2.12
         version: 0.2.16
@@ -249,7 +249,7 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
 
   packages/interface:
     devDependencies:
@@ -258,7 +258,7 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -280,7 +280,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -311,7 +311,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -339,7 +339,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -367,7 +367,7 @@ importers:
         version: 1.1.5
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -389,7 +389,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -420,7 +420,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -448,7 +448,7 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
 
   tests/template:
     dependencies:
@@ -488,7 +488,7 @@ importers:
         version: 11.0.0
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
 
   tests/test-error:
     dependencies:
@@ -504,7 +504,7 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
 
   tests/test-interface:
     dependencies:
@@ -520,7 +520,7 @@ importers:
         version: 7.0.106(zod@4.4.3)
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -560,7 +560,7 @@ importers:
         version: 7.0.106(zod@4.4.3)
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
 
   tests/test-langchain:
     dependencies:
@@ -606,7 +606,7 @@ importers:
         version: link:../template
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
 
   tests/test-mcp:
     dependencies:
@@ -640,7 +640,7 @@ importers:
         version: link:../template
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
 
   tests/test-typia-automated:
     dependencies:
@@ -683,7 +683,7 @@ importers:
         version: 11.0.0
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
 
   tests/test-typia-schema:
     dependencies:
@@ -726,7 +726,7 @@ importers:
         version: link:../template
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
 
   tests/test-utils:
     dependencies:
@@ -766,7 +766,7 @@ importers:
         version: link:../template
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
 
   tests/test-utils-automated:
     dependencies:
@@ -800,7 +800,7 @@ importers:
         version: 11.0.0
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
 
   tests/test-vercel:
     dependencies:
@@ -843,13 +843,13 @@ importers:
         version: link:../template
       ttsc:
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
 
   website:
     dependencies:
       '@monaco-editor/react':
         specifier: ^4.6.0
-        version: 4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.7.0(monaco-editor@0.52.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@rollup/browser':
         specifier: 4.13.0
         version: 4.13.0
@@ -858,10 +858,10 @@ importers:
         version: 4.3.0
       '@ttsc/playground':
         specifier: catalog:samchon
-        version: 0.30.4(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.30.4)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)
+        version: 0.33.0-next.1(@monaco-editor/react@4.7.0(monaco-editor@0.52.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.33.0-next.1)(monaco-editor@0.52.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)
       '@ttsc/wasm':
         specifier: catalog:samchon
-        version: 0.30.4
+        version: 0.33.0-next.1
       '@typia/interface':
         specifier: workspace:^
         version: link:../packages/interface
@@ -875,8 +875,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0
       monaco-editor:
-        specifier: ^0.50.0
-        version: 0.50.0
+        specifier: ^0.52.0
+        version: 0.52.2
       next:
         specifier: ^15.3.4
         version: 15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2360,56 +2360,51 @@ packages:
   '@ts-morph/common@0.28.1':
     resolution: {integrity: sha512-W74iWf7ILp1ZKNYXY5qbddNaml7e9Sedv5lvU1V8lftlitkc9Pq1A+jlH23ltDgWYeZFFEqGCD1Ies9hqu3O+g==}
 
-  '@ttsc/darwin-arm64@0.30.4':
-    resolution: {integrity: sha512-+x5qOR5kTTjVJKUYqZtkIs33dS3MnNflJfu4Lg1XRvipqjqzIb6RtUlYJ0uTJcGF1ZZ6N1s+ddGocpFqxD9Zpw==}
+  '@ttsc/darwin-arm64@0.33.0-next.1':
+    resolution: {integrity: sha512-bLUk2U8oQ1MNb+iHDdIoUkO8T/yjWU3IH0kTxF8bU2Oyp1mqIJ42h2FQsihFlsitf/CddGY9gDJFeBN38QXGaA==}
     cpu: [arm64]
     os: [darwin]
 
-  '@ttsc/darwin-x64@0.30.4':
-    resolution: {integrity: sha512-thPKMLZhpqaV/HgeEEKvGq8pUrY+cV/8dLT/gF5lbBHvz3kRn5xN9CzPnommQj0dwtcpHEdn/JOSbIW16NPsCA==}
+  '@ttsc/darwin-x64@0.33.0-next.1':
+    resolution: {integrity: sha512-ZiY+nxIJpoIeFSdfNYoL0y6SVDZrAUttqPYbOjgWxN2Wl2/oM3MPVJxMomDfIQss2Eaz8OFRcEkTXsLtW7Ofyw==}
     cpu: [x64]
     os: [darwin]
 
-  '@ttsc/linux-arm64@0.30.4':
-    resolution: {integrity: sha512-05Qtl4KOHiAuQIa/qRfwvp0vU7bVWjHQcOjJe0r9R9FdUsBAm51WQe18BnJTxV6cfE0xNaV/Ja/HWm7Qsq5vGQ==}
-    cpu: [arm64]
-    os: [linux]
-
-  '@ttsc/linux-arm@0.30.4':
-    resolution: {integrity: sha512-qNh2qlSnJoZXdYhsejsUXfA8nbOJEyR611S30p6Meqc2Sg6TVlsQT2XaLEDF2CrEcDALCi3pOQAhfWGjwyCa+A==}
+  '@ttsc/linux-arm@0.33.0-next.1':
+    resolution: {integrity: sha512-KXCNosFIEZEI3ZTemjQbb5Ppq1KcHj/p2GC7FDbAi24MZuPqqNnrMXn2sV2eBI9wYprDc6Ej1CVXqhl+Z0/ALQ==}
     cpu: [arm]
     os: [linux]
 
-  '@ttsc/linux-x64@0.30.4':
-    resolution: {integrity: sha512-JZrx4sXeQVAJeyGpA8phlffrvbeyIjwme8ZVoBG8gvyT+BswfVgKQhskBaEGDodi6VyM3k53i53e+QcywFN+xQ==}
+  '@ttsc/linux-x64@0.33.0-next.1':
+    resolution: {integrity: sha512-rsb0TiJsATPvDu2EPH4mtiJUuMEMWWDYOCIupXvhlT9/Poe1kxGHpUtPQVA1vrBHxvoyssNSMBmgHSJRgqcl1g==}
     cpu: [x64]
     os: [linux]
 
-  '@ttsc/playground@0.30.4':
-    resolution: {integrity: sha512-elYdjxRGThS/2WywEAwBGtDqoHSCg0kfXEAdoV4hiz/yiUuS7MK91RBHZPi6WP3VzC1h3FItqE1yu3j2ykQXnQ==}
+  '@ttsc/playground@0.33.0-next.1':
+    resolution: {integrity: sha512-9rNOzcIIx+8vHvFwihL7kkg8KrZ/x65kBWT4pPvBhc+liHLWB6Ji09ipwdq50N/oDf2BU2bZ1GwYt2rRu1BfXA==}
     peerDependencies:
       '@monaco-editor/react': ^4.6.0
-      '@ttsc/wasm': ^0.30.4
+      '@ttsc/wasm': ^0.33.0-next.1
       monaco-editor: ^0.52.0
       react: ^18.0.0
       react-dom: ^18.0.0
       tgrid: ^1.0.3
 
-  '@ttsc/unplugin@0.30.4':
-    resolution: {integrity: sha512-YzAtIzbgzLlUUMsgmoPQ2oYkYzAA+KsrpMq0BjLRa/pEve6NIOOQ1VRzS/nLrUt+VKtvGjHy4P/5w/oRLdbfUw==}
+  '@ttsc/unplugin@0.33.0-next.1':
+    resolution: {integrity: sha512-9zMRMfYGvO9UHMHos8PUWfwcTAvergNfewUzfp73cOh21fYXPEYhqR17AIugWehsW0//mCs3Cob8Z78dI/NZ+w==}
     peerDependencies:
-      ttsc: ^0.30.4
+      ttsc: ^0.33.0-next.1
 
-  '@ttsc/wasm@0.30.4':
-    resolution: {integrity: sha512-MzlZY7wfPKISGZ6/t40FhE4X0q5VfrdzPWT6L76qCujKLeCNOMGFLlPYWKKHWSkghqcodC3q1OLXOSxPU/nJCw==}
+  '@ttsc/wasm@0.33.0-next.1':
+    resolution: {integrity: sha512-mVbc/PEPE751pPa+qK8xCKldKPO2dlV8Mrz0hk2mWP0GXW/PpoCTv0DDSo0BgDYEK+we3DTD16cNDcrEjrFKqA==}
 
-  '@ttsc/win32-arm64@0.30.4':
-    resolution: {integrity: sha512-8B9uOwajWhuklP1wvu7ynLddvsLpDygRHtp8zATnIGpipPDqUImcFmsQ7alwI40aEeIvfbI5COFBUd5aDOfbeQ==}
+  '@ttsc/win32-arm64@0.33.0-next.1':
+    resolution: {integrity: sha512-GJ6poIX39pRVw70dhoBofR0w5T0jwX4ooRrBNzWpBFyk6vRpCyf/oemthx6hdN9r5L54xrWLMGL4AKNtyRGiGg==}
     cpu: [arm64]
     os: [win32]
 
-  '@ttsc/win32-x64@0.30.4':
-    resolution: {integrity: sha512-DDdWzQWrmzljRkoHnVxRACO8ikiM3rjuC/QRkPMmyzina0AimihHnOfOOWKdNttfkU9sAdCe3MIkg4ktpL38mQ==}
+  '@ttsc/win32-x64@0.33.0-next.1':
+    resolution: {integrity: sha512-zDZ8hbYKZDO0WQwezp31oN5RDr5aFUmyL8ULdo3nHdx0V9I2eaQAcUOof9hE4+b0ScmcHgUPTOIJ+qWHtz/amA==}
     cpu: [x64]
     os: [win32]
 
@@ -5029,8 +5024,8 @@ packages:
   moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
 
-  monaco-editor@0.50.0:
-    resolution: {integrity: sha512-8CclLCmrRRh+sul7C08BmPBP3P8wVWfBHomsTcndxg5NRCEPfu/mc2AGU8k37ajjDVXcXFc12ORAMUkmk+lkFA==}
+  monaco-editor@0.52.2:
+    resolution: {integrity: sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ==}
 
   mongodb-connection-string-url@2.6.0:
     resolution: {integrity: sha512-WvTZlI9ab0QYtTYnuMLgobULWhokRjtC7db9LtcVfJ+Hsnyr5eo6ZtNAt3Ly24XZScGMelOcGtm7lSn0332tPQ==}
@@ -6186,8 +6181,8 @@ packages:
   tstl@3.0.0:
     resolution: {integrity: sha512-pR83y6/tbJx6jeGRqGJXk2t/eCUynaHEE6zsOLB0Zga8ej61LXtPfoeiROdhezpoCT15+1QMbqKB1Um5kasSKg==}
 
-  ttsc@0.30.4:
-    resolution: {integrity: sha512-JDw66o8hIkelLp0gMWj7izVzXAXxT+oObILBTOa6MxBGA8a2lqdfMsP++XN0hPYYxKNpyuLVnClBBvehNZyIpw==}
+  ttsc@0.33.0-next.1:
+    resolution: {integrity: sha512-Um1lMcjtQ6wAhr96ShQMJhW3xixyMOlYxL+BkAgjeZJ50sXoMx6mBvnc9q1Vv+fhQBMgnyzLqLpb2cWLx2QpKg==}
     engines: {node: '>=22.15.0'}
     hasBin: true
 
@@ -7529,10 +7524,10 @@ snapshots:
     dependencies:
       state-local: 1.0.7
 
-  '@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@monaco-editor/react@4.7.0(monaco-editor@0.52.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@monaco-editor/loader': 1.7.0
-      monaco-editor: 0.50.0
+      monaco-editor: 0.52.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -8118,43 +8113,42 @@ snapshots:
       path-browserify: 1.0.1
       tinyglobby: 0.2.16
 
-  '@ttsc/darwin-arm64@0.30.4':
+  '@ttsc/darwin-arm64@0.33.0-next.1':
     optional: true
 
-  '@ttsc/darwin-x64@0.30.4':
+  '@ttsc/darwin-x64@0.33.0-next.1':
     optional: true
 
-  '@ttsc/linux-arm64@0.30.4':
+  '@ttsc/linux-arm@0.33.0-next.1':
     optional: true
 
-  '@ttsc/linux-arm@0.30.4':
+  '@ttsc/linux-x64@0.33.0-next.1':
     optional: true
 
-  '@ttsc/linux-x64@0.30.4':
-    optional: true
-
-  '@ttsc/playground@0.30.4(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.30.4)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)':
+  '@ttsc/playground@0.33.0-next.1(@monaco-editor/react@4.7.0(monaco-editor@0.52.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.33.0-next.1)(monaco-editor@0.52.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)':
     dependencies:
-      '@monaco-editor/react': 4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@ttsc/wasm': 0.30.4
+      '@monaco-editor/react': 4.7.0(monaco-editor@0.52.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@ttsc/wasm': 0.33.0-next.1
       lz-string: 1.5.0
-      monaco-editor: 0.50.0
+      monaco-editor: 0.52.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       semver: 7.8.5
       tgrid: 1.2.1
 
-  '@ttsc/unplugin@0.30.4(ttsc@0.30.4)':
+  '@ttsc/unplugin@0.33.0-next.1(ttsc@0.33.0-next.1)':
     dependencies:
-      ttsc: 0.30.4
+      ttsc: 0.33.0-next.1
       unplugin: 2.3.11
+    optionalDependencies:
+      fsevents: 2.3.3
 
-  '@ttsc/wasm@0.30.4': {}
+  '@ttsc/wasm@0.33.0-next.1': {}
 
-  '@ttsc/win32-arm64@0.30.4':
+  '@ttsc/win32-arm64@0.33.0-next.1':
     optional: true
 
-  '@ttsc/win32-x64@0.30.4':
+  '@ttsc/win32-x64@0.33.0-next.1':
     optional: true
 
   '@tybys/wasm-util@0.10.2':
@@ -8679,15 +8673,15 @@ snapshots:
 
   '@workflow/serde@4.1.0': {}
 
-  '@wrtnlabs/evidence@0.2.1(ttsc@0.30.4)(typescript@7.0.2)':
+  '@wrtnlabs/evidence@0.2.1(ttsc@0.33.0-next.1)(typescript@7.0.2)':
     dependencies:
       '@prisma/prisma-schema-wasm': 7.10.0-2.d0368e25c88e68caa4d283b5f2d88d1b76ed9356
       '@typia/interface': 14.0.6
       '@typia/utils': 14.0.6
       tstl: 3.0.0
-      ttsc: 0.30.4
+      ttsc: 0.33.0-next.1
       typescript: 7.0.2
-      typia: 14.0.6(ttsc@0.30.4)
+      typia: 14.0.6(ttsc@0.33.0-next.1)
       web-tree-sitter: 0.27.0
       yaml: 2.9.1
 
@@ -11300,7 +11294,7 @@ snapshots:
 
   moment@2.30.1: {}
 
-  monaco-editor@0.50.0: {}
+  monaco-editor@0.52.2: {}
 
   mongodb-connection-string-url@2.6.0:
     dependencies:
@@ -12665,18 +12659,18 @@ snapshots:
 
   tstl@3.0.0: {}
 
-  ttsc@0.30.4:
+  ttsc@0.33.0-next.1:
     dependencies:
       acorn: 8.16.0
       cjs-module-lexer: 2.2.1
     optionalDependencies:
-      '@ttsc/darwin-arm64': 0.30.4
-      '@ttsc/darwin-x64': 0.30.4
-      '@ttsc/linux-arm': 0.30.4
-      '@ttsc/linux-arm64': 0.30.4
-      '@ttsc/linux-x64': 0.30.4
-      '@ttsc/win32-arm64': 0.30.4
-      '@ttsc/win32-x64': 0.30.4
+      '@ttsc/darwin-arm64': 0.33.0-next.1
+      '@ttsc/darwin-x64': 0.33.0-next.1
+      '@ttsc/linux-arm': 0.33.0-next.1
+      '@ttsc/linux-x64': 0.33.0-next.1
+      '@ttsc/win32-arm64': 0.33.0-next.1
+      '@ttsc/win32-x64': 0.33.0-next.1
+      fsevents: 2.3.3
 
   twoslash-protocol@0.3.8: {}
 
@@ -12733,13 +12727,13 @@ snapshots:
       '@typescript/typescript-win32-arm64': 7.0.2
       '@typescript/typescript-win32-x64': 7.0.2
 
-  typia@14.0.6(ttsc@0.30.4):
+  typia@14.0.6(ttsc@0.33.0-next.1):
     dependencies:
       '@typia/interface': 14.0.6
       '@typia/utils': 14.0.6
       randexp: 0.5.3
     optionalDependencies:
-      ttsc: 0.30.4
+      ttsc: 0.33.0-next.1
 
   uc.micro@2.1.0: {}
 
