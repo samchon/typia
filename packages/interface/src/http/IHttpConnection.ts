@@ -88,7 +88,7 @@ export namespace IHttpConnection {
    */
   export type IFetch = typeof globalThis extends { fetch: infer T }
     ? T
-    : (input: any, init?: any) => Promise<any>;
+    : (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
   /**
    * The runtime's `AbortSignal`, or a minimal stand-in where none is declared.
@@ -246,12 +246,12 @@ export namespace IHttpConnection {
    * @evidence contracts/common.md#meaningful-documentation The comment states the permitted primitives and that arrays are typically comma-joined.
    */
   export type HeaderValue =
-    | string
-    | boolean
-    | number
-    | bigint
+    | Array<bigint>
     | Array<boolean>
     | Array<number>
-    | Array<bigint>
-    | Array<string>;
+    | Array<string>
+    | bigint
+    | boolean
+    | number
+    | string;
 }
