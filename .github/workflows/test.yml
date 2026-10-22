@@ -52,8 +52,10 @@ jobs:
         env:
           CGO_ENABLED: "1"
         run: pnpm test:go:race
+      - name: Test Go on TypeScript 7.1
+        run: pnpm test:go:7.1
 
-  TypeScript-7-1:
+  TypeScript-7-0:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -67,11 +69,9 @@ jobs:
       - uses: pnpm/action-setup@v4
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      - name: Select TypeScript 7.1
+      - name: Select TypeScript 7.0
         run: |
-          node -e 'const fs = require("node:fs"); const p = "pnpm-workspace.yaml"; const s = fs.readFileSync(p, "utf8"); if (!s.includes("typescript: ^7.0.2")) throw new Error("TypeScript catalog changed"); fs.writeFileSync(p, s.replace("typescript: ^7.0.2", "typescript: 7.1.0-dev.20261020.3"));'
+          node -e 'const fs = require("node:fs"); const p = "pnpm-workspace.yaml"; const s = fs.readFileSync(p, "utf8"); if (!s.includes("typescript: 7.1.0-dev.20261020.3")) throw new Error("TypeScript catalog changed"); fs.writeFileSync(p, s.replace("typescript: 7.1.0-dev.20261020.3", "typescript: ^7.0.2"));'
           pnpm install --no-frozen-lockfile
-      - name: Test Go on TypeScript 7.1
-        run: pnpm test:go:7.1
-      - name: Test TypeScript 7.1 Consumers
+      - name: Test TypeScript 7.0 Consumers
         run: pnpm test:packages
