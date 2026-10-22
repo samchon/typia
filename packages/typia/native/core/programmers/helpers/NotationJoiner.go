@@ -57,10 +57,9 @@ type NotationJoiner_ArrayProps struct {
   Emit  *shimprinter.EmitContext
 }
 
-var notationJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (notationJoinerNamespace) Object(props NotationJoiner_ObjectProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(notationJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   if len(props.Entries) == 0 {
     return f.NewIdentifier("{}")
   }
@@ -215,7 +214,7 @@ func (notationJoinerNamespace) Object(props NotationJoiner_ObjectProps) *shimast
 }
 
 func (notationJoinerNamespace) Tuple(props NotationJoiner_TupleProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(notationJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   elements := make([]*shimast.Node, 0, len(props.Elements)+1)
   for _, elem := range props.Elements {
     elements = append(elements, elem)
@@ -233,9 +232,9 @@ func (notationJoinerNamespace) Tuple(props NotationJoiner_TupleProps) *shimast.N
 }
 
 func (notationJoinerNamespace) Array(props NotationJoiner_ArrayProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(notationJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   return f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(nil, props.Input, "map"),
+    nativefactories.IdentifierFactory.Access(props.Emit, props.Input, "map"),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{props.Arrow}),
@@ -244,7 +243,7 @@ func (notationJoinerNamespace) Array(props NotationJoiner_ArrayProps) *shimast.N
 }
 
 func notationJoiner_regular_skip(regular []IExpressionEntry, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(notationJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   elements := make([]*shimast.Node, 0, len(regular))
   for _, entry := range regular {
     elements = append(elements, f.NewStringLiteral(*entry.Key.GetSoleLiteral(), shimast.TokenFlagsNone))

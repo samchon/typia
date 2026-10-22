@@ -101,7 +101,7 @@ func (functionalValidateParametersProgrammerNamespace) Write(props FunctionalVal
     Config:      props.Config,
     Declaration: props.Declaration,
   })
-  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   caller := functionalIsProgrammer_call(props.Context, props.Expression, props.Declaration)
   data := caller
   if output.Async {
@@ -138,7 +138,7 @@ func (functionalValidateParametersProgrammerNamespace) Write(props FunctionalVal
 }
 
 func (functionalValidateParametersProgrammerNamespace) Decompose(props FunctionalValidateParametersProgrammer_IDecomposeProps) FunctionalValidateParametersProgrammer_IDecomposeOutput {
-  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   parameters := functionalIsProgrammer_parameterNodes(props.Declaration)
   resultName := functionalIsProgrammer_escapeDuplicate(functionalIsProgrammer_parameterNames(props.Declaration), "paramErrorResults")
   functions := make([]*shimast.Node, 0, len(parameters))

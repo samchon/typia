@@ -31,7 +31,6 @@ type JsonAssertStringifyProgrammer_DecomposeProps struct {
   Init    *shimast.Node
 }
 
-var jsonAssertStringifyProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (jsonAssertStringifyProgrammerNamespace) Decompose(props JsonAssertStringifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   assertContext := props.Context
@@ -54,7 +53,7 @@ func (jsonAssertStringifyProgrammerNamespace) Decompose(props JsonAssertStringif
     Name:      props.Name,
     Validated: true,
   })
-  f := nativecontext.EmitFactoryOf(jsonAssertStringifyProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   statements := append([]*shimast.Node{}, assert.Statements...)
   statements = append(statements, stringify.Statements...)
   statements = append(statements,
@@ -109,7 +108,7 @@ func (jsonAssertStringifyProgrammerNamespace) Write(props nativecontext.IProgram
     Name:    props.Name,
     Init:    props.Init,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

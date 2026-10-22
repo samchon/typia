@@ -33,7 +33,6 @@ type ClassifyJoiner_ObjectProps struct {
   Emit     *shimprinter.EmitContext
 }
 
-var classifyJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 // Object reconstructs an object value for plain.classify.
 //
@@ -67,7 +66,7 @@ func (classifyJoinerNamespace) Object(props ClassifyJoiner_ObjectProps) *shimast
       Emit:    props.Emit,
     })
   }
-  f := nativecontext.EmitFactoryOf(classifyJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
 
   regular := []IExpressionEntry{}
   dynamic := []IExpressionEntry{}

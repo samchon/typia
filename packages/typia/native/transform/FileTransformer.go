@@ -54,7 +54,6 @@ type FileTransformer_IEnvironments struct {
 // @evidence contracts/common.md#meaningful-documentation The doc states the mapping.
 type FileTransformer_Type func(file *shimast.SourceFile) *shimast.SourceFile
 
-var fileTransformer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 // Transform builds the per-file transformer of a host. Every file gets its own importer, a TransformerError raised while a node is
 // transformed becomes a diagnostic and leaves the node unchanged, and the
@@ -114,7 +113,7 @@ func fileTransformer_iterate_file(context nativecontext.ITypiaContext, file *shi
   if context.Emit != nil {
     visitor = context.Emit.NewNodeVisitor(visit)
   } else {
-    visitor = shimast.NewNodeVisitor(visit, fileTransformer_factory, shimast.NodeVisitorHooks{})
+    visitor = shimast.NewNodeVisitor(visit, nativecontext.NodeFactoryOf(context.Emit), shimast.NodeVisitorHooks{})
   }
   output := visitor.VisitNode(file.AsNode())
   if output == nil {
@@ -192,7 +191,7 @@ func fileTransformer_inject_imports(file *shimast.SourceFile, imports []*shimast
   if file == nil || len(imports) == 0 {
     return file
   }
-  f := nativecontext.EmitFactoryOf(fileTransformer_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   index := fileTransformer_find_import_injection_index(file)
   nodes := make([]*shimast.Node, 0, len(file.Statements.Nodes)+len(imports))
   nodes = append(nodes, file.Statements.Nodes[:index]...)

@@ -14,6 +14,7 @@
     "test:go:public": "go -C packages/typia/test test ./...",
     "test:go:native": "go -C packages/typia/test test ../native/...",
     "test:go:7.1": "node scripts/test-go-7-1.cjs",
+    "test:go:race": "go -C packages/typia/test test -race -count=1 -timeout=30m -run ^TestDistinctProgramsConcurrentEmit$ ../native/cmd/ttsc-typia",
     "test:toolchain": "pnpm run test:go",
     "package:prepare": "pnpm run build && node .github/workflows/release-guard.cjs validate-build-output",
     "package:latest": "pnpm run package:prepare && pnpm --filter=./packages/* -r publish --tag latest",

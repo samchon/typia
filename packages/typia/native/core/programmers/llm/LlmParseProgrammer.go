@@ -47,14 +47,13 @@ type LlmParseProgrammer_IWriteProps struct {
   Name     *string
 }
 
-var llmParseProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (llmParseProgrammerNamespace) Decompose(props LlmParseProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   typeName := "unknown"
   if props.Name != nil {
     typeName = *props.Name
   }
-  f := nativecontext.EmitFactoryOf(llmParseProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions: map[string]*shimast.Node{},
     Statements: []*shimast.Node{
@@ -105,7 +104,7 @@ func (llmParseProgrammerNamespace) Write(props LlmParseProgrammer_IWriteProps) *
     Metadata: props.Metadata,
     Name:     props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,
@@ -131,6 +130,6 @@ func (llmParseProgrammerNamespace) Validate(props struct {
 func ImportTypeIParameters(emit ...*shimprinter.EmitContext) nativecontext.ImportProgrammer_TypeProps {
   return nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
-    Name: nativecontext.EmitFactoryOf(llmParseProgrammer_factory, emit...).NewIdentifier("ILlmSchema.IParameters"),
+    Name: nativecontext.NodeFactoryOf(emit...).NewIdentifier("ILlmSchema.IParameters"),
   }
 }

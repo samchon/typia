@@ -28,7 +28,6 @@ type JsonIsParseProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-var jsonParseProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (jsonIsParseProgrammerNamespace) Decompose(props JsonIsParseProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   is := nativeprogrammers.IsProgrammer.Decompose(nativeprogrammers.IsProgrammer_DecomposeProps{
@@ -42,7 +41,7 @@ func (jsonIsParseProgrammerNamespace) Decompose(props JsonIsParseProgrammer_Deco
     Name:    props.Name,
   })
 
-  f := nativecontext.EmitFactoryOf(jsonParseProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions: is.Functions,
     Statements: append(append([]*shimast.Node{}, is.Statements...), nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
@@ -114,7 +113,7 @@ func (jsonIsParseProgrammerNamespace) Write(props nativecontext.IProgrammerProps
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,
@@ -150,7 +149,7 @@ func jsonProgrammer_import_type(context nativecontext.ITypiaContext, props nativ
   if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
-  f := nativecontext.EmitFactoryOf(jsonParseProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   if str, ok := props.Name.(string); ok {
     return f.NewTypeReferenceNode(f.NewIdentifier(str), f.NewNodeList(props.Arguments))
   }
@@ -158,7 +157,7 @@ func jsonProgrammer_import_type(context nativecontext.ITypiaContext, props nativ
 }
 
 func jsonProgrammer_typeReference(context nativecontext.ITypiaContext, typ *shimchecker.Type, name *string) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(jsonParseProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   if name != nil {
     return f.NewTypeReferenceNode(f.NewIdentifier(*name), nil)
   }

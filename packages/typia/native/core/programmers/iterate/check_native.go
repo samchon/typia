@@ -29,8 +29,8 @@ type Check_nativeProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_native(props Check_nativeProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_native_factory, props.Emit)
-  instanceOf := nativefactories.ExpressionFactory.IsInstanceOf(props.Name, props.Input)
+  f := nativecontext.NodeFactoryOf(props.Emit)
+  instanceOf := nativefactories.ExpressionFactory.IsInstanceOf(props.Name, props.Input, props.Emit)
   if atomic, ok := nativemetadata.MetadataSchema_atomicLikeNative(props.Name); ok {
     return f.NewBinaryExpression(
       nil,
@@ -49,4 +49,3 @@ func Check_native(props Check_nativeProps) *shimast.Node {
   return instanceOf
 }
 
-var check_native_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

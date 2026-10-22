@@ -54,7 +54,6 @@ type TypeFactory_GetFullNameProps struct {
   AliasTypeArguments *bool
 }
 
-var typeFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (typeFactoryNamespace) IsFunction(t *shimchecker.Type) bool {
   return TypeFactory.GetFunction(t) != nil
@@ -182,7 +181,7 @@ func typeFactory_get_type_arguments(checker *shimchecker.Checker, t *shimchecker
 }
 
 func (typeFactoryNamespace) Keyword(t string, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(typeFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   var kind shimast.KeywordTypeSyntaxKind
   switch t {
   case "void":

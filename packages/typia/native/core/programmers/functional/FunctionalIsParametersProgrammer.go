@@ -92,10 +92,9 @@ type FunctionalIsParametersProgrammer_IDecomposeOutput struct {
   Statements []*shimast.Node
 }
 
-var functionalIsProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (functionalIsParametersProgrammerNamespace) Write(props FunctionalIsParametersProgrammer_IProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   output := functionalinternal.FunctionalGeneralProgrammer.GetReturnType(functionalinternal.FunctionalGeneralProgrammer_IProps{
     Checker:     props.Context.Checker,
     Declaration: props.Declaration,
@@ -134,7 +133,7 @@ func (functionalIsParametersProgrammerNamespace) Write(props FunctionalIsParamet
 }
 
 func (functionalIsParametersProgrammerNamespace) Decompose(props FunctionalIsParametersProgrammer_IDecomposeProps) FunctionalIsParametersProgrammer_IDecomposeOutput {
-  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   parameters := functionalIsProgrammer_parameterNodes(props.Declaration)
   functions := make([]*shimast.Node, 0, len(parameters))
   statements := []*shimast.Node{}
@@ -176,7 +175,7 @@ func (functionalIsParametersProgrammerNamespace) Decompose(props FunctionalIsPar
 
 func functionalIsProgrammer_parameters(declaration *shimast.Node, emit ...*shimprinter.EmitContext) *shimast.ParameterList {
   if declaration == nil || declaration.FunctionLikeData() == nil || declaration.FunctionLikeData().Parameters == nil {
-    return nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, emit...).NewNodeList(nil)
+    return nativecontext.NodeFactoryOf(emit...).NewNodeList(nil)
   }
   return declaration.FunctionLikeData().Parameters
 }
@@ -203,7 +202,7 @@ func functionalIsProgrammer_function(
   returnType *shimast.Node,
   body *shimast.Node,
 ) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   return f.NewFunctionExpression(
     functionalIsProgrammer_asyncModifiers(async, context.Emit),
     nil,
@@ -217,7 +216,7 @@ func functionalIsProgrammer_function(
 }
 
 func functionalIsProgrammer_call(context nativecontext.ITypiaContext, expression *shimast.Node, declaration *shimast.Node) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(context.Emit, f.NewIdentifier("Reflect"), "apply"),
     nil,
@@ -232,7 +231,7 @@ func functionalIsProgrammer_call(context nativecontext.ITypiaContext, expression
 }
 
 func functionalIsProgrammer_parameterIdentifiers(declaration *shimast.Node, emit ...*shimprinter.EmitContext) []*shimast.Node {
-  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   parameters := functionalIsProgrammer_parameterNodes(declaration)
   output := make([]*shimast.Node, 0, len(parameters))
   for _, p := range parameters {
@@ -251,7 +250,7 @@ func functionalIsProgrammer_parameterIdentifiers(declaration *shimast.Node, emit
 // functionalIsProgrammer_parameterName gives it: the wrapper validates and
 // forwards the whole argument, and a pattern names no single value.
 func functionalIsProgrammer_wrapperParameters(declaration *shimast.Node, emit ...*shimprinter.EmitContext) *shimast.ParameterList {
-  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   list := functionalIsProgrammer_parameters(declaration, emit...)
   if list == nil {
     return list
@@ -357,7 +356,7 @@ func functionalIsProgrammer_asyncModifiers(async bool, emit ...*shimprinter.Emit
   if async == false {
     return nil
   }
-  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewModifierList([]*shimast.Node{
     f.NewModifier(shimast.KindAsyncKeyword),
   })

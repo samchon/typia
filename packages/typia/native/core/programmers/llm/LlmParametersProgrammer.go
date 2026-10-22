@@ -27,10 +27,9 @@ type LlmParametersProgrammer_IWriteProps struct {
   Config   map[string]any
 }
 
-var llmParametersProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (llmParametersProgrammerNamespace) Write(props LlmParametersProgrammer_IWriteProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(llmParametersProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   typeNode := llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
     Name: f.NewIdentifier("ILlmSchema.IParameters"),

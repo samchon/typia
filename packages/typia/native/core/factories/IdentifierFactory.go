@@ -14,10 +14,9 @@ type identifierFactoryNamespace struct{}
 
 var IdentifierFactory = identifierFactoryNamespace{}
 
-var identifierFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (identifierFactoryNamespace) Identifier(name string, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(identifierFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   if identifierFactory_variable(name) {
     return f.NewIdentifier(name)
   }
@@ -29,7 +28,7 @@ func (identifierFactoryNamespace) Identifier(name string, emit ...*shimprinter.E
 // factories use; a required parameter also makes a forgotten context a compile
 // error rather than a silent metadata gap.
 func (identifierFactoryNamespace) Access(ec *shimprinter.EmitContext, input *shimast.Expression, key string, chain ...bool) *shimast.Node {
-  f := nativecontext.EmitFactory(ec, identifierFactory_factory)
+  f := nativecontext.NodeFactoryOf(ec)
   postfix := IdentifierFactory.Identifier(key, ec)
   optional := len(chain) != 0 && chain[0]
   var questionDot *shimast.QuestionDotToken
@@ -217,7 +216,7 @@ func identifierFactory_surrogate(str string) (rune, int) {
 }
 
 func (identifierFactoryNamespace) Parameter(name any, typeNode *shimast.TypeNode, init *shimast.Node, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(identifierFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   var binding *shimast.BindingName
   switch v := name.(type) {
   case string:

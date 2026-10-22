@@ -27,10 +27,9 @@ type TemplateFactory_IIterator struct {
   Index int
 }
 
-var templateFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (templateFactoryNamespace) Generate(expressions []*shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(templateFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   allString := true
   for _, exp := range expressions {
     if !shimast.IsStringLiteral(exp) {

@@ -154,10 +154,9 @@ type ExpressionFactory_GetEscapedTextProps struct {
   Input *shimast.Expression
 }
 
-var expressionFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (expressionFactoryNamespace) Number(value any, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   text, numeric := expressionFactory_number_text(value)
   // Go spells the non-finite floats `NaN`, `+Inf`, and `-Inf`. Only the first
   // happens to be JavaScript; `+Inf` evaluates an undeclared `Inf` and throws a
@@ -194,7 +193,7 @@ func (expressionFactoryNamespace) Number(value any, emit ...*shimprinter.EmitCon
 // `BigInt` parses the digits of a string directly, so the string form is exact
 // at any magnitude.
 func (expressionFactoryNamespace) Bigint(value any, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewCallExpression(
     f.NewIdentifier("BigInt"),
     nil,
@@ -207,7 +206,7 @@ func (expressionFactoryNamespace) Bigint(value any, emit ...*shimprinter.EmitCon
 }
 
 func (expressionFactoryNamespace) IsRequired(input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewBinaryExpression(
     nil,
     f.NewIdentifier("undefined"),
@@ -218,7 +217,7 @@ func (expressionFactoryNamespace) IsRequired(input *shimast.Expression, emit ...
 }
 
 func (expressionFactoryNamespace) IsArray(input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewCallExpression(
     f.NewIdentifier("Array.isArray"),
     nil,
@@ -229,7 +228,7 @@ func (expressionFactoryNamespace) IsArray(input *shimast.Expression, emit ...*sh
 }
 
 func (expressionFactoryNamespace) IsObject(props ExpressionFactory_IsObjectProps, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   conditions := []*shimast.Node{
     f.NewBinaryExpression(
       nil,
@@ -274,7 +273,7 @@ func (expressionFactoryNamespace) IsObject(props ExpressionFactory_IsObjectProps
 }
 
 func (expressionFactoryNamespace) IsInstanceOf(t string, input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewBinaryExpression(
     nil,
     input,
@@ -285,7 +284,7 @@ func (expressionFactoryNamespace) IsInstanceOf(t string, input *shimast.Expressi
 }
 
 func (expressionFactoryNamespace) Coalesce(x *shimast.Expression, y *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewBinaryExpression(
     nil,
     x,
@@ -302,7 +301,7 @@ func (expressionFactoryNamespace) Coalesce(x *shimast.Expression, y *shimast.Exp
 // removes that workaround. The node is structurally identical to the patched-up
 // form, so emitted text is unchanged.
 func (expressionFactoryNamespace) Conditional(condition *shimast.Expression, whenTrue *shimast.Expression, whenFalse *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewConditionalExpression(
     condition,
     f.NewToken(shimast.KindQuestionToken),
@@ -313,7 +312,7 @@ func (expressionFactoryNamespace) Conditional(condition *shimast.Expression, whe
 }
 
 func (expressionFactoryNamespace) Currying(props ExpressionFactory_CurryingProps, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   if len(props.Arguments) == 0 {
     return f.NewCallExpression(props.Function, nil, nil, nil, shimast.NodeFlagsNone)
   }
@@ -343,7 +342,7 @@ func (expressionFactoryNamespace) SelfCall(ec *shimprinter.EmitContext, body *sh
   if body != nil && body.Kind == shimast.KindCallExpression {
     return body
   }
-  f := nativecontext.EmitFactory(ec, expressionFactory_factory)
+  f := nativecontext.NodeFactoryOf(ec)
   var output *shimast.TypeNode
   if len(typeNode) != 0 {
     output = typeNode[0]
@@ -377,7 +376,7 @@ func (expressionFactoryNamespace) GetEscapedText(props ExpressionFactory_GetEsca
 }
 
 func (expressionFactoryNamespace) Transpile(props ExpressionFactory_TranspileProps, emit ...*shimprinter.EmitContext) func(input *shimast.Expression) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   fileName := filepath.Join(os.TempDir(), expressionFactory_random_format_uuid()+".ts")
   if absolute, err := filepath.Abs(fileName); err == nil {
     fileName = absolute

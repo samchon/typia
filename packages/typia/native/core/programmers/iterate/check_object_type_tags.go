@@ -75,5 +75,5 @@ func check_object_type_tags_transpile(context nativecontext.ITypiaContext, scrip
   return nativefactories.ExpressionFactory.Transpile(nativefactories.ExpressionFactory_TranspileProps{
     Importer: importer,
     Script:   script,
-  })
+  }, context.Emit)
 }

@@ -18,10 +18,9 @@ type httpParameterProgrammerNamespace struct{}
 
 var HttpParameterProgrammer = httpParameterProgrammerNamespace{}
 
-var httpParameterProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (httpParameterProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(httpParameterProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
     Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
@@ -154,7 +153,7 @@ func httpParameterProgrammer_internal(context nativecontext.ITypiaContext, name 
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return nativecontext.EmitFactoryOf(httpParameterProgrammer_factory, context.Emit).NewIdentifier(name)
+  return nativecontext.NodeFactoryOf(context.Emit).NewIdentifier(name)
 }
 
 func httpParameterProgrammer_capitalize(str string) string {

@@ -26,10 +26,9 @@ type ReflectLiteralsProgrammer_IProps struct {
   Type    *shimchecker.Type
 }
 
-var reflectLiteralsProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (reflectLiteralsProgrammerNamespace) Write(props ReflectLiteralsProgrammer_IProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(reflectLiteralsProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
     Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{

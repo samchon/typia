@@ -30,7 +30,6 @@ type HttpIsFormDataProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-var httpIsProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (httpIsFormDataProgrammerNamespace) Decompose(props HttpIsFormDataProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   is := nativeprogrammers.IsProgrammer.Decompose(nativeprogrammers.IsProgrammer_DecomposeProps{
@@ -57,7 +56,7 @@ func (httpIsFormDataProgrammerNamespace) Write(props nativecontext.IProgrammerPr
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,
@@ -65,7 +64,7 @@ func (httpIsFormDataProgrammerNamespace) Write(props nativecontext.IProgrammerPr
 }
 
 func httpProgrammer_is_result(is nativeinternal.FeatureProgrammer_IDecomposed, decode nativeinternal.FeatureProgrammer_IDecomposed, emit ...*shimprinter.EmitContext) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(httpIsProgrammer_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   decodeArrow := decode.Arrow.AsArrowFunction()
   output := decodeArrow.Type
   if output == nil {

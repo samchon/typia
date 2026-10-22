@@ -55,7 +55,6 @@ type functionProgrammer_union struct {
   value *shimast.Node
 }
 
-var functionProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 // NewFunctionProgrammer returns an empty FunctionProgrammer labeled with the
 // typia method text and bound to an optional emit context.
@@ -247,7 +246,7 @@ func (p *FunctionProgrammer) EmplaceVariable(name string, value *shimast.Express
     p.variableOrder_ = append(p.variableOrder_, name)
   }
   p.variables_[name] = value
-  return nativecontext.EmitFactoryOf(functionProgrammer_factory, p.emit_).NewIdentifier(name)
+  return nativecontext.NodeFactoryOf(p.emit_).NewIdentifier(name)
 }
 
 // EmplaceVariableByKey returns an identifier for the variable registered under
@@ -260,7 +259,7 @@ func (p *FunctionProgrammer) EmplaceVariable(name string, value *shimast.Express
 func (p *FunctionProgrammer) EmplaceVariableByKey(prefix string, key string, factory func(name string) *shimast.Expression) *shimast.Node {
   compound := prefix + "::" + key
   if name, ok := p.variableKeys_[compound]; ok {
-    return nativecontext.EmitFactoryOf(functionProgrammer_factory, p.emit_).NewIdentifier(name)
+    return nativecontext.NodeFactoryOf(p.emit_).NewIdentifier(name)
   }
   name := p.reserveGeneratedName(prefix)
   p.variableKeys_[compound] = name
@@ -268,7 +267,7 @@ func (p *FunctionProgrammer) EmplaceVariableByKey(prefix string, key string, fac
     p.variableOrder_ = append(p.variableOrder_, name)
   }
   p.variables_[name] = factory(name)
-  return nativecontext.EmitFactoryOf(functionProgrammer_factory, p.emit_).NewIdentifier(name)
+  return nativecontext.NodeFactoryOf(p.emit_).NewIdentifier(name)
 }
 
 func (p *FunctionProgrammer) reserveGeneratedName(prefix string) string {

@@ -10,7 +10,6 @@ type numericRangeFactoryNamespace struct{}
 
 var NumericRangeFactory = numericRangeFactoryNamespace{}
 
-var numericRangeFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (numericRangeFactoryNamespace) Number(t string, input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
   switch t {
@@ -25,7 +24,7 @@ func (numericRangeFactoryNamespace) Number(t string, input *shimast.Expression, 
   case "float":
     return numericRangeFactory_between("-3.4028235e38", "3.4028235e38", emit...)(input)
   default:
-    return nativecontext.EmitFactoryOf(numericRangeFactory_factory, emit...).NewKeywordExpression(shimast.KindTrueKeyword)
+    return nativecontext.NodeFactoryOf(emit...).NewKeywordExpression(shimast.KindTrueKeyword)
   }
 }
 
@@ -42,7 +41,7 @@ func (numericRangeFactoryNamespace) Bigint(t string, input *shimast.Expression, 
   case "uint64":
     return numericRangeFactory_bigint_between("0", "18446744073709551615", input, emit...)
   default:
-    return nativecontext.EmitFactoryOf(numericRangeFactory_factory, emit...).NewKeywordExpression(shimast.KindTrueKeyword)
+    return nativecontext.NodeFactoryOf(emit...).NewKeywordExpression(shimast.KindTrueKeyword)
   }
 }
 
@@ -83,7 +82,7 @@ func numericRangeFactory_number_uint64(input *shimast.Expression, emit ...*shimp
 }
 
 func numericRangeFactory_integer(input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(numericRangeFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewBinaryExpression(
     nil,
     f.NewCallExpression(
@@ -100,7 +99,7 @@ func numericRangeFactory_integer(input *shimast.Expression, emit ...*shimprinter
 }
 
 func numericRangeFactory_between(x string, y string, emit ...*shimprinter.EmitContext) func(input *shimast.Expression) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(numericRangeFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return func(input *shimast.Expression) *shimast.Node {
     return numericRangeFactory_logical_and(
       f.NewBinaryExpression(
@@ -129,7 +128,7 @@ func numericRangeFactory_between(x string, y string, emit ...*shimprinter.EmitCo
 // rounding that broke the number path -- while the string form parses the digits
 // exactly.
 func numericRangeFactory_bigint_literal(value string, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(numericRangeFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewCallExpression(
     f.NewIdentifier("BigInt"),
     nil,
@@ -144,7 +143,7 @@ func numericRangeFactory_bigint_literal(value string, emit ...*shimprinter.EmitC
 // Both comparisons are inclusive because a bigint represents the true 64-bit
 // bounds exactly, unlike the number path's exclusive approximation.
 func numericRangeFactory_bigint_between(x string, y string, input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(numericRangeFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return numericRangeFactory_logical_and(
     f.NewBinaryExpression(
       nil,
@@ -165,11 +164,11 @@ func numericRangeFactory_bigint_between(x string, y string, input *shimast.Expre
 }
 
 func numericRangeFactory_logical_and(x *shimast.Expression, y *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  return nativecontext.EmitFactoryOf(numericRangeFactory_factory, emit...).NewBinaryExpression(
+  return nativecontext.NodeFactoryOf(emit...).NewBinaryExpression(
     nil,
     x,
     nil,
-    nativecontext.EmitFactoryOf(numericRangeFactory_factory, emit...).NewToken(shimast.KindAmpersandAmpersandToken),
+    nativecontext.NodeFactoryOf(emit...).NewToken(shimast.KindAmpersandAmpersandToken),
     y,
   )
 }

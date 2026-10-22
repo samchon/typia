@@ -113,10 +113,9 @@ type randomJoiner_DynamicPropertyProps struct {
   Emit     *shimprinter.EmitContext
 }
 
-var randomJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (randomJoinerNamespace) Array(props RandomJoiner_ArrayProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   properties := []*shimast.Node{}
   if props.Schema != nil {
     keys := make([]string, 0, len(props.Schema))
@@ -728,7 +727,7 @@ func randomJoiner_is_recursive_metadata(
 }
 
 func (randomJoinerNamespace) Tuple(props RandomJoiner_TupleProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   elements := make([]*shimast.Node, 0, len(props.Elements))
   for _, elem := range props.Elements {
     if elem != nil && elem.Rest != nil {
@@ -763,7 +762,7 @@ func (randomJoinerNamespace) Tuple(props RandomJoiner_TupleProps) *shimast.Node 
 }
 
 func (randomJoinerNamespace) Object(props RandomJoiner_ObjectProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   if len(props.Object.Properties) == 0 {
     return nativefactories.LiteralFactory.Write(map[string]any{}, props.Emit)
   }
@@ -822,7 +821,7 @@ func (randomJoinerNamespace) Object(props RandomJoiner_ObjectProps) *shimast.Nod
 }
 
 func randomJoiner_dynamicProperty(props randomJoiner_DynamicPropertyProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   tuple := nativemetadata.MetadataTuple_create(nativemetadata.MetadataTuple{
     Type: nativemetadata.MetadataTupleType_create(nativemetadata.MetadataTupleType{
       Name:      fmt.Sprintf("[%s, %s]", props.Property.Key.GetName(), props.Property.Value.GetName()),
@@ -848,7 +847,7 @@ func randomJoiner_dynamicProperty(props randomJoiner_DynamicPropertyProps) *shim
   metadata := nativemetadata.MetadataSchema_initialize()
   metadata.Arrays = []*nativemetadata.MetadataArray{array}
   return f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(nil, f.NewIdentifier("Object"), "fromEntries"),
+    nativefactories.IdentifierFactory.Access(props.Emit, f.NewIdentifier("Object"), "fromEntries"),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{

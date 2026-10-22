@@ -54,10 +54,9 @@ type StringifyJoiner_TupleProps struct {
   Emit     *shimprinter.EmitContext
 }
 
-var stringifyJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (stringifyJoinerNamespace) Object(props StringifyJoiner_ObjectProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if len(props.Entries) == 0 {
     return f.NewStringLiteral("{}", shimast.TokenFlagsNone)
   }
@@ -117,7 +116,7 @@ func (stringifyJoinerNamespace) Object(props StringifyJoiner_ObjectProps) *shima
 // runtime whatever the element type declares, so this is not confined to `any`
 // (#2253).
 func (stringifyJoinerNamespace) Array(props StringifyJoiner_ArrayProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   return nativefactories.TemplateFactory.Generate([]*shimast.Node{
     f.NewStringLiteral("[", shimast.TokenFlagsNone),
     f.NewCallExpression(
@@ -132,7 +131,7 @@ func (stringifyJoinerNamespace) Array(props StringifyJoiner_ArrayProps) *shimast
 }
 
 func (stringifyJoinerNamespace) Tuple(props StringifyJoiner_TupleProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   if len(props.Elements) == 0 {
     return f.NewStringLiteral("[]", shimast.TokenFlagsNone)
   }
@@ -158,7 +157,7 @@ func (stringifyJoinerNamespace) Tuple(props StringifyJoiner_TupleProps) *shimast
 }
 
 func stringifyJoiner_regular_properties(context nativecontext.ITypiaContext, regular []IExpressionEntry, dynamic []IExpressionEntry, emit ...*shimprinter.EmitContext) []*shimast.Node {
-  f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   output := []*shimast.Node{}
   // Members keep their declaration order, which is what the guide promises and
   // what `JSON.stringify` produces for a value assigned in that order. They used
@@ -269,7 +268,7 @@ func stringifyJoiner_result_undefinable(meta *nativemetadata.MetadataSchema) boo
 }
 
 func stringifyJoiner_regular_condition(entry IExpressionEntry, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   conditions := []*shimast.Node{}
   if !entry.Meta.IsRequired() || entry.Meta.Any {
     conditions = append(conditions, f.NewBinaryExpression(
@@ -293,7 +292,7 @@ func stringifyJoiner_regular_condition(entry IExpressionEntry, emit ...*shimprin
 }
 
 func stringifyJoiner_dynamic_properties(context nativecontext.ITypiaContext, dynamic []IExpressionEntry, regular []string, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   statements := []*shimast.Node{
     f.NewIfStatement(
       f.NewBinaryExpression(
@@ -310,7 +309,7 @@ func stringifyJoiner_dynamic_properties(context nativecontext.ITypiaContext, dyn
   output := func() *shimast.Node {
     mapped := f.NewCallExpression(
       nativefactories.IdentifierFactory.Access(
-        nil,
+        context.Emit,
         f.NewCallExpression(
           f.NewIdentifier("Object.entries"),
           nil,
@@ -338,7 +337,7 @@ func stringifyJoiner_dynamic_properties(context nativecontext.ITypiaContext, dyn
       shimast.NodeFlagsNone,
     )
     filtered := f.NewCallExpression(
-      nativefactories.IdentifierFactory.Access(nil, mapped, "filter"),
+      nativefactories.IdentifierFactory.Access(context.Emit, mapped, "filter"),
       nil,
       nil,
       f.NewNodeList([]*shimast.Node{
@@ -361,7 +360,7 @@ func stringifyJoiner_dynamic_properties(context nativecontext.ITypiaContext, dyn
       shimast.NodeFlagsNone,
     )
     return f.NewCallExpression(
-      nativefactories.IdentifierFactory.Access(nil, filtered, "join"),
+      nativefactories.IdentifierFactory.Access(context.Emit, filtered, "join"),
       nil,
       nil,
       f.NewNodeList([]*shimast.Node{f.NewStringLiteral(",", shimast.TokenFlagsNone)}),
@@ -376,7 +375,7 @@ func stringifyJoiner_dynamic_properties(context nativecontext.ITypiaContext, dyn
     statements = append(statements, f.NewIfStatement(
       f.NewCallExpression(
         nativefactories.IdentifierFactory.Access(
-          nil,
+          context.Emit,
           f.NewArrayLiteralExpression(f.NewNodeList(elements), false),
           "some",
         ),
@@ -415,7 +414,7 @@ func stringifyJoiner_dynamic_properties(context nativecontext.ITypiaContext, dyn
 }
 
 func stringifyJoiner_stringify(context nativecontext.ITypiaContext, entry IExpressionEntry, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   head := nativefactories.TemplateFactory.Generate([]*shimast.Node{
     f.NewCallExpression(
       f.NewIdentifier("JSON.stringify"),
@@ -451,7 +450,7 @@ func stringifyJoiner_stringify(context nativecontext.ITypiaContext, entry IExpre
 }
 
 func stringifyJoiner_regular_arrow(emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewArrowFunction(
     nil,
     nil,
@@ -470,7 +469,7 @@ func stringifyJoiner_regular_arrow(emit ...*shimprinter.EmitContext) *shimast.No
 }
 
 func stringifyJoiner_binding_pattern(emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewBindingPattern(
     shimast.KindArrayBindingPattern,
     f.NewNodeList([]*shimast.Node{
@@ -481,7 +480,7 @@ func stringifyJoiner_binding_pattern(emit ...*shimprinter.EmitContext) *shimast.
 }
 
 func stringifyJoiner_reduce(expressions []*shimast.Node, operator shimast.Kind, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   if len(expressions) == 0 {
     return f.NewKeywordExpression(shimast.KindFalseKeyword)
   }
@@ -496,7 +495,7 @@ func stringifyJoiner_internal(context nativecontext.ITypiaContext, name string) 
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return nativecontext.EmitFactoryOf(stringifyJoiner_factory, context.Emit).NewIdentifier(name)
+  return nativecontext.NodeFactoryOf(context.Emit).NewIdentifier(name)
 }
 
 func stringifyJoiner_all_string_literals(elements []*shimast.Expression) bool {

@@ -60,10 +60,9 @@ type StatementFactory_EntryProps struct {
   Value string
 }
 
-var statementFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (statementFactoryNamespace) Mut(props StatementFactory_MutProps, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(statementFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   typeNode := props.Type
   if typeNode == nil && props.Initializer == nil {
     typeNode = TypeFactory.Keyword("any", emit...)
@@ -84,7 +83,7 @@ func (statementFactoryNamespace) Mut(props StatementFactory_MutProps, emit ...*s
 }
 
 func (statementFactoryNamespace) Constant(props StatementFactory_ConstantProps, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(statementFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   typeNode := props.Type
   if typeNode == nil && props.Value == nil {
     typeNode = TypeFactory.Keyword("any", emit...)
@@ -105,7 +104,7 @@ func (statementFactoryNamespace) Constant(props StatementFactory_ConstantProps, 
 }
 
 func (statementFactoryNamespace) Entry(props StatementFactory_EntryProps, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(statementFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   key := f.NewBindingElement(
     nil,
     nil,
@@ -130,14 +129,14 @@ func (statementFactoryNamespace) Entry(props StatementFactory_EntryProps, emit .
 }
 
 func (statementFactoryNamespace) Transpile(script string, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(statementFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewExpressionStatement(
     f.NewIdentifier(script),
   )
 }
 
 func (statementFactoryNamespace) Block(expression *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(statementFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewBlock(
     f.NewNodeList([]*shimast.Node{
       f.NewExpressionStatement(expression),

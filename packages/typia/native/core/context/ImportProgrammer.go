@@ -130,7 +130,6 @@ type importProgrammer_asset struct {
   order     []string
 }
 
-var importProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 // NewImportProgrammer creates an importer with the first option record, or the
 // zero options.
@@ -213,7 +212,7 @@ func (p *ImportProgrammer) Default(props ImportProgrammer_IDefault) *shimast.Nod
   if p.emit_ != nil {
     return p.member(asset, "default")
   }
-  return EmitFactory(p.emit_, importProgrammer_factory).NewIdentifier(asset.Default.Name)
+  return NodeFactoryOf(p.emit_).NewIdentifier(asset.Default.Name)
 }
 
 // Instance records a named import and returns its reference. The alias, or the
@@ -236,7 +235,7 @@ func (p *ImportProgrammer) Instance(props ImportProgrammer_IInstance) *shimast.N
   if p.emit_ != nil {
     return p.member(asset, props.Name)
   }
-  return EmitFactory(p.emit_, importProgrammer_factory).NewIdentifier(alias)
+  return NodeFactoryOf(p.emit_).NewIdentifier(alias)
 }
 
 // Namespace records a namespace import of the file and returns its reference. The
@@ -255,7 +254,7 @@ func (p *ImportProgrammer) Namespace(props ImportProgrammer_INamespace) *shimast
   if p.emit_ != nil {
     return p.namespaceName(asset)
   }
-  return EmitFactory(p.emit_, importProgrammer_factory).NewIdentifier(asset.namespace.Name)
+  return NodeFactoryOf(p.emit_).NewIdentifier(asset.namespace.Name)
 }
 
 // Type builds an import type node `import("file").Qualifier<Arguments>`. It
@@ -266,7 +265,7 @@ func (p *ImportProgrammer) Namespace(props ImportProgrammer_INamespace) *shimast
 // @evidence contracts/common.md#prohibited-implementation-shortcuts An unsupported qualifier type produces a node without a qualifier and does not panic.
 // @evidence contracts/common.md#meaningful-documentation The doc states that nothing is registered.
 func (p *ImportProgrammer) Type(props ImportProgrammer_TypeProps) *shimast.Node {
-  f := EmitFactory(p.emit_, importProgrammer_factory)
+  f := NodeFactoryOf(p.emit_)
   var qualifier *shimast.EntityName
   switch name := props.Name.(type) {
   case string:
@@ -343,7 +342,7 @@ func (p *ImportProgrammer) GetInternalText(name string) string {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The ranking is a fixed table and the order is deterministic.
 // @evidence contracts/common.md#meaningful-documentation The doc states the order and the two forms.
 func (p *ImportProgrammer) ToStatements() []*shimast.Node {
-  f := EmitFactory(p.emit_, importProgrammer_factory)
+  f := NodeFactoryOf(p.emit_)
   statements := []*shimast.Node{}
   order := append([]string{}, p.order_...)
   indices := map[string]int{}

@@ -88,7 +88,7 @@ func Decode_union_object(props Decode_union_objectProps) *shimast.Node {
       },
     })
   }
-  f := nativecontext.EmitFactoryOf(decode_union_object_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   return f.NewCallExpression(
     f.NewArrowFunction(
       nil,
@@ -126,7 +126,7 @@ type decode_union_object_IBranch struct {
 }
 
 func decode_union_object_iterate(props decode_union_object_iterateProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(decode_union_object_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   branches := []decode_union_object_IBranch{}
   for _, u := range props.Unions {
     condition := u.Is()
@@ -187,4 +187,3 @@ type decode_union_object_IUnion struct {
   Value func() *shimast.Node
 }
 
-var decode_union_object_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

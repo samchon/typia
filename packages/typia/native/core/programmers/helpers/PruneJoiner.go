@@ -52,10 +52,9 @@ type PruneJoiner_TupleProps struct {
   Emit     *shimprinter.EmitContext
 }
 
-var pruneJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (pruneJoinerNamespace) Object(props PruneJoiner_ObjectProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   regular := []IExpressionEntry{}
   dynamic := []IExpressionEntry{}
   for _, entry := range props.Entries {
@@ -88,9 +87,9 @@ func (pruneJoinerNamespace) Object(props PruneJoiner_ObjectProps) *shimast.Node 
 }
 
 func (pruneJoinerNamespace) Array(props PruneJoiner_ArrayProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   return f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(nil, props.Input, "forEach"),
+    nativefactories.IdentifierFactory.Access(props.Emit, props.Input, "forEach"),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{props.Arrow}),
@@ -99,7 +98,7 @@ func (pruneJoinerNamespace) Array(props PruneJoiner_ArrayProps) *shimast.Node {
 }
 
 func (pruneJoinerNamespace) Tuple(props PruneJoiner_TupleProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   entire := make([]*shimast.Node, 0, len(props.Elements)+1)
   for _, elem := range props.Elements {
     entire = append(entire, elem)
@@ -118,7 +117,7 @@ func (pruneJoinerNamespace) Tuple(props PruneJoiner_TupleProps) *shimast.Node {
 }
 
 func pruneJoiner_statements(node *shimast.Node, emit ...*shimprinter.EmitContext) []*shimast.Node {
-  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   if node != nil && node.Kind == shimast.KindBlock {
     return append([]*shimast.Node{}, node.Statements()...)
   }
@@ -133,7 +132,7 @@ type pruneJoiner_iterate_dynamic_propertiesProps struct {
 }
 
 func pruneJoiner_iterate_dynamic_properties(props pruneJoiner_iterate_dynamic_propertiesProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   statements := []*shimast.Node{
     f.NewIfStatement(
       f.NewBinaryExpression(
@@ -190,7 +189,7 @@ func pruneJoiner_iterate_dynamic_properties(props pruneJoiner_iterate_dynamic_pr
   }
   return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(
-      nil,
+      props.Emit,
       f.NewCallExpression(
         f.NewIdentifier("Object.entries"),
         nil,
@@ -220,7 +219,7 @@ func pruneJoiner_iterate_dynamic_properties(props pruneJoiner_iterate_dynamic_pr
 }
 
 func pruneJoiner_binding_pattern(emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewBindingPattern(
     shimast.KindArrayBindingPattern,
     f.NewNodeList([]*shimast.Node{
@@ -231,7 +230,7 @@ func pruneJoiner_binding_pattern(emit ...*shimprinter.EmitContext) *shimast.Node
 }
 
 func pruneJoiner_prune_object_properties(object *nativemetadata.MetadataObjectType, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   input := f.NewIdentifier("input")
   key := f.NewIdentifier("key")
   conditions := []*shimast.Node{}
@@ -296,7 +295,7 @@ func pruneJoiner_prune_object_properties(object *nativemetadata.MetadataObjectTy
 }
 
 func pruneJoiner_reduce(expressions []*shimast.Node, operator shimast.Kind, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   output := expressions[0]
   for _, next := range expressions[1:] {
     output = f.NewBinaryExpression(

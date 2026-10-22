@@ -48,6 +48,10 @@ jobs:
 
       - name: Run Tests
         run: pnpm run test
+      - name: Test Distinct Program Emit Races
+        env:
+          CGO_ENABLED: "1"
+        run: pnpm test:go:race
 
   TypeScript-7-1:
     runs-on: ubuntu-latest

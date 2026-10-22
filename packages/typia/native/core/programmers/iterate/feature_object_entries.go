@@ -127,7 +127,7 @@ func Feature_object_entries(props Feature_object_entriesProps) []nativehelpers.I
 }
 
 func feature_object_entries_property_input(input *shimast.Expression, sole *string, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(feature_object_entries_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   if sole == nil {
     return f.NewIdentifier("value")
   }
@@ -168,7 +168,7 @@ func feature_object_entries_internal(context nativecontext.ITypiaContext, name s
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  f := nativecontext.EmitFactoryOf(feature_object_entries_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   return f.NewIdentifier(name)
 }
 
@@ -225,4 +225,3 @@ var feature_object_entries_reserved = map[string]bool{
   "with":       true,
 }
 
-var feature_object_entries_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

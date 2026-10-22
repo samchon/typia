@@ -36,7 +36,6 @@ type LlmApplicationProgrammer_IWriteProps struct {
   ConfigArgument *shimast.Node
 }
 
-var llmApplicationProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (llmApplicationProgrammerNamespace) Write(props LlmApplicationProgrammer_IWriteProps) *shimast.Node {
   application := LlmApplicationProgrammer.WriteApplication(struct {
@@ -52,7 +51,7 @@ func (llmApplicationProgrammerNamespace) Write(props LlmApplicationProgrammer_IW
     Config:   props.Config,
     Name:     props.Name,
   })
-  f := nativecontext.EmitFactoryOf(llmApplicationProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   var arguments []*shimast.TypeNode
   if props.Name != nil {
     arguments = []*shimast.TypeNode{llmProgrammer_type_reference(*props.Name, props.Context.Emit)}

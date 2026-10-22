@@ -1,6 +1,7 @@
 package factories
 
 import (
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   "testing"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
@@ -23,7 +24,7 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Number int32/uint32/int64/uint64, bigint int64/uint64 and unknown controls distinguish signedness, width, exact string construction and unrestricted fallback.
 // @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestNumericRangeFactoryEnforces64BitBounds(t *testing.T) {
-  input := numericRangeFactory_factory.NewIdentifier("input")
+  input := nativecontext.NodeFactoryOf().NewIdentifier("input")
 
   for _, name := range []string{"int64", "uint64"} {
     node := NumericRangeFactory.Bigint(name, input)

@@ -16,7 +16,7 @@ func (compareLessTransformerNamespace) Transform(props nativeinternal.ITransform
 }
 
 func compareLessTransformer_scalar(props nativeinternal.ITransformProps, method string) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(shimast.NewNodeFactory(shimast.NodeFactoryHooks{}), props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if props.Expression == nil || props.Expression.Arguments == nil || len(props.Expression.Arguments.Nodes) < 2 {
     panic(nativeinternal.NewTransformerError(nativeinternal.TransformerError_IProps{
       Code:    "typia." + method,

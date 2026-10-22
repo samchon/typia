@@ -65,10 +65,9 @@ type compareEqualProgrammerGenerator struct {
   MatcherIndex map[int]bool
 }
 
-var compareEqualProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (compareEqualProgrammerNamespace) Write(props CompareEqualProgrammer_IProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(compareEqualProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   method := nativehelpers.ModuloMethodText(props.Modulo)
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{

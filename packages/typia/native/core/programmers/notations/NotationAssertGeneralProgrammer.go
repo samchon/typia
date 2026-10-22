@@ -53,10 +53,9 @@ type NotationAssertGeneralProgrammer_DecomposeProps struct {
   Init *shimast.Node
 }
 
-var notationAssertGeneralProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (notationAssertGeneralProgrammerNamespace) Decompose(props NotationAssertGeneralProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(notationAssertGeneralProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: props.Functor,

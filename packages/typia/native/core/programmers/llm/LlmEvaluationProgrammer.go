@@ -66,12 +66,11 @@ type LlmEvaluationProgrammer_IError struct {
   Message  string
 }
 
-var llmEvaluationProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 // Write emits `_createLlmEvaluation(plan, decimals) as ILlmEvaluation<T>`.
 // The metadata must already have passed Compose without errors.
 func (llmEvaluationProgrammerNamespace) Write(props LlmEvaluationProgrammer_IWriteProps, plan []any) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(llmEvaluationProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   typeName := "unknown"
   if props.Name != nil {
     typeName = *props.Name

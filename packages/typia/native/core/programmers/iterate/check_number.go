@@ -34,7 +34,7 @@ type Check_numberProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_number(props Check_numberProps) nativehelpers.ICheckEntry {
-  f := nativecontext.EmitFactoryOf(check_number_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   base := f.NewBinaryExpression(
     nil,
     f.NewStringLiteral("number", shimast.TokenFlagsNone),
@@ -190,7 +190,6 @@ func check_number_transpile(context nativecontext.ITypiaContext, script string) 
   return nativefactories.ExpressionFactory.Transpile(nativefactories.ExpressionFactory_TranspileProps{
     Importer: importer,
     Script:   script,
-  })
+  }, context.Emit)
 }
 
-var check_number_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

@@ -70,10 +70,9 @@ type CloneJoiner_ArrayProps struct {
   Emit  *shimprinter.EmitContext
 }
 
-var cloneJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (cloneJoinerNamespace) Object(props CloneJoiner_ObjectProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(cloneJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   if len(props.Entries) == 0 {
     return f.NewIdentifier("{}")
   }
@@ -192,7 +191,7 @@ func cloneJoiner_optional_condition(entry IExpressionEntry, input *shimast.Expre
   if key == nil {
     return nativefactories.ExpressionFactory.IsRequired(entry.Input, emit...)
   }
-  f := nativecontext.EmitFactoryOf(cloneJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewBinaryExpression(
     nil,
     nativefactories.ExpressionFactory.IsRequired(entry.Input, emit...),
@@ -209,7 +208,7 @@ func cloneJoiner_optional_condition(entry IExpressionEntry, input *shimast.Expre
 }
 
 func (cloneJoinerNamespace) Tuple(props CloneJoiner_TupleProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(cloneJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   elements := make([]*shimast.Node, 0, len(props.Elements)+1)
   for _, elem := range props.Elements {
     elements = append(elements, elem)
@@ -233,7 +232,7 @@ func (cloneJoinerNamespace) Tuple(props CloneJoiner_TupleProps) *shimast.Node {
 // for `[string, number?]` stays `["a"]` (length 1) and round-trips under
 // `compare.equals`, while a present optional keeps its value.
 func (cloneJoinerNamespace) OptionalTupleElement(props CloneJoiner_OptionalElementProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(cloneJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   condition := f.NewBinaryExpression(
     nil,
     nativefactories.ExpressionFactory.Number(props.Index, props.Emit),
@@ -252,9 +251,9 @@ func (cloneJoinerNamespace) OptionalTupleElement(props CloneJoiner_OptionalEleme
 }
 
 func (cloneJoinerNamespace) Array(props CloneJoiner_ArrayProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(cloneJoiner_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   return f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(nil, props.Input, "map"),
+    nativefactories.IdentifierFactory.Access(props.Emit, props.Input, "map"),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{props.Arrow}),
@@ -263,7 +262,7 @@ func (cloneJoinerNamespace) Array(props CloneJoiner_ArrayProps) *shimast.Node {
 }
 
 func cloneJoiner_regular_skip(regular []IExpressionEntry, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(cloneJoiner_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   elements := make([]*shimast.Node, 0, len(regular))
   for _, entry := range regular {
     elements = append(elements, f.NewStringLiteral(*entry.Key.GetSoleLiteral(), shimast.TokenFlagsNone))
