@@ -1499,8 +1499,8 @@ func plainClassifyProgrammer_choose_seed(
     return seedT == nil ||
       seedT.Flags()&(shimchecker.TypeFlagsAny|shimchecker.TypeFlagsUnknown) != 0
   }
-  if fromSym != nil && fromSym.ValueDeclaration != nil {
-    fnT := checker.GetTypeOfSymbolAtLocation(fromSym, fromSym.ValueDeclaration)
+  if fromSym != nil && shimast.SymbolValueDeclarationOf(fromSym) != nil {
+    fnT := checker.GetTypeOfSymbolAtLocation(fromSym, shimast.SymbolValueDeclarationOf(fromSym))
     if sigs := checker.GetSignaturesOfType(fnT, shimchecker.SignatureKindCall); len(sigs) != 0 {
       sig := sigs[len(sigs)-1]
       if plainClassifyProgrammer_arity_ok(checker, sig) {
@@ -1537,10 +1537,10 @@ func plainClassifyProgrammer_is_abstract(static *shimchecker.Type) bool {
     return false
   }
   sym := static.Symbol()
-  if sym == nil || len(sym.Declarations) == 0 {
+  if sym == nil || len(shimast.SymbolDeclarationsOf(sym)) == 0 {
     return false
   }
-  return sym.Declarations[0].ModifierFlags()&shimast.ModifierFlagsAbstract != 0
+  return shimast.SymbolDeclarationsOf(sym)[0].ModifierFlags()&shimast.ModifierFlagsAbstract != 0
 }
 
 // plainClassifyProgrammer_ctor_public reports whether a construct signature is
@@ -1621,7 +1621,7 @@ func plainClassifyProgrammer_call_file(modulo *shimast.Node) string {
     return ""
   }
   if src := shimast.GetSourceFileOfNode(modulo); src != nil {
-    if abs, err := filepath.Abs(src.FileName()); err == nil {
+    if abs, err := filepath.Abs(string(src.FileName())); err == nil {
       return abs
     }
   }
@@ -1721,7 +1721,7 @@ func plainClassifyProgrammer_constructor_nature(checker *shimchecker.Checker, st
   // a class TYPE (typeof C): its symbol is a class declaration. This holds even
   // for a PRIVATE-constructor class (whose construct signature may be filtered
   // by accessibility), so the static-factory arm still applies — Point.from.
-  if sym := static.Symbol(); sym != nil && sym.Flags&shimast.SymbolFlagsClass != 0 {
+  if sym := static.Symbol(); sym != nil && shimast.SymbolFlagsOf(sym)&shimast.SymbolFlagsClass != 0 {
     return true
   }
   // a constructor type without a class symbol (anonymous class, `new () => X`)
@@ -1741,10 +1741,10 @@ func plainClassifyProgrammer_constructor_nature(checker *shimchecker.Checker, st
 func plainClassifyProgrammer_class_ref(ctx nativecontext.ITypiaContext, static *shimchecker.Type, callFile string) *shimast.Node {
   f := nativecontext.EmitFactoryOf(plainClassifyProgrammer_factory, ctx.Emit)
   sym := static.Symbol()
-  if sym == nil || len(sym.Declarations) == 0 {
+  if sym == nil || len(shimast.SymbolDeclarationsOf(sym)) == 0 {
     return nil
   }
-  decl := sym.Declarations[0]
+  decl := shimast.SymbolDeclarationsOf(sym)[0]
   // The runtime value name to construct against. The class symbol name is not
   // always a usable binding: a class declared inside a `namespace` binds as
   // `NS.Inner.C` (mirror the qualified name the field-copy path derives), and a
@@ -1758,7 +1758,7 @@ func plainClassifyProgrammer_class_ref(ctx nativecontext.ITypiaContext, static *
       return nil
     }
   } else {
-    valueName = plainClassifyProgrammer_qualified_name(decl.Parent, sym.Name)
+    valueName = plainClassifyProgrammer_qualified_name(decl.Parent, shimast.SymbolNameOf(sym))
   }
   src := shimast.GetSourceFileOfNode(decl)
   // `default` (an anonymous `export default class {}`) and an empty name are not
@@ -1773,7 +1773,7 @@ func plainClassifyProgrammer_class_ref(ctx nativecontext.ITypiaContext, static *
   if src == nil {
     return bare
   }
-  classFileAbs, err := filepath.Abs(src.FileName())
+  classFileAbs, err := filepath.Abs(string(src.FileName()))
   if err != nil || callFile == "" || classFileAbs == callFile {
     return bare
   }
@@ -1863,7 +1863,7 @@ func plainClassifyProgrammer_is_default_export(
     if target == nil {
       continue
     }
-    if target == sym || (len(target.Declarations) != 0 && target.Declarations[0] == decl) {
+    if target == sym || (len(shimast.SymbolDeclarationsOf(target)) != 0 && shimast.SymbolDeclarationsOf(target)[0] == decl) {
       return true
     }
   }

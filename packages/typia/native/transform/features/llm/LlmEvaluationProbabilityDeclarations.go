@@ -76,7 +76,7 @@ func llmEvaluation_declarationProbabilityErrors(files []*shimast.SourceFile) []n
               }
               errors = append(errors, nativellmprogrammers.LlmEvaluationProgrammer_IError{
                 Accessor: "$input",
-                Message:  fmt.Sprintf("LLM evaluation @probability on %s %s in %s is unsupported; put it on a decision property or enum member.", kind, name, file.FileName()),
+                Message:  fmt.Sprintf("LLM evaluation @probability on %s %s in %s is unsupported; put it on a decision property or enum member.", kind, name, string(file.FileName())),
               })
               break
             }

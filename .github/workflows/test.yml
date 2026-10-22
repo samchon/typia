@@ -47,3 +47,26 @@ jobs:
 
       - name: Run Tests
         run: pnpm run test
+
+  TypeScript-7-1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.27.x
+      - uses: pnpm/action-setup@v4
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Select TypeScript 7.1
+        run: |
+          node -e 'const fs = require("node:fs"); const p = "pnpm-workspace.yaml"; const s = fs.readFileSync(p, "utf8"); if (!s.includes("typescript: ^7.0.2")) throw new Error("TypeScript catalog changed"); fs.writeFileSync(p, s.replace("typescript: ^7.0.2", "typescript: 7.1.0-dev.20261020.3"));'
+          pnpm install --no-frozen-lockfile
+      - name: Test Go on TypeScript 7.1
+        run: pnpm test:go:7.1
+      - name: Test TypeScript 7.1 Consumers
+        run: pnpm test:packages

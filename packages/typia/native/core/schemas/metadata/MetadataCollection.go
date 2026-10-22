@@ -1158,10 +1158,10 @@ func metadataCollection_markVisiting(
 }
 
 func metadataCollection_getName(symbol *nativeast.Symbol) string {
-  if symbol == nil || len(symbol.Declarations) == 0 || symbol.Declarations[0].Parent == nil {
+  if symbol == nil || len(nativeast.SymbolDeclarationsOf(symbol)) == 0 || nativeast.SymbolDeclarationsOf(symbol)[0].Parent == nil {
     return "__type"
   }
-  return metadataCollection_exploreName(symbol.Declarations[0].Parent, strings.ReplaceAll(symbol.Name, "\uFFFD", "__"))
+  return metadataCollection_exploreName(nativeast.SymbolDeclarationsOf(symbol)[0].Parent, strings.ReplaceAll(nativeast.SymbolNameOf(symbol), "\uFFFD", "__"))
 }
 
 func metadataCollection_exploreName(node *nativeast.Node, name string) string {

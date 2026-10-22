@@ -92,7 +92,7 @@ func (callExpressionTransformerNamespace) Transform(props CallExpressionTransfor
   if sourceFile == nil {
     return props.Expression.AsNode()
   }
-  location, _ := filepath.Abs(sourceFile.FileName())
+  location, _ := filepath.Abs(string(sourceFile.FileName()))
   module, ok := callExpressionTransformer_targetModule(location)
   if ok == false {
     callExpressionTransformer_rejectShadowedTypia(props, location)
@@ -102,7 +102,7 @@ func (callExpressionTransformerNamespace) Transform(props CallExpressionTransfor
   if typ == nil || typ.Symbol() == nil {
     return props.Expression.AsNode()
   }
-  name := typ.Symbol().Name
+  name := shimast.SymbolNameOf(typ.Symbol())
   return CallExpressionTransformer.TransformKnown(CallExpressionTransformer_TransformKnownProps{
     Context:    props.Context,
     Expression: props.Expression,
@@ -210,10 +210,10 @@ func callExpressionTransformer_rejectShadowedTypia(props CallExpressionTransform
     return
   }
   symbol := props.Context.Checker.GetSymbolAtLocation(root)
-  if symbol == nil || symbol.Flags&shimast.SymbolFlagsAlias == 0 {
+  if symbol == nil || shimast.SymbolFlagsOf(symbol)&shimast.SymbolFlagsAlias == 0 {
     return
   }
-  for _, declaration := range symbol.Declarations {
+  for _, declaration := range shimast.SymbolDeclarationsOf(symbol) {
     if callExpressionTransformer_importsTypia(declaration) == false {
       continue
     }

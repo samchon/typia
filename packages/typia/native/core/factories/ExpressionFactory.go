@@ -1,6 +1,7 @@
 package factories
 
 import (
+  shimtspath "github.com/microsoft/typescript-go/shim/tspath"
   "crypto/rand"
   "fmt"
   "math"
@@ -382,7 +383,7 @@ func (expressionFactoryNamespace) Transpile(props ExpressionFactory_TranspilePro
     fileName = absolute
   }
   file := shimparser.ParseSourceFile(
-    shimast.SourceFileParseOptions{FileName: filepath.ToSlash(fileName)},
+    shimast.SourceFileParseOptions{FileName: shimtspath.RootedFilePath(filepath.ToSlash(fileName))},
     props.Script,
     shimcore.ScriptKindTS,
   )

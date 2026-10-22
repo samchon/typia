@@ -2,9 +2,8 @@ module github.com/samchon/typia/packages/typia/native
 
 go 1.26
 
-// Build-time floor: the driver reference-graph SDK
-// (driver.NewTransformGraph / driver.TransformGraph / driver.TransformOutputKey)
-// this plugin consumes exists only in ttsc >= 0.19.2. That floor is enforced
+// Build-time floor: the version-neutral Symbol and path APIs consumed by
+// this plugin exist only in ttsc >= 0.34.0. That floor is enforced
 // through typia's package.json `ttsc` peerDependency, not here: ttsc builds
 // this plugin from source on the user's machine and its buildSourcePlugin
 // generates `replace github.com/samchon/ttsc/packages/ttsc v0.0.0 =>
@@ -18,6 +17,7 @@ require (
 	github.com/microsoft/typescript-go/shim/parser v0.0.0
 	github.com/microsoft/typescript-go/shim/printer v0.0.0
 	github.com/microsoft/typescript-go/shim/scanner v0.0.0
+	github.com/microsoft/typescript-go/shim/tspath v0.0.0
 	github.com/samchon/ttsc/packages/ttsc v0.0.0
 	golang.org/x/text v0.36.0
 )
@@ -29,7 +29,6 @@ require (
 	github.com/microsoft/typescript-go/shim/bundled v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/diagnosticwriter v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/tsoptions v0.0.0 // indirect
-	github.com/microsoft/typescript-go/shim/tspath v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/vfs v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/vfs/cachedvfs v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/vfs/osvfs v0.0.0 // indirect

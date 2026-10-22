@@ -88,10 +88,10 @@ func metadata_type_symbol_base_name(typ *nativechecker.Type) string {
 }
 
 func metadata_symbol_name(symbol *nativeast.Symbol) string {
-  if symbol == nil || len(symbol.Declarations) == 0 || symbol.Declarations[0].Parent == nil {
+  if symbol == nil || len(nativeast.SymbolDeclarationsOf(symbol)) == 0 || nativeast.SymbolDeclarationsOf(symbol)[0].Parent == nil {
     return "__type"
   }
-  return metadata_explore_symbol_name(symbol.Declarations[0].Parent, symbol.Name)
+  return metadata_explore_symbol_name(nativeast.SymbolDeclarationsOf(symbol)[0].Parent, nativeast.SymbolNameOf(symbol))
 }
 
 func metadata_explore_symbol_name(node *nativeast.Node, name string) string {
@@ -122,10 +122,10 @@ func metadata_get_function_node(checker *nativechecker.Checker, typ *nativecheck
     return nil
   }
   symbol := typ.Symbol()
-  if symbol == nil || len(symbol.Declarations) == 0 {
+  if symbol == nil || len(nativeast.SymbolDeclarationsOf(symbol)) == 0 {
     return nil
   }
-  node := symbol.Declarations[0]
+  node := nativeast.SymbolDeclarationsOf(symbol)[0]
   if nativeast.IsFunctionLike(node) {
     return node
   }
@@ -172,10 +172,10 @@ func metadata_get_return_type_of_class_method(props struct {
     return nil
   }
   symbol := props.Checker.GetPropertyOfType(props.Class, props.Function)
-  if symbol == nil || symbol.ValueDeclaration == nil {
+  if symbol == nil || nativeast.SymbolValueDeclarationOf(symbol) == nil {
     return nil
   }
-  functor := props.Checker.GetTypeOfSymbolAtLocation(symbol, symbol.ValueDeclaration)
+  functor := props.Checker.GetTypeOfSymbolAtLocation(symbol, nativeast.SymbolValueDeclarationOf(symbol))
   signatures := props.Checker.GetSignaturesOfType(functor, nativechecker.SignatureKindCall)
   if len(signatures) == 0 {
     return nil
@@ -271,7 +271,7 @@ func metadata_node_type_js_doc_tags(symbol *nativeast.Symbol) []schemametadata.I
 // other callable object type. See metadata_get_function_node for why the lib
 // `Function` must be treated as a function type (#2178).
 func metadata_is_global_function_interface(symbol *nativeast.Symbol, node *nativeast.Node) bool {
-  if symbol == nil || symbol.Name != "Function" {
+  if symbol == nil || nativeast.SymbolNameOf(symbol) != "Function" {
     return false
   }
   if node == nil || node.Kind != nativeast.KindInterfaceDeclaration {
@@ -341,7 +341,7 @@ func metadata_symbol_from_default_lib(symbol *nativeast.Symbol) bool {
     if src == nil {
       continue
     }
-    return schemametadata.MetadataDefaultLibrary_isFileNamed(src.FileName())
+    return schemametadata.MetadataDefaultLibrary_isFileNamed(string(src.FileName()))
   }
   return false
 }
@@ -415,7 +415,7 @@ func metadata_symbol_has_runtime_provider(checker *nativechecker.Checker, symbol
       return true
     }
   }
-  if checker == nil || symbol.Flags&nativeast.SymbolFlagsValue == 0 {
+  if checker == nil || nativeast.SymbolFlagsOf(symbol)&nativeast.SymbolFlagsValue == 0 {
     return false
   }
   constructor := checker.GetTypeOfSymbol(symbol)
@@ -464,10 +464,10 @@ func metadata_node_in_node_buffer_module(node *nativeast.Node) bool {
 }
 
 func metadata_symbol_is_node_buffer_native_export(symbol *nativeast.Symbol, name string) bool {
-  if symbol == nil || symbol.ValueDeclaration == nil || (name != "Blob" && name != "File") {
+  if symbol == nil || nativeast.SymbolValueDeclarationOf(symbol) == nil || (name != "Blob" && name != "File") {
     return false
   }
-  declaration := symbol.ValueDeclaration
+  declaration := nativeast.SymbolValueDeclarationOf(symbol)
   if declaration.Kind != nativeast.KindClassDeclaration && declaration.Kind != nativeast.KindVariableDeclaration {
     return false
   }
@@ -500,8 +500,8 @@ func metadata_node_declarations(symbol *nativeast.Symbol) []*nativeast.Node {
       output = append(output, node)
     }
   }
-  appendNode(symbol.ValueDeclaration)
-  for _, node := range symbol.Declarations {
+  appendNode(nativeast.SymbolValueDeclarationOf(symbol))
+  for _, node := range nativeast.SymbolDeclarationsOf(symbol) {
     appendNode(node)
   }
   return output

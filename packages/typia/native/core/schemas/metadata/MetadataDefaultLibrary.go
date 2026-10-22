@@ -80,7 +80,7 @@ func MetadataDefaultLibrary_is(checker *nativechecker.Checker, source *nativeast
       }
     }
   }
-  return MetadataDefaultLibrary_isFileNamed(source.FileName())
+  return MetadataDefaultLibrary_isFileNamed(string(source.FileName()))
 }
 
 // MetadataDefaultLibrary_isFileNamed is the registry's file-name fallback,

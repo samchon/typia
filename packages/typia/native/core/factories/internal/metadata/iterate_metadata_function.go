@@ -55,7 +55,7 @@ func Iterate_metadata_function(props IMetadataIteratorProps) bool {
     paramType := props.Checker.GetTypeOfSymbol(p)
     explore := props.Explore
     explore.Top = false
-    explore.Parameter = p.Name
+    explore.Parameter = nativeast.SymbolNameOf(p)
     metadata := Explore_metadata(Explore_metadata_IProps{
       Options:     props.Options,
       Checker:     props.Checker,
@@ -78,7 +78,7 @@ func Iterate_metadata_function(props IMetadataIteratorProps) bool {
       }
     }
     parameters = append(parameters, schemametadata.MetadataParameter_create(schemametadata.MetadataParameter{
-      Name:        p.Name,
+      Name:        nativeast.SymbolNameOf(p),
       Type:        metadata,
       TsType:      paramType,
       Description: metadata_node_description(p),

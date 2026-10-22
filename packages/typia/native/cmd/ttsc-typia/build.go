@@ -12,6 +12,7 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  shimtspath "github.com/microsoft/typescript-go/shim/tspath"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   typiaadapter "github.com/samchon/typia/packages/typia/native/adapter"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
@@ -135,7 +136,8 @@ func runBuild(args []string) int {
   }
   emitted := []string{}
   pending := []buildPendingOutput{}
-  writeFile := shimcompiler.WriteFile(func(fileName, text string, data *shimcompiler.WriteFileData) error {
+  writeFile := shimcompiler.WriteFile(func(name shimtspath.RootedFilePath, text string, data *shimcompiler.WriteFileData) error {
+    fileName := string(name)
     if shouldEmit {
       emitted = append(emitted, fileName)
       pending = append(pending, buildPendingOutput{FileName: fileName, Text: text})

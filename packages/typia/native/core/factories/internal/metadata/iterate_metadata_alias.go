@@ -19,10 +19,10 @@ func Iterate_metadata_alias(props IMetadataIteratorProps) bool {
     return false
   }
   aliasSymbol := nativechecker_type_name_symbol(props.Type)
-  if aliasSymbol == nil || len(aliasSymbol.Declarations) == 0 {
+  if aliasSymbol == nil || len(nativeast.SymbolDeclarationsOf(aliasSymbol)) == 0 {
     return false
   }
-  if aliasSymbol.Declarations[0].Kind != nativeast.KindTypeAliasDeclaration {
+  if nativeast.SymbolDeclarationsOf(aliasSymbol)[0].Kind != nativeast.KindTypeAliasDeclaration {
     return false
   }
 

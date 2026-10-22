@@ -90,8 +90,8 @@ func (functionalGenericTransformerNamespace) Transform(spec FunctionalGenericTra
     }
 
     var declaration *shimast.Node
-    if symbol := typ.Symbol(); symbol != nil && len(symbol.Declarations) != 0 {
-      declaration = symbol.Declarations[0]
+    if symbol := typ.Symbol(); symbol != nil && len(shimast.SymbolDeclarationsOf(symbol)) != 0 {
+      declaration = shimast.SymbolDeclarationsOf(symbol)[0]
     }
     var init *shimast.Node
     if props.Expression.Arguments != nil && len(props.Expression.Arguments.Nodes) > 1 {
