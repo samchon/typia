@@ -336,11 +336,20 @@ func emplace_metadata_object_touch_heritage(
         // The node walk reports the heritage expression's symbol and every
         // reference written in its type arguments (e.g. `extends Base<Id>`).
         schemametadata.MetadataDependency_touchTypeNode(checker, element)
-        expr := element.AsExpressionWithTypeArguments()
-        if expr == nil || expr.Expression == nil {
+        // Type heritage (interface extends and class implements) is a type
+        // reference on 7.1; class extends remains an expression. Older targets
+        // represent both forms as expressions with type arguments.
+        var name *nativeast.Node
+        switch element.Kind {
+        case nativeast.KindTypeReference:
+          name = element.AsTypeReferenceNode().TypeName
+        case nativeast.KindExpressionWithTypeArguments:
+          name = element.AsExpressionWithTypeArguments().Expression
+        }
+        if name == nil {
           continue
         }
-        target := checker.GetSymbolAtLocation(expr.Expression)
+        target := checker.GetSymbolAtLocation(name)
         if target == nil {
           continue
         }
