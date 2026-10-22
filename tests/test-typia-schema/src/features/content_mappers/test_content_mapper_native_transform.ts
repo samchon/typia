@@ -14,7 +14,7 @@ import path from "node:path";
  * 3. Execute each validator on valid, missing, wrong-type and stale-column rows.
  * 4. Inspect the mapped JSON schema and require each mapper project to close.
  *
- * @evidence contracts/testing.md#behavioral-verification Runs the installed ttsc launcher and executes its generated module through the existing ttsx runtime with plugins disabled. Asserts concrete validator verdicts, string-property schema shape, the denied external-code diagnostic and closeProject notifications.
+ * @evidence contracts/testing.md#behavioral-verification Runs the installed ttsc launcher and executes its generated JavaScript module through the existing ttsx runtime so workspace TypeScript dependencies resolve. Asserts concrete validator verdicts, string-property schema shape, the denied external-code diagnostic and closeProject notifications.
  * @evidence contracts/testing.md#independent-expectations The fixture mapper declares exactly the SQL-named string property. Authored valid, missing, number and old-column objects supply independent positive and negative inputs; JSON Schema properties and required follow that declaration.
  * @evidence contracts/testing.md#distinguishing-cases The same project transitions from denied execution to name and label columns. Each allowed result accepts its current string column and rejects empty, wrong-type and stale rows; every completed compile must close its mapper project.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers this E2E case in the ordinary schema feature population on both compiler lines. TypeScript 7.0 proves mapped modules are unavailable; the 7.1 CI population additionally executes permitted mapped validators and schemas.
@@ -74,7 +74,7 @@ function visit(value) {
 visit(schema);
 assert.equal(found, true);
 `);
-      execFileSync(process.execPath, [execute, "--no-plugins", "check.cjs"], options);
+      execFileSync(process.execPath, [execute, "check.cjs"], options);
       assert.match(fs.readFileSync(log, "utf8"), /(?:^|\n)closeProject\n/);
       previous = column;
     }
