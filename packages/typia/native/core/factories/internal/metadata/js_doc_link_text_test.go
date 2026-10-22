@@ -4,12 +4,8 @@
 package metadata
 
 import (
-  "path/filepath"
   "testing"
 
-  nativeast "github.com/microsoft/typescript-go/shim/ast"
-  nativecore "github.com/microsoft/typescript-go/shim/core"
-  nativeparser "github.com/microsoft/typescript-go/shim/parser"
 )
 
 // TestJsDocLinkText verifies the metadata helper renders visible inline links.
@@ -29,11 +25,9 @@ import (
 // @evidence contracts/testing.md#behavioral-verification JSDoc is parsed from source and the link renderer returns descriptions and tags with qualified targets, labels, call suffixes, URLs and tag comments; a nil link renders empty.
 // @evidence contracts/testing.md#independent-expectations Authored JSDoc text defines the visible output; expected strings are literals.
 // @evidence contracts/testing.md#distinguishing-cases Qualified and labeled links, URL links and tag comments are separate rows with a nil control.
-// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test parses an in-memory source with the typescript-go parser and calls the renderer, with no filesystem fixture or process.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test loads one authored TypeScript source through the in-process compiler binder and calls the renderer on its real property symbol. A test-owned fixture and Program are cleaned up without launching a compiler or native host process.
 func TestJsDocLinkText(t *testing.T) {
-  file := nativeparser.ParseSourceFile(
-    nativeast.SourceFileParseOptions{FileName: filepath.ToSlash(filepath.Join(t.TempDir(), "links.ts"))},
-    `interface ITarget {
+  program, file := jsDocTestSource(t, `interface ITarget {
   value: string;
 }
 interface IBox {
@@ -48,15 +42,10 @@ interface IBox {
    */
   field: string;
 }
-`,
-    nativecore.ScriptKindTS,
-  )
+`)
   member := file.Statements.Nodes[1].AsInterfaceDeclaration().Members.Nodes[0]
-  symbol := &nativeast.Symbol{
-    Name:             "field",
-    ValueDeclaration: member,
-    Declarations:     []*nativeast.Node{member},
-  }
+  symbol := program.Checker.GetSymbolAtLocation(member.Name())
+  if symbol == nil { t.Fatal("comment property symbol was not bound") }
   description := metadata_node_description(symbol)
   if description == nil {
     t.Fatal("description was not reflected")

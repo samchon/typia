@@ -65,8 +65,18 @@ jobs:
         env:
           CGO_ENABLED: "1"
         run: pnpm test:go:race
-      - name: Test Go on TypeScript 7.1
-        run: pnpm test:go:7.1
+      - name: Test Native Internals on TypeScript 7.0
+        run: go -C packages/typia/test test -tags typia_native_internal ../native/...
+      - name: Test Go and Native Internals on TypeScript 7.1
+        env:
+          GOWORK: "${{ github.workspace }}/packages/typia/test/go.7.1.work"
+        run: go -C packages/typia/test test -tags ttsc_typescript_7_1,typia_native_internal ./... ../native/...
+      - name: Test TypeScript 7.1 Distinct Program Emit Races
+        env:
+          CGO_ENABLED: "1"
+          GOWORK: "${{ github.workspace }}/packages/typia/test/go.7.1.work"
+          GOFLAGS: "-tags=ttsc_typescript_7_1"
+        run: pnpm test:go:race
 
   TypeScript-7-0:
     runs-on: ubuntu-latest
@@ -84,7 +94,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Select TypeScript 7.0
         run: |
-          node -e 'const fs = require("node:fs"); const p = "pnpm-workspace.yaml"; const s = fs.readFileSync(p, "utf8"); if (!s.includes("typescript: 7.1.0-dev.20261020.3")) throw new Error("TypeScript catalog changed"); fs.writeFileSync(p, s.replace("typescript: 7.1.0-dev.20261020.3", "typescript: ^7.0.2"));'
+          node -e 'const fs = require("node:fs"); const p = "pnpm-workspace.yaml"; const s = fs.readFileSync(p, "utf8"); if (!s.includes("typescript: 7.1.0-dev.20261020.3")) throw new Error("TypeScript catalog changed"); fs.writeFileSync(p, s.replace("typescript: 7.1.0-dev.20261020.3", "typescript: 7.0.2"));'
           pnpm install --no-frozen-lockfile
       - name: Test TypeScript 7.0 Consumers
         run: pnpm test:packages

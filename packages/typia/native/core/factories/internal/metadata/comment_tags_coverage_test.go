@@ -4,17 +4,13 @@
 package metadata
 
 import (
-  "path/filepath"
   "reflect"
   "testing"
 
-  nativeast "github.com/microsoft/typescript-go/shim/ast"
-  nativecore "github.com/microsoft/typescript-go/shim/core"
-  nativeparser "github.com/microsoft/typescript-go/shim/parser"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
-// TestCommentTagsCoverage exercises metadata comment tag application.
+// TestCommentTagsCoverage verifies metadata comment tag application.
 //
 // Comment tags are collected from checker symbols before metadata sorting, so
 // synthetic TypeScript fixtures rarely hit every tag kind deterministically.
@@ -29,7 +25,7 @@ import (
 // @evidence contracts/testing.md#behavioral-verification The comment-tag dispatcher calls a test analyzer on constructed property metadata. Exactly one callback, its property/location inputs, each exact test tag and one propagated error are asserted, and a repeated call must leave the callback count unchanged. Parsed JSDoc presence and nil-helper fallbacks are also checked; the real analyzer's parsing semantics are not exercised here.
 // @evidence contracts/testing.md#independent-expectations Authored callback inputs and marker tags establish the dispatch and once-only contract independently of the dispatcher. The test analyzer deliberately supplies tag/error outputs, so those outputs do not establish real comment-tag parsing; that belongs to factory tests.
 // @evidence contracts/testing.md#distinguishing-cases Every tag bucket, repeated application and parsing are exercised once; this test has few negatives.
-// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls internal helpers with constructed metadata and an installed analyzer; it needs no program load or process.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command runs this same-package Test in process. Dispatcher cases use constructed metadata and an installed analyzer; the JSDoc case loads one test-owned source through the compiler binder to obtain its real property symbol. Cleanup closes that Program and removes its fixture without launching a compiler or native host subprocess.
 func TestCommentTagsCoverage(t *testing.T) {
   oldAnalyzer := MetadataCommentTagAnalyzer
   calls := 0
@@ -146,9 +142,7 @@ func TestCommentTagsCoverage(t *testing.T) {
     Name:       "NoAnalyzer",
     Properties: []*schemametadata.MetadataProperty{property},
   })})
-  file := nativeparser.ParseSourceFile(
-    nativeast.SourceFileParseOptions{FileName: filepath.ToSlash(filepath.Join(t.TempDir(), "comment.ts"))},
-    `interface Box {
+  program, file := jsDocTestSource(t, `interface Box {
   /**
    * box description
    * @type {string}
@@ -156,15 +150,10 @@ func TestCommentTagsCoverage(t *testing.T) {
    */
   field: string;
 }
-`,
-    nativecore.ScriptKindTS,
-  )
+`)
   member := file.Statements.Nodes[0].AsInterfaceDeclaration().Members.Nodes[0]
-  symbol := &nativeast.Symbol{
-    Name:             "field",
-    ValueDeclaration: member,
-    Declarations:     []*nativeast.Node{member},
-  }
+  symbol := program.Checker.GetSymbolAtLocation(member.Name())
+  if symbol == nil { t.Fatal("comment property symbol was not bound") }
   if len(metadata_node_js_doc_tags(symbol)) == 0 || metadata_node_description(symbol) == nil {
     t.Fatal("parsed JSDoc tags and description should be discovered")
   }

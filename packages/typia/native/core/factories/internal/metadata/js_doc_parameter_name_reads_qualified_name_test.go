@@ -10,6 +10,7 @@ import (
   nativeast "github.com/microsoft/typescript-go/shim/ast"
   nativecore "github.com/microsoft/typescript-go/shim/core"
   nativeparser "github.com/microsoft/typescript-go/shim/parser"
+  nativetspath "github.com/microsoft/typescript-go/shim/tspath"
 )
 
 // TestJSDocParameterNameReadsQualifiedName verifies dotted JSDoc parameter names.
@@ -30,7 +31,7 @@ import (
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test parses in-memory source with the typescript-go parser, with no filesystem fixture or process.
 func TestJSDocParameterNameReadsQualifiedName(t *testing.T) {
   file := nativeparser.ParseSourceFile(
-    nativeast.SourceFileParseOptions{FileName: filepath.ToSlash(filepath.Join(t.TempDir(), "qualified.ts"))},
+    nativeast.SourceFileParseOptions{FileName: nativetspath.RootedFilePath(filepath.ToSlash(filepath.Join(t.TempDir(), "qualified.ts")))},
     `interface Box {
   /**
    * @param input.value nested value

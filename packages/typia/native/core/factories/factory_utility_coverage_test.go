@@ -203,7 +203,7 @@ export let inner!: Outer.Inner;
   if assignedSymbol == nil {
     t.Fatal("holder.assigned symbol was not found")
   }
-  assignedType := prog.Checker.GetTypeOfSymbolAtLocation(assignedSymbol, assignedSymbol.ValueDeclaration)
+  assignedType := prog.Checker.GetTypeOfSymbolAtLocation(assignedSymbol, shimast.SymbolValueDeclarationOf(assignedSymbol))
   assignedDeclaredType := shimchecker.Checker_getTypeOfSymbol(prog.Checker, assignedSymbol)
   if TypeFactory.GetFunction(assignedDeclaredType) == nil && TypeFactory.GetFunction(assignedType) == nil {
     t.Fatal("property assignment initializer should be recognized as function-like")
@@ -213,7 +213,7 @@ export let inner!: Outer.Inner;
   if fieldSymbol == nil {
     t.Fatal("example.field symbol was not found")
   }
-  fieldType := prog.Checker.GetTypeOfSymbolAtLocation(fieldSymbol, fieldSymbol.ValueDeclaration)
+  fieldType := prog.Checker.GetTypeOfSymbolAtLocation(fieldSymbol, shimast.SymbolValueDeclarationOf(fieldSymbol))
   fieldDeclaredType := shimchecker.Checker_getTypeOfSymbol(prog.Checker, fieldSymbol)
   if TypeFactory.GetFunction(fieldDeclaredType) == nil && TypeFactory.GetFunction(fieldType) == nil {
     t.Fatal("property declaration initializer should be recognized as function-like")
