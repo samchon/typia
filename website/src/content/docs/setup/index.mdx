@@ -90,6 +90,16 @@ bun ttsc --watch
   </Tabs.Tab>
 </Tabs>
 
+## Content Mappers
+
+With TypeScript 7.1, typia can inspect types supplied by the content mappers in your `tsconfig.json`. Build with explicit permission to run those mapper programs:
+
+```bash filename="Terminal" showLineNumbers copy
+npx ttsc --runExternalCode -p tsconfig.json
+```
+
+The flag executes your project's mapper programs. Without it, the compiler rejects mapper execution. Typia uses the mapped declarations for validators and schemas, including types imported from files such as `.sql`. TypeScript 7.0 has no content mappers.
+
 ## Execute Without Building
 
 Use `ttsx` instead of runners that strip TypeScript before typia can transform it:
