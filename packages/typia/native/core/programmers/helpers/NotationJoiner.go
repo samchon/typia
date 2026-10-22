@@ -250,11 +250,7 @@ func notationJoiner_regular_skip(regular []IExpressionEntry, emit ...*shimprinte
   }
   return f.NewIfStatement(
     f.NewCallExpression(
-      nativefactories.IdentifierFactory.Access(
-        nil,
-        f.NewArrayLiteralExpression(f.NewNodeList(elements), false),
-        "some",
-      ),
+      f.NewPropertyAccessExpression(f.NewArrayLiteralExpression(f.NewNodeList(elements), false), nil, f.NewIdentifier("some"), shimast.NodeFlagsNone),
       nil,
       nil,
       f.NewNodeList([]*shimast.Node{

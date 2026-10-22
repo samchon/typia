@@ -267,14 +267,10 @@ func is_regular_property(regular []nativehelpers.IExpressionEntry, emit ...*shim
     }
   }
   return f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(
-      nil,
-      f.NewArrayLiteralExpression(
+    f.NewPropertyAccessExpression(f.NewArrayLiteralExpression(
         f.NewNodeList(elements),
         false,
-      ),
-      "some",
-    ),
+      ), nil, f.NewIdentifier("some"), shimast.NodeFlagsNone),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -456,9 +452,7 @@ func check_dynamic_properties_key_expected(dynamic []nativehelpers.IExpressionEn
 func check_dynamic_properties_invalid_key_description(emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.NodeFactoryOf(emit...)
   return f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(
-      nil,
-      f.NewArrayLiteralExpression(
+    f.NewPropertyAccessExpression(f.NewArrayLiteralExpression(
         f.NewNodeList([]*shimast.Node{
           f.NewTemplateExpression(
             f.NewTemplateHead("The key `", "The key \\`", shimast.TokenFlagsNone),
@@ -473,9 +467,7 @@ func check_dynamic_properties_invalid_key_description(emit ...*shimprinter.EmitC
           f.NewStringLiteral("Please correct the key next time.", shimast.TokenFlagsNone),
         }),
         true,
-      ),
-      "join",
-    ),
+      ), nil, f.NewIdentifier("join"), shimast.NodeFlagsNone),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -488,9 +480,7 @@ func check_dynamic_properties_invalid_key_description(emit ...*shimprinter.EmitC
 func check_dynamic_properties_superfluous_description(emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.NodeFactoryOf(emit...)
   return f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(
-      nil,
-      f.NewArrayLiteralExpression(
+    f.NewPropertyAccessExpression(f.NewArrayLiteralExpression(
         f.NewNodeList([]*shimast.Node{
           f.NewTemplateExpression(
             f.NewTemplateHead("The property `", "The property \\`", shimast.TokenFlagsNone),
@@ -505,9 +495,7 @@ func check_dynamic_properties_superfluous_description(emit ...*shimprinter.EmitC
           f.NewStringLiteral("Please remove the property next time.", shimast.TokenFlagsNone),
         }),
         true,
-      ),
-      "join",
-    ),
+      ), nil, f.NewIdentifier("join"), shimast.NodeFlagsNone),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{

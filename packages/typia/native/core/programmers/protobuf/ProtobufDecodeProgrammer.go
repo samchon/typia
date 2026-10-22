@@ -93,8 +93,6 @@ type protobufDecodeProgrammer_decodeMapProps struct {
 
 const protobufDecodeProgrammer_PREFIX = "_pd"
 
-var protobufDecodeProgrammer_objectSequence = 0
-
 func (protobufDecodeProgrammerNamespace) Decompose(props ProtobufDecodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()
@@ -599,6 +597,10 @@ func protobufDecodeProgrammer_caseClause(index int, title string, statements []*
   )
 }
 
+// protobufDecodeProgrammer_createObjectType supplies the temporary key/value
+// properties of a wire map entry. Only its properties reach the body writer and
+// ProtobufFactory.EmplaceObject; it never enters a metadata collection or a
+// name-indexed cache, so it needs no synthetic type identity or shared counter.
 func protobufDecodeProgrammer_createObjectType(definitions []struct {
   Key   string
   Value *schemametadata.MetadataSchema
@@ -611,9 +613,7 @@ func protobufDecodeProgrammer_createObjectType(definitions []struct {
       JsDocTags: []schemametadata.IJsDocTagInfo{},
     }))
   }
-  protobufDecodeProgrammer_objectSequence++
   obj := schemametadata.MetadataObjectType_create(schemametadata.MetadataObjectType{
-    Name:       fmt.Sprintf("object.o%d", protobufDecodeProgrammer_objectSequence),
     Properties: properties,
     JsDocTags:  []schemametadata.IJsDocTagInfo{},
     Index:      -1,
