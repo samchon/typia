@@ -1,6 +1,7 @@
 import test from "node:test";
 
 import { test_automated_primitive_equal_to_oracle } from "./features/automated_oracles/test_automated_primitive_equal_to_oracle";
+import { test_transform_descriptor_host_inputs } from "./features/transform/test_transform_descriptor_host_inputs";
 import { test_automated_resolved_equal_to_async_oracle } from "./features/automated_oracles/test_automated_resolved_equal_to_async_oracle";
 import { test_automated_resolved_equal_to_oracle } from "./features/automated_oracles/test_automated_resolved_equal_to_oracle";
 import { test_llm_applicationEquals } from "./features/llm/application/test_llm_applicationEquals";
@@ -1068,3 +1069,5 @@ test(
   test_openapi_converter_discriminator_portable.name,
   test_openapi_converter_discriminator_portable,
 );
+
+test(test_transform_descriptor_host_inputs.name, test_transform_descriptor_host_inputs);

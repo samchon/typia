@@ -9,15 +9,18 @@ import type { ITtscPlugin, ITtscPluginFactoryContext } from "ttsc";
  * resolver is anchored on the consuming project to find typia's own package
  * root. The returned descriptor names the plugin and the Go command under
  * `native/cmd/ttsc-typia`; the transform itself is not written in TypeScript.
+ * No file is read outside the module graph. Ttsc records the package resolution,
+ * so an empty hostInputHashes declaration permits safe descriptor replay.
  *
  * @param context Plugin factory context of ttsc
  *
  * @returns Plugin descriptor
  *
  * @evidence contracts/common.md#principled-implementation The ttsc loader runs this file as an ES module where `require` is absent, so the function builds a CommonJS resolver anchored at the consuming project and resolves typia's own `package.json`, whose directory holds the native sources; the returned descriptor names the plugin and the Go command directory under `native/cmd/ttsc-typia`.
- * @evidence contracts/common.md#clear-and-simple-design One function that returns a two-field descriptor and no transformer; the default export repeats the same function for loaders that read it.
+ * @evidence contracts/common.md#clear-and-simple-design One function returns the plugin name, Go source and external-input declaration; the default export repeats the same function for loaders that read it.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The package root comes from the installed typia through the supported resolver and not from path substrings, so it works for npm consumers and workspaces alike; the transform itself stays in Go.
  * @evidence contracts/common.md#meaningful-documentation A comment explains the purpose, the ESM resolution reason and the descriptor.
+ * @evidence contracts/performance.md#reuse-equivalent-work The factory reads no file outside its module graph and declares hostInputHashes as empty. Ttsc records requireFrom.resolve and validates its module graph, factory context, environment, runtime and version before replay, so changed resolution or descriptor inputs invalidate reuse.
  */
 export function createTtscPlugin(
   context: ITtscPluginFactoryContext,
@@ -32,6 +35,7 @@ export function createTtscPlugin(
   return {
     name: "typia",
     source: path.resolve(root, "native", "cmd", "ttsc-typia"),
+    hostInputHashes: {},
   };
 }
 
