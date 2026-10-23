@@ -14,7 +14,7 @@
     "@typia/interface": "file:../tarballs/interface.tgz",
     "@typia/mcp": "file:../tarballs/mcp.tgz",
     "@typia/utils": "file:../tarballs/utils.tgz",
-    "ttsc": "^0.34.0",
+    "ttsc": "^0.34.1",
     "typescript": "7.0.2",
     "typia": "file:../tarballs/typia.tgz"
   }

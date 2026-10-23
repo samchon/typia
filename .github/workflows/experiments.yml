@@ -44,7 +44,7 @@ jobs:
       - name: Test Smoke
         working-directory: experiments/smoke
         run: |
-          npm install
+          npm install --strict-peer-deps
           npm start
 
       # Real ESM consumers resolve the `import` condition to the bundled
@@ -56,7 +56,7 @@ jobs:
         env:
           AI_SDK_MAJOR: '6'
         run: |
-          npm install
+          npm install --strict-peer-deps
           npm run build
           npm test
 
@@ -65,14 +65,14 @@ jobs:
         env:
           AI_SDK_MAJOR: '7'
         run: |
-          npm install ai@^7.0.103 --no-save --package-lock=false
+          npm install ai@^7.0.103 --no-save --package-lock=false --strict-peer-deps
           npm run build
           npm test
 
       - name: Test MCP
         working-directory: experiments/mcp
         run: |
-          npm install
+          npm install --strict-peer-deps
           npm run build
           npm test
 
@@ -85,6 +85,6 @@ jobs:
       - name: Test Declaration
         working-directory: experiments/declaration
         run: |
-          pnpm install
+          pnpm install --strict-peer-dependencies
           pnpm run build
           pnpm test
