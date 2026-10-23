@@ -154,14 +154,12 @@ type IsProgrammer_DecodeObjectProps struct {
   Prefix string
 }
 
-var isProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (isProgrammerNamespace) Configure(props struct {
   Options *IsProgrammer_CONFIG_IOptions
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer
 }) nativeinternal.CheckerProgrammer_IConfig {
-  f := nativecontext.EmitFactoryOf(isProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   options := props.Options
   return nativeinternal.CheckerProgrammer_IConfig{
     Prefix:        "_i",
@@ -246,7 +244,7 @@ func (isProgrammerNamespace) Configure(props struct {
 }
 
 func (isProgrammerNamespace) Decompose(props IsProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(isProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   options := &IsProgrammer_CONFIG_IOptions{
     Numeric: props.Context.Options.Numeric,
     Finite:  props.Context.Options.Finite,
@@ -314,7 +312,7 @@ func (isProgrammerNamespace) Write(props IsProgrammer_IProps) *shimast.Node {
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,
@@ -393,7 +391,7 @@ func (isProgrammerNamespace) Decode_object(props IsProgrammer_DecodeObjectProps)
   if props.Prefix != "" {
     config.Prefix = props.Prefix
   }
-  return nativeinternal.CheckerProgrammer.Decode_object(nativeinternal.CheckerProgrammer_DecodeObjectProps{
+  return nativeinternal.CheckerProgrammer.Decode_object(nativeinternal.CheckerProgrammer_DecodeObjectProps{Emit: props.Context.Emit,
     Config:  config,
     Context: props.Context,
     Functor: props.Functor,
@@ -407,7 +405,7 @@ func (isProgrammerNamespace) Decode_to_json(props struct {
   Input     *shimast.Expression
   CheckNull bool
 }, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(isProgrammer_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   var ec *shimprinter.EmitContext
   if len(emit) != 0 {
     ec = emit[0]
@@ -417,12 +415,12 @@ func (isProgrammerNamespace) Decode_to_json(props struct {
       CheckArray: false,
       CheckNull:  props.CheckNull,
       Input:      props.Input,
-    }),
+    }, emit...),
     shimast.KindAmpersandAmpersandToken,
     isProgrammer_binary(
       f.NewStringLiteral("function", shimast.TokenFlagsNone),
       shimast.KindEqualsEqualsEqualsToken,
-      nativefactories.ValueFactory.TYPEOF(nativefactories.IdentifierFactory.Access(ec, props.Input, "toJSON")),
+      nativefactories.ValueFactory.TYPEOF(nativefactories.IdentifierFactory.Access(ec, props.Input, "toJSON"), emit...),
       ec,
     ),
     ec,
@@ -430,7 +428,7 @@ func (isProgrammerNamespace) Decode_to_json(props struct {
 }
 
 func (isProgrammerNamespace) Decode_functional(input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(isProgrammer_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   var ec *shimprinter.EmitContext
   if len(emit) != 0 {
     ec = emit[0]
@@ -438,7 +436,7 @@ func (isProgrammerNamespace) Decode_functional(input *shimast.Expression, emit .
   return isProgrammer_binary(
     f.NewStringLiteral("function", shimast.TokenFlagsNone),
     shimast.KindEqualsEqualsEqualsToken,
-    nativefactories.ValueFactory.TYPEOF(input),
+    nativefactories.ValueFactory.TYPEOF(input, emit...),
     ec,
   )
 }
@@ -455,7 +453,7 @@ func isProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind, ini
 }
 
 func isProgrammer_binary(left *shimast.Expression, operator shimast.Kind, right *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(isProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   return f.NewBinaryExpression(
     nil,
     left,

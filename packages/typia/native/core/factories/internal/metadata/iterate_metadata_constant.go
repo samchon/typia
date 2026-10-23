@@ -168,18 +168,18 @@ func iterate_metadata_constant_shared(checker *nativechecker.Checker, typ *nativ
     return false
   }
   symbol := typ.Symbol()
-  if symbol == nil || len(symbol.Declarations) == 0 {
+  if symbol == nil || len(nativeast.SymbolDeclarationsOf(symbol)) == 0 {
     return false
   }
-  declaration := symbol.Declarations[0]
+  declaration := nativeast.SymbolDeclarationsOf(symbol)[0]
   if declaration == nil || declaration.Kind != nativeast.KindEnumMember || declaration.Parent == nil {
     return false
   }
   // declaration merging (`enum E { a = 1 }` beside `enum E { b = 1 }`) spreads
   // one enum over several declarations
   declarations := []*nativeast.Node{declaration.Parent}
-  if symbol.Parent != nil && len(symbol.Parent.Declarations) != 0 {
-    declarations = symbol.Parent.Declarations
+  if nativeast.SymbolParentOf(symbol) != nil && len(nativeast.SymbolDeclarationsOf(nativeast.SymbolParentOf(symbol))) != 0 {
+    declarations = nativeast.SymbolDeclarationsOf(nativeast.SymbolParentOf(symbol))
   }
   // compare by value: a member's own type may be the fresh form of the
   // regular literal type the union holds

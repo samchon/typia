@@ -46,7 +46,7 @@ func (llmEvaluationTransformerNamespace) Transform(props nativetransform.ITransf
   if props.Context.Program != nil && schemametadata.MetadataDependency_active(props.Context.Checker) {
     for _, file := range props.Context.Program.SourceFiles() {
       if file != nil {
-        schemametadata.MetadataDependency_touchFile(props.Context.Checker, file.FileName())
+        schemametadata.MetadataDependency_touchFile(props.Context.Checker, string(file.FileName()))
       }
     }
   }

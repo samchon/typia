@@ -2,6 +2,7 @@
   "name": "typia-declaration-e2e",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "pnpm@10.6.4",
   "type": "module",
   "scripts": {
     "build": "ttsc",
@@ -9,7 +10,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.3.0",
-    "ttsc": "^0.19.2",
+    "ttsc": "^0.34.1",
     "typescript": "^7.0.2",
     "typia": "file:../tarballs/typia.tgz"
   }

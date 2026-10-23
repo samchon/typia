@@ -77,7 +77,7 @@ func (httpValidateQueryProgrammerNamespace) Write(props HttpValidateQueryProgram
     Name:          props.Name,
     AllowOptional: props.AllowOptional,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

@@ -29,7 +29,7 @@ func check_exclude_condition(
   if len(values) == 0 {
     return nil
   }
-  f := nativecontext.EmitFactoryOf(check_exclude_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   var expression *shimast.Node
   for _, value := range values {
     comparison := f.NewBinaryExpression(
@@ -74,7 +74,7 @@ func check_exclude_values(tag nativemetadata.IMetadataTypeTag) []any {
 }
 
 func check_exclude_literal(typ string, value any, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_exclude_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   switch typ {
   case "string":
     return f.NewStringLiteral(fmt.Sprint(value), shimast.TokenFlagsNone)
@@ -84,5 +84,3 @@ func check_exclude_literal(typ string, value any, emit *shimprinter.EmitContext)
     return f.NewIdentifier(fmt.Sprint(value))
   }
 }
-
-var check_exclude_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

@@ -5,24 +5,18 @@ import (
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
 )
 
-// EmitFactory resolves the node factory a node-creating helper should use.
+// EmitFactory selects a live emit context's factory or the caller's explicit
+// standalone fallback. Returning the same instance preserves its compiler or
+// caller-installed hooks. A nil fallback remains nil when no context is supplied.
 //
-// When an emit EmitContext is present (emit stage / AST-integration mode) its
-// Factory is returned so every created node carries original-node tracking and
-// emit metadata (parent links, comments, source maps, const-enum constants,
-// namespace alias) that the tsgo emit pipeline relies on. When ec is nil (legacy
-// text emit, analysis-only or test paths) the caller's standalone fallback
-// factory is returned unchanged.
+// The caller owns the fallback and must confine its mutable arena to its own
+// construction lifetime. This selector retains no factory; callers that need a
+// fresh standalone arena can use NodeFactoryOf instead.
 //
-// This is the single-resolver form of ImportProgrammer's `if p.emit_ != nil`
-// branch: the embedded ast.NodeFactory inside printer.NodeFactory carries the
-// emit hooks, so &ec.Factory.NodeFactory produces metadata-bearing nodes while
-// printing identically to the fallback (token text/structure unchanged).
-//
-// @evidence contracts/common.md#principled-implementation A live emit context returns its embedded node factory, whose hooks give created nodes original-node links and emit metadata, and otherwise the caller's standalone factory is returned unchanged; both print the same tokens.
-// @evidence contracts/common.md#clear-and-simple-design One conditional that replaces the same branch repeated in every node-creating helper.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The fallback is the supported analysis and test path and not a workaround for a missing context.
-// @evidence contracts/common.md#meaningful-documentation The doc states both outcomes and why the emit factory is preferred.
+// @evidence contracts/common.md#principled-implementation A live context returns its embedded factory to retain compiler emit hooks. Otherwise the exact supplied fallback, including nil, is returned so caller ownership and custom hooks remain intact; the selector allocates and retains no arena.
+// @evidence contracts/common.md#clear-and-simple-design One conditional implements the explicit-fallback selection contract used by native consumers, separately from NodeFactoryOf's fresh-allocation contract.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Selection uses the public compiler factory boundary without foreign mutation, shared state or serialization. The fallback is caller-owned; typia's own context-free construction uses fresh factories through NodeFactoryOf.
+// @evidence contracts/common.md#meaningful-documentation The comment states selection priority, nil behavior, hook preservation and the caller's arena ownership responsibility.
 func EmitFactory(ec *shimprinter.EmitContext, fallback *shimast.NodeFactory) *shimast.NodeFactory {
   if ec != nil {
     return &ec.Factory.NodeFactory
@@ -30,20 +24,17 @@ func EmitFactory(ec *shimprinter.EmitContext, fallback *shimast.NodeFactory) *sh
   return fallback
 }
 
-// EmitFactoryOf is the variadic form for node-creating free helpers and shared
-// static factories that receive the emit context through an optional `emit
-// ...*EmitContext` parameter. Passing no context (or a nil one) selects the
-// standalone fallback, which is the legacy / analysis-only / test path; passing
-// a live context routes creation through ec.Factory. This lets call sites thread
-// the real context in progressively while the build stays green at every step.
+// EmitFactoryOf selects the first optional context through EmitFactory.
+// An omitted or nil first context selects the caller's fallback even when a
+// later context is live; no factory is allocated or retained by the selector.
 //
-// @evidence contracts/common.md#principled-implementation The variadic form selects the first emit context when it is present and non-nil and otherwise the fallback, so helpers can receive the context as an optional trailing argument.
-// @evidence contracts/common.md#clear-and-simple-design One conditional over a slice, used by free helpers that cannot hold a receiver.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts It does not mutate its inputs.
-// @evidence contracts/common.md#meaningful-documentation The doc explains the optional parameter and the progressive threading of the context.
+// @evidence contracts/common.md#principled-implementation Only the first optional context participates, preserving the existing variadic consumer contract. EmitFactory owns the same live-context versus caller-fallback decision for both entry forms.
+// @evidence contracts/common.md#clear-and-simple-design A slice-presence check adapts optional arguments to the scalar selector without duplicating its factory selection.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The adapter changes neither the caller's factory nor its context and stores no shared mutable arena.
+// @evidence contracts/common.md#meaningful-documentation The comment explains omitted, nil-first and later-context behavior and makes the absence of allocation and retained state explicit.
 func EmitFactoryOf(fallback *shimast.NodeFactory, emit ...*shimprinter.EmitContext) *shimast.NodeFactory {
-  if len(emit) != 0 && emit[0] != nil {
-    return &emit[0].Factory.NodeFactory
+  if len(emit) == 0 {
+    return EmitFactory(nil, fallback)
   }
-  return fallback
+  return EmitFactory(emit[0], fallback)
 }

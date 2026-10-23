@@ -60,7 +60,7 @@ func (httpAssertHeadersProgrammerNamespace) Write(props nativecontext.IProgramme
     Name:    props.Name,
     Init:    props.Init,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

@@ -42,15 +42,13 @@ type compareLessProgrammerGenerator struct {
   Counter   int
 }
 
-var compareLessProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 // Write emits an `(x, y) => boolean` predicate that reports whether `x`
 // lexicographically precedes `y`. It builds a three-way comparator (negative /
 // zero / positive) over the declared structure of the type and returns
 // `cmp(x, y) < 0` so that `equal` and `less` together compose into an
 // Array.prototype.sort comparator.
 func (compareLessProgrammerNamespace) Write(props CompareLessProgrammer_IProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(compareLessProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   method := nativehelpers.ModuloMethodText(props.Modulo)
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{

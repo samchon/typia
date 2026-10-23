@@ -100,10 +100,8 @@ func (obj LiteralFactory_OrderedObject) MarshalJSON() ([]byte, error) {
   return buffer.Bytes(), nil
 }
 
-var literalFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (literalFactoryNamespace) Write(input any, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(literalFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   if input == nil {
     return f.NewKeywordExpression(shimast.KindNullKeyword)
   }
@@ -200,7 +198,7 @@ func literalFactory_fieldName(name string) string {
 }
 
 func literalFactory_writeObject(obj map[string]any, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(literalFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   keys := make([]string, 0, len(obj))
   for key, value := range obj {
     if literalFactory_isNilLike(value) {
@@ -232,7 +230,7 @@ func literalFactory_writeObject(obj map[string]any, emit ...*shimprinter.EmitCon
 }
 
 func literalFactory_writeOrderedObject(obj LiteralFactory_OrderedObject, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(literalFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   properties := make([]*shimast.Node, 0, len(obj.Keys))
   for _, key := range obj.Keys {
     value, ok := obj.Values[key]
@@ -329,7 +327,7 @@ func literalFactory_isNilLike(value any) bool {
 }
 
 func literalFactory_writeArray(array []any, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(literalFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   elements := make([]*shimast.Node, 0, len(array))
   for _, elem := range array {
     elements = append(elements, LiteralFactory.Write(elem, emit...))
@@ -341,7 +339,7 @@ func literalFactory_writeArray(array []any, emit ...*shimprinter.EmitContext) *s
 }
 
 func literalFactory_writeBoolean(value bool, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(literalFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   if value {
     return f.NewKeywordExpression(shimast.KindTrueKeyword)
   }
@@ -357,5 +355,5 @@ func literalFactory_writeBigint(value any, emit ...*shimprinter.EmitContext) *sh
 }
 
 func literalFactory_writeString(value string, emit ...*shimprinter.EmitContext) *shimast.Node {
-  return nativecontext.EmitFactoryOf(literalFactory_factory, emit...).NewStringLiteral(value, shimast.TokenFlagsNone)
+  return nativecontext.NodeFactoryOf(emit...).NewStringLiteral(value, shimast.TokenFlagsNone)
 }

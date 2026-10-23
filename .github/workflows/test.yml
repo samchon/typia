@@ -1,5 +1,18 @@
 name: test
 on: 
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/test.yml'
+      - 'packages/**'
+      - 'tests/**'
+      - 'examples/**'
+      - 'config/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
   pull_request:
     paths:
       - '.github/workflows/test.yml'
@@ -7,6 +20,7 @@ on:
       - 'tests/**'
       - 'examples/**'
       - 'config/**'
+      - 'scripts/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
@@ -26,7 +40,7 @@ jobs:
           node-version: 24.x
       - uses: actions/setup-go@v5
         with:
-          go-version: 1.26.x
+          go-version: 1.27.x
       - uses: pnpm/action-setup@v4
       
       - name: Install Dependencies
@@ -47,3 +61,40 @@ jobs:
 
       - name: Run Tests
         run: pnpm run test
+      - name: Test Distinct Program Emit Races
+        env:
+          CGO_ENABLED: "1"
+        run: pnpm test:go:race
+      - name: Test Native Internals on TypeScript 7.0
+        run: go -C packages/typia/test test -tags typia_native_internal ../native/...
+      - name: Test Go and Native Internals on TypeScript 7.1
+        env:
+          GOWORK: "${{ github.workspace }}/packages/typia/test/go.7.1.work"
+        run: go -C packages/typia/test test -tags ttsc_typescript_7_1,typia_native_internal ./... ../native/...
+      - name: Test TypeScript 7.1 Distinct Program Emit Races
+        env:
+          CGO_ENABLED: "1"
+          GOWORK: "${{ github.workspace }}/packages/typia/test/go.7.1.work"
+          GOFLAGS: "-tags=ttsc_typescript_7_1"
+        run: pnpm test:go:race
+
+  TypeScript-7-0:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.27.x
+      - uses: pnpm/action-setup@v4
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Select TypeScript 7.0
+        run: |
+          node -e 'const fs = require("node:fs"); const p = "pnpm-workspace.yaml"; const s = fs.readFileSync(p, "utf8"); if (!s.includes("typescript: 7.1.0-dev.20261020.3")) throw new Error("TypeScript catalog changed"); fs.writeFileSync(p, s.replace("typescript: 7.1.0-dev.20261020.3", "typescript: 7.0.2"));'
+          pnpm install --no-frozen-lockfile
+      - name: Test TypeScript 7.0 Consumers
+        run: pnpm test:packages

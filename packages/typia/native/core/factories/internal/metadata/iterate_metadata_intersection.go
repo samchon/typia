@@ -585,10 +585,10 @@ func iterate_metadata_intersection_is_removable_object_constraint(
     // nominal brand), so it is phantom and removable. typia's own tag is handled
     // as a constraint, not stripped here; any required string-keyed property might
     // be real data ??both keep the object as a constraint, not a removable brand.
-    if iterate_metadata_intersection_is_symbol_name(symbol.Name) {
+    if iterate_metadata_intersection_is_symbol_name(nativeast.SymbolNameOf(symbol)) {
       continue
     }
-    if symbol.Name == "typia.tag" || symbol.Flags&nativeast.SymbolFlagsOptional == 0 {
+    if nativeast.SymbolNameOf(symbol) == "typia.tag" || nativeast.SymbolFlagsOf(symbol)&nativeast.SymbolFlagsOptional == 0 {
       return false
     }
   }
@@ -654,7 +654,7 @@ func iterate_metadata_intersection_identify(
     }
   }
   for _, symbol := range collection.ApparentProperties(checker, typ) {
-    if symbol.Name == "typia.tag" {
+    if nativeast.SymbolNameOf(symbol) == "typia.tag" {
       return iterate_metadata_intersection_identity{Kind: "tag"}
     }
   }
@@ -784,7 +784,7 @@ func iterate_metadata_intersection_is_plain_object_only(
   }
 
   for _, symbol := range collection.ApparentProperties(checker, typ) {
-    if symbol.Name == "typia.tag" {
+    if nativeast.SymbolNameOf(symbol) == "typia.tag" {
       return false
     }
   }
@@ -927,7 +927,7 @@ func iterate_metadata_intersection_has_conflicting_required_literal(
       return false
     }
     for _, symbol := range collection.ApparentProperties(checker, child) {
-      if symbol.Flags&nativeast.SymbolFlagsOptional != 0 {
+      if nativeast.SymbolFlagsOf(symbol)&nativeast.SymbolFlagsOptional != 0 {
         continue
       }
       propertyType := iterate_metadata_intersection_property_type(checker, child, symbol)
@@ -935,14 +935,14 @@ func iterate_metadata_intersection_has_conflicting_required_literal(
       if ok == false {
         continue
       }
-      list := constraints[symbol.Name]
+      list := constraints[nativeast.SymbolNameOf(symbol)]
       for _, prev := range list {
         if iterate_metadata_intersection_literal_disjoint(prev, literal) {
           result = true
           return true
         }
       }
-      constraints[symbol.Name] = append(list, literal)
+      constraints[nativeast.SymbolNameOf(symbol)] = append(list, literal)
     }
     return false
   }
@@ -958,12 +958,12 @@ func iterate_metadata_intersection_property_type(
   if checker == nil || owner == nil || symbol == nil {
     return nil
   }
-  if len(symbol.Declarations) != 0 {
-    if typ := checker.GetTypeOfSymbolAtLocation(symbol, symbol.Declarations[0]); typ != nil {
+  if len(nativeast.SymbolDeclarationsOf(symbol)) != 0 {
+    if typ := checker.GetTypeOfSymbolAtLocation(symbol, nativeast.SymbolDeclarationsOf(symbol)[0]); typ != nil {
       return typ
     }
   }
-  return nativechecker.Checker_getTypeOfPropertyOfType(checker, owner, symbol.Name)
+  return nativechecker.Checker_getTypeOfPropertyOfType(checker, owner, nativeast.SymbolNameOf(symbol))
 }
 
 func iterate_metadata_intersection_literal_set(
@@ -1065,7 +1065,7 @@ func iterate_metadata_intersection_category(
     return "array"
   }
   for _, symbol := range collection.ApparentProperties(checker, typ) {
-    if symbol.Name == "typia.tag" {
+    if nativeast.SymbolNameOf(symbol) == "typia.tag" {
       return "tag"
     }
   }

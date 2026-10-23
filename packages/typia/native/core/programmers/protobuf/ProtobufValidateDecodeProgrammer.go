@@ -48,10 +48,8 @@ type ProtobufValidateDecodeProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-var protobufValidateDecodeProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (protobufValidateDecodeProgrammerNamespace) Decompose(props ProtobufValidateDecodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(protobufValidateDecodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   validateContext := props.Context
   functional := false
   numeric := false
@@ -121,7 +119,7 @@ func (protobufValidateDecodeProgrammerNamespace) Write(props ProtobufValidateDec
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

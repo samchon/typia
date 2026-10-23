@@ -104,10 +104,8 @@ const (
   randomProgrammer_PREFIX_TUPLE  = "_rt"
 )
 
-var randomProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
     Checker: props.Context.Checker,
@@ -230,7 +228,7 @@ func (randomProgrammerNamespace) Write(props RandomProgrammer_IProps) *shimast.N
     Name:    props.Name,
     Init:    props.Init,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,
@@ -303,7 +301,7 @@ func randomProgrammer_write_object_functions(props struct {
   Functor    *nativehelpers.FunctionProgrammer
   Collection *schemametadata.MetadataCollection
 }) []*shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   output := []*shimast.Node{}
   unsatisfiableObjects, _ := nativehelpers.RandomJoiner.UnsatisfiableRecursives(props.Collection.Objects(), props.Collection.Tuples())
   for i, obj := range props.Collection.Objects() {
@@ -369,7 +367,7 @@ func randomProgrammer_write_array_functions(props struct {
   Functor    *nativehelpers.FunctionProgrammer
   Collection *schemametadata.MetadataCollection
 }) []*shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   output := []*shimast.Node{}
   for _, array := range props.Collection.Arrays() {
     if array.Recursive == false {
@@ -422,7 +420,7 @@ func randomProgrammer_write_tuple_functions(props struct {
   Functor    *nativehelpers.FunctionProgrammer
   Collection *schemametadata.MetadataCollection
 }) []*shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   output := []*shimast.Node{}
   _, unsatisfiableTuples := nativehelpers.RandomJoiner.UnsatisfiableRecursives(props.Collection.Objects(), props.Collection.Tuples())
   for _, tuple := range props.Collection.Tuples() {
@@ -477,7 +475,7 @@ func randomProgrammer_write_tuple_functions(props struct {
 }
 
 func randomProgrammer_decode(props randomProgrammer_decodeProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   expressions := []*shimast.Node{}
   if props.Metadata.Any {
     expressions = append(expressions, f.NewStringLiteral("any type used...", shimast.TokenFlagsNone))
@@ -598,7 +596,7 @@ func randomProgrammer_decode(props randomProgrammer_decodeProps) *shimast.Node {
 // randomProgrammer_decode_pick selects a lazy candidate through the optional pick hook or uniform built-in fallback.
 // The custom hook receives its generator object as the receiver; only the selected candidate executes.
 func randomProgrammer_decode_pick(props randomProgrammer_decodeProps, expressions []*shimast.Node) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   pickers := make([]*shimast.Node, 0, len(expressions))
   for _, expr := range expressions {
     value := expr
@@ -664,7 +662,7 @@ func randomProgrammer_recursion_escape(props randomProgrammer_decodeProps) *shim
   if recursive == false {
     return nil
   }
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if props.Metadata.Nullable {
     return f.NewKeywordExpression(shimast.KindNullKeyword)
   }
@@ -685,7 +683,7 @@ func randomProgrammer_decode_atomic(props randomProgrammer_decodeAtomicProps) []
   } else {
     schemaList = nativeiterate.Json_schema_number_export(props.Atomic)
   }
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   output := make([]*shimast.Node, 0, len(schemaList))
   for _, schema := range schemaList {
     composed := randomProgrammer_compose_atomic(props.Atomic.Type, schema, props.Context.Emit)
@@ -711,7 +709,7 @@ type randomProgrammer_composedAtomic struct {
 }
 
 func randomProgrammer_compose_atomic(atomicType string, schema nativeiterate.JsonSchema, emit *shimprinter.EmitContext) randomProgrammer_composedAtomic {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   if atomicType == "string" {
     // A string leaf that also carries a length tag needs the bounds forwarded
     // to the format and pattern generators; only the plain-string fall-through
@@ -809,7 +807,7 @@ func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*s
     Array:      props.Array,
   })
   schemaList = randomProgrammer_array_schema_list(props.Array, components, schemaList)
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   output := make([]*shimast.Node, 0, len(schemaList))
   if props.Array.Type.Recursive {
     if tag := randomProgrammer_find_positive_min_items(props.Array.Tags); tag != nil {
@@ -889,7 +887,7 @@ func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*s
 }
 
 func randomProgrammer_decode_tuple(props randomProgrammer_decodeTupleProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if props.Tuple.Type.Recursive {
     depth := nativefactories.ExpressionFactory.Number(0, props.Context.Emit)
     if props.Explore.Recursive {
@@ -929,7 +927,7 @@ func randomProgrammer_decode_tuple(props randomProgrammer_decodeTupleProps) *shi
 }
 
 func randomProgrammer_decode_object(props randomProgrammer_decodeObjectProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   var args *shimast.NodeList
   if props.Explore.Function {
     recursive := f.NewIdentifier("_recursive")
@@ -967,7 +965,7 @@ func randomProgrammer_decode_set(props struct {
   Explore randomProgrammer_IExplore
   Set     *schemametadata.MetadataSet
 }) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   array := schemametadata.MetadataArray_create(schemametadata.MetadataArray{
     Tags: [][]schemametadata.IMetadataTypeTag{},
     Type: schemametadata.MetadataArrayType_create(schemametadata.MetadataArrayType{
@@ -998,7 +996,7 @@ func randomProgrammer_decode_map(props struct {
   Explore randomProgrammer_IExplore
   Map     *schemametadata.MetadataMap
 }) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   ofMap := true
   tupleType := schemametadata.MetadataTupleType_create(schemametadata.MetadataTupleType{
     Name:      fmt.Sprintf("[%s, %s]", props.Map.Key.GetName(), props.Map.Value.GetName()),
@@ -1085,12 +1083,12 @@ func randomProgrammer_decode_native(props struct {
   if props.Name == "RegExp" {
     return randomProgrammer_decode_regexp(props.Context)
   }
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return f.NewNewExpression(f.NewIdentifier(props.Name), nil, f.NewNodeList(nil))
 }
 
 func randomProgrammer_decode_native_date(context nativecontext.ITypiaContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   return f.NewNewExpression(
     f.NewIdentifier("Date"),
     nil,
@@ -1106,7 +1104,7 @@ func randomProgrammer_decode_native_byte_array(props struct {
   Explore randomProgrammer_IExplore
   Name    string
 }) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   protobufType, minimum, maximum := randomProgrammer_typed_array_range(props.Name)
   atomic := "number"
   if props.Name == "BigInt64Array" || props.Name == "BigUint64Array" {
@@ -1163,7 +1161,7 @@ func randomProgrammer_decode_native_blob(props struct {
   Explore randomProgrammer_IExplore
   Name    string
 }) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return f.NewNewExpression(
     f.NewIdentifier("Blob"),
     nil,
@@ -1186,7 +1184,7 @@ func randomProgrammer_decode_native_file(props struct {
   Explore randomProgrammer_IExplore
   Name    string
 }) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return f.NewNewExpression(
     f.NewIdentifier("File"),
     nil,
@@ -1222,7 +1220,7 @@ func randomProgrammer_decode_native_array_buffer(props struct {
   Explore randomProgrammer_IExplore
   Name    string
 }) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if props.Name == "ArrayBuffer" {
     return nativefactories.IdentifierFactory.Access(
       props.Context.Emit,
@@ -1333,7 +1331,7 @@ func randomProgrammer_decode_native_data_view(props struct {
   Explore randomProgrammer_IExplore
   Name    string
 }) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return f.NewNewExpression(
     f.NewIdentifier("DataView"),
     nil,
@@ -1353,7 +1351,7 @@ func randomProgrammer_decode_native_data_view(props struct {
 }
 
 func randomProgrammer_decode_regexp(context nativecontext.ITypiaContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   return f.NewNewExpression(
     f.NewIdentifier("RegExp"),
     nil,
@@ -1385,7 +1383,7 @@ func randomProgrammer_write_ranged_string(context nativecontext.ITypiaContext, m
 }
 
 func randomProgrammer_coalesce(context nativecontext.ITypiaContext, method string, internal string) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   return nativefactories.ExpressionFactory.Coalesce(
     nativefactories.IdentifierFactory.Access(context.Emit, f.NewIdentifier("_generator"), method, true),
     randomProgrammer_internal(context, internal),
@@ -1394,7 +1392,7 @@ func randomProgrammer_coalesce(context nativecontext.ITypiaContext, method strin
 }
 
 func randomProgrammer_schema_without_items(schema nativeiterate.JsonSchema, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   keys := make([]string, 0, len(schema))
   for key := range schema {
     if key != "items" {
@@ -1441,14 +1439,14 @@ func randomProgrammer_internal(context nativecontext.ITypiaContext, name string)
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit).NewIdentifier(name)
+  return nativecontext.NodeFactoryOf(context.Emit).NewIdentifier(name)
 }
 
 func randomProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
   if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   if str, ok := props.Name.(string); ok {
     return f.NewTypeReferenceNode(f.NewIdentifier(str), f.NewNodeList(props.Arguments))
   }
@@ -1456,7 +1454,7 @@ func randomProgrammer_import_type(context nativecontext.ITypiaContext, props nat
 }
 
 func randomProgrammer_type_reference(context nativecontext.ITypiaContext, typ *shimchecker.Type, name *string) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   if name != nil {
     return f.NewTypeReferenceNode(f.NewIdentifier(*name), nil)
   }
@@ -1577,7 +1575,7 @@ func randomProgrammer_tags(base []schemametadata.IMetadataTypeTag, rows ...[]sch
 
 func randomProgrammer_first(list []*shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
   if len(list) == 0 {
-    return nativecontext.EmitFactoryOf(randomProgrammer_factory, emit).NewIdentifier("undefined")
+    return nativecontext.NodeFactoryOf(emit).NewIdentifier("undefined")
   }
   return list[0]
 }

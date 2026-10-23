@@ -107,7 +107,7 @@ func (functionalAssertParametersProgrammerNamespace) Write(props FunctionalAsser
     Parameters: functionalIsProgrammer_parameterNodes(props.Declaration),
     Init:       props.Init,
   })
-  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   output := functionalinternal.FunctionalGeneralProgrammer.GetReturnType(functionalinternal.FunctionalGeneralProgrammer_IProps{
     Checker:     props.Context.Checker,
     Declaration: props.Declaration,
@@ -142,7 +142,7 @@ func (functionalAssertParametersProgrammerNamespace) Write(props FunctionalAsser
 }
 
 func (functionalAssertParametersProgrammerNamespace) Decompose(props FunctionalAssertParametersProgrammer_IDecomposeProps) FunctionalAssertParametersProgrammer_IDecomposeOutput {
-  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   functions := make([]*shimast.Node, 0, len(props.Parameters))
   expressions := make([]*shimast.Node, 0, len(props.Parameters))
   for i, p := range props.Parameters {

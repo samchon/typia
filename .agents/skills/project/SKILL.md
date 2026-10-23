@@ -46,7 +46,7 @@ The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transfo
 
 ## Commands
 
-CI uses Node 24.x and Go 1.26.x, while the workspace pins pnpm exactly to 10.6.4.
+CI uses Node 24.x and Go 1.27.x, while the workspace pins pnpm exactly to 10.6.4.
 
 ```bash
 pnpm install

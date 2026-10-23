@@ -122,7 +122,7 @@ func (functionAssertReturnProgrammerNamespace) Write(props FunctionAssertReturnP
     Declaration: props.Declaration,
     Wrapper:     wrapper.Name,
   })
-  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   statements := []*shimast.Node{wrapper.Variable}
   statements = append(statements, result.Functions...)
   statements = append(statements, f.NewReturnStatement(
@@ -141,7 +141,7 @@ func (functionAssertReturnProgrammerNamespace) Write(props FunctionAssertReturnP
 }
 
 func (functionAssertReturnProgrammerNamespace) Decompose(props FunctionAssertReturnProgrammer_IDecomposeProps) FunctionAssertReturnProgrammer_IDecomposeOutput {
-  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   output := functionalinternal.FunctionalGeneralProgrammer.GetReturnType(functionalinternal.FunctionalGeneralProgrammer_IProps{
     Checker:     props.Context.Checker,
     Declaration: props.Declaration,

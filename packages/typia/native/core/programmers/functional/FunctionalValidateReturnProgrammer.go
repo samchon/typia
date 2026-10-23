@@ -104,7 +104,7 @@ func (functionalValidateReturnProgrammerNamespace) Write(props FunctionalValidat
     Expression:  props.Expression,
     Declaration: props.Declaration,
   })
-  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   statements := append([]*shimast.Node{}, result.Functions...)
   statements = append(statements, f.NewReturnStatement(
     functionalIsProgrammer_function(
@@ -130,7 +130,7 @@ func (functionalValidateReturnProgrammerNamespace) Write(props FunctionalValidat
 }
 
 func (functionalValidateReturnProgrammerNamespace) Decompose(props FunctionalValidateReturnProgrammer_IDecomposeProps) FunctionalValidateReturnProgrammer_IDecomposeOutput {
-  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   output := functionalinternal.FunctionalGeneralProgrammer.GetReturnType(functionalinternal.FunctionalGeneralProgrammer_IProps{
     Checker:     props.Context.Checker,
     Declaration: props.Declaration,

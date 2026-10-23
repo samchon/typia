@@ -37,10 +37,8 @@ type PlainIsCloneProgrammer_DecomposeProps struct {
   Name *string
 }
 
-var plainIsCloneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (plainIsCloneProgrammerNamespace) Decompose(props PlainIsCloneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(plainIsCloneProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   is := nativeprogrammers.IsProgrammer.Decompose(nativeprogrammers.IsProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: props.Functor,
@@ -115,7 +113,7 @@ func (plainIsCloneProgrammerNamespace) Write(props nativecontext.IProgrammerProp
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

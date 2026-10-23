@@ -41,10 +41,8 @@ type PlainValidateClassifyProgrammer_DecomposeProps struct {
   Name *string
 }
 
-var plainValidateClassifyProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (plainValidateClassifyProgrammerNamespace) Decompose(props PlainValidateClassifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(plainValidateClassifyProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   // Validate the INPUT against the redirected type (from/new seed or field-copy
   // instance shape for a class-TYPE target; the type itself otherwise) — never
   // typeof C's static members.
@@ -138,7 +136,7 @@ func (plainValidateClassifyProgrammerNamespace) Write(props nativecontext.IProgr
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

@@ -22,7 +22,7 @@ func typiaTransformDiagnosticFrom(diag *nativecontext.ITypiaDiagnostic) typiaTra
     out.Message = diag.Message
   }
   if diag.File != nil {
-    out.File = diag.File.FileName()
+    out.File = string(diag.File.FileName())
     if diag.Start != nil && *diag.Start >= 0 {
       line, column := shimscanner.GetECMALineAndByteOffsetOfPosition(diag.File, *diag.Start)
       out.Line = line + 1

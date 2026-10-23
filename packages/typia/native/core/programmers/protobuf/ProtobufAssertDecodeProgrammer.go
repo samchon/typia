@@ -50,10 +50,8 @@ type ProtobufAssertDecodeProgrammer_DecomposeProps struct {
   Init    *shimast.Node
 }
 
-var protobufAssertDecodeProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (protobufAssertDecodeProgrammerNamespace) Decompose(props ProtobufAssertDecodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(protobufAssertDecodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   assertContext := props.Context
   functional := false
   numeric := false
@@ -129,7 +127,7 @@ func (protobufAssertDecodeProgrammerNamespace) Write(props ProtobufAssertDecodeP
     Name:    props.Name,
     Init:    props.Init,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

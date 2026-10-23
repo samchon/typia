@@ -29,7 +29,7 @@ type Check_stringProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_string(props Check_stringProps) nativehelpers.ICheckEntry {
-  f := nativecontext.EmitFactoryOf(check_string_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   conditions := check_string_type_tags(props)
   return nativehelpers.ICheckEntry{
     Expected: props.Atomic.GetName(),
@@ -86,7 +86,5 @@ func check_string_transpile(context nativecontext.ITypiaContext, script string) 
   return nativefactories.ExpressionFactory.Transpile(nativefactories.ExpressionFactory_TranspileProps{
     Importer: importer,
     Script:   script,
-  })
+  }, context.Emit)
 }
-
-var check_string_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

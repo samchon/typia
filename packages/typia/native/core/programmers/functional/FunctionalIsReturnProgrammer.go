@@ -96,7 +96,7 @@ type FunctionalIsReturnProgrammer_IDecomposeOutput struct {
 }
 
 func (functionalIsReturnProgrammerNamespace) Write(props FunctionalIsReturnProgrammer_IProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   result := FunctionalIsReturnProgrammer.Decompose(FunctionalIsReturnProgrammer_IDecomposeProps{
     Context:     props.Context,
     Modulo:      props.Modulo,
@@ -129,7 +129,7 @@ func (functionalIsReturnProgrammerNamespace) Write(props FunctionalIsReturnProgr
 }
 
 func (functionalIsReturnProgrammerNamespace) Decompose(props FunctionalIsReturnProgrammer_IDecomposeProps) FunctionalIsReturnProgrammer_IDecomposeOutput {
-  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   output := functionalinternal.FunctionalGeneralProgrammer.GetReturnType(functionalinternal.FunctionalGeneralProgrammer_IProps{
     Checker:     props.Context.Checker,
     Declaration: props.Declaration,

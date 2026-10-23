@@ -10,18 +10,16 @@ type valueFactoryNamespace struct{}
 
 var ValueFactory = valueFactoryNamespace{}
 
-var valueFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (valueFactoryNamespace) NULL(emit ...*shimprinter.EmitContext) *shimast.Node {
-  return nativecontext.EmitFactoryOf(valueFactory_factory, emit...).NewKeywordExpression(shimast.KindNullKeyword)
+  return nativecontext.NodeFactoryOf(emit...).NewKeywordExpression(shimast.KindNullKeyword)
 }
 
 func (valueFactoryNamespace) UNDEFINED(emit ...*shimprinter.EmitContext) *shimast.Node {
-  return nativecontext.EmitFactoryOf(valueFactory_factory, emit...).NewIdentifier("undefined")
+  return nativecontext.NodeFactoryOf(emit...).NewIdentifier("undefined")
 }
 
 func (valueFactoryNamespace) BOOLEAN(value bool, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(valueFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   if value {
     return f.NewKeywordExpression(shimast.KindTrueKeyword)
   }
@@ -35,9 +33,9 @@ func (valueFactoryNamespace) INPUT(ec *shimprinter.EmitContext, str ...string) *
   if len(str) != 0 {
     name = str[0]
   }
-  return nativecontext.EmitFactory(ec, valueFactory_factory).NewIdentifier(name)
+  return nativecontext.NodeFactoryOf(ec).NewIdentifier(name)
 }
 
 func (valueFactoryNamespace) TYPEOF(input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  return nativecontext.EmitFactoryOf(valueFactory_factory, emit...).NewTypeOfExpression(input)
+  return nativecontext.NodeFactoryOf(emit...).NewTypeOfExpression(input)
 }

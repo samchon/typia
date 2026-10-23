@@ -46,14 +46,12 @@ type LlmCoerceProgrammer_IWriteProps struct {
   Name     *string
 }
 
-var llmCoerceProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (llmCoerceProgrammerNamespace) Decompose(props LlmCoerceProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   typeName := "unknown"
   if props.Name != nil {
     typeName = *props.Name
   }
-  f := nativecontext.EmitFactoryOf(llmCoerceProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions: map[string]*shimast.Node{},
     Statements: []*shimast.Node{
@@ -100,7 +98,7 @@ func (llmCoerceProgrammerNamespace) Write(props LlmCoerceProgrammer_IWriteProps)
     Metadata: props.Metadata,
     Name:     props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

@@ -48,10 +48,8 @@ type ProtobufIsEncodeProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-var protobufIsEncodeProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (protobufIsEncodeProgrammerNamespace) Decompose(props ProtobufIsEncodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(protobufIsEncodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   isContext := props.Context
   functional := false
   finite := true
@@ -125,7 +123,7 @@ func (protobufIsEncodeProgrammerNamespace) Write(props ProtobufIsEncodeProgramme
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

@@ -4,6 +4,7 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcore "github.com/microsoft/typescript-go/shim/core"
   shimparser "github.com/microsoft/typescript-go/shim/parser"
+  shimtspath "github.com/microsoft/typescript-go/shim/tspath"
   "os"
   "path/filepath"
   "strings"
@@ -52,7 +53,7 @@ export const randomIncluded=()=>typia.random<IExactOptionalClone>({boolean:()=>t
   if code != 0 {
     t.Fatalf("exact optional transform failed %d: %s", code, stderr)
   }
-  file := shimparser.ParseSourceFile(shimast.SourceFileParseOptions{FileName: filepath.ToSlash(filepath.Join(project, "emitted.js"))}, output, shimcore.ScriptKindJS)
+  file := shimparser.ParseSourceFile(shimast.SourceFileParseOptions{FileName: shimtspath.RootedFilePath(filepath.ToSlash(filepath.Join(project, "emitted.js")))}, output, shimcore.ScriptKindJS)
   bindings := map[string]*shimast.Node{}
   assertImports := map[string]bool{}
   var walk func(*shimast.Node) bool

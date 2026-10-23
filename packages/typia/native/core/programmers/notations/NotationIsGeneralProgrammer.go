@@ -50,10 +50,8 @@ type NotationIsGeneralProgrammer_DecomposeProps struct {
   Name *string
 }
 
-var notationIsGeneralProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (notationIsGeneralProgrammerNamespace) Decompose(props NotationIsGeneralProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(notationIsGeneralProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   is := nativeprogrammers.IsProgrammer.Decompose(nativeprogrammers.IsProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: props.Functor,

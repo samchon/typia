@@ -29,8 +29,6 @@ type JsonIsStringifyProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-var jsonIsStringifyProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (jsonIsStringifyProgrammerNamespace) Decompose(props JsonIsStringifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   isContext := props.Context
   functional := false
@@ -57,7 +55,7 @@ func (jsonIsStringifyProgrammerNamespace) Decompose(props JsonIsStringifyProgram
     Validated: true,
   })
 
-  f := nativecontext.EmitFactoryOf(jsonIsStringifyProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   statements := append([]*shimast.Node{}, is.Statements...)
   statements = append(statements, stringify.Statements...)
   statements = append(statements,
@@ -113,7 +111,7 @@ func (jsonIsStringifyProgrammerNamespace) Write(props nativecontext.IProgrammerP
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

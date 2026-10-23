@@ -1,6 +1,6 @@
 module github.com/samchon/typia/website/compiler
 
-go 1.26
+go 1.27
 
 // The website's playground wasm is a downstream consumer of @ttsc/wasm. It
 // imports the host helper plus typia's native transform (adapter + the ttsc
@@ -39,7 +39,9 @@ replace (
 )
 
 require (
+	github.com/microsoft/typescript-go/shim/ast v0.0.0
 	github.com/microsoft/typescript-go/shim/compiler v0.0.0
+	github.com/microsoft/typescript-go/shim/printer v0.0.0
 	github.com/microsoft/typescript-go/shim/scanner v0.0.0
 	github.com/samchon/ttsc/packages/ttsc v0.0.0
 	github.com/samchon/ttsc/packages/wasm v0.0.0
@@ -47,24 +49,22 @@ require (
 )
 
 require (
-	github.com/go-json-experiment/json v0.0.0-20260214004413-d219187c3433 // indirect
+	github.com/go-json-experiment/json v0.0.0-20260623181947-01eb4420fa68 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.10 // indirect
-	github.com/microsoft/typescript-go v0.0.0-20260429010842-56ab4af42157 // indirect
-	github.com/microsoft/typescript-go/shim/ast v0.0.0
+	github.com/microsoft/typescript-go v0.0.0-20260708042240-2bd066d87f5b // indirect
 	github.com/microsoft/typescript-go/shim/astnav v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/bundled v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/checker v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/core v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/diagnosticwriter v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/parser v0.0.0 // indirect
-	github.com/microsoft/typescript-go/shim/printer v0.0.0
 	github.com/microsoft/typescript-go/shim/tsoptions v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/tspath v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/vfs v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/vfs/cachedvfs v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/vfs/osvfs v0.0.0 // indirect
 	github.com/zeebo/xxh3 v1.1.0 // indirect
-	golang.org/x/sync v0.20.0 // indirect
-	golang.org/x/sys v0.43.0 // indirect
-	golang.org/x/text v0.36.0 // indirect
+	golang.org/x/sync v0.21.0 // indirect
+	golang.org/x/sys v0.46.0 // indirect
+	golang.org/x/text v0.38.0 // indirect
 )

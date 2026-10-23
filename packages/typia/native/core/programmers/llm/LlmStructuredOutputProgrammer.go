@@ -32,8 +32,6 @@ type LlmStructuredOutputProgrammer_IWriteProps struct {
   Name     *string
 }
 
-var llmStructuredOutputProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (llmStructuredOutputProgrammerNamespace) Write(props LlmStructuredOutputProgrammer_IWriteProps) *shimast.Node {
   functor := nativehelpers.NewFunctionProgrammer(llmProgrammer_method_text(props.Modulo), props.Context.Emit)
   equals := false
@@ -54,7 +52,7 @@ func (llmStructuredOutputProgrammerNamespace) Write(props LlmStructuredOutputPro
   if props.Name != nil {
     typeName = *props.Name
   }
-  f := nativecontext.EmitFactoryOf(llmStructuredOutputProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   statements := []*shimast.Node{
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: "__parameters",
@@ -130,7 +128,7 @@ func (llmStructuredOutputProgrammerNamespace) Write(props LlmStructuredOutputPro
       }),
     ),
   }
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

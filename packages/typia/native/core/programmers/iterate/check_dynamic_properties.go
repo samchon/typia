@@ -38,7 +38,7 @@ type Check_dynamic_propertiesProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_dynamic_properties(props Check_dynamic_propertiesProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   length := nativefactories.IdentifierFactory.Access(
     props.Context.Emit,
     f.NewCallExpression(
@@ -135,7 +135,7 @@ func Check_dynamic_properties(props Check_dynamic_propertiesProps) *shimast.Node
 }
 
 func check_dynamic_property(props Check_dynamic_propertiesProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   key := f.NewIdentifier("key")
   value := f.NewIdentifier("value")
 
@@ -258,7 +258,7 @@ func check_dynamic_property(props Check_dynamic_propertiesProps) *shimast.Node {
 }
 
 func is_regular_property(regular []nativehelpers.IExpressionEntry, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   elements := make([]*shimast.Node, 0, len(regular))
   for _, entry := range regular {
     key := entry.Key.GetSoleLiteral()
@@ -267,14 +267,10 @@ func is_regular_property(regular []nativehelpers.IExpressionEntry, emit ...*shim
     }
   }
   return f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(
-      nil,
-      f.NewArrayLiteralExpression(
-        f.NewNodeList(elements),
-        false,
-      ),
-      "some",
-    ),
+    f.NewPropertyAccessExpression(f.NewArrayLiteralExpression(
+      f.NewNodeList(elements),
+      false,
+    ), nil, f.NewIdentifier("some"), shimast.NodeFlagsNone),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -323,7 +319,7 @@ func check_dynamic_properties_internal(context nativecontext.ITypiaContext, name
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   return f.NewIdentifier(name)
 }
 
@@ -367,7 +363,7 @@ func check_dynamic_properties_key_shape(props Check_dynamic_propertiesProps, key
       }
       conditions = append(conditions, condition)
     }
-    f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, props.Context.Emit)
+    f := nativecontext.NodeFactoryOf(props.Context.Emit)
     for _, template := range entry.Key.Templates {
       // Keep the same structural lowering as the full checker. Removing slot
       // tags first would change constrained string captures from [\s\S] to .
@@ -454,28 +450,24 @@ func check_dynamic_properties_key_expected(dynamic []nativehelpers.IExpressionEn
 // The advice `Superfluous` gives -- remove the property -- is wrong here. The
 // property is declared; its key is what broke.
 func check_dynamic_properties_invalid_key_description(emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(
-      nil,
-      f.NewArrayLiteralExpression(
-        f.NewNodeList([]*shimast.Node{
-          f.NewTemplateExpression(
-            f.NewTemplateHead("The key `", "The key \\`", shimast.TokenFlagsNone),
-            f.NewNodeList([]*shimast.Node{
-              f.NewTemplateSpan(
-                f.NewIdentifier("key"),
-                f.NewTemplateTail("` does not satisfy the type its index signature declares.", "\\` does not satisfy the type its index signature declares.", shimast.TokenFlagsNone),
-              ),
-            }),
-          ),
-          f.NewStringLiteral("", shimast.TokenFlagsNone),
-          f.NewStringLiteral("Please correct the key next time.", shimast.TokenFlagsNone),
-        }),
-        true,
-      ),
-      "join",
-    ),
+    f.NewPropertyAccessExpression(f.NewArrayLiteralExpression(
+      f.NewNodeList([]*shimast.Node{
+        f.NewTemplateExpression(
+          f.NewTemplateHead("The key `", "The key \\`", shimast.TokenFlagsNone),
+          f.NewNodeList([]*shimast.Node{
+            f.NewTemplateSpan(
+              f.NewIdentifier("key"),
+              f.NewTemplateTail("` does not satisfy the type its index signature declares.", "\\` does not satisfy the type its index signature declares.", shimast.TokenFlagsNone),
+            ),
+          }),
+        ),
+        f.NewStringLiteral("", shimast.TokenFlagsNone),
+        f.NewStringLiteral("Please correct the key next time.", shimast.TokenFlagsNone),
+      }),
+      true,
+    ), nil, f.NewIdentifier("join"), shimast.NodeFlagsNone),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -486,28 +478,24 @@ func check_dynamic_properties_invalid_key_description(emit ...*shimprinter.EmitC
 }
 
 func check_dynamic_properties_superfluous_description(emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(
-      nil,
-      f.NewArrayLiteralExpression(
-        f.NewNodeList([]*shimast.Node{
-          f.NewTemplateExpression(
-            f.NewTemplateHead("The property `", "The property \\`", shimast.TokenFlagsNone),
-            f.NewNodeList([]*shimast.Node{
-              f.NewTemplateSpan(
-                f.NewIdentifier("key"),
-                f.NewTemplateTail("` is not defined in the object type.", "\\` is not defined in the object type.", shimast.TokenFlagsNone),
-              ),
-            }),
-          ),
-          f.NewStringLiteral("", shimast.TokenFlagsNone),
-          f.NewStringLiteral("Please remove the property next time.", shimast.TokenFlagsNone),
-        }),
-        true,
-      ),
-      "join",
-    ),
+    f.NewPropertyAccessExpression(f.NewArrayLiteralExpression(
+      f.NewNodeList([]*shimast.Node{
+        f.NewTemplateExpression(
+          f.NewTemplateHead("The property `", "The property \\`", shimast.TokenFlagsNone),
+          f.NewNodeList([]*shimast.Node{
+            f.NewTemplateSpan(
+              f.NewIdentifier("key"),
+              f.NewTemplateTail("` is not defined in the object type.", "\\` is not defined in the object type.", shimast.TokenFlagsNone),
+            ),
+          }),
+        ),
+        f.NewStringLiteral("", shimast.TokenFlagsNone),
+        f.NewStringLiteral("Please remove the property next time.", shimast.TokenFlagsNone),
+      }),
+      true,
+    ), nil, f.NewIdentifier("join"), shimast.NodeFlagsNone),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -516,5 +504,3 @@ func check_dynamic_properties_superfluous_description(emit ...*shimprinter.EmitC
     shimast.NodeFlagsNone,
   )
 }
-
-var check_dynamic_properties_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

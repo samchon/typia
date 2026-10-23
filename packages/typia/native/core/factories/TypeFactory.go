@@ -54,8 +54,6 @@ type TypeFactory_GetFullNameProps struct {
   AliasTypeArguments *bool
 }
 
-var typeFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (typeFactoryNamespace) IsFunction(t *shimchecker.Type) bool {
   return TypeFactory.GetFunction(t) != nil
 }
@@ -65,10 +63,10 @@ func (typeFactoryNamespace) GetFunction(t *shimchecker.Type) *shimast.Node {
     return nil
   }
   symbol := t.Symbol()
-  if symbol == nil || len(symbol.Declarations) == 0 {
+  if symbol == nil || len(shimast.SymbolDeclarationsOf(symbol)) == 0 {
     return nil
   }
-  node := symbol.Declarations[0]
+  node := shimast.SymbolDeclarationsOf(symbol)[0]
   if shimast.IsFunctionLike(node) {
     return node
   }
@@ -93,10 +91,10 @@ func (typeFactoryNamespace) GetReturnTypeOfClassMethod(props TypeFactory_GetRetu
     return nil
   }
   symbol := props.Checker.GetPropertyOfType(props.Class, props.Function)
-  if symbol == nil || symbol.ValueDeclaration == nil {
+  if symbol == nil || shimast.SymbolValueDeclarationOf(symbol) == nil {
     return nil
   }
-  functor := props.Checker.GetTypeOfSymbolAtLocation(symbol, symbol.ValueDeclaration)
+  functor := props.Checker.GetTypeOfSymbolAtLocation(symbol, shimast.SymbolValueDeclarationOf(symbol))
   signatures := props.Checker.GetSignaturesOfType(functor, shimchecker.SignatureKindCall)
   if len(signatures) == 0 {
     return nil
@@ -165,10 +163,10 @@ func typeFactory_explore_name(node *shimast.Node, name string) string {
 }
 
 func typeFactory_get_name(symbol *shimast.Symbol) string {
-  if symbol == nil || len(symbol.Declarations) == 0 || symbol.Declarations[0].Parent == nil {
+  if symbol == nil || len(shimast.SymbolDeclarationsOf(symbol)) == 0 || shimast.SymbolDeclarationsOf(symbol)[0].Parent == nil {
     return "__type"
   }
-  return typeFactory_explore_name(symbol.Declarations[0].Parent, symbol.Name)
+  return typeFactory_explore_name(shimast.SymbolDeclarationsOf(symbol)[0].Parent, shimast.SymbolNameOf(symbol))
 }
 
 func typeFactory_get_type_arguments(checker *shimchecker.Checker, t *shimchecker.Type) (output []*shimchecker.Type) {
@@ -182,7 +180,7 @@ func typeFactory_get_type_arguments(checker *shimchecker.Checker, t *shimchecker
 }
 
 func (typeFactoryNamespace) Keyword(t string, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(typeFactory_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   var kind shimast.KeywordTypeSyntaxKind
   switch t {
   case "void":

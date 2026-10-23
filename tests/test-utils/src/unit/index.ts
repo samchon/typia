@@ -299,6 +299,7 @@ import { test_evidence_owner_directory_failure } from "./features/test_evidence_
 import { test_map_util_take } from "./features/test_map_util_take";
 import { test_singleton_lifecycle } from "./features/test_singleton_lifecycle";
 import { test_total_comparison_shape } from "./features/test_total_comparison_shape";
+import { test_transform_descriptor_host_inputs } from "./features/transform/test_transform_descriptor_host_inputs";
 
 test("MapUtil.take preserves map membership", test_map_util_take);
 
@@ -1067,4 +1068,9 @@ test(
 test(
   test_openapi_converter_discriminator_portable.name,
   test_openapi_converter_discriminator_portable,
+);
+
+test(
+  test_transform_descriptor_host_inputs.name,
+  test_transform_descriptor_host_inputs,
 );

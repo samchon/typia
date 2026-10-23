@@ -70,8 +70,6 @@ type FunctionalAssertFunctionProgrammer_ErrorFactoryWrapperOutput struct {
   Variable *shimast.Node
 }
 
-var functionalAssertProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (functionalAssertFunctionProgrammerNamespace) Write(props FunctionalAssertFunctionProgrammer_IProps) *shimast.Node {
   wrapper := FunctionalAssertFunctionProgrammer.ErrorFactoryWrapper(struct {
     Context    nativecontext.ITypiaContext
@@ -97,7 +95,7 @@ func (functionalAssertFunctionProgrammerNamespace) Write(props FunctionalAssertF
     Declaration: props.Declaration,
     Wrapper:     wrapper.Name,
   })
-  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   statements := []*shimast.Node{wrapper.Variable}
   statements = append(statements, p.Functions...)
   statements = append(statements, r.Functions...)
@@ -150,7 +148,7 @@ func (functionalAssertFunctionProgrammerNamespace) HookPath(props struct {
   Wrapper  string
   Replacer string
 }) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   path := nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("p"), "path")
   return f.NewArrowFunction(
     nil,
@@ -207,5 +205,5 @@ func functionalAssertProgrammer_internal(context nativecontext.ITypiaContext, na
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, context.Emit).NewIdentifier(name)
+  return nativecontext.NodeFactoryOf(context.Emit).NewIdentifier(name)
 }

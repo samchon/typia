@@ -14,7 +14,7 @@ type llmParseTransformerNamespace struct{}
 var LlmParseTransformer = llmParseTransformerNamespace{}
 
 func (llmParseTransformerNamespace) Transform(props nativetransform.ITransformProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(llmTransformer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   llmTransformer_require_argument(props, "typia.llm.parse", 0, "no input value.")
   top, typ, ok := llmTransformer_type_argument(props, "typia.llm.parse")
   if ok == false {

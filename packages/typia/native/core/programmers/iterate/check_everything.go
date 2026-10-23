@@ -15,9 +15,9 @@ import (
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_everything(array *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_everything_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(nil, array, "every"),
+    f.NewPropertyAccessExpression(array, nil, f.NewIdentifier("every"), shimast.NodeFlagsNone),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -25,7 +25,7 @@ func Check_everything(array *shimast.Expression, emit ...*shimprinter.EmitContex
         nil,
         nil,
         f.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter("flag", nativefactories.TypeFactory.Keyword("boolean"), nil),
+          nativefactories.IdentifierFactory.Parameter("flag", nativefactories.TypeFactory.Keyword("boolean", emit...), nil, emit...),
         }),
         nil,
         nil,
@@ -36,5 +36,3 @@ func Check_everything(array *shimast.Expression, emit ...*shimprinter.EmitContex
     shimast.NodeFlagsNone,
   )
 }
-
-var check_everything_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

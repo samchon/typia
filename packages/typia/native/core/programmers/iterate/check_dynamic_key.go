@@ -34,7 +34,7 @@ type Check_dynamic_keyProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_dynamic_key(props Check_dynamic_keyProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_dynamic_key_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if check_dynamic_key_has_pure_string(props.Metadata) {
     return f.NewKeywordExpression(shimast.KindTrueKeyword)
   }
@@ -132,7 +132,7 @@ func Check_dynamic_key(props Check_dynamic_keyProps) *shimast.Node {
   }
 
   if len(props.Metadata.Templates) != 0 {
-    conditions = append(conditions, check_dynamic_key_atomist(Check_template(Check_templateProps{
+    conditions = append(conditions, check_dynamic_key_atomist(Check_template(Check_templateProps{Emit: props.Context.Emit,
       Context:   props.Context,
       Templates: props.Metadata.Templates,
       Input:     props.Input,
@@ -246,7 +246,7 @@ func check_dynamic_key_atomist(entry nativehelpers.ICheckEntry, emit ...*shimpri
 }
 
 func check_dynamic_key_reduce(expressions []*shimast.Node, operator shimast.Kind, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_dynamic_key_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   if len(expressions) == 0 {
     return f.NewKeywordExpression(shimast.KindTrueKeyword)
   }
@@ -264,7 +264,7 @@ func check_dynamic_key_reduce(expressions []*shimast.Node, operator shimast.Kind
 }
 
 func check_dynamic_key_strict_equal(left *shimast.Expression, right *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_dynamic_key_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewBinaryExpression(
     nil,
     left,
@@ -278,8 +278,6 @@ func check_dynamic_key_internal(context nativecontext.ITypiaContext, name string
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  f := nativecontext.EmitFactoryOf(check_dynamic_key_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   return f.NewIdentifier(name)
 }
-
-var check_dynamic_key_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

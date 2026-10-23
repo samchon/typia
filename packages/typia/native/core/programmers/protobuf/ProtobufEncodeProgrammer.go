@@ -61,10 +61,8 @@ type protobufEncodeProgrammer_IUnion struct {
 
 const protobufEncodeProgrammer_PREFIX = "_pe"
 
-var protobufEncodeProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (protobufEncodeProgrammerNamespace) Decompose(props ProtobufEncodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()
   metadata := nativefactories.ProtobufFactory.Metadata(nativefactories.ProtobufFactory_IProps{
     Method:     protobufEncodeProgrammer_method_text(props.Modulo),
@@ -148,7 +146,7 @@ func (protobufEncodeProgrammerNamespace) Write(props ProtobufEncodeProgrammer_IP
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,
@@ -163,7 +161,7 @@ type protobufEncodeProgrammer_writeEncoderProps struct {
 }
 
 func protobufEncodeProgrammer_write_encoder(props protobufEncodeProgrammer_writeEncoderProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   functors := []*shimast.Node{}
   for _, object := range props.Collection.Objects() {
     if nativehelpers.ProtobufUtil.IsStaticObject(object) == false {
@@ -260,7 +258,7 @@ type protobufEncodeProgrammer_writeObjectFunctionProps struct {
 }
 
 func protobufEncodeProgrammer_write_object_function(props protobufEncodeProgrammer_writeObjectFunctionProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   body := []*shimast.Node{}
   guarded := props.Object.Recursive && props.Functor.Visited()
   if guarded {
@@ -331,7 +329,7 @@ type protobufEncodeProgrammer_decodePropertyProps struct {
 }
 
 func protobufEncodeProgrammer_decode_property(props protobufEncodeProgrammer_decodePropertyProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   union := []protobufEncodeProgrammer_IUnion{}
   bigintCandidates := protobufEncodeProgrammer_bigintCandidates(props.Protobuf.Union)
   numberCandidates := protobufEncodeProgrammer_numberCandidates(props.Protobuf.Union)
@@ -542,7 +540,7 @@ func protobufEncodeProgrammer_decode_bigint(props struct {
   Input      *shimast.Node
   Index      *int
 }, emit *shimprinter.EmitContext) protobufEncodeProgrammer_IUnion {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   return protobufEncodeProgrammer_IUnion{
     Is: func() *shimast.Node {
       typeof := protobufEncodeProgrammer_strict_equal(
@@ -553,7 +551,7 @@ func protobufEncodeProgrammer_decode_bigint(props struct {
       if len(props.Candidates) == 1 {
         return typeof
       }
-      return protobufEncodeProgrammer_logical_and(typeof, nativefactories.NumericRangeFactory.Bigint(props.Type, props.Input), emit)
+      return protobufEncodeProgrammer_logical_and(typeof, nativefactories.NumericRangeFactory.Bigint(props.Type, props.Input, emit), emit)
     },
     Value: func() *shimast.Node {
       expressions := []*shimast.Node{}
@@ -575,7 +573,7 @@ func protobufEncodeProgrammer_decode_number(props struct {
   Input      *shimast.Node
   Index      *int
 }, emit *shimprinter.EmitContext) protobufEncodeProgrammer_IUnion {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   return protobufEncodeProgrammer_IUnion{
     Is: func() *shimast.Node {
       typeof := protobufEncodeProgrammer_strict_equal(
@@ -586,7 +584,7 @@ func protobufEncodeProgrammer_decode_number(props struct {
       if len(props.Candidates) == 1 {
         return typeof
       }
-      return protobufEncodeProgrammer_logical_and(typeof, nativefactories.NumericRangeFactory.Number(props.Type, props.Input), emit)
+      return protobufEncodeProgrammer_logical_and(typeof, nativefactories.NumericRangeFactory.Number(props.Type, props.Input, emit), emit)
     },
     Value: func() *shimast.Node {
       expressions := []*shimast.Node{}
@@ -688,7 +686,7 @@ type protobufEncodeProgrammer_decodeArrayProps struct {
 }
 
 func protobufEncodeProgrammer_decode_array(props protobufEncodeProgrammer_decodeArrayProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   value := props.Schema.Value
   wire := nativehelpers.VARIANT
   if protobufEncodeProgrammer_schemaType(value) == "object" || protobufEncodeProgrammer_schemaType(value) == "bytes" || protobufEncodeProgrammer_schemaType(value) == "string" {
@@ -760,7 +758,7 @@ type protobufEncodeProgrammer_decodeObjectProps struct {
 }
 
 func protobufEncodeProgrammer_decode_object(props protobufEncodeProgrammer_decodeObjectProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   object := protobufEncodeProgrammer_objectSchema(props.Schema)
   objectIndex := 0
   if object != nil {
@@ -791,7 +789,7 @@ type protobufEncodeProgrammer_decodeMapProps struct {
 }
 
 func protobufEncodeProgrammer_decode_map(props protobufEncodeProgrammer_decodeMapProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   each := []*shimast.Node{
     f.NewExpressionStatement(protobufEncodeProgrammer_decode_tag(struct {
       Wire  nativehelpers.ProtobufWire
@@ -839,7 +837,7 @@ type protobufEncodeProgrammer_exploreObjectsProps struct {
 }
 
 func protobufEncodeProgrammer_explore_objects(props protobufEncodeProgrammer_exploreObjectsProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   out := func(schema schemaprotobuf.IProtobufPropertyType) *shimast.Node {
     if protobufEncodeProgrammer_schemaType(schema) == "object" {
       return protobufEncodeProgrammer_decode_object(protobufEncodeProgrammer_decodeObjectProps{
@@ -880,7 +878,7 @@ func protobufEncodeProgrammer_explore_objects(props protobufEncodeProgrammer_exp
   }
   specifications := nativehelpers.UnionPredicator.Object(objects)
   if len(specifications) == 0 {
-    condition := nativeiterate.Decode_union_object(nativeiterate.Decode_union_objectProps{
+    condition := nativeiterate.Decode_union_object(nativeiterate.Decode_union_objectProps{Emit: props.Context.Emit,
       Checker: func(v nativeiterate.Decode_union_object_next) *shimast.Node {
         return nativeprogrammers.IsProgrammer.Decode_object(nativeprogrammers.IsProgrammer_DecodeObjectProps{
           Context: props.Context,
@@ -1023,7 +1021,7 @@ type protobufEncodeProgrammer_throwProps struct {
 }
 
 func protobufEncodeProgrammer_create_throw_error(props protobufEncodeProgrammer_throwProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return f.NewExpressionStatement(
     f.NewCallExpression(
       protobufEncodeProgrammer_internal(props.Context, "throwTypeGuardError"),
@@ -1042,7 +1040,7 @@ func protobufEncodeProgrammer_create_throw_error(props protobufEncodeProgrammer_
 }
 
 func protobufEncodeProgrammer_callWriter(method string, args []*shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(emit, f.NewIdentifier("writer"), method),
     nil,
@@ -1053,7 +1051,7 @@ func protobufEncodeProgrammer_callWriter(method string, args []*shimast.Node, em
 }
 
 func protobufEncodeProgrammer_expressionBlock(expressions []*shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   statements := make([]*shimast.Node, 0, len(expressions))
   for _, expr := range expressions {
     statements = append(statements, f.NewExpressionStatement(expr))
@@ -1062,7 +1060,7 @@ func protobufEncodeProgrammer_expressionBlock(expressions []*shimast.Node, emit 
 }
 
 func protobufEncodeProgrammer_chainUnion(union []protobufEncodeProgrammer_IUnion, context nativecontext.ITypiaContext, functor *nativehelpers.FunctionProgrammer, input *shimast.Node, expected string) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   var next *shimast.Node
   for i := len(union) - 1; i >= 0; i-- {
     var elseStatement *shimast.Node
@@ -1086,17 +1084,17 @@ func protobufEncodeProgrammer_chainUnion(union []protobufEncodeProgrammer_IUnion
 }
 
 func protobufEncodeProgrammer_strict_equal(left *shimast.Node, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   return f.NewBinaryExpression(nil, left, nil, f.NewToken(shimast.KindEqualsEqualsEqualsToken), right)
 }
 
 func protobufEncodeProgrammer_strict_not_equal(left *shimast.Node, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   return f.NewBinaryExpression(nil, left, nil, f.NewToken(shimast.KindExclamationEqualsEqualsToken), right)
 }
 
 func protobufEncodeProgrammer_logical_and(left *shimast.Node, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   return f.NewBinaryExpression(nil, left, nil, f.NewToken(shimast.KindAmpersandAmpersandToken), right)
 }
 
@@ -1249,7 +1247,7 @@ func protobufEncodeProgrammer_import_type(context nativecontext.ITypiaContext, p
   if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   if str, ok := props.Name.(string); ok {
     return f.NewTypeReferenceNode(f.NewIdentifier(str), f.NewNodeList(props.Arguments))
   }
@@ -1260,7 +1258,7 @@ func protobufEncodeProgrammer_internal(context nativecontext.ITypiaContext, name
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   return f.NewIdentifier(name)
 }
 

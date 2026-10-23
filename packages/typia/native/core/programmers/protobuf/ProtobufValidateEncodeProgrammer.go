@@ -48,10 +48,8 @@ type ProtobufValidateEncodeProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-var protobufValidateEncodeProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (protobufValidateEncodeProgrammerNamespace) Decompose(props ProtobufValidateEncodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(protobufValidateEncodeProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   validateContext := props.Context
   functional := false
   finite := true
@@ -144,7 +142,7 @@ func (protobufValidateEncodeProgrammerNamespace) Write(props ProtobufValidateEnc
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,
@@ -155,7 +153,7 @@ func protobufValidateEncodeProgrammer_import_type(context nativecontext.ITypiaCo
   if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
-  f := nativecontext.EmitFactoryOf(protobufValidateEncodeProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   if str, ok := props.Name.(string); ok {
     return f.NewTypeReferenceNode(f.NewIdentifier(str), f.NewNodeList(props.Arguments))
   }

@@ -30,8 +30,6 @@ type HttpValidateFormDataProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-var httpValidateProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (httpValidateFormDataProgrammerNamespace) Decompose(props HttpValidateFormDataProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   validate := nativeprogrammers.ValidateProgrammer.Decompose(nativeprogrammers.ValidateProgrammer_DecomposeProps{
     Context: httpProgrammer_context(props.Context, false, false),
@@ -59,7 +57,7 @@ func (httpValidateFormDataProgrammerNamespace) Write(props nativecontext.IProgra
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,
@@ -67,7 +65,7 @@ func (httpValidateFormDataProgrammerNamespace) Write(props nativecontext.IProgra
 }
 
 func httpProgrammer_validate_result(context nativecontext.ITypiaContext, validate nativeinternal.FeatureProgrammer_IDecomposed, decode nativeinternal.FeatureProgrammer_IDecomposed) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(httpValidateProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   decodeArrow := decode.Arrow.AsArrowFunction()
   output := decodeArrow.Type
   if output == nil {

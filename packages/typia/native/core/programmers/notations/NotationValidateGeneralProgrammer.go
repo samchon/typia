@@ -53,10 +53,8 @@ type NotationValidateGeneralProgrammer_DecomposeProps struct {
   Name *string
 }
 
-var notationValidateGeneralProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (notationValidateGeneralProgrammerNamespace) Decompose(props NotationValidateGeneralProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(notationValidateGeneralProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   validate := nativeprogrammers.ValidateProgrammer.Decompose(nativeprogrammers.ValidateProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,

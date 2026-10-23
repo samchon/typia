@@ -555,7 +555,7 @@ func (featureProgrammerNamespace) CollectionRecursive(collection *nativemetadata
 // the skip both the cycle breaker and the DAG deduplication. Handles the
 // block bodies the prune joiner produces as well as expression bodies.
 func (featureProgrammerNamespace) VisitGuardSkip(key string, body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   slot := "_vctx." + key
   has := f.NewIdentifier("(" + slot + " || (" + slot + " = new WeakSet())).has(input)")
   add := f.NewIdentifier(slot + ".add(input)")
@@ -591,14 +591,14 @@ func (featureProgrammerNamespace) VisitGuardSkip(key string, body *shimast.Node,
 // way, because re-serializing a DAG alias at another position is legal and
 // must keep working.
 func (featureProgrammerNamespace) VisitGuardSerialize(key string, thrower *shimast.Node, body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   slot := "_vctx." + key
   bodyExpression := featureProgrammer_block_to_expression(body, emit)
   finisher := f.NewArrowFunction(
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
-      nativefactories.IdentifierFactory.Parameter("_vout", nativefactories.TypeFactory.Keyword("any"), nil),
+      nativefactories.IdentifierFactory.Parameter("_vout", nativefactories.TypeFactory.Keyword("any", emit), nil, emit),
     }),
     nil,
     nil,
@@ -642,7 +642,7 @@ func (featureProgrammerNamespace) VisitGuardSerialize(key string, thrower *shima
 // so recursive references inside the body resolve to the same (still
 // filling) instance, exactly like the structured-clone algorithm.
 func (featureProgrammerNamespace) VisitGuardRebuild(key string, array bool, body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   allocator := f.NewObjectLiteralExpression(f.NewNodeList(nil), false)
   if array {
     allocator = f.NewArrayLiteralExpression(f.NewNodeList(nil), false)
@@ -659,14 +659,14 @@ func (featureProgrammerNamespace) VisitGuardRebuild(key string, array bool, body
 // registers in the WeakMap BEFORE the body evaluates, so a back-reference
 // inside the body resolves to this same (still filling) instance.
 func (featureProgrammerNamespace) VisitGuardRebuildWith(key string, allocator *shimast.Node, body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   slot := "_vctx." + key
   bodyExpression := featureProgrammer_block_to_expression(body, emit)
   filler := f.NewArrowFunction(
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
-      nativefactories.IdentifierFactory.Parameter("_vout", nativefactories.TypeFactory.Keyword("any"), nil),
+      nativefactories.IdentifierFactory.Parameter("_vout", nativefactories.TypeFactory.Keyword("any", emit), nil, emit),
     }),
     nil,
     nil,
@@ -710,8 +710,6 @@ func featureProgrammer_block_to_expression(body *shimast.Node, emit *shimprinter
   }
   return body
 }
-
-var featureProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (featureProgrammerNamespace) Compose(props FeatureProgrammer_ComposeProps) FeatureProgrammer_IComposed {
   initialized := props.Config.Initializer(FeatureProgrammer_InitializerProps{
@@ -763,7 +761,7 @@ func (featureProgrammerNamespace) Compose(props FeatureProgrammer_ComposeProps) 
 }
 
 func (featureProgrammerNamespace) WriteDecomposed(props FeatureProgrammer_WriteDecomposedProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   statements := []*shimast.Node{}
   statements = append(statements, props.Functor.Declare()...)
   keys := make([]string, 0, len(props.Result.Functions))
@@ -801,7 +799,7 @@ func (featureProgrammerNamespace) WriteDecomposed(props FeatureProgrammer_WriteD
 }
 
 func (featureProgrammerNamespace) Write(props FeatureProgrammer_WriteProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   initialized := props.Config.Initializer(FeatureProgrammer_InitializerProps{
     Context: props.Context,
     Functor: props.Functor,
@@ -882,14 +880,14 @@ func (featureProgrammerNamespace) Write_union_functions(props FeatureProgrammer_
 }
 
 func (featureProgrammerNamespace) Decode_array(props FeatureProgrammer_DecodeArrayProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   rand := fmt.Sprint(props.Functor.Increment())
   tail := []*shimast.Node{}
   if props.Config.Path || props.Config.Trace {
-    tail = append(tail, nativefactories.IdentifierFactory.Parameter("_index"+rand, nativefactories.TypeFactory.Keyword("number"), nil))
+    tail = append(tail, nativefactories.IdentifierFactory.Parameter("_index"+rand, nativefactories.TypeFactory.Keyword("number", props.Emit), nil, props.Emit))
   }
   parameters := []*shimast.Node{
-    nativefactories.IdentifierFactory.Parameter("elem", nativefactories.TypeFactory.Keyword("any"), nil),
+    nativefactories.IdentifierFactory.Parameter("elem", nativefactories.TypeFactory.Keyword("any", props.Emit), nil, props.Emit),
   }
   parameters = append(parameters, tail...)
   arrow := f.NewArrowFunction(
@@ -900,7 +898,7 @@ func (featureProgrammerNamespace) Decode_array(props FeatureProgrammer_DecodeArr
     nil,
     f.NewToken(shimast.KindEqualsGreaterThanToken),
     props.Config.Decoder(FeatureProgrammer_DecoderProps{
-      Input:    nativefactories.ValueFactory.INPUT(nil, "elem"),
+      Input:    nativefactories.ValueFactory.INPUT(props.Emit, "elem"),
       Metadata: props.Array.Type.Value,
       Explore: FeatureProgrammer_IExplore{
         Tracable: props.Explore.Tracable,
@@ -921,7 +919,7 @@ func (featureProgrammerNamespace) Decode_array(props FeatureProgrammer_DecodeArr
 }
 
 func (featureProgrammerNamespace) Decode_object(props FeatureProgrammer_DecodeObjectProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   return f.NewCallExpression(
     f.NewIdentifier(
       props.Functor.UseLocal(fmt.Sprintf("%so%d", props.Config.Prefix, props.Object.Index)),
@@ -953,7 +951,7 @@ func (featureProgrammerNamespace) Index(props FeatureProgrammer_IndexProps) stri
 }
 
 func (featureProgrammerNamespace) ArgumentsArray(props FeatureProgrammer_ArgumentsArrayProps) []*shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   tail := []*shimast.Node{}
   if props.Config.Path == false && props.Config.Trace == false {
     tail = []*shimast.Node{}
@@ -992,16 +990,16 @@ func (featureProgrammerNamespace) ArgumentsArray(props FeatureProgrammer_Argumen
 }
 
 func (featureProgrammerNamespace) ParameterDeclarations(props FeatureProgrammer_ParameterDeclarationsProps) []*shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   tail := []*shimast.Node{}
   if props.Config.Path {
-    tail = append(tail, nativefactories.IdentifierFactory.Parameter("_path", nativefactories.TypeFactory.Keyword("string"), nil))
+    tail = append(tail, nativefactories.IdentifierFactory.Parameter("_path", nativefactories.TypeFactory.Keyword("string", props.Emit), nil, props.Emit))
   }
   if props.Config.Trace {
     tail = append(tail, nativefactories.IdentifierFactory.Parameter(
       "_exceptionable",
-      nativefactories.TypeFactory.Keyword("boolean"),
-      f.NewKeywordExpression(shimast.KindTrueKeyword),
+      nativefactories.TypeFactory.Keyword("boolean", props.Emit),
+      f.NewKeywordExpression(shimast.KindTrueKeyword), props.Emit,
     ))
   }
   if props.Config.Visited {
@@ -1009,12 +1007,12 @@ func (featureProgrammerNamespace) ParameterDeclarations(props FeatureProgrammer_
     // so the default object literal only materializes at the public entry.
     tail = append(tail, nativefactories.IdentifierFactory.Parameter(
       "_vctx",
-      nativefactories.TypeFactory.Keyword("any"),
-      f.NewObjectLiteralExpression(f.NewNodeList(nil), false),
+      nativefactories.TypeFactory.Keyword("any", props.Emit),
+      f.NewObjectLiteralExpression(f.NewNodeList(nil), false), props.Emit,
     ))
   }
   return append([]*shimast.Node{
-    nativefactories.IdentifierFactory.Parameter(props.Input, props.Type, nil),
+    nativefactories.IdentifierFactory.Parameter(props.Input, props.Type, nil, props.Emit),
   }, tail...)
 }
 
@@ -1254,7 +1252,7 @@ func featureProgrammer_register_schema_unions_iterate(collection *nativemetadata
 }
 
 func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, context nativecontext.ITypiaContext, functor *nativehelpers.FunctionProgrammer, collection *nativemetadata.MetadataCollection) []*shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   objects := collection.Objects()
   propertyFrequencies := featureProgrammer_object_property_frequencies(config, context, functor, objects)
   output := make([]*shimast.Node, 0, len(objects))
@@ -1343,7 +1341,7 @@ func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, 
         nil,
         f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
           Config: FeatureProgrammer_ParameterConfig{Path: config.Path, Trace: config.Trace, Visited: featureProgrammer_visited(config)},
-          Type:   nativefactories.TypeFactory.Keyword("any"),
+          Type:   nativefactories.TypeFactory.Keyword("any", context.Emit),
           Input:  nativefactories.ValueFactory.INPUT(context.Emit),
           Emit:   context.Emit,
         })),
@@ -1415,7 +1413,7 @@ func featureProgrammer_object_property_helper_key(
 }
 
 func featureProgrammer_object_property_helper_call(props featureProgrammer_objectPropertyHelperProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   helper := props.Functor.EmplaceVariableByKey(props.Config.Prefix+"p", props.Key, func(string) *shimast.Expression {
     input := nativefactories.ValueFactory.INPUT(props.Context.Emit)
     propertyInput := featureProgrammer_object_property_input(input, props.Next.Key, props.Context.Emit)
@@ -1429,7 +1427,7 @@ func featureProgrammer_object_property_helper_call(props featureProgrammer_objec
       nil,
       f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
         Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: featureProgrammer_visited(props.Config)},
-        Type:   nativefactories.TypeFactory.Keyword("any"),
+        Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         Input:  input,
         Emit:   props.Context.Emit,
       })),
@@ -1459,7 +1457,7 @@ func featureProgrammer_object_property_helper_call(props featureProgrammer_objec
 }
 
 func featureProgrammer_object_property_input(input *shimast.Expression, key *string, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   if key == nil {
     return f.NewIdentifier("value")
   }
@@ -1481,7 +1479,7 @@ func featureProgrammer_write_union_functions(config FeatureProgrammer_IConfig, c
         Config  FeatureProgrammer_IConfig
         Objects []*nativemetadata.MetadataObjectType
       }{Config: config, Objects: union}, emit),
-    }))
+    }, emit))
   }
   return output
 }
@@ -1490,17 +1488,17 @@ func featureProgrammer_write_union(props struct {
   Config  FeatureProgrammer_IConfig
   Objects []*nativemetadata.MetadataObjectType
 }, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   return f.NewArrowFunction(
     nil,
     nil,
     f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
       Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: featureProgrammer_visited(props.Config)},
-      Type:   nativefactories.TypeFactory.Keyword("any"),
-      Input:  nativefactories.ValueFactory.INPUT(nil),
+      Type:   nativefactories.TypeFactory.Keyword("any", emit),
+      Input:  nativefactories.ValueFactory.INPUT(emit),
       Emit:   emit,
     })),
-    nativefactories.TypeFactory.Keyword("any"),
+    nativefactories.TypeFactory.Keyword("any", emit),
     nil,
     f.NewToken(shimast.KindEqualsGreaterThanToken),
     nativehelpers.UnionExplorer.Object(nativehelpers.UnionExplorer_ObjectProps{
@@ -1508,7 +1506,7 @@ func featureProgrammer_write_union(props struct {
         Objector: featureProgrammer_union_objector(props.Config.Objector),
       },
       Objects: props.Objects,
-      Input:   nativefactories.ValueFactory.INPUT(nil),
+      Input:   nativefactories.ValueFactory.INPUT(emit),
       Explore: FeatureProgrammer_IExplore{
         Tracable: props.Config.Path || props.Config.Trace,
         Source:   "function",

@@ -43,7 +43,7 @@ func (jsonValidateParseProgrammerNamespace) Decompose(props JsonValidateParsePro
     Name:    props.Name,
   })
 
-  f := nativecontext.EmitFactoryOf(jsonParseProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions: validate.Functions,
     Statements: append(append([]*shimast.Node{}, validate.Statements...), nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
@@ -105,7 +105,7 @@ func (jsonValidateParseProgrammerNamespace) Write(props nativecontext.IProgramme
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

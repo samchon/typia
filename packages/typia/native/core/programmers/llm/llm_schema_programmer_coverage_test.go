@@ -240,7 +240,7 @@ func TestLlmSchemaProgrammerCoverage(t *testing.T) {
   if llmProgrammer_internal(nativecontext.ITypiaContext{}, "fallback") == nil {
     t.Fatal("internal fallback should create an identifier")
   }
-  nodeName := llmSchemaProgrammer_factory.NewIdentifier("DirectName")
+  nodeName := nativecontext.NodeFactoryOf().NewIdentifier("DirectName")
   if llmProgrammer_import_type(nativecontext.ITypiaContext{}, nativecontext.ImportProgrammer_TypeProps{Name: nodeName}) != nodeName {
     t.Fatal("node type imports should be returned directly")
   }

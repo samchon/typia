@@ -335,7 +335,7 @@ func TestProtobufProgrammerHelperCoverage(t *testing.T) {
   }
   if protobufDecodeProgrammer_write_object_function_body(protobufDecodeProgrammer_objectBodyProps{
     Context: nativecontext.ITypiaContext{},
-    Condition: protobufDecodeProgrammer_factory.NewKeywordExpression(
+    Condition: nativecontext.NodeFactoryOf().NewKeywordExpression(
       shimast.KindTrueKeyword,
     ),
     Tag:    "tag",

@@ -35,7 +35,7 @@ type Check_templateProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_template(props Check_templateProps) nativehelpers.ICheckEntry {
-  f := nativecontext.EmitFactoryOf(check_template_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   conditions := []*shimast.Node{
     f.NewBinaryExpression(
       nil,
@@ -268,7 +268,7 @@ func check_template_value_conditions(props Check_templateProps, base string, ato
 }
 
 func check_template_coerce_input(kind string, input *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Expression {
-  f := nativecontext.EmitFactoryOf(check_template_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   coerce := ""
   switch kind {
   case "number":
@@ -295,7 +295,7 @@ func check_template_coerce_input(kind string, input *shimast.Expression, emit *s
 // check_template_value_conditions so direct captures and backtracking slices
 // share the same path.
 func check_template_capture_input(pattern string, capture templateCapture, input *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Expression {
-  f := nativecontext.EmitFactoryOf(check_template_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   element := f.NewElementAccessExpression(
     f.NewCallExpression(
       f.NewIdentifier("RegExp(/"+pattern+"/).exec"),
@@ -318,7 +318,7 @@ func check_template_capture_input(pattern string, capture templateCapture, input
 // semantics without repeating the same suffix search or committing to
 // RegExp.exec's single greedy capture.
 func check_template_backtracking(props Check_templateProps, tpl *nativemetadata.MetadataTemplate) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_template_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   statements := make([]*shimast.Node, 0, (len(tpl.Row)+1)*2+1)
   for index := 0; index <= len(tpl.Row); index++ {
     memoName := fmt.Sprintf("_templateMemo%d", index)
@@ -408,7 +408,7 @@ func check_template_backtracking(props Check_templateProps, tpl *nativemetadata.
 }
 
 func check_template_backtracking_step(props Check_templateProps, tpl *nativemetadata.MetadataTemplate, index int, offset *shimast.Expression) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_template_factory, props.Emit)
+  f := nativecontext.NodeFactoryOf(props.Emit)
   if index == len(tpl.Row) {
     return f.NewBinaryExpression(
       nil,
@@ -538,7 +538,7 @@ func check_template_backtracking_step(props Check_templateProps, tpl *nativemeta
 }
 
 func check_template_backtracking_call(index int, offset *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_template_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   return f.NewCallExpression(
     f.NewIdentifier(fmt.Sprintf("_templateVisit%d", index)),
     nil,
@@ -653,7 +653,7 @@ func check_template_inline_interpolation_tags(props Check_templateProps, tpl *na
 }
 
 func check_template_reduce(expressions []*shimast.Node, operator shimast.Kind, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_template_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   if len(expressions) == 0 {
     return f.NewKeywordExpression(shimast.KindTrueKeyword)
   }
@@ -669,5 +669,3 @@ func check_template_reduce(expressions []*shimast.Node, operator shimast.Kind, e
   }
   return output
 }
-
-var check_template_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

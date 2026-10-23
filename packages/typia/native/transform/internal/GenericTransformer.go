@@ -90,10 +90,8 @@ type GenericTransformer_IProps struct {
   Write func(props nativecontext.IProgrammerProps) *shimast.Node
 }
 
-var genericTransformer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (genericTransformerNamespace) Scalar(props GenericTransformer_IProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(genericTransformer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if props.Expression == nil || props.Expression.Arguments == nil || len(props.Expression.Arguments.Nodes) == 0 {
     panic(NewTransformerError(TransformerError_IProps{
       Code:    "typia." + props.Method,

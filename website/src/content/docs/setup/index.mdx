@@ -14,7 +14,7 @@ typia is a compile-time transformer, so your build has to run through the TypeSc
 
 > [!IMPORTANT]
 >
-> typia's native transform requires [`ttsc`](https://github.com/samchon/ttsc) **0.19.2 or newer**. On an older ttsc the transform fails to build.
+> typia's native transform requires [`ttsc`](https://github.com/samchon/ttsc) **0.34.1 or newer**. It supports both TypeScript 7.0 and 7.1; ttsc selects the compiler target from your installed TypeScript version. Version 0.34.1 fixes a TypeScript 7.1 resolution check that could reject unchanged local ambient modules during builds.
 
 ## Install
 
@@ -89,6 +89,16 @@ bun ttsc --watch
 ```
   </Tabs.Tab>
 </Tabs>
+
+## Content Mappers
+
+With TypeScript 7.1, typia can inspect types supplied by the content mappers in your `tsconfig.json`. Build with explicit permission to run those mapper programs:
+
+```bash filename="Terminal" showLineNumbers copy
+npx ttsc --runExternalCode -p tsconfig.json
+```
+
+The flag executes your project's mapper programs. Without it, the compiler rejects mapper execution. Typia uses the mapped declarations for validators and schemas, including types imported from files such as `.sql`. TypeScript 7.0 has no content mappers.
 
 ## Execute Without Building
 

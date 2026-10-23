@@ -74,10 +74,8 @@ type assertProgrammerGuardianNamespace struct{}
 
 var Guardian = assertProgrammerGuardianNamespace{}
 
-var assertProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (assertProgrammerNamespace) Decompose(props AssertProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   is := IsProgrammer.Decompose(IsProgrammer_DecomposeProps{
     Config:  IsProgrammer_IConfig{Equals: props.Config.Equals},
     Context: props.Context,
@@ -223,7 +221,7 @@ func (assertProgrammerNamespace) Write(props AssertProgrammer_IProps) *shimast.N
     Name:    props.Name,
     Init:    props.Init,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,
@@ -231,7 +229,7 @@ func (assertProgrammerNamespace) Write(props AssertProgrammer_IProps) *shimast.N
 }
 
 func assertProgrammer_atomist(props AssertProgrammer_DecomposeProps) func(next nativeinternal.CheckerProgrammer_AtomistProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return func(next nativeinternal.CheckerProgrammer_AtomistProps) *shimast.Node {
     expressions := []*shimast.Node{}
     if next.Entry.Expression != nil {
@@ -273,7 +271,7 @@ func assertProgrammer_combiner(props struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer
 }) nativeinternal.CheckerProgrammer_IConfig_Combiner {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return func(next nativeinternal.CheckerProgrammer_CombinerProps) *shimast.Node {
     if next.Explore.Tracable == false {
       options := &IsProgrammer_CONFIG_IOptions{
@@ -326,7 +324,7 @@ type assertProgrammer_assertObjectProps struct {
 }
 
 func assertProgrammer_assert_object(props assertProgrammer_assertObjectProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return nativeiterate.Check_object(nativeiterate.Check_objectProps{
     Config: nativeiterate.Check_object_IConfig{
       Equals:    props.Config.Equals,
@@ -379,7 +377,7 @@ func assertProgrammer_assert_object(props assertProgrammer_assertObjectProps) *s
 }
 
 func assertProgrammer_joiner(props AssertProgrammer_DecomposeProps) nativeinternal.CheckerProgrammer_IConfig_IJoiner {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   joiner := nativeinternal.CheckerProgrammer_IConfig_IJoiner{
     Object: func(next nativeinternal.CheckerProgrammer_JoinerObjectProps) *shimast.Node {
       return assertProgrammer_assert_object(assertProgrammer_assertObjectProps{Config: props.Config, Context: props.Context, Functor: props.Functor, Entries: next.Entries, Input: next.Input})
@@ -417,7 +415,7 @@ type assertProgrammer_createGuardCallProps struct {
 }
 
 func assertProgrammer_create_guard_call(props assertProgrammer_createGuardCallProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   exceptionable := props.Exceptionable
   if exceptionable == nil {
     exceptionable = f.NewIdentifier("_exceptionable")
@@ -441,7 +439,7 @@ func assertProgrammer_create_guard_call(props assertProgrammer_createGuardCallPr
 }
 
 func assertProgrammer_expected_expression(props assertProgrammer_createGuardCallProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if props.Functor == nil || len(props.Expected) < 128 {
     return f.NewStringLiteral(props.Expected, shimast.TokenFlagsNone)
   }
@@ -451,7 +449,7 @@ func assertProgrammer_expected_expression(props assertProgrammer_createGuardCall
 }
 
 func (assertProgrammerGuardianNamespace) Identifier(emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewIdentifier("errorFactory")
 }
 
@@ -459,7 +457,7 @@ func (assertProgrammerGuardianNamespace) Parameter(props struct {
   Context nativecontext.ITypiaContext
   Init    *shimast.Node
 }) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   init := props.Init
   if init == nil {
     init = f.NewToken(shimast.KindQuestionToken)
@@ -468,7 +466,7 @@ func (assertProgrammerGuardianNamespace) Parameter(props struct {
 }
 
 func (assertProgrammerGuardianNamespace) Type(context nativecontext.ITypiaContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   return f.NewFunctionTypeNode(
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -497,7 +495,7 @@ func assertProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind,
 }
 
 func assertProgrammer_binary(left *shimast.Expression, operator shimast.Kind, right *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   return f.NewBinaryExpression(nil, left, nil, f.NewToken(operator), right)
 }
 
@@ -510,7 +508,7 @@ func assertProgrammer_or(left *shimast.Expression, right *shimast.Expression, em
 }
 
 func assertProgrammer_exceptionable(explore nativeinternal.FeatureProgrammer_IExplore, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   if explore.From == "top" || explore.Source == "top" {
     return f.NewKeywordExpression(shimast.KindTrueKeyword)
   }
@@ -518,7 +516,7 @@ func assertProgrammer_exceptionable(explore nativeinternal.FeatureProgrammer_IEx
 }
 
 func assertProgrammer_path(explore nativeinternal.FeatureProgrammer_IExplore, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, emit)
+  f := nativecontext.NodeFactoryOf(emit)
   if explore.Postfix != "" {
     return f.NewIdentifier("_path + " + explore.Postfix)
   }
@@ -536,14 +534,14 @@ func assertProgrammer_internal(context nativecontext.ITypiaContext, name string)
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return nativecontext.EmitFactoryOf(assertProgrammer_factory, context.Emit).NewIdentifier(name)
+  return nativecontext.NodeFactoryOf(context.Emit).NewIdentifier(name)
 }
 
 func assertProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
   if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
-  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   return f.NewTypeReferenceNode(f.NewIdentifier(props.Name.(string)), nil)
 }
 

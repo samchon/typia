@@ -14,6 +14,7 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  shimtspath "github.com/microsoft/typescript-go/shim/tspath"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   typiaadapter "github.com/samchon/typia/packages/typia/native/adapter"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
@@ -250,7 +251,7 @@ func runTransformProject(
     if sf.IsDeclarationFile {
       continue
     }
-    key := driver.TransformOutputKey(cwd, sf.FileName())
+    key := driver.TransformOutputKey(cwd, string(sf.FileName()))
     if filepath.IsAbs(key) || key == ".." || strings.HasPrefix(key, "../") {
       continue
     }
@@ -332,13 +333,13 @@ func transformSingleToJavaScript(
   // itself. Nothing the emit writes is then this file's artifact, so guard the
   // comparison rather than let an empty expectation match anything.
   expected := ""
-  if paths := shimcompiler.GetOutputPathsFor(target, prog.TSProgram.Options(), prog.TSProgram, false); paths != nil {
-    expected = filepath.ToSlash(paths.JsFilePath())
+  if paths := shimcompiler.OutputPathsFor(target, prog.TSProgram.Options(), prog.TSProgram); paths != nil {
+    expected = filepath.ToSlash(string(paths.JsFilePath()))
   }
   var captured string
   found := false
-  writeFile := shimcompiler.WriteFile(func(fileName, text string, _ *shimcompiler.WriteFileData) error {
-    if expected != "" && filepath.ToSlash(fileName) == expected {
+  writeFile := shimcompiler.WriteFile(func(fileName shimtspath.RootedFilePath, text string, _ *shimcompiler.WriteFileData) error {
+    if expected != "" && filepath.ToSlash(string(fileName)) == expected {
       captured = text
       found = true
     }
@@ -349,7 +350,7 @@ func transformSingleToJavaScript(
     return "", 3
   }
   if !found {
-    fmt.Fprintf(stderr, "ttsc-typia transform: no output produced for %s\n", target.FileName())
+    fmt.Fprintf(stderr, "ttsc-typia transform: no output produced for %s\n", string(target.FileName()))
     return "", 3
   }
   return captured, 0

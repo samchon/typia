@@ -31,8 +31,6 @@ type HttpAssertFormDataProgrammer_DecomposeProps struct {
   Init    *shimast.Node
 }
 
-var httpAssertProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (httpAssertFormDataProgrammerNamespace) Decompose(props HttpAssertFormDataProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{
     Context: httpProgrammer_context(props.Context, false, true),
@@ -63,7 +61,7 @@ func (httpAssertFormDataProgrammerNamespace) Write(props nativecontext.IProgramm
     Name:    props.Name,
     Init:    props.Init,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,
@@ -71,7 +69,7 @@ func (httpAssertFormDataProgrammerNamespace) Write(props nativecontext.IProgramm
 }
 
 func httpProgrammer_assert_result(context nativecontext.ITypiaContext, init *shimast.Node, assert nativeinternal.FeatureProgrammer_IDecomposed, decode nativeinternal.FeatureProgrammer_IDecomposed) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(httpAssertProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   decodeArrow := decode.Arrow.AsArrowFunction()
   statements := append([]*shimast.Node{}, assert.Statements...)
   statements = append(statements, decode.Statements...)

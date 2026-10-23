@@ -45,10 +45,8 @@ type PlainAssertClassifyProgrammer_DecomposeProps struct {
   Modulo *shimast.Node
 }
 
-var plainAssertClassifyProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (plainAssertClassifyProgrammerNamespace) Decompose(props PlainAssertClassifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(plainAssertClassifyProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   // For a class-TYPE target (typeof C) the input is the from/new SEED or the
   // field-copy instance shape — NOT typeof C's static members. Validate against
   // that redirected type so a legitimate seed is accepted and the static side is
@@ -123,7 +121,7 @@ func (plainAssertClassifyProgrammerNamespace) Write(props nativecontext.IProgram
     Init:    props.Init,
     Modulo:  props.Modulo,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

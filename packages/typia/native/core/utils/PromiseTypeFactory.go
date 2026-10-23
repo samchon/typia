@@ -55,13 +55,13 @@ func (promiseTypeFactoryNamespace) satisfiesGlobalContract(checker *shimchecker.
     return false
   }
   for _, property := range checker.GetPropertiesOfType(contract) {
-    if property.Name == "then" || (len(property.Name) != 0 && property.Name[0] == 0xfe) {
+    if shimast.SymbolNameOf(property) == "then" || (len(shimast.SymbolNameOf(property)) != 0 && shimast.SymbolNameOf(property)[0] == 0xfe) {
       // GetPromisedTypeOfPromise verifies the thenable shape. Conditional
       // Promise inference ignores well-known-symbol augmentations.
       continue
     }
-    required := checker.GetTypeOfPropertyOfType(contract, property.Name)
-    candidate := checker.GetTypeOfPropertyOfType(t, property.Name)
+    required := checker.GetTypeOfPropertyOfType(contract, shimast.SymbolNameOf(property))
+    candidate := checker.GetTypeOfPropertyOfType(t, shimast.SymbolNameOf(property))
     if required == nil || candidate == nil || !checker.IsTypeAssignableTo(candidate, required) {
       return false
     }

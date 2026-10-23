@@ -18,7 +18,7 @@ catalogs:
     # on its exact matching ttsc, and website.yml clones the ttsc sibling at
     # the installed @ttsc/wasm version to build the browser-playground host
     # that website/compiler/cmd/playground implements.
-    ttsc: &ttsc ^0.30.4
+    ttsc: &ttsc ^0.34.1
     '@ttsc/unplugin': *ttsc
     '@ttsc/playground': *ttsc
     '@ttsc/wasm': *ttsc
@@ -27,7 +27,7 @@ catalogs:
     tgrid: ^1.2.1
   typescript:
     ts-node: ^10.9.2
-    typescript: ^7.0.2
+    typescript: 7.1.0-dev.20261020.3
   rolldown:
     rolldown: ^1.1.5
   utils:

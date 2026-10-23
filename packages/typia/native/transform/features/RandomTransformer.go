@@ -15,10 +15,8 @@ type randomTransformerNamespace struct{}
 
 var RandomTransformer = randomTransformerNamespace{}
 
-var randomTransformer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (randomTransformerNamespace) Transform(props nativetransform.ITransformProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(randomTransformer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if props.Expression == nil || props.Expression.TypeArguments == nil || len(props.Expression.TypeArguments.Nodes) == 0 {
     panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{
       Code:    nativehelpers.ModuloMethodText(props.Modulo),

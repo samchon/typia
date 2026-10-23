@@ -49,8 +49,6 @@ type LlmSchemaProgrammer_IWriteProps struct {
   Config   map[string]any
 }
 
-var llmSchemaProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (llmSchemaProgrammerNamespace) Write(props LlmSchemaProgrammer_IWriteProps) *shimast.Node {
   output := LlmSchemaProgrammer.WriteSchema(struct {
     Metadata *schemametadata.MetadataSchema
@@ -59,7 +57,7 @@ func (llmSchemaProgrammerNamespace) Write(props LlmSchemaProgrammer_IWriteProps)
     Metadata: props.Metadata,
     Config:   props.Config,
   })
-  f := nativecontext.EmitFactoryOf(llmSchemaProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   schemaTypeNode := llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
     Name: "ILlmSchema",
@@ -106,7 +104,7 @@ func (llmSchemaProgrammerNamespace) Write(props LlmSchemaProgrammer_IWriteProps)
 }
 
 func llmSchemaProgrammer_record_type(schemaTypeNode *shimast.Node, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(llmSchemaProgrammer_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewTypeReferenceNode(
     f.NewIdentifier("Record"),
     f.NewNodeList([]*shimast.Node{
@@ -910,7 +908,7 @@ func llmProgrammer_internal(context nativecontext.ITypiaContext, name string) *s
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  f := nativecontext.EmitFactoryOf(llmSchemaProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   return f.NewIdentifier(name)
 }
 
@@ -918,7 +916,7 @@ func llmProgrammer_import_type(context nativecontext.ITypiaContext, props native
   if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
-  f := nativecontext.EmitFactoryOf(llmSchemaProgrammer_factory, context.Emit)
+  f := nativecontext.NodeFactoryOf(context.Emit)
   if str, ok := props.Name.(string); ok {
     return f.NewTypeReferenceNode(f.NewIdentifier(str), f.NewNodeList(props.Arguments))
   }
@@ -929,7 +927,7 @@ func llmProgrammer_type_reference(name string, emit ...*shimprinter.EmitContext)
   if name == "" {
     name = "unknown"
   }
-  f := nativecontext.EmitFactoryOf(llmSchemaProgrammer_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   return f.NewTypeReferenceNode(f.NewIdentifier(name), nil)
 }
 

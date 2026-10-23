@@ -9,13 +9,14 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcore "github.com/microsoft/typescript-go/shim/core"
   shimparser "github.com/microsoft/typescript-go/shim/parser"
+  shimtspath "github.com/microsoft/typescript-go/shim/tspath"
 )
 
 // ttscTypiaTestSchemaLiteral decodes the emitted schema object's AST without
 // executing JavaScript. It rejects expressions rather than evaluating them.
 func ttscTypiaTestSchemaLiteral(t *testing.T, output string) map[string]any {
   t.Helper()
-  file := shimparser.ParseSourceFile(shimast.SourceFileParseOptions{FileName: filepath.ToSlash(filepath.Join(t.TempDir(), "emitted.ts"))}, output, shimcore.ScriptKindTS)
+  file := shimparser.ParseSourceFile(shimast.SourceFileParseOptions{FileName: shimtspath.RootedFilePath(filepath.ToSlash(filepath.Join(t.TempDir(), "emitted.ts")))}, output, shimcore.ScriptKindTS)
   var found map[string]any
   var walk func(*shimast.Node) bool
   walk = func(node *shimast.Node) bool {

@@ -41,10 +41,8 @@ type PlainValidatePruneProgrammer_DecomposeProps struct {
   Name *string
 }
 
-var plainValidatePruneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (plainValidatePruneProgrammerNamespace) Decompose(props PlainValidatePruneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(plainValidatePruneProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   validate := nativeprogrammers.ValidateProgrammer.Decompose(nativeprogrammers.ValidateProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,
@@ -125,7 +123,7 @@ func (plainValidatePruneProgrammerNamespace) Write(props nativecontext.IProgramm
     Type:    props.Type,
     Name:    props.Name,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

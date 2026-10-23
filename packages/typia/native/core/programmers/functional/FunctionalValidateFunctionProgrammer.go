@@ -49,8 +49,6 @@ type FunctionalValidateFunctionProgrammer_IProps struct {
   Expression *shimast.Node
 }
 
-var functionalValidateProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (functionalValidateFunctionProgrammerNamespace) Write(props FunctionalValidateFunctionProgrammer_IProps) *shimast.Node {
   p := FunctionalValidateParametersProgrammer.Decompose(FunctionalValidateParametersProgrammer_IDecomposeProps{
     Context:     props.Context,
@@ -65,7 +63,7 @@ func (functionalValidateFunctionProgrammerNamespace) Write(props FunctionalValid
     Expression:  props.Expression,
     Declaration: props.Declaration,
   })
-  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   statements := append([]*shimast.Node{}, p.Functions...)
   statements = append(statements, r.Functions...)
   body := append([]*shimast.Node{}, p.Statements...)
@@ -98,7 +96,7 @@ func (functionalValidateFunctionProgrammerNamespace) HookErrors(props struct {
   Expression *shimast.Node
   Replacer   *shimast.Node
 }) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Expression, "map"),
     nil,
@@ -154,7 +152,7 @@ func (functionalValidateFunctionProgrammerNamespace) GetReturnTypeNode(props str
   if typ == nil {
     return nil
   }
-  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if props.Async {
     var inner *shimast.Node
     if typ.Kind == shimast.KindTypeReference {
@@ -189,7 +187,7 @@ func functionalValidateProgrammer_import_type(context nativecontext.ITypiaContex
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {
-    f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, context.Emit)
+    f := nativecontext.NodeFactoryOf(context.Emit)
     return f.NewTypeReferenceNode(f.NewIdentifier(str), f.NewNodeList(props.Arguments))
   }
   return props.Name.(*shimast.Node)

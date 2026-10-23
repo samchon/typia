@@ -36,10 +36,8 @@ type protobufMessageProgrammer_Hierarchy struct {
   Order    []string
 }
 
-var protobufMessageProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (protobufMessageProgrammerNamespace) Write(props ProtobufMessageProgrammer_IProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufMessageProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()
   nativefactories.ProtobufFactory.Metadata(nativefactories.ProtobufFactory_IProps{
     Method:     "typia.protobuf.message",

@@ -50,7 +50,7 @@ type FunctionalIsFunctionProgrammer_IProps struct {
 }
 
 func (functionalIsFunctionProgrammerNamespace) Write(props FunctionalIsFunctionProgrammer_IProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   p := FunctionalIsParametersProgrammer.Decompose(FunctionalIsParametersProgrammer_IDecomposeProps{
     Context:     props.Context,
     Config:      FunctionalIsParametersProgrammer_IConfig{Equals: props.Config.Equals},
@@ -103,7 +103,7 @@ func (functionalIsFunctionProgrammerNamespace) GetReturnTypeNode(props struct {
   if typ == nil {
     return nil
   }
-  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   nullType := f.NewTypeReferenceNode(f.NewIdentifier("null"), nil)
   if props.Async {
     var inner *shimast.Node

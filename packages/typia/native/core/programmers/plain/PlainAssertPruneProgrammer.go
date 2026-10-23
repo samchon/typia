@@ -41,10 +41,8 @@ type PlainAssertPruneProgrammer_DecomposeProps struct {
   Init *shimast.Node
 }
 
-var plainAssertPruneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (plainAssertPruneProgrammerNamespace) Decompose(props PlainAssertPruneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
-  f := nativecontext.EmitFactoryOf(plainAssertPruneProgrammer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: props.Functor,
@@ -128,7 +126,7 @@ func (plainAssertPruneProgrammerNamespace) Write(props nativecontext.IProgrammer
     Name:    props.Name,
     Init:    props.Init,
   })
-  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
+  return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{Emit: props.Context.Emit,
     Modulo:  props.Modulo,
     Functor: functor,
     Result:  result,

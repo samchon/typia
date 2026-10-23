@@ -107,7 +107,7 @@ func check_object_regular_expression(props Check_objectProps, entry nativehelper
   if !entry.StrictOptionalUndefined || key == nil {
     return entry.Expression
   }
-  f := nativecontext.EmitFactoryOf(check_object_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   present := f.NewBinaryExpression(
     nil,
     f.NewStringLiteral(*key, shimast.TokenFlagsNone),
@@ -130,7 +130,7 @@ type check_object_reduceProps struct {
 }
 
 func check_object_reduce(props check_object_reduceProps, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(check_object_factory, emit...)
+  f := nativecontext.NodeFactoryOf(emit...)
   if len(props.Expressions) == 0 {
     return props.Config.Positive
   }
@@ -145,8 +145,6 @@ func check_object_reduce(props check_object_reduceProps, emit ...*shimprinter.Em
     f.NewArrayLiteralExpression(
       f.NewNodeList(props.Expressions),
       false,
-    ),
+    ), emit...,
   )
 }
-
-var check_object_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

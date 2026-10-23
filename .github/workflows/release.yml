@@ -37,7 +37,7 @@ jobs:
         run: node .github/workflows/release-guard.cjs validate-context
       - uses: actions/setup-go@v5
         with:
-          go-version: 1.26.x
+          go-version: 1.27.x
       - uses: pnpm/action-setup@v4
       - name: Install dependencies
         run: pnpm install
@@ -97,7 +97,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - uses: actions/setup-go@v5
         with:
-          go-version: 1.26.x
+          go-version: 1.27.x
       - uses: pnpm/action-setup@v4
 
       # Mirror website.yml: the wasm playground links against samchon/ttsc

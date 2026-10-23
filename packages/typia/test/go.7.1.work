@@ -1,0 +1,47 @@
+go 1.27
+
+use (
+	.
+	../native
+	../node_modules/ttsc
+)
+
+replace (
+	github.com/samchon/ttsc/packages/ttsc v0.0.0 => ../node_modules/ttsc
+	github.com/microsoft/typescript-go/shim/ast => ../node_modules/ttsc/targets/7.1/facade/ast
+	github.com/microsoft/TypeScript/tsc/shim/ast => ../node_modules/ttsc/targets/7.1/bridge/ast
+	github.com/microsoft/typescript-go/shim/astnav => ../node_modules/ttsc/targets/7.1/facade/astnav
+	github.com/microsoft/TypeScript/tsc/shim/astnav => ../node_modules/ttsc/targets/7.1/bridge/astnav
+	github.com/microsoft/typescript-go/shim/bundled => ../node_modules/ttsc/targets/7.1/facade/bundled
+	github.com/microsoft/TypeScript/tsc/shim/bundled => ../node_modules/ttsc/targets/7.1/bridge/bundled
+	github.com/microsoft/typescript-go/shim/checker => ../node_modules/ttsc/targets/7.1/facade/checker
+	github.com/microsoft/TypeScript/tsc/shim/checker => ../node_modules/ttsc/targets/7.1/bridge/checker
+	github.com/microsoft/typescript-go/shim/compiler => ../node_modules/ttsc/targets/7.1/facade/compiler
+	github.com/microsoft/TypeScript/tsc/shim/compiler => ../node_modules/ttsc/targets/7.1/bridge/compiler
+	github.com/microsoft/typescript-go/shim/core => ../node_modules/ttsc/targets/7.1/facade/core
+	github.com/microsoft/TypeScript/tsc/shim/core => ../node_modules/ttsc/targets/7.1/bridge/core
+	github.com/microsoft/typescript-go/shim/diagnosticwriter => ../node_modules/ttsc/targets/7.1/facade/diagnosticwriter
+	github.com/microsoft/TypeScript/tsc/shim/diagnosticwriter => ../node_modules/ttsc/targets/7.1/bridge/diagnosticwriter
+	github.com/microsoft/typescript-go/shim/lsp => ../node_modules/ttsc/targets/7.1/facade/lsp
+	github.com/microsoft/TypeScript/tsc/shim/lsp => ../node_modules/ttsc/targets/7.1/bridge/lsp
+	github.com/microsoft/typescript-go/shim/parser => ../node_modules/ttsc/targets/7.1/facade/parser
+	github.com/microsoft/TypeScript/tsc/shim/parser => ../node_modules/ttsc/targets/7.1/bridge/parser
+	github.com/microsoft/typescript-go/shim/printer => ../node_modules/ttsc/targets/7.1/facade/printer
+	github.com/microsoft/TypeScript/tsc/shim/printer => ../node_modules/ttsc/targets/7.1/bridge/printer
+	github.com/microsoft/typescript-go/shim/scanner => ../node_modules/ttsc/targets/7.1/facade/scanner
+	github.com/microsoft/TypeScript/tsc/shim/scanner => ../node_modules/ttsc/targets/7.1/bridge/scanner
+	github.com/microsoft/typescript-go/shim/stringutil => ../node_modules/ttsc/targets/7.1/facade/stringutil
+	github.com/microsoft/TypeScript/tsc/shim/stringutil => ../node_modules/ttsc/targets/7.1/bridge/stringutil
+	github.com/microsoft/typescript-go/shim/transformers => ../node_modules/ttsc/targets/7.1/facade/transformers
+	github.com/microsoft/TypeScript/tsc/shim/transformers => ../node_modules/ttsc/targets/7.1/bridge/transformers
+	github.com/microsoft/typescript-go/shim/tsoptions => ../node_modules/ttsc/targets/7.1/facade/tsoptions
+	github.com/microsoft/TypeScript/tsc/shim/tsoptions => ../node_modules/ttsc/targets/7.1/bridge/tsoptions
+	github.com/microsoft/typescript-go/shim/tspath => ../node_modules/ttsc/targets/7.1/facade/tspath
+	github.com/microsoft/TypeScript/tsc/shim/tspath => ../node_modules/ttsc/targets/7.1/bridge/tspath
+	github.com/microsoft/typescript-go/shim/vfs => ../node_modules/ttsc/targets/7.1/facade/vfs
+	github.com/microsoft/TypeScript/tsc/shim/vfs => ../node_modules/ttsc/targets/7.1/bridge/vfs
+	github.com/microsoft/typescript-go/shim/vfs/cachedvfs => ../node_modules/ttsc/targets/7.1/facade/vfs/cachedvfs
+	github.com/microsoft/TypeScript/tsc/shim/vfs/cachedvfs => ../node_modules/ttsc/targets/7.1/bridge/vfs/cachedvfs
+	github.com/microsoft/typescript-go/shim/vfs/osvfs => ../node_modules/ttsc/targets/7.1/facade/vfs/osvfs
+	github.com/microsoft/TypeScript/tsc/shim/vfs/osvfs => ../node_modules/ttsc/targets/7.1/bridge/vfs/osvfs
+)

@@ -17,10 +17,8 @@ type llmSchemaTransformerNamespace struct{}
 
 var LlmSchemaTransformer = llmSchemaTransformerNamespace{}
 
-var llmTransformer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-
 func (llmSchemaTransformerNamespace) Transform(props nativetransform.ITransformProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(llmTransformer_factory, props.Context.Emit)
+  f := nativecontext.NodeFactoryOf(props.Context.Emit)
   top, typ, ok := llmTransformer_type_argument(props, "typia.llm.schema")
   if ok == false {
     return props.Expression.AsNode()

@@ -358,15 +358,15 @@ func metadataDependency_touchDeclarations(
   // name selects, so all of it belongs to the identity channel -- the alias hops
   // as much as the terminus.
   report := listener.Callee
-  if symbol.Flags&nativeast.SymbolFlagsAlias != 0 {
+  if nativeast.SymbolFlagsOf(symbol)&nativeast.SymbolFlagsAlias != 0 {
     metadataDependency_touchPath(checker, listener, symbol, report)
     if resolved := nativechecker.Checker_getAliasedSymbol(checker, symbol); resolved != nil {
       symbol = resolved
     }
   }
-  for _, declaration := range symbol.Declarations {
+  for _, declaration := range nativeast.SymbolDeclarationsOf(symbol) {
     if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
-      report(src.FileName())
+      report(string(src.FileName()))
     }
     if nested && metadataDependency_calleeBounded(declaration) == false {
       listener.unbounded()
@@ -420,12 +420,12 @@ func metadataDependency_touchVisited(
     return
   }
   visited[symbol] = true
-  for _, declaration := range symbol.Declarations {
+  for _, declaration := range nativeast.SymbolDeclarationsOf(symbol) {
     if declaration == nil {
       continue
     }
     if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
-      listener.File(src.FileName())
+      listener.File(string(src.FileName()))
     }
     if metadataDependency_bounded(declaration) == false {
       listener.unbounded()
@@ -890,7 +890,7 @@ func metadataDependency_resolve(
   if symbol == nil {
     return nil
   }
-  if symbol.Flags&nativeast.SymbolFlagsAlias != 0 {
+  if nativeast.SymbolFlagsOf(symbol)&nativeast.SymbolFlagsAlias != 0 {
     // The type walk: a hop reached here was reached because a consulted type is
     // built from what it publishes, so it reports on the consultation channel.
     metadataDependency_touchPath(checker, listener, symbol, listener.File)
@@ -921,7 +921,7 @@ func metadataDependency_touchPath(
   report func(fileName string),
 ) {
   visited := map[*nativeast.Symbol]bool{}
-  for symbol != nil && symbol.Flags&nativeast.SymbolFlagsAlias != 0 && visited[symbol] == false {
+  for symbol != nil && nativeast.SymbolFlagsOf(symbol)&nativeast.SymbolFlagsAlias != 0 && visited[symbol] == false {
     visited[symbol] = true
     declaration := nativechecker.Checker_getDeclarationOfAliasSymbol(checker, symbol)
     if declaration == nil {
@@ -929,7 +929,7 @@ func metadataDependency_touchPath(
     }
     // The file that WRITES this hop (the barrel's own `export ... from` line).
     if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
-      report(src.FileName())
+      report(string(src.FileName()))
     }
     specifier := metadataDependency_moduleSpecifier(declaration)
     if specifier == nil {
@@ -948,9 +948,9 @@ func metadataDependency_touchPath(
     if module == nil {
       return
     }
-    for _, moduleDeclaration := range module.Declarations {
+    for _, moduleDeclaration := range nativeast.SymbolDeclarationsOf(module) {
       if src := nativeast.GetSourceFileOfNode(moduleDeclaration); src != nil {
-        report(src.FileName())
+        report(string(src.FileName()))
       }
     }
     symbol = metadataDependency_exported(module, declaration)
@@ -969,13 +969,13 @@ func metadataDependency_touchPath(
 // stops the walk at the module already reported, which loses no edge: the
 // terminus is resolved separately by the checker.
 func metadataDependency_exported(module *nativeast.Symbol, declaration *nativeast.Node) *nativeast.Symbol {
-  if module.Exports == nil {
+  if nativeast.SymbolExportsOf(module) == nil {
     return nil
   }
   switch declaration.Kind {
   case nativeast.KindImportClause:
     // ast.InternalSymbolNameDefault, which the shim does not re-export.
-    return module.Exports["default"]
+    return nativeast.SymbolExportsOf(module)["default"]
   case nativeast.KindImportSpecifier, nativeast.KindExportSpecifier:
     name := declaration.PropertyNameOrName()
     if name == nil {
@@ -983,7 +983,7 @@ func metadataDependency_exported(module *nativeast.Symbol, declaration *nativeas
     }
     switch name.Kind {
     case nativeast.KindIdentifier, nativeast.KindStringLiteral:
-      return module.Exports[name.Text()]
+      return nativeast.SymbolExportsOf(module)[name.Text()]
     }
   }
   return nil

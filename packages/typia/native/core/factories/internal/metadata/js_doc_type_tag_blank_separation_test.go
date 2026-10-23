@@ -4,13 +4,11 @@
 package metadata
 
 import (
-  "path/filepath"
+  "fmt"
   "reflect"
+  "strings"
   "testing"
 
-  nativeast "github.com/microsoft/typescript-go/shim/ast"
-  nativecore "github.com/microsoft/typescript-go/shim/core"
-  nativeparser "github.com/microsoft/typescript-go/shim/parser"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
@@ -25,16 +23,12 @@ import (
 //  3. Compare exact payloads, keeping literal stars, linked-text separation and
 //     Unicode prefixes that the JSDoc scanner treats as content.
 //
-// @evidence contracts/testing.md#behavioral-verification ParseSourceFile creates actual JSDoc nodes and metadata_node_js_doc_tags extracts their public metadata values; exact tag arrays expose added star payload or dropped legitimate description text.
+// @evidence contracts/testing.md#behavioral-verification One compiler Program binds all authored JSDoc-bearing declarations and metadata_node_js_doc_tags extracts their public metadata values; exact tag arrays expose added star payload or dropped legitimate description text.
 // @evidence contracts/testing.md#independent-expectations Literal arrays follow the JSDoc scanner's ASCII-started whitespace and CR/LF delimiter rules; Unicode-only prefixes and Unicode line characters remain content, as confirmed against TypeScript's independent JSDoc parser. Expected link labels, integer values and literal stars are authored separately from the metadata helper.
 // @evidence contracts/testing.md#distinguishing-cases Compact and braced tags, CRLF and ASCII horizontal whitespace, and ASCII-started mixed Unicode horizontal whitespace retain integer meaning; inline and continuation literal stars, Unicode-only prefix content and Unicode line characters prevent over-removal. Line and paragraph separators after an ASCII space must not be crossed to strip a genuine star. Linked descriptions retain their separating newline. All nineteen spellings report independent subtest identities.
-// @evidence contracts/testing.md#execution-ownership This tagged same-package Go unit directly calls the parser and owning private metadata helper in one test process, with an in-memory source and no native plugin host or filesystem fixture; the canonical typia_native_internal Go command executes its Test entry and subtests.
+// @evidence contracts/testing.md#execution-ownership This tagged same-package Go unit loads one test-owned source containing all nineteen distinct interfaces, selects their real compiler symbols and calls the private metadata helper. The canonical typia_native_internal command executes the Test and subtests; cleanup closes the shared in-process Program and removes its fixture, with no compiler or native host subprocess.
 func TestJsDocTypeTagBlankSeparation(t *testing.T) {
-  filename, err := filepath.Abs("type-tag.ts")
-  if err != nil {
-    t.Fatal(err)
-  }
-  for _, fixture := range []struct {
+  fixtures := []struct {
     name        string
     text        string
     description string
@@ -59,18 +53,18 @@ func TestJsDocTypeTagBlankSeparation(t *testing.T) {
     {"bom-content", "* @type int\n\ufeff*\n\ufeff* @minimum 3\n\ufeff*\n\ufeff* @title literal * marks", "*", "3\n\ufeff*\n\ufeff*"},
     {"zero-width-content", "* @type int\n\u200b*\n\u200b* @minimum 3\n\u200b*\n\u200b* @title literal * marks", "*", "3\n\u200b*\n\u200b*"},
     {"unicode-line-content", "* @type int\u2028 *\u2028 * @minimum 3\u2029 *\u2029 * @title literal * marks", "*", "3\u2029 *\u2029 *"},
-  } {
+  }
+  var source strings.Builder
+  for index, fixture := range fixtures {
+    fmt.Fprintf(&source, "interface Box%d {\n /**\n %s\n */\n field: number;\n}\n", index, fixture.text)
+  }
+  program, file := jsDocTestSource(t, source.String())
+  for index, fixture := range fixtures {
     t.Run(fixture.name, func(t *testing.T) {
-      file := nativeparser.ParseSourceFile(
-        nativeast.SourceFileParseOptions{FileName: filepath.ToSlash(filename)},
-        "interface Box {\n /**\n "+fixture.text+"\n */\n field: number;\n}\n",
-        nativecore.ScriptKindTS,
-      )
-      member := file.Statements.Nodes[0].AsInterfaceDeclaration().Members.Nodes[0]
-      symbol := &nativeast.Symbol{
-        Name:             "field",
-        ValueDeclaration: member,
-        Declarations:     []*nativeast.Node{member},
+      member := file.Statements.Nodes[index].AsInterfaceDeclaration().Members.Nodes[0]
+      symbol := program.Checker.GetSymbolAtLocation(member.Name())
+      if symbol == nil {
+        t.Fatal("comment property symbol was not bound")
       }
       wanted := []schemametadata.IJsDocTagInfo{
         {Name: "type", Text: []schemametadata.IJsDocTagInfo_IText{{Kind: "text", Text: "int"}}},

@@ -11,6 +11,7 @@ import (
   shimcore "github.com/microsoft/typescript-go/shim/core"
   shimparser "github.com/microsoft/typescript-go/shim/parser"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  shimtspath "github.com/microsoft/typescript-go/shim/tspath"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
 
@@ -32,7 +33,7 @@ import (
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test parses in-memory sources with the typescript-go parser, with no filesystem fixture or process.
 func TestFileTransformerCoverage(t *testing.T) {
   file := shimparser.ParseSourceFile(
-    shimast.SourceFileParseOptions{FileName: filepath.ToSlash(filepath.Join(t.TempDir(), "file.ts"))},
+    shimast.SourceFileParseOptions{FileName: shimtspath.RootedFilePath(filepath.ToSlash(filepath.Join(t.TempDir(), "file.ts")))},
     `"use strict";
 export const value = 1;
 `,
