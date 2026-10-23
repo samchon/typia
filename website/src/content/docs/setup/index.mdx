@@ -14,7 +14,7 @@ typia is a compile-time transformer, so your build has to run through the TypeSc
 
 > [!IMPORTANT]
 >
-> typia's native transform requires [`ttsc`](https://github.com/samchon/ttsc) **0.34.0 or newer**. It supports both TypeScript 7.0 and 7.1; ttsc selects the compiler target from your installed TypeScript version. On an older ttsc the transform fails to build.
+> typia's native transform requires [`ttsc`](https://github.com/samchon/ttsc) **0.34.1 or newer**. It supports both TypeScript 7.0 and 7.1; ttsc selects the compiler target from your installed TypeScript version. Version 0.34.1 fixes a TypeScript 7.1 resolution check that could reject unchanged local ambient modules during builds.
 
 ## Install
 
