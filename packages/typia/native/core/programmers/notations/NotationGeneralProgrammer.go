@@ -101,7 +101,6 @@ type NotationGeneralProgrammer_DecomposeProps struct {
 
 const notationGeneralProgrammer_PREFIX = "_c"
 
-
 func (notationGeneralProgrammerNamespace) ReturnType(props NotationGeneralProgrammer_ReturnTypeProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   return notationGeneralProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{

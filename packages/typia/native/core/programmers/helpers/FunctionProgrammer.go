@@ -55,7 +55,6 @@ type functionProgrammer_union struct {
   value *shimast.Node
 }
 
-
 // NewFunctionProgrammer returns an empty FunctionProgrammer labeled with the
 // typia method text and bound to an optional emit context.
 //

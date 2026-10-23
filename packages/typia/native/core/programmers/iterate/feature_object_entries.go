@@ -224,4 +224,3 @@ var feature_object_entries_reserved = map[string]bool{
   "while":      true,
   "with":       true,
 }
-

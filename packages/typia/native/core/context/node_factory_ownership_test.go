@@ -25,10 +25,21 @@ func TestNodeFactoryOwnership(t *testing.T) {
   first, second := NodeFactoryOf(), NodeFactoryOf(nil)
   live := shimprinter.NewEmitContext()
   third := NodeFactoryOf(nil, live)
-  if first == second || first == third || second == third { t.Fatal("standalone callers share a mutable arena") }
-  if NodeFactoryOf(live) != &live.Factory.NodeFactory || NodeFactoryOf(live) != NodeFactoryOf(live) { t.Fatal("live emit factory identity was lost") }
-  if NodeFactoryOf(live) == NodeFactoryOf(shimprinter.NewEmitContext()) { t.Fatal("independent emit contexts share a factory") }
+  if first == second || first == third || second == third {
+    t.Fatal("standalone callers share a mutable arena")
+  }
+  if NodeFactoryOf(live) != &live.Factory.NodeFactory || NodeFactoryOf(live) != NodeFactoryOf(live) {
+    t.Fatal("live emit factory identity was lost")
+  }
+  if NodeFactoryOf(live) == NodeFactoryOf(shimprinter.NewEmitContext()) {
+    t.Fatal("independent emit contexts share a factory")
+  }
   original := first.NewIdentifier("first")
-  for range 1024 { second.NewIdentifier("second"); third.NewIdentifier("third") }
-  if original.Text() != "first" { t.Fatalf("standalone allocation corrupted retained text: %s", original.Text()) }
+  for range 1024 {
+    second.NewIdentifier("second")
+    third.NewIdentifier("third")
+  }
+  if original.Text() != "first" {
+    t.Fatalf("standalone allocation corrupted retained text: %s", original.Text())
+  }
 }

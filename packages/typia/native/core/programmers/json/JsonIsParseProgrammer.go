@@ -28,7 +28,6 @@ type JsonIsParseProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-
 func (jsonIsParseProgrammerNamespace) Decompose(props JsonIsParseProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   is := nativeprogrammers.IsProgrammer.Decompose(nativeprogrammers.IsProgrammer_DecomposeProps{
     Context: jsonParseProgrammer_context(props.Context, &jsonParseProgrammer_options{

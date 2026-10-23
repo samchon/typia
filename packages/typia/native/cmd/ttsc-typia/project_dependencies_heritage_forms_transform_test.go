@@ -24,15 +24,17 @@ import (
 // @evidence contracts/testing.md#execution-ownership The canonical native and 7.1 Go populations discover this in-process transform unit. It shares immutable declaration inputs through the existing fixture helper and starts no compiler or JavaScript subprocess.
 func TestProjectDependenciesHeritageFormsTransform(t *testing.T) {
   project := ttscTypiaTestFixtureDirectory(t, "heritage-forms-")
-  if err := os.MkdirAll(filepath.Join(project,"src"),0o755);err!=nil{t.Fatal(err)}
-  files:=map[string]string{
-    "tsconfig.json":projectDependenciesEnvelopeTSConfig,
-    "src/interface-base.ts":`export namespace Types { export interface Empty<T> {} }`,
-    "src/class-base.ts":`export class Parent<T> {}`,
-    "src/contract.ts":`export interface Contract<T> {}`,
-    "src/tag.ts":`export interface Tag { id: string }`,
-    "src/unrelated.ts":`export interface Unused { unused: string }`,
-    "src/models.ts":`import { Types } from "./interface-base";
+  if err := os.MkdirAll(filepath.Join(project, "src"), 0o755); err != nil {
+    t.Fatal(err)
+  }
+  files := map[string]string{
+    "tsconfig.json":         projectDependenciesEnvelopeTSConfig,
+    "src/interface-base.ts": `export namespace Types { export interface Empty<T> {} }`,
+    "src/class-base.ts":     `export class Parent<T> {}`,
+    "src/contract.ts":       `export interface Contract<T> {}`,
+    "src/tag.ts":            `export interface Tag { id: string }`,
+    "src/unrelated.ts":      `export interface Unused { unused: string }`,
+    "src/models.ts": `import { Types } from "./interface-base";
 import { Parent as Base } from "./class-base";
 import { Contract as ContractAlias } from "./contract";
 import { Tag } from "./tag";
@@ -42,7 +44,7 @@ export class ViaImplements implements ContractAlias<Tag> { id!: string }
 export const Bound = class extends Base<Tag> implements ContractAlias<Tag> { id!: string };
 export class Plain { id!: string }
 `,
-    "src/main.ts":`import typia from "typia";
+    "src/main.ts": `import typia from "typia";
 import { ViaInterface, ViaClass, ViaImplements, Bound, Plain } from "./models";
 export const i = typia.createIs<ViaInterface>();
 export const c = typia.createIs<ViaClass>();
@@ -51,14 +53,32 @@ export const e = typia.createIs<InstanceType<typeof Bound>>();
 export const p = typia.createIs<Plain>();
 `,
   }
-  for name,text:=range files {if err:=os.WriteFile(filepath.Join(project,name),[]byte(text),0o644);err!=nil{t.Fatal(err)}}
-  ttscTypiaTestTypecheck(t,project)
-  output,errors,code:=ttscTypiaTestCapture(func()int{return runTransform([]string{"--cwd",project,"--output","ts"})})
-  if code!=0 {t.Fatalf("heritage transform: %d\n%s",code,errors)}
-  var envelope struct{Dependencies map[string][]string `json:"dependencies"`}
-  if err:=json.Unmarshal([]byte(output),&envelope);err!=nil{t.Fatal(err)}
-  found:=map[string]bool{}
-  for _,name:=range envelope.Dependencies["src/main.ts"] {found[name]=true}
-  for _,name:=range []string{"models","interface-base","class-base","contract","tag"} {if !found["src/"+name+".ts"]{t.Errorf("missing %s heritage dependency: %v",name,found)}}
-  if found["src/unrelated.ts"] {t.Errorf("unconsumed heritage was reported: %v",found)}
+  for name, text := range files {
+    if err := os.WriteFile(filepath.Join(project, name), []byte(text), 0o644); err != nil {
+      t.Fatal(err)
+    }
+  }
+  ttscTypiaTestTypecheck(t, project)
+  output, errors, code := ttscTypiaTestCapture(func() int { return runTransform([]string{"--cwd", project, "--output", "ts"}) })
+  if code != 0 {
+    t.Fatalf("heritage transform: %d\n%s", code, errors)
+  }
+  var envelope struct {
+    Dependencies map[string][]string `json:"dependencies"`
+  }
+  if err := json.Unmarshal([]byte(output), &envelope); err != nil {
+    t.Fatal(err)
+  }
+  found := map[string]bool{}
+  for _, name := range envelope.Dependencies["src/main.ts"] {
+    found[name] = true
+  }
+  for _, name := range []string{"models", "interface-base", "class-base", "contract", "tag"} {
+    if !found["src/"+name+".ts"] {
+      t.Errorf("missing %s heritage dependency: %v", name, found)
+    }
+  }
+  if found["src/unrelated.ts"] {
+    t.Errorf("unconsumed heritage was reported: %v", found)
+  }
 }

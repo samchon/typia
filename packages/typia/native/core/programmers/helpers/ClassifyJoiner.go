@@ -33,7 +33,6 @@ type ClassifyJoiner_ObjectProps struct {
   Emit     *shimprinter.EmitContext
 }
 
-
 // Object reconstructs an object value for plain.classify.
 //
 // For an anonymous / interface (literal) shape there is no class to

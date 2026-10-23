@@ -50,7 +50,6 @@ type ProtobufAssertEncodeProgrammer_DecomposeProps struct {
   Init    *shimast.Node
 }
 
-
 func (protobufAssertEncodeProgrammerNamespace) Decompose(props ProtobufAssertEncodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   assertContext := props.Context

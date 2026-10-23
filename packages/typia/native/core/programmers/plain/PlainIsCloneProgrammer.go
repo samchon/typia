@@ -37,7 +37,6 @@ type PlainIsCloneProgrammer_DecomposeProps struct {
   Name *string
 }
 
-
 func (plainIsCloneProgrammerNamespace) Decompose(props PlainIsCloneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   is := nativeprogrammers.IsProgrammer.Decompose(nativeprogrammers.IsProgrammer_DecomposeProps{

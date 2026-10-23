@@ -35,36 +35,68 @@ import (
 func TestContentMapperTransform(t *testing.T) {
   project := ttscTypiaTestFixtureDirectory(t, "content-mapper-")
   mapper := filepath.Join(project, "node_modules", "sql-mapper")
-  if err := os.MkdirAll(mapper, 0o755); err != nil { t.Fatal(err) }
+  if err := os.MkdirAll(mapper, 0o755); err != nil {
+    t.Fatal(err)
+  }
   script, err := os.ReadFile(filepath.Join(ttscTypiaTestRepoRoot(t), "tests", "test-typia-schema", "fixtures", "content-mapper", "mapper.cjs"))
-  if err != nil { t.Fatal(err) }
+  if err != nil {
+    t.Fatal(err)
+  }
   for name, text := range map[string]string{
-    "tsconfig.json": `{"compilerOptions":{"target":"es2022","module":"nodenext","moduleResolution":"nodenext","strict":true,"skipLibCheck":true,"outDir":"out"},"files":["index.ts"],"contentMappers":[{"package":"sql-mapper","extensions":[".sql"]}]}`,
-    "index.ts": `import typia from "typia"; import { query } from "./query.sql"; export const isRow = typia.createIs<typeof query>(); export const schema = typia.json.schema<typeof query>();`,
-    "query.sql": "name\n",
+    "tsconfig.json":                        `{"compilerOptions":{"target":"es2022","module":"nodenext","moduleResolution":"nodenext","strict":true,"skipLibCheck":true,"outDir":"out"},"files":["index.ts"],"contentMappers":[{"package":"sql-mapper","extensions":[".sql"]}]}`,
+    "index.ts":                             `import typia from "typia"; import { query } from "./query.sql"; export const isRow = typia.createIs<typeof query>(); export const schema = typia.json.schema<typeof query>();`,
+    "query.sql":                            "name\n",
     "node_modules/sql-mapper/package.json": `{"name":"sql-mapper","version":"1.0.0","typescript":{"contentMapper":{"exec":["node","./mapper.cjs"]}}}`,
-    "node_modules/sql-mapper/mapper.cjs": string(script),
-  } { if err := os.WriteFile(filepath.Join(project,name),[]byte(text),0o644);err!=nil {t.Fatal(err)} }
+    "node_modules/sql-mapper/mapper.cjs":   string(script),
+  } {
+    if err := os.WriteFile(filepath.Join(project, name), []byte(text), 0o644); err != nil {
+      t.Fatal(err)
+    }
+  }
   t.Setenv(driver.TsgoArgsEnv, "[]")
-  _, errors, code := ttscTypiaTestCapture(func() int { return runBuild([]string{"--cwd",project,"--emit"}) })
-  if code==0 || !strings.Contains(errors,"TS18068") {t.Fatalf("missing permission gate: %d\n%s",code,errors)}
-  logPath:=filepath.Join(mapper,"mapper.log")
-  if _,err:=os.Stat(logPath); !os.IsNotExist(err) {t.Fatalf("denied mapper launched: %v",err)}
+  _, errors, code := ttscTypiaTestCapture(func() int { return runBuild([]string{"--cwd", project, "--emit"}) })
+  if code == 0 || !strings.Contains(errors, "TS18068") {
+    t.Fatalf("missing permission gate: %d\n%s", code, errors)
+  }
+  logPath := filepath.Join(mapper, "mapper.log")
+  if _, err := os.Stat(logPath); !os.IsNotExist(err) {
+    t.Fatalf("denied mapper launched: %v", err)
+  }
   t.Setenv(driver.TsgoArgsEnv, `["--runExternalCode"]`)
-  previous:=""
-  for _,column:=range []string{"name","label"} {
-    if err:=os.WriteFile(filepath.Join(project,"query.sql"),[]byte(column+"\n"),0o644);err!=nil{t.Fatal(err)}
-    if previous!="" {if err:=os.Remove(logPath);err!=nil{t.Fatal(err)}}
-    _,errors,code=ttscTypiaTestCapture(func()int{return runBuild([]string{"--cwd",project,"--emit"})})
-    if code!=0 {t.Fatalf("mapped build: %d\n%s",code,errors)}
-    emitted,err:=os.ReadFile(filepath.Join(project,"out","index.js"));if err!=nil{t.Fatal(err)}
-    guard:=regexp.MustCompile(`(?:"string"\s*===\s*typeof input\.`+column+`\b|typeof input\.`+column+`\s*===\s*"string")`)
-    if !guard.Match(emitted) {t.Fatalf("lost mapped string guard %s:\n%s",guard,emitted)}
-    if previous!=""&&strings.Contains(string(emitted),`typeof input.`+previous) {t.Fatalf("stale mapped property:\n%s",emitted)}
-    schema:=ttscTypiaTestSchemaLiteral(t,string(emitted))
-    root,ok:=schema["schema"].(map[string]any)
-    if !ok||!reflect.DeepEqual(root["properties"],map[string]any{column:map[string]any{"type":"string"}})||!reflect.DeepEqual(root["required"],[]any{column}) {t.Fatalf("wrong mapped schema: %#v",schema)}
-    log,err:=os.ReadFile(logPath);if err!=nil||!strings.Contains(string(log),"closeProject\n"){t.Fatalf("mapper not closed: %v\n%s",err,log)}
-    previous=column
+  previous := ""
+  for _, column := range []string{"name", "label"} {
+    if err := os.WriteFile(filepath.Join(project, "query.sql"), []byte(column+"\n"), 0o644); err != nil {
+      t.Fatal(err)
+    }
+    if previous != "" {
+      if err := os.Remove(logPath); err != nil {
+        t.Fatal(err)
+      }
+    }
+    _, errors, code = ttscTypiaTestCapture(func() int { return runBuild([]string{"--cwd", project, "--emit"}) })
+    if code != 0 {
+      t.Fatalf("mapped build: %d\n%s", code, errors)
+    }
+    emitted, err := os.ReadFile(filepath.Join(project, "out", "index.js"))
+    if err != nil {
+      t.Fatal(err)
+    }
+    guard := regexp.MustCompile(`(?:"string"\s*===\s*typeof input\.` + column + `\b|typeof input\.` + column + `\s*===\s*"string")`)
+    if !guard.Match(emitted) {
+      t.Fatalf("lost mapped string guard %s:\n%s", guard, emitted)
+    }
+    if previous != "" && strings.Contains(string(emitted), `typeof input.`+previous) {
+      t.Fatalf("stale mapped property:\n%s", emitted)
+    }
+    schema := ttscTypiaTestSchemaLiteral(t, string(emitted))
+    root, ok := schema["schema"].(map[string]any)
+    if !ok || !reflect.DeepEqual(root["properties"], map[string]any{column: map[string]any{"type": "string"}}) || !reflect.DeepEqual(root["required"], []any{column}) {
+      t.Fatalf("wrong mapped schema: %#v", schema)
+    }
+    log, err := os.ReadFile(logPath)
+    if err != nil || !strings.Contains(string(log), "closeProject\n") {
+      t.Fatalf("mapper not closed: %v\n%s", err, log)
+    }
+    previous = column
   }
 }

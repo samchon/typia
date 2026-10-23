@@ -113,7 +113,6 @@ type randomJoiner_DynamicPropertyProps struct {
   Emit     *shimprinter.EmitContext
 }
 
-
 func (randomJoinerNamespace) Array(props RandomJoiner_ArrayProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Emit)
   properties := []*shimast.Node{}

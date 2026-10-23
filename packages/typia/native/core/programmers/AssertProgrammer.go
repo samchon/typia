@@ -74,7 +74,6 @@ type assertProgrammerGuardianNamespace struct{}
 
 var Guardian = assertProgrammerGuardianNamespace{}
 
-
 func (assertProgrammerNamespace) Decompose(props AssertProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   is := IsProgrammer.Decompose(IsProgrammer_DecomposeProps{

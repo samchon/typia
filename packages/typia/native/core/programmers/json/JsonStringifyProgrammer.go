@@ -42,7 +42,6 @@ const jsonStringifyProgrammer_PREFIX = "_s"
 const jsonStringifyProgrammer_CHECKER_PREFIX = "_i"
 const jsonStringifyProgrammer_CHECKER_PREFIX_VALIDATED = "_si"
 
-
 func (jsonStringifyProgrammerNamespace) Decompose(props JsonStringifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   checkerPrefix := jsonStringifyProgrammer_checker_prefix(props.Validated)
   config := jsonStringifyProgrammer_configure(struct {
@@ -558,7 +557,7 @@ func jsonStringifyProgrammer_decode(props struct {
     unions = append(unions, jsonStringifyProgrammer_IUnion{
       Type: "object",
       Is: func() *shimast.Node {
-        return nativeiterate.Check_native(nativeiterate.Check_nativeProps{Emit: props.Context.Emit,Name: native.Name, Input: props.Input})
+        return nativeiterate.Check_native(nativeiterate.Check_nativeProps{Emit: props.Context.Emit, Name: native.Name, Input: props.Input})
       },
       Value: func() *shimast.Node {
         if nativehelpers.AtomicPredicator.Native(native.Name) {

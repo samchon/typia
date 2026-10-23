@@ -5,8 +5,8 @@ package metadata
 
 import (
   "fmt"
-  "strings"
   "reflect"
+  "strings"
   "testing"
 
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -63,7 +63,9 @@ func TestJsDocTypeTagBlankSeparation(t *testing.T) {
     t.Run(fixture.name, func(t *testing.T) {
       member := file.Statements.Nodes[index].AsInterfaceDeclaration().Members.Nodes[0]
       symbol := program.Checker.GetSymbolAtLocation(member.Name())
-      if symbol == nil { t.Fatal("comment property symbol was not bound") }
+      if symbol == nil {
+        t.Fatal("comment property symbol was not bound")
+      }
       wanted := []schemametadata.IJsDocTagInfo{
         {Name: "type", Text: []schemametadata.IJsDocTagInfo_IText{{Kind: "text", Text: "int"}}},
         {Name: "minimum", Text: []schemametadata.IJsDocTagInfo_IText{{Kind: "text", Text: fixture.minimum}}},

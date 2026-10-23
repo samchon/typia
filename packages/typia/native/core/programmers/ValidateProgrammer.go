@@ -65,7 +65,6 @@ type ValidateProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-
 func (validateProgrammerNamespace) Decompose(props ValidateProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   is := IsProgrammer.Decompose(IsProgrammer_DecomposeProps{

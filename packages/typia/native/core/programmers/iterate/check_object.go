@@ -148,4 +148,3 @@ func check_object_reduce(props check_object_reduceProps, emit ...*shimprinter.Em
     ), emit...,
   )
 }
-

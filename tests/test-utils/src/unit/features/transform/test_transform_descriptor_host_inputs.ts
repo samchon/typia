@@ -21,7 +21,12 @@ export const test_transform_descriptor_host_inputs = (): void => {
   assert.equal(first.name, "typia");
   assert.equal(
     first.source,
-    path.resolve(path.dirname(require.resolve("typia/package.json")), "native", "cmd", "ttsc-typia"),
+    path.resolve(
+      path.dirname(require.resolve("typia/package.json")),
+      "native",
+      "cmd",
+      "ttsc-typia",
+    ),
   );
   assert.deepEqual(second.hostInputHashes, {});
   assert.notEqual(first.hostInputHashes, second.hostInputHashes);

@@ -49,7 +49,6 @@ type FunctionalValidateFunctionProgrammer_IProps struct {
   Expression *shimast.Node
 }
 
-
 func (functionalValidateFunctionProgrammerNamespace) Write(props FunctionalValidateFunctionProgrammer_IProps) *shimast.Node {
   p := FunctionalValidateParametersProgrammer.Decompose(FunctionalValidateParametersProgrammer_IDecomposeProps{
     Context:     props.Context,

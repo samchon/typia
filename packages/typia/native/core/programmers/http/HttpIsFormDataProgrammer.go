@@ -30,7 +30,6 @@ type HttpIsFormDataProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-
 func (httpIsFormDataProgrammerNamespace) Decompose(props HttpIsFormDataProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   is := nativeprogrammers.IsProgrammer.Decompose(nativeprogrammers.IsProgrammer_DecomposeProps{
     Context: httpProgrammer_context(props.Context, false, false),

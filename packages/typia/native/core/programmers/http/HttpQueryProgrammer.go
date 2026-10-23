@@ -57,7 +57,6 @@ type HttpQueryProgrammer_DecomposeProps struct {
   Missing bool
 }
 
-
 func (httpQueryProgrammerNamespace) Decompose(props HttpQueryProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()

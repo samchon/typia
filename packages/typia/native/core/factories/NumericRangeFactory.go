@@ -10,7 +10,6 @@ type numericRangeFactoryNamespace struct{}
 
 var NumericRangeFactory = numericRangeFactoryNamespace{}
 
-
 func (numericRangeFactoryNamespace) Number(t string, input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
   switch t {
   case "int32":

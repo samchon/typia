@@ -54,7 +54,6 @@ type FileTransformer_IEnvironments struct {
 // @evidence contracts/common.md#meaningful-documentation The doc states the mapping.
 type FileTransformer_Type func(file *shimast.SourceFile) *shimast.SourceFile
 
-
 // Transform builds the per-file transformer of a host. Every file gets its own importer, a TransformerError raised while a node is
 // transformed becomes a diagnostic and leaves the node unchanged, and the
 // importer's statements are inserted after the leading directive prologue.

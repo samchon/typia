@@ -49,7 +49,6 @@ type PlainPruneProgrammer_DecomposeProps struct {
 
 const plainPruneProgrammer_PREFIX = "_p"
 
-
 func (plainPruneProgrammerNamespace) Decompose(props PlainPruneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   config := plainPruneProgrammer_configure(struct {

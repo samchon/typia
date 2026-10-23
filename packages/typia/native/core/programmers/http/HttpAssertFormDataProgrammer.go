@@ -31,7 +31,6 @@ type HttpAssertFormDataProgrammer_DecomposeProps struct {
   Init    *shimast.Node
 }
 
-
 func (httpAssertFormDataProgrammerNamespace) Decompose(props HttpAssertFormDataProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{
     Context: httpProgrammer_context(props.Context, false, true),

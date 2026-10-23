@@ -154,7 +154,6 @@ type IsProgrammer_DecodeObjectProps struct {
   Prefix string
 }
 
-
 func (isProgrammerNamespace) Configure(props struct {
   Options *IsProgrammer_CONFIG_IOptions
   Context nativecontext.ITypiaContext

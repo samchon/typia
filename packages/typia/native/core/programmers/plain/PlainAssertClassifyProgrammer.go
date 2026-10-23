@@ -45,7 +45,6 @@ type PlainAssertClassifyProgrammer_DecomposeProps struct {
   Modulo *shimast.Node
 }
 
-
 func (plainAssertClassifyProgrammerNamespace) Decompose(props PlainAssertClassifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   // For a class-TYPE target (typeof C) the input is the from/new SEED or the

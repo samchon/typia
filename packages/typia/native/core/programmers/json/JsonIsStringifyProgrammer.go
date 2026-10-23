@@ -29,7 +29,6 @@ type JsonIsStringifyProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-
 func (jsonIsStringifyProgrammerNamespace) Decompose(props JsonIsStringifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   isContext := props.Context
   functional := false

@@ -41,7 +41,6 @@ type PlainValidateClassifyProgrammer_DecomposeProps struct {
   Name *string
 }
 
-
 func (plainValidateClassifyProgrammerNamespace) Decompose(props PlainValidateClassifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   // Validate the INPUT against the redirected type (from/new seed or field-copy

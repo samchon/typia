@@ -52,7 +52,6 @@ type PruneJoiner_TupleProps struct {
   Emit     *shimprinter.EmitContext
 }
 
-
 func (pruneJoinerNamespace) Object(props PruneJoiner_ObjectProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Emit)
   regular := []IExpressionEntry{}

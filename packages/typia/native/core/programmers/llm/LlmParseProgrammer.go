@@ -47,7 +47,6 @@ type LlmParseProgrammer_IWriteProps struct {
   Name     *string
 }
 
-
 func (llmParseProgrammerNamespace) Decompose(props LlmParseProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   typeName := "unknown"
   if props.Name != nil {

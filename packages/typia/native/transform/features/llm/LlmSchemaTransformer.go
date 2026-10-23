@@ -17,7 +17,6 @@ type llmSchemaTransformerNamespace struct{}
 
 var LlmSchemaTransformer = llmSchemaTransformerNamespace{}
 
-
 func (llmSchemaTransformerNamespace) Transform(props nativetransform.ITransformProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   top, typ, ok := llmTransformer_type_argument(props, "typia.llm.schema")

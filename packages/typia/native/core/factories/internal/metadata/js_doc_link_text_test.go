@@ -5,7 +5,6 @@ package metadata
 
 import (
   "testing"
-
 )
 
 // TestJsDocLinkText verifies the metadata helper renders visible inline links.
@@ -45,7 +44,9 @@ interface IBox {
 `)
   member := file.Statements.Nodes[1].AsInterfaceDeclaration().Members.Nodes[0]
   symbol := program.Checker.GetSymbolAtLocation(member.Name())
-  if symbol == nil { t.Fatal("comment property symbol was not bound") }
+  if symbol == nil {
+    t.Fatal("comment property symbol was not bound")
+  }
   description := metadata_node_description(symbol)
   if description == nil {
     t.Fatal("description was not reflected")

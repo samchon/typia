@@ -31,7 +31,6 @@ type JsonAssertStringifyProgrammer_DecomposeProps struct {
   Init    *shimast.Node
 }
 
-
 func (jsonAssertStringifyProgrammerNamespace) Decompose(props JsonAssertStringifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   assertContext := props.Context
   functional := false

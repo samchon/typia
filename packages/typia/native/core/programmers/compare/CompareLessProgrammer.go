@@ -42,7 +42,6 @@ type compareLessProgrammerGenerator struct {
   Counter   int
 }
 
-
 // Write emits an `(x, y) => boolean` predicate that reports whether `x`
 // lexicographically precedes `y`. It builds a three-way comparator (negative /
 // zero / positive) over the declared structure of the type and returns

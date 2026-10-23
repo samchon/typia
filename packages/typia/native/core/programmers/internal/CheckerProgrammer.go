@@ -280,7 +280,6 @@ type CheckerProgrammer_DecodeObjectProps struct {
   Emit    *shimprinter.EmitContext
 }
 
-
 func (checkerProgrammerNamespace) Compose(props CheckerProgrammer_ComposeProps) FeatureProgrammer_IComposed {
   return FeatureProgrammer.Compose(FeatureProgrammer_ComposeProps{
     Context: props.Context,
@@ -906,7 +905,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
 
   for _, native := range props.Metadata.Natives {
     binaries = append(binaries, CheckerProgrammer_IBinary{
-      Expression: nativeiterate.Check_native(nativeiterate.Check_nativeProps{Emit: props.Context.Emit,Name: native.Name, Input: props.Input}),
+      Expression: nativeiterate.Check_native(nativeiterate.Check_nativeProps{Emit: props.Context.Emit, Name: native.Name, Input: props.Input}),
       Combined:   false,
     })
   }
@@ -931,7 +930,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
       body = checkerProgrammer_explore_sets(checkerProgrammer_exploreSetsProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Sets: props.Metadata.Sets, Input: props.Input, Explore: explore})
     }
     prepare(checkerProgrammer_IInstance{
-      Head:     nativeiterate.Check_native(nativeiterate.Check_nativeProps{Emit: props.Context.Emit,Name: "Set", Input: props.Input}),
+      Head:     nativeiterate.Check_native(nativeiterate.Check_nativeProps{Emit: props.Context.Emit, Name: "Set", Input: props.Input}),
       Expected: strings.Join(names, " | "),
       Body:     body,
     })
@@ -952,7 +951,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
       body = checkerProgrammer_explore_maps(checkerProgrammer_exploreMapsProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Maps: props.Metadata.Maps, Input: props.Input, Explore: explore})
     }
     prepare(checkerProgrammer_IInstance{
-      Head:     nativeiterate.Check_native(nativeiterate.Check_nativeProps{Emit: props.Context.Emit,Name: "Map", Input: props.Input}),
+      Head:     nativeiterate.Check_native(nativeiterate.Check_nativeProps{Emit: props.Context.Emit, Name: "Map", Input: props.Input}),
       Expected: strings.Join(names, " | "),
       Body:     body,
     })
@@ -1102,7 +1101,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
   if props.Metadata.Escaped != nil {
     var expression *shimast.Node
     if props.Metadata.Escaped.Original.Size() == 1 && len(props.Metadata.Escaped.Original.Natives) == 1 {
-      expression = nativeiterate.Check_native(nativeiterate.Check_nativeProps{Emit: props.Context.Emit,Name: props.Metadata.Escaped.Original.Natives[0].Name, Input: props.Input})
+      expression = nativeiterate.Check_native(nativeiterate.Check_nativeProps{Emit: props.Context.Emit, Name: props.Metadata.Escaped.Original.Natives[0].Name, Input: props.Input})
     } else {
       expression = checkerProgrammer_and(
         CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Metadata: props.Metadata.Escaped.Original, Input: props.Input, Explore: props.Explore}),

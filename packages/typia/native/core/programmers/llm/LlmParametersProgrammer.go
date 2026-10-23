@@ -27,7 +27,6 @@ type LlmParametersProgrammer_IWriteProps struct {
   Config   map[string]any
 }
 
-
 func (llmParametersProgrammerNamespace) Write(props LlmParametersProgrammer_IWriteProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   typeNode := llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{

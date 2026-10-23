@@ -100,7 +100,6 @@ func (obj LiteralFactory_OrderedObject) MarshalJSON() ([]byte, error) {
   return buffer.Bytes(), nil
 }
 
-
 func (literalFactoryNamespace) Write(input any, emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.NodeFactoryOf(emit...)
   if input == nil {

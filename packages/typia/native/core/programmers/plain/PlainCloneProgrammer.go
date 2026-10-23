@@ -49,7 +49,6 @@ type PlainCloneProgrammer_DecomposeProps struct {
 
 const plainCloneProgrammer_PREFIX = "_c"
 
-
 func (plainCloneProgrammerNamespace) Decompose(props PlainCloneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   config := plainCloneProgrammer_configure(struct {

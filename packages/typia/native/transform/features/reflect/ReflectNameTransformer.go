@@ -13,7 +13,6 @@ type reflectNameTransformerNamespace struct{}
 
 var ReflectNameTransformer = reflectNameTransformerNamespace{}
 
-
 func (reflectNameTransformerNamespace) Transform(props nativetransform.ITransformProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if props.Expression == nil || props.Expression.TypeArguments == nil || len(props.Expression.TypeArguments.Nodes) == 0 {

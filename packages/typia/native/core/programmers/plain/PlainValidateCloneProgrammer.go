@@ -41,7 +41,6 @@ type PlainValidateCloneProgrammer_DecomposeProps struct {
   Name *string
 }
 
-
 func (plainValidateCloneProgrammerNamespace) Decompose(props PlainValidateCloneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   validate := nativeprogrammers.ValidateProgrammer.Decompose(nativeprogrammers.ValidateProgrammer_DecomposeProps{

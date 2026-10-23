@@ -66,7 +66,6 @@ const plainClassifyProgrammer_PREFIX = "_y"
 const plainClassifyProgrammer_IS_PREFIX = "_i"
 const plainClassifyProgrammer_IS_PREFIX_VALIDATED = "_yi"
 
-
 func (plainClassifyProgrammerNamespace) Decompose(props PlainClassifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   // The union construction ladder discriminates members with IsProgrammer.Decode

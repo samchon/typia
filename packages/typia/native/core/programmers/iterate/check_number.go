@@ -192,4 +192,3 @@ func check_number_transpile(context nativecontext.ITypiaContext, script string) 
     Script:   script,
   }, context.Emit)
 }
-

@@ -48,7 +48,6 @@ type ProtobufValidateEncodeProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-
 func (protobufValidateEncodeProgrammerNamespace) Decompose(props ProtobufValidateEncodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   validateContext := props.Context

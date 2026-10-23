@@ -104,7 +104,6 @@ const (
   randomProgrammer_PREFIX_TUPLE  = "_rt"
 )
 
-
 func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()

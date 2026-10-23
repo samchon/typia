@@ -10,7 +10,6 @@ type valueFactoryNamespace struct{}
 
 var ValueFactory = valueFactoryNamespace{}
 
-
 func (valueFactoryNamespace) NULL(emit ...*shimprinter.EmitContext) *shimast.Node {
   return nativecontext.NodeFactoryOf(emit...).NewKeywordExpression(shimast.KindNullKeyword)
 }

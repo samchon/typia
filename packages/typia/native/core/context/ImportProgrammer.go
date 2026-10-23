@@ -130,7 +130,6 @@ type importProgrammer_asset struct {
   order     []string
 }
 
-
 // NewImportProgrammer creates an importer with the first option record, or the
 // zero options.
 //

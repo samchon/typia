@@ -36,7 +36,6 @@ type protobufMessageProgrammer_Hierarchy struct {
   Order    []string
 }
 
-
 func (protobufMessageProgrammerNamespace) Write(props ProtobufMessageProgrammer_IProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()

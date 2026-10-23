@@ -186,4 +186,3 @@ type decode_union_object_IUnion struct {
   Is    func() *shimast.Node
   Value func() *shimast.Node
 }
-

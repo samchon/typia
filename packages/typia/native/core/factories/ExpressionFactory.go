@@ -1,9 +1,9 @@
 package factories
 
 import (
-  shimtspath "github.com/microsoft/typescript-go/shim/tspath"
   "crypto/rand"
   "fmt"
+  shimtspath "github.com/microsoft/typescript-go/shim/tspath"
   "math"
   "os"
   "path/filepath"
@@ -153,7 +153,6 @@ type ExpressionFactory_GetEscapedTextProps struct {
   // returns the empty string.
   Input *shimast.Expression
 }
-
 
 func (expressionFactoryNamespace) Number(value any, emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.NodeFactoryOf(emit...)

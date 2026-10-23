@@ -33,12 +33,45 @@ export const test_content_mapper_native_transform = (): void => {
   const options = { cwd: root, encoding: "utf8" as const, timeout: 1_200_000 };
   try {
     fs.mkdirSync(mapper, { recursive: true });
-    fs.copyFileSync(path.join(process.cwd(), "fixtures/content-mapper/mapper.cjs"), path.join(mapper, "mapper.cjs"));
-    fs.writeFileSync(path.join(mapper, "package.json"), JSON.stringify({ name: "sql-mapper", version: "1.0.0", typescript: { contentMapper: { exec: [process.execPath, "./mapper.cjs"] } } }));
-    fs.writeFileSync(path.join(root, "tsconfig.json"), JSON.stringify({ compilerOptions: { module: "nodenext", moduleResolution: "nodenext", target: "es2022", strict: true, skipLibCheck: true, outDir: "out" }, files: ["index.ts"], contentMappers: [{ package: "sql-mapper", extensions: [".sql"] }] }));
-    fs.writeFileSync(path.join(root, "index.ts"), 'import typia from "typia"; import { query } from "./query.sql"; export const isRow = typia.createIs<typeof query>(); export const schema = typia.json.schema<typeof query>();');
+    fs.copyFileSync(
+      path.join(process.cwd(), "fixtures/content-mapper/mapper.cjs"),
+      path.join(mapper, "mapper.cjs"),
+    );
+    fs.writeFileSync(
+      path.join(mapper, "package.json"),
+      JSON.stringify({
+        name: "sql-mapper",
+        version: "1.0.0",
+        typescript: {
+          contentMapper: { exec: [process.execPath, "./mapper.cjs"] },
+        },
+      }),
+    );
+    fs.writeFileSync(
+      path.join(root, "tsconfig.json"),
+      JSON.stringify({
+        compilerOptions: {
+          module: "nodenext",
+          moduleResolution: "nodenext",
+          target: "es2022",
+          strict: true,
+          skipLibCheck: true,
+          outDir: "out",
+        },
+        files: ["index.ts"],
+        contentMappers: [{ package: "sql-mapper", extensions: [".sql"] }],
+      }),
+    );
+    fs.writeFileSync(
+      path.join(root, "index.ts"),
+      'import typia from "typia"; import { query } from "./query.sql"; export const isRow = typia.createIs<typeof query>(); export const schema = typia.json.schema<typeof query>();',
+    );
     fs.writeFileSync(path.join(root, "query.sql"), "name\n");
-    const denied = spawnSync(process.execPath, [compile, "--emit", "-p", "tsconfig.json"], options);
+    const denied = spawnSync(
+      process.execPath,
+      [compile, "--emit", "-p", "tsconfig.json"],
+      options,
+    );
     if (denied.error) throw denied.error;
     assert.notEqual(denied.status, 0);
     assert.equal(fs.existsSync(log), false);
@@ -52,8 +85,14 @@ export const test_content_mapper_native_transform = (): void => {
     for (const column of ["name", "label"]) {
       fs.writeFileSync(path.join(root, "query.sql"), column + "\n");
       fs.rmSync(log, { force: true });
-      execFileSync(process.execPath, [compile, "--runExternalCode", "--emit", "-p", "tsconfig.json"], options);
-      fs.writeFileSync(path.join(root, "check.cjs"), `
+      execFileSync(
+        process.execPath,
+        [compile, "--runExternalCode", "--emit", "-p", "tsconfig.json"],
+        options,
+      );
+      fs.writeFileSync(
+        path.join(root, "check.cjs"),
+        `
 const assert = require("node:assert/strict");
 const { isRow, schema } = require("./out/index.js");
 const column = ${JSON.stringify(column)};
@@ -73,7 +112,8 @@ function visit(value) {
 }
 visit(schema);
 assert.equal(found, true);
-`);
+`,
+      );
       execFileSync(process.execPath, [execute, "check.cjs"], options);
       assert.match(fs.readFileSync(log, "utf8"), /(?:^|\n)closeProject\n/);
       previous = column;

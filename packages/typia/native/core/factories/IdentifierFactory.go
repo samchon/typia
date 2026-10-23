@@ -14,7 +14,6 @@ type identifierFactoryNamespace struct{}
 
 var IdentifierFactory = identifierFactoryNamespace{}
 
-
 func (identifierFactoryNamespace) Identifier(name string, emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.NodeFactoryOf(emit...)
   if identifierFactory_variable(name) {

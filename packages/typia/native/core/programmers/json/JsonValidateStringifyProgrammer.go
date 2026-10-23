@@ -30,7 +30,6 @@ type JsonValidateStringifyProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-
 func (jsonValidateStringifyProgrammerNamespace) Decompose(props JsonValidateStringifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   validateContext := props.Context
   functional := false

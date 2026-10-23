@@ -53,7 +53,6 @@ type NotationAssertGeneralProgrammer_DecomposeProps struct {
   Init *shimast.Node
 }
 
-
 func (notationAssertGeneralProgrammerNamespace) Decompose(props NotationAssertGeneralProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{

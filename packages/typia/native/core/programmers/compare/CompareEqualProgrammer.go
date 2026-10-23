@@ -65,7 +65,6 @@ type compareEqualProgrammerGenerator struct {
   MatcherIndex map[int]bool
 }
 
-
 func (compareEqualProgrammerNamespace) Write(props CompareEqualProgrammer_IProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   method := nativehelpers.ModuloMethodText(props.Modulo)

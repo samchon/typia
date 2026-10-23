@@ -41,7 +41,6 @@ type PlainAssertPruneProgrammer_DecomposeProps struct {
   Init *shimast.Node
 }
 
-
 func (plainAssertPruneProgrammerNamespace) Decompose(props PlainAssertPruneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{

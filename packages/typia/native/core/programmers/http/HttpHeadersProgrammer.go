@@ -34,7 +34,6 @@ type HttpHeadersProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-
 func (httpHeadersProgrammerNamespace) Decompose(props HttpHeadersProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()

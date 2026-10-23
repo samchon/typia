@@ -54,7 +54,6 @@ type StringifyJoiner_TupleProps struct {
   Emit     *shimprinter.EmitContext
 }
 
-
 func (stringifyJoinerNamespace) Object(props StringifyJoiner_ObjectProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if len(props.Entries) == 0 {

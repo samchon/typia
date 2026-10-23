@@ -18,7 +18,6 @@ type httpParameterProgrammerNamespace struct{}
 
 var HttpParameterProgrammer = httpParameterProgrammerNamespace{}
 
-
 func (httpParameterProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{

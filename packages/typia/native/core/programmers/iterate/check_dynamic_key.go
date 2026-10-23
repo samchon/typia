@@ -281,4 +281,3 @@ func check_dynamic_key_internal(context nativecontext.ITypiaContext, name string
   f := nativecontext.NodeFactoryOf(context.Emit)
   return f.NewIdentifier(name)
 }
-

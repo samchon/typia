@@ -1,7 +1,6 @@
 import test from "node:test";
 
 import { test_automated_primitive_equal_to_oracle } from "./features/automated_oracles/test_automated_primitive_equal_to_oracle";
-import { test_transform_descriptor_host_inputs } from "./features/transform/test_transform_descriptor_host_inputs";
 import { test_automated_resolved_equal_to_async_oracle } from "./features/automated_oracles/test_automated_resolved_equal_to_async_oracle";
 import { test_automated_resolved_equal_to_oracle } from "./features/automated_oracles/test_automated_resolved_equal_to_oracle";
 import { test_llm_applicationEquals } from "./features/llm/application/test_llm_applicationEquals";
@@ -300,6 +299,7 @@ import { test_evidence_owner_directory_failure } from "./features/test_evidence_
 import { test_map_util_take } from "./features/test_map_util_take";
 import { test_singleton_lifecycle } from "./features/test_singleton_lifecycle";
 import { test_total_comparison_shape } from "./features/test_total_comparison_shape";
+import { test_transform_descriptor_host_inputs } from "./features/transform/test_transform_descriptor_host_inputs";
 
 test("MapUtil.take preserves map membership", test_map_util_take);
 
@@ -1070,4 +1070,7 @@ test(
   test_openapi_converter_discriminator_portable,
 );
 
-test(test_transform_descriptor_host_inputs.name, test_transform_descriptor_host_inputs);
+test(
+  test_transform_descriptor_host_inputs.name,
+  test_transform_descriptor_host_inputs,
+);

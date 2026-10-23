@@ -711,7 +711,6 @@ func featureProgrammer_block_to_expression(body *shimast.Node, emit *shimprinter
   return body
 }
 
-
 func (featureProgrammerNamespace) Compose(props FeatureProgrammer_ComposeProps) FeatureProgrammer_IComposed {
   initialized := props.Config.Initializer(FeatureProgrammer_InitializerProps{
     Context: props.Context,

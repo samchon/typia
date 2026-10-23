@@ -70,7 +70,6 @@ type CloneJoiner_ArrayProps struct {
   Emit  *shimprinter.EmitContext
 }
 
-
 func (cloneJoinerNamespace) Object(props CloneJoiner_ObjectProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Emit)
   if len(props.Entries) == 0 {

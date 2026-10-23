@@ -43,15 +43,25 @@ func TestDistinctProgramsConcurrentEmit(t *testing.T) {
     root := ttscTypiaTestFixtureDirectory(t, "concurrent-emit-")
     source := distinctProgramsConcurrentEmitSource + fmt.Sprintf("\nexport const owner = %q;\n", fmt.Sprintf("program-%d", index))
     for name, text := range map[string]string{
-      "index.ts": source,
+      "index.ts":      source,
       "tsconfig.json": `{"compilerOptions":{"target":"es2022","module":"nodenext","moduleResolution":"nodenext","strict":true,"skipLibCheck":true,"esModuleInterop":true,"outDir":"out"},"files":["index.ts"]}`,
     } {
-      if err := os.WriteFile(filepath.Join(root, name), []byte(text), 0o644); err != nil { t.Fatal(err) }
+      if err := os.WriteFile(filepath.Join(root, name), []byte(text), 0o644); err != nil {
+        t.Fatal(err)
+      }
     }
-    program, diagnostics, err := driver.LoadProgram(root, "tsconfig.json", driver.LoadProgramOptions{ForceEmit:true})
-    if err != nil || driver.CountErrors(diagnostics) != 0 { t.Fatalf("load: %v; %+v", err, diagnostics) }
-    t.Cleanup(func() { if err := program.Close(); err != nil { t.Error(err) } })
-    if diagnostics := program.Diagnostics(); driver.CountErrors(diagnostics) != 0 { t.Fatalf("typecheck: %+v", diagnostics) }
+    program, diagnostics, err := driver.LoadProgram(root, "tsconfig.json", driver.LoadProgramOptions{ForceEmit: true})
+    if err != nil || driver.CountErrors(diagnostics) != 0 {
+      t.Fatalf("load: %v; %+v", err, diagnostics)
+    }
+    t.Cleanup(func() {
+      if err := program.Close(); err != nil {
+        t.Error(err)
+      }
+    })
+    if diagnostics := program.Diagnostics(); driver.CountErrors(diagnostics) != 0 {
+      t.Fatalf("typecheck: %+v", diagnostics)
+    }
     programs[index] = program
   }
   emit := func(index int) (string, error) {
@@ -62,28 +72,74 @@ func TestDistinctProgramsConcurrentEmit(t *testing.T) {
     var mu sync.Mutex
     var transformed []*nativecontext.ITypiaDiagnostic
     var javascript string
-    extras := nativecontext.ITypiaContext_Extras{Shared:&sync.Map{}, AddDiagnostic:func(d *nativecontext.ITypiaDiagnostic) int { mu.Lock(); defer mu.Unlock(); transformed=append(transformed,d); return len(transformed) }}
+    extras := nativecontext.ITypiaContext_Extras{Shared: &sync.Map{}, AddDiagnostic: func(d *nativecontext.ITypiaDiagnostic) int {
+      mu.Lock()
+      defer mu.Unlock()
+      transformed = append(transformed, d)
+      return len(transformed)
+    }}
     diagnostics, err := program.EmitWithPluginTransformer(func(ec *shimprinter.EmitContext, source *shimast.SourceFile) *shimast.SourceFile {
       return transform.Transform(program, &options, extras, ec)(source)
     }, shimcompiler.WriteFile(func(name shimtspath.RootedFilePath, text string, _ *shimcompiler.WriteFileData) error {
-      mu.Lock(); defer mu.Unlock()
-      if filepath.Base(string(name)) == "index.js" { javascript = text }
+      mu.Lock()
+      defer mu.Unlock()
+      if filepath.Base(string(name)) == "index.js" {
+        javascript = text
+      }
       return nil
     }))
-    if err != nil || driver.CountErrors(diagnostics) != 0 || len(transformed) != 0 { return "", fmt.Errorf("emit: %v; %+v; %+v",err,diagnostics,transformed) }
-    for _, required := range []string{"const _ao0", "const _io0", "Array.isArray", fmt.Sprintf("program-%d",index)} {
-      if !strings.Contains(javascript, required) { return "", fmt.Errorf("missing %q in generated output:\n%s",required,javascript) }
+    if err != nil || driver.CountErrors(diagnostics) != 0 || len(transformed) != 0 {
+      return "", fmt.Errorf("emit: %v; %+v; %+v", err, diagnostics, transformed)
     }
-    if !regexp.MustCompile(`(?:"string"\s*===\s*typeof input\.name\b|typeof input\.name\s*===\s*"string")`).MatchString(javascript) {return "",fmt.Errorf("missing name string guard:\n%s",javascript)}
-    if strings.Contains(javascript, fmt.Sprintf("program-%d",1-index)) { return "", fmt.Errorf("output carries foreign Program marker") }
-    return javascript,nil
+    for _, required := range []string{"const _ao0", "const _io0", "Array.isArray", fmt.Sprintf("program-%d", index)} {
+      if !strings.Contains(javascript, required) {
+        return "", fmt.Errorf("missing %q in generated output:\n%s", required, javascript)
+      }
+    }
+    if !regexp.MustCompile(`(?:"string"\s*===\s*typeof input\.name\b|typeof input\.name\s*===\s*"string")`).MatchString(javascript) {
+      return "", fmt.Errorf("missing name string guard:\n%s", javascript)
+    }
+    if strings.Contains(javascript, fmt.Sprintf("program-%d", 1-index)) {
+      return "", fmt.Errorf("output carries foreign Program marker")
+    }
+    return javascript, nil
   }
-  controls:=make([]string,len(programs))
-  for index:=range programs { var err error; controls[index],err=emit(index);if err!=nil {t.Fatalf("serial: %v",err)};t.Logf("serial output %d SHA256: %x",index,sha256.Sum256([]byte(controls[index]))) }
-  start:=make(chan struct{});failures:=make(chan error,len(programs));var workers sync.WaitGroup
-  for index:=range programs {workers.Add(1);go func(){defer workers.Done();<-start;for range 16 {output,err:=emit(index);if err!=nil {failures<-err;return};if output!=controls[index] {failures<-fmt.Errorf("Program %d changed emitted bytes",index);return}}}()}
-  close(start);workers.Wait();close(failures)
-  for err:=range failures {t.Error(err)}
+  controls := make([]string, len(programs))
+  for index := range programs {
+    var err error
+    controls[index], err = emit(index)
+    if err != nil {
+      t.Fatalf("serial: %v", err)
+    }
+    t.Logf("serial output %d SHA256: %x", index, sha256.Sum256([]byte(controls[index])))
+  }
+  start := make(chan struct{})
+  failures := make(chan error, len(programs))
+  var workers sync.WaitGroup
+  for index := range programs {
+    workers.Add(1)
+    go func() {
+      defer workers.Done()
+      <-start
+      for range 16 {
+        output, err := emit(index)
+        if err != nil {
+          failures <- err
+          return
+        }
+        if output != controls[index] {
+          failures <- fmt.Errorf("Program %d changed emitted bytes", index)
+          return
+        }
+      }
+    }()
+  }
+  close(start)
+  workers.Wait()
+  close(failures)
+  for err := range failures {
+    t.Error(err)
+  }
 }
 
 const distinctProgramsConcurrentEmitSource = `import typia from "typia";

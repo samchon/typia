@@ -88,4 +88,3 @@ func check_string_transpile(context nativecontext.ITypiaContext, script string) 
     Script:   script,
   }, context.Emit)
 }
-

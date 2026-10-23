@@ -36,4 +36,3 @@ func Check_everything(array *shimast.Expression, emit ...*shimprinter.EmitContex
     shimast.NodeFlagsNone,
   )
 }
-

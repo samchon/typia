@@ -48,7 +48,6 @@ type ProtobufIsDecodeProgrammer_DecomposeProps struct {
   Name    *string
 }
 
-
 func (protobufIsDecodeProgrammerNamespace) Decompose(props ProtobufIsDecodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   isContext := props.Context

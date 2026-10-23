@@ -70,7 +70,6 @@ type FunctionalAssertFunctionProgrammer_ErrorFactoryWrapperOutput struct {
   Variable *shimast.Node
 }
 
-
 func (functionalAssertFunctionProgrammerNamespace) Write(props FunctionalAssertFunctionProgrammer_IProps) *shimast.Node {
   wrapper := FunctionalAssertFunctionProgrammer.ErrorFactoryWrapper(struct {
     Context    nativecontext.ITypiaContext

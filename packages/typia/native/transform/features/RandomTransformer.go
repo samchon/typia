@@ -15,7 +15,6 @@ type randomTransformerNamespace struct{}
 
 var RandomTransformer = randomTransformerNamespace{}
 
-
 func (randomTransformerNamespace) Transform(props nativetransform.ITransformProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if props.Expression == nil || props.Expression.TypeArguments == nil || len(props.Expression.TypeArguments.Nodes) == 0 {

@@ -54,7 +54,6 @@ type TypeFactory_GetFullNameProps struct {
   AliasTypeArguments *bool
 }
 
-
 func (typeFactoryNamespace) IsFunction(t *shimchecker.Type) bool {
   return TypeFactory.GetFunction(t) != nil
 }

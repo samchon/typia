@@ -88,4 +88,3 @@ func check_bigint_transpile(context nativecontext.ITypiaContext, script string) 
     Script:   script,
   }, context.Emit)
 }
-

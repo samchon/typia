@@ -669,4 +669,3 @@ func check_template_reduce(expressions []*shimast.Node, operator shimast.Kind, e
   }
   return output
 }
-

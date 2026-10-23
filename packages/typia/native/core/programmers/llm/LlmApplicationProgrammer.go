@@ -36,7 +36,6 @@ type LlmApplicationProgrammer_IWriteProps struct {
   ConfigArgument *shimast.Node
 }
 
-
 func (llmApplicationProgrammerNamespace) Write(props LlmApplicationProgrammer_IWriteProps) *shimast.Node {
   application := LlmApplicationProgrammer.WriteApplication(struct {
     Context  nativecontext.ITypiaContext

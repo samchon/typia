@@ -84,4 +84,3 @@ func check_exclude_literal(typ string, value any, emit *shimprinter.EmitContext)
     return f.NewIdentifier(fmt.Sprint(value))
   }
 }
-

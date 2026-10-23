@@ -153,7 +153,9 @@ func TestCommentTagsCoverage(t *testing.T) {
 `)
   member := file.Statements.Nodes[0].AsInterfaceDeclaration().Members.Nodes[0]
   symbol := program.Checker.GetSymbolAtLocation(member.Name())
-  if symbol == nil { t.Fatal("comment property symbol was not bound") }
+  if symbol == nil {
+    t.Fatal("comment property symbol was not bound")
+  }
   if len(metadata_node_js_doc_tags(symbol)) == 0 || metadata_node_description(symbol) == nil {
     t.Fatal("parsed JSDoc tags and description should be discovered")
   }

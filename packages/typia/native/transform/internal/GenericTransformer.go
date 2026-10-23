@@ -90,7 +90,6 @@ type GenericTransformer_IProps struct {
   Write func(props nativecontext.IProgrammerProps) *shimast.Node
 }
 
-
 func (genericTransformerNamespace) Scalar(props GenericTransformer_IProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   if props.Expression == nil || props.Expression.Arguments == nil || len(props.Expression.Arguments.Nodes) == 0 {

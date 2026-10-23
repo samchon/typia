@@ -268,9 +268,9 @@ func is_regular_property(regular []nativehelpers.IExpressionEntry, emit ...*shim
   }
   return f.NewCallExpression(
     f.NewPropertyAccessExpression(f.NewArrayLiteralExpression(
-        f.NewNodeList(elements),
-        false,
-      ), nil, f.NewIdentifier("some"), shimast.NodeFlagsNone),
+      f.NewNodeList(elements),
+      false,
+    ), nil, f.NewIdentifier("some"), shimast.NodeFlagsNone),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -453,21 +453,21 @@ func check_dynamic_properties_invalid_key_description(emit ...*shimprinter.EmitC
   f := nativecontext.NodeFactoryOf(emit...)
   return f.NewCallExpression(
     f.NewPropertyAccessExpression(f.NewArrayLiteralExpression(
-        f.NewNodeList([]*shimast.Node{
-          f.NewTemplateExpression(
-            f.NewTemplateHead("The key `", "The key \\`", shimast.TokenFlagsNone),
-            f.NewNodeList([]*shimast.Node{
-              f.NewTemplateSpan(
-                f.NewIdentifier("key"),
-                f.NewTemplateTail("` does not satisfy the type its index signature declares.", "\\` does not satisfy the type its index signature declares.", shimast.TokenFlagsNone),
-              ),
-            }),
-          ),
-          f.NewStringLiteral("", shimast.TokenFlagsNone),
-          f.NewStringLiteral("Please correct the key next time.", shimast.TokenFlagsNone),
-        }),
-        true,
-      ), nil, f.NewIdentifier("join"), shimast.NodeFlagsNone),
+      f.NewNodeList([]*shimast.Node{
+        f.NewTemplateExpression(
+          f.NewTemplateHead("The key `", "The key \\`", shimast.TokenFlagsNone),
+          f.NewNodeList([]*shimast.Node{
+            f.NewTemplateSpan(
+              f.NewIdentifier("key"),
+              f.NewTemplateTail("` does not satisfy the type its index signature declares.", "\\` does not satisfy the type its index signature declares.", shimast.TokenFlagsNone),
+            ),
+          }),
+        ),
+        f.NewStringLiteral("", shimast.TokenFlagsNone),
+        f.NewStringLiteral("Please correct the key next time.", shimast.TokenFlagsNone),
+      }),
+      true,
+    ), nil, f.NewIdentifier("join"), shimast.NodeFlagsNone),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -481,21 +481,21 @@ func check_dynamic_properties_superfluous_description(emit ...*shimprinter.EmitC
   f := nativecontext.NodeFactoryOf(emit...)
   return f.NewCallExpression(
     f.NewPropertyAccessExpression(f.NewArrayLiteralExpression(
-        f.NewNodeList([]*shimast.Node{
-          f.NewTemplateExpression(
-            f.NewTemplateHead("The property `", "The property \\`", shimast.TokenFlagsNone),
-            f.NewNodeList([]*shimast.Node{
-              f.NewTemplateSpan(
-                f.NewIdentifier("key"),
-                f.NewTemplateTail("` is not defined in the object type.", "\\` is not defined in the object type.", shimast.TokenFlagsNone),
-              ),
-            }),
-          ),
-          f.NewStringLiteral("", shimast.TokenFlagsNone),
-          f.NewStringLiteral("Please remove the property next time.", shimast.TokenFlagsNone),
-        }),
-        true,
-      ), nil, f.NewIdentifier("join"), shimast.NodeFlagsNone),
+      f.NewNodeList([]*shimast.Node{
+        f.NewTemplateExpression(
+          f.NewTemplateHead("The property `", "The property \\`", shimast.TokenFlagsNone),
+          f.NewNodeList([]*shimast.Node{
+            f.NewTemplateSpan(
+              f.NewIdentifier("key"),
+              f.NewTemplateTail("` is not defined in the object type.", "\\` is not defined in the object type.", shimast.TokenFlagsNone),
+            ),
+          }),
+        ),
+        f.NewStringLiteral("", shimast.TokenFlagsNone),
+        f.NewStringLiteral("Please remove the property next time.", shimast.TokenFlagsNone),
+      }),
+      true,
+    ), nil, f.NewIdentifier("join"), shimast.NodeFlagsNone),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -504,4 +504,3 @@ func check_dynamic_properties_superfluous_description(emit ...*shimprinter.EmitC
     shimast.NodeFlagsNone,
   )
 }
-

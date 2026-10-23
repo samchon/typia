@@ -1236,4 +1236,3 @@ func unionExplorer_with_postfix(base UnionExplorer_IExplore, tracable bool, post
   base.Postfix = postfix
   return base
 }
-

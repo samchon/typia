@@ -49,7 +49,6 @@ type LlmSchemaProgrammer_IWriteProps struct {
   Config   map[string]any
 }
 
-
 func (llmSchemaProgrammerNamespace) Write(props LlmSchemaProgrammer_IWriteProps) *shimast.Node {
   output := LlmSchemaProgrammer.WriteSchema(struct {
     Metadata *schemametadata.MetadataSchema

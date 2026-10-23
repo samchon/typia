@@ -48,4 +48,3 @@ func Check_native(props Check_nativeProps) *shimast.Node {
   }
   return instanceOf
 }
-

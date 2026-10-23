@@ -60,7 +60,6 @@ type StatementFactory_EntryProps struct {
   Value string
 }
 
-
 func (statementFactoryNamespace) Mut(props StatementFactory_MutProps, emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.NodeFactoryOf(emit...)
   typeNode := props.Type

@@ -57,7 +57,6 @@ type NotationJoiner_ArrayProps struct {
   Emit  *shimprinter.EmitContext
 }
 
-
 func (notationJoinerNamespace) Object(props NotationJoiner_ObjectProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Emit)
   if len(props.Entries) == 0 {

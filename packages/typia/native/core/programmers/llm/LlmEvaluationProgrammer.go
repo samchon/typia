@@ -66,7 +66,6 @@ type LlmEvaluationProgrammer_IError struct {
   Message  string
 }
 
-
 // Write emits `_createLlmEvaluation(plan, decimals) as ILlmEvaluation<T>`.
 // The metadata must already have passed Compose without errors.
 func (llmEvaluationProgrammerNamespace) Write(props LlmEvaluationProgrammer_IWriteProps, plan []any) *shimast.Node {

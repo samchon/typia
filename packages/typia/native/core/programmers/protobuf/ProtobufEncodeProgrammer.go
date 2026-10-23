@@ -61,7 +61,6 @@ type protobufEncodeProgrammer_IUnion struct {
 
 const protobufEncodeProgrammer_PREFIX = "_pe"
 
-
 func (protobufEncodeProgrammerNamespace) Decompose(props ProtobufEncodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()

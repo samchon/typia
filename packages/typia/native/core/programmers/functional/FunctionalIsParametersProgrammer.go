@@ -92,7 +92,6 @@ type FunctionalIsParametersProgrammer_IDecomposeOutput struct {
   Statements []*shimast.Node
 }
 
-
 func (functionalIsParametersProgrammerNamespace) Write(props FunctionalIsParametersProgrammer_IProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   output := functionalinternal.FunctionalGeneralProgrammer.GetReturnType(functionalinternal.FunctionalGeneralProgrammer_IProps{

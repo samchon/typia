@@ -27,7 +27,6 @@ type TemplateFactory_IIterator struct {
   Index int
 }
 
-
 func (templateFactoryNamespace) Generate(expressions []*shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.NodeFactoryOf(emit...)
   allString := true
