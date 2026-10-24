@@ -53,6 +53,8 @@ The output is a plain object. Use it directly with typia and `@typia/utils`, han
 
 When index-signature values are combined into a schema, their template-literal alternatives remain in the resulting value union.
 
+Recursive array aliases retain an array definition with `items` in `components.schemas`; recursive edges point back to that definition or the surrounding value union. For example, `type JsonArray = JsonValue[]` in a recursive JSON value type produces an array component rather than a component containing only a reference to itself. Different length constraints on uses of the same recursive array get separate components, so a `tags.MaxItems<1>` use does not constrain an untagged sibling. JSON and LLM schema producers share this behavior.
+
 When validating a schema with `@typia/utils`'s `OpenApiValidator`, supported string formats apply their registered checks. Unknown format names are annotations and impose no format check; string type, pattern and length constraints still apply. This also holds for custom names such as `constructor` or `__proto__`.
 
 `typia.json.schema`, `typia.json.schemas`, and `typia.json.application` return typia's emended schema representation. It is designed for typia and `@typia/utils` converters first, not for direct assignment to every third-party OpenAPI `SchemaObject` type. When a tool expects raw OpenAPI 3.1 schemas, convert the components with `OpenApiConverter.downgradeComponents`:

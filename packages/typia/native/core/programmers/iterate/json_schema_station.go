@@ -10,6 +10,9 @@ type json_schema_station_props struct {
   components *OpenApi_IComponents
   attribute  JsonSchema
   metadata   *nativemetadata.MetadataSchema
+  // definition is the alias component whose body this station is filling.
+  // Only this level may inline a same-named array; nested stations use refs.
+  definition string
 }
 
 // Json_schema_station_props is the argument record of Json_schema_station, which
@@ -110,7 +113,8 @@ func json_schema_station(props json_schema_station_props) JsonSchema {
     for _, schema := range json_schema_array(struct {
       components *OpenApi_IComponents
       array      *nativemetadata.MetadataArray
-    }{components: props.components, array: array}) {
+      definition string
+    }{components: props.components, array: array, definition: props.definition}) {
       insert(schema)
     }
   }

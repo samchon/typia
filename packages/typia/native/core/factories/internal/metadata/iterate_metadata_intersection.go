@@ -327,7 +327,10 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
   options := props.Options
   options.Functional = false
   explore := props.Explore
-  explore.Aliased = false
+  // Attach tags to the surviving structure, not to a new alias wrapper whose
+  // array/object bucket would be empty here. Nested members clear Aliased again
+  // when they descend, so recursive references still retain their aliases.
+  explore.Aliased = true
   explore.Escaped = false
   // Re-explore the surviving base alone (`Intersected: true` short-circuits the
   // intersection handler at the top of this function). TypeScript flattens nested
