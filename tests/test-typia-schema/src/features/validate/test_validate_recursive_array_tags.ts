@@ -13,7 +13,7 @@ import typia, { tags } from "typia";
  * 3. Reuse one array across properties to detect constraints bypassing visit
  *    guards.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct and factory checker families distinguish allowed empty/single/nested arrays from wrong lengths and wrong leaves; assert failures and validation success flags are observed.
+ * @evidence contracts/testing.md#behavioral-verification Direct and factory checker families distinguish allowed empty/single/nested arrays from wrong lengths and wrong leaves; assertion errors must be TypeGuardError instances at the failing path and validation diagnostics must identify that path.
  * @evidence contracts/testing.md#independent-expectations Authored MaxItems and MinItems intersections define the allowed lengths. Adjacent length-two arrays violate the alternative maximum-one/minimum-three bound, and recursive tagged children must be nonempty at every depth.
  * @evidence contracts/testing.md#distinguishing-cases Covers tagged versus untagged siblings, direct versus factory and equals variants, zero/one/two/three lengths, invalid nested leaves, a shared array instance and self-tagged recursion.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_validate_recursive_array_tags in the existing schema suite; root pnpm test executes the transformed operations and the local result matrix.
@@ -42,13 +42,13 @@ export const test_validate_recursive_array_tags = (): void => {
   const validate = typia.createValidate<Input>();
   const validateEquals = typia.createValidateEquals<Input>();
   const shared = ["a", "b"];
-  const cases: [unknown, boolean][] = [
-    [{ small: [], many: ["a", "b"], plain: [] }, true],
-    [{ small: [["a", "b"]], many: [[], []], plain: ["a", "b", "c"] }, true],
-    [{ small: ["a", "b"], many: ["a", "b"], plain: [] }, false],
-    [{ small: [], many: ["a"], plain: [] }, false],
-    [{ small: [], many: ["a", [1]], plain: [] }, false],
-    [{ small: shared, many: shared, plain: shared }, false],
+  const cases: [unknown, string | null][] = [
+    [{ small: [], many: ["a", "b"], plain: [] }, null],
+    [{ small: [["a", "b"]], many: [[], []], plain: ["a", "b", "c"] }, null],
+    [{ small: ["a", "b"], many: ["a", "b"], plain: [] }, "$input.small"],
+    [{ small: [], many: ["a"], plain: [] }, "$input.many"],
+    [{ small: [], many: ["a", [1]], plain: [] }, "$input.many[1][0]"],
+    [{ small: shared, many: shared, plain: shared }, "$input.small"],
   ];
   const observations: {
     sample: number;
@@ -56,32 +56,62 @@ export const test_validate_recursive_array_tags = (): void => {
     accepted: boolean;
   }[] = [];
   const expectations: typeof observations = [];
-  cases.forEach(([value, accepted], sample) => {
+  const diagnostics: { sample: number; operation: string; valid: boolean }[] =
+    [];
+  cases.forEach(([value, path], sample) => {
+    const accepted = path === null;
+    const assertion = (operation: string, run: () => unknown): boolean => {
+      try {
+        run();
+        return true;
+      } catch (error) {
+        diagnostics.push({
+          sample,
+          operation,
+          valid: error instanceof typia.TypeGuardError && error.path === path,
+        });
+        return false;
+      }
+    };
+    const validation = (
+      operation: string,
+      result: typia.IValidation<Input>,
+    ): boolean => {
+      if (!result.success)
+        diagnostics.push({
+          sample,
+          operation,
+          valid: result.errors.some((error) => error.path === path),
+        });
+      return result.success;
+    };
     const operations: Record<string, () => boolean> = {
       is: () => typia.is<Input>(value),
       equals: () => typia.equals<Input>(value),
-      assert: () =>
-        TestEquality.thrown(() => typia.assert<Input>(value)) === null,
+      assert: () => assertion("assert", () => typia.assert<Input>(value)),
       assertEquals: () =>
-        TestEquality.thrown(() => typia.assertEquals<Input>(value)) === null,
+        assertion("assertEquals", () => typia.assertEquals<Input>(value)),
       assertGuard: () =>
-        TestEquality.thrown(() => typia.assertGuard<Input>(value)) === null,
+        assertion("assertGuard", () => typia.assertGuard<Input>(value)),
       assertGuardEquals: () =>
-        TestEquality.thrown(() => typia.assertGuardEquals<Input>(value)) ===
-        null,
-      validate: () => typia.validate<Input>(value).success,
-      validateEquals: () => typia.validateEquals<Input>(value).success,
+        assertion("assertGuardEquals", () =>
+          typia.assertGuardEquals<Input>(value),
+        ),
+      validate: () => validation("validate", typia.validate<Input>(value)),
+      validateEquals: () =>
+        validation("validateEquals", typia.validateEquals<Input>(value)),
       factoryIs: () => is(value),
       factoryEquals: () => equals(value),
-      factoryAssert: () => TestEquality.thrown(() => assert(value)) === null,
+      factoryAssert: () => assertion("factoryAssert", () => assert(value)),
       factoryAssertEquals: () =>
-        TestEquality.thrown(() => assertEquals(value)) === null,
+        assertion("factoryAssertEquals", () => assertEquals(value)),
       factoryAssertGuard: () =>
-        TestEquality.thrown(() => assertGuard(value)) === null,
+        assertion("factoryAssertGuard", () => assertGuard(value)),
       factoryAssertGuardEquals: () =>
-        TestEquality.thrown(() => assertGuardEquals(value)) === null,
-      factoryValidate: () => validate(value).success,
-      factoryValidateEquals: () => validateEquals(value).success,
+        assertion("factoryAssertGuardEquals", () => assertGuardEquals(value)),
+      factoryValidate: () => validation("factoryValidate", validate(value)),
+      factoryValidateEquals: () =>
+        validation("factoryValidateEquals", validateEquals(value)),
     };
     for (const [operation, run] of Object.entries(operations)) {
       observations.push({ sample, operation, accepted: run() });
@@ -89,6 +119,28 @@ export const test_validate_recursive_array_tags = (): void => {
     }
   });
   TestEquality.equals("recursive checker matrix", observations, expectations);
+  TestEquality.equals(
+    "recursive checker diagnostics",
+    diagnostics,
+    cases.flatMap(([, path], sample) =>
+      path === null
+        ? []
+        : [
+            "assert",
+            "assertEquals",
+            "assertGuard",
+            "assertGuardEquals",
+            "validate",
+            "validateEquals",
+            "factoryAssert",
+            "factoryAssertEquals",
+            "factoryAssertGuard",
+            "factoryAssertGuardEquals",
+            "factoryValidate",
+            "factoryValidateEquals",
+          ].map((operation) => ({ sample, operation, valid: true })),
+    ),
+  );
   const alternatives = [[], ["a"], ["a", "b"], ["a", "b", "c"]];
   TestEquality.equals(
     "alternative bounds",
