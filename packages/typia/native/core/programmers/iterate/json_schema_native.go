@@ -6,10 +6,11 @@ import (
 )
 
 // OpenApi_IComponents is the `components` of a JSON schema document being built:
-// the named schemas and the order in which they were first registered.
+// the named schemas, their discovery order and the name reservations used by
+// tagged recursive array variants. All state belongs to one generated document.
 //
-// @evidence contracts/common.md#principled-implementation It is the `components` of a JSON schema document being built: the named schemas and the order in which they were first registered; its 2 fields (Schemas, Order) are named so that a producer and a consumer cannot transpose them.
-// @evidence contracts/common.md#clear-and-simple-design The schema map owns lookup while Order owns discovery sequence; registration and literal rendering are methods on that shared store.
+// @evidence contracts/common.md#principled-implementation Schemas owns component bodies and Order preserves registration sequence. Private reservations prevent generated array variants from colliding with declared names; their identity map distinguishes schema-bearing tag rows within one document.
+// @evidence contracts/common.md#clear-and-simple-design Public schema data stays separate from private allocation state. Registration, name reservation and literal rendering belong to the shared document store.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Registration records new keys before insertion and rendering follows the recorded sequence rather than relying on Go map iteration.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type OpenApi_IComponents struct {
@@ -20,6 +21,12 @@ type OpenApi_IComponents struct {
   // collection was a plain object keyed in insertion order. A Go map is
   // unordered, so the bare map alone would scramble the keys.
   Order []string
+
+  // Private allocation state is discarded with this document after emission.
+  reservedSchemaNames map[string]bool
+  reservedMetadata    map[*nativemetadata.MetadataSchema]bool
+  arraySchemaNames    map[string]string
+  arraySchemaCounters map[string]int
 }
 
 // ToLiteral renders the components as an order-preserving object literal input

@@ -1240,7 +1240,7 @@ func checkerProgrammer_decode_array(props checkerProgrammer_decodeArrayProps) *s
   if props.Array.Type.Index != nil {
     index = *props.Array.Type.Index
   }
-  return checkerProgrammer_or(
+  main := checkerProgrammer_or(
     f.NewCallExpression(
       f.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%sa%d", props.Config.Prefix, index))),
       nil,
@@ -1260,14 +1260,12 @@ func checkerProgrammer_decode_array(props checkerProgrammer_decodeArrayProps) *s
     }),
     props.Context.Emit,
   )
+  // Structural traversal is shared and visit-guarded, but this use's tags must
+  // be checked even when that helper has already visited the same array value.
+  return checkerProgrammer_check_array(props, main)
 }
 
 func checkerProgrammer_decode_array_inline(props checkerProgrammer_decodeArrayInlineProps) *shimast.Node {
-  length := nativeiterate.Check_array_length(nativeiterate.Check_array_lengthProps{
-    Context: props.Context,
-    Array:   props.Array,
-    Input:   props.Input,
-  })
   main := FeatureProgrammer.Decode_array(FeatureProgrammer_DecodeArrayProps{
     Config: FeatureProgrammer_DecodeArrayConfig{
       Prefix: props.Config.Prefix,
@@ -1298,6 +1296,15 @@ func checkerProgrammer_decode_array_inline(props checkerProgrammer_decodeArrayIn
     Input:   props.Input,
     Explore: props.Explore,
     Emit:    props.Context.Emit,
+  })
+  return checkerProgrammer_check_array(props, main)
+}
+
+func checkerProgrammer_check_array(props checkerProgrammer_decodeArrayProps, main *shimast.Node) *shimast.Node {
+  length := nativeiterate.Check_array_length(nativeiterate.Check_array_lengthProps{
+    Context: props.Context,
+    Array:   props.Array,
+    Input:   props.Input,
   })
   if length.Expression == nil && len(length.Conditions) == 0 {
     return main

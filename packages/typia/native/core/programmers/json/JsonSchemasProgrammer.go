@@ -141,6 +141,7 @@ func jsonSchemasProgrammer_writeV3_1(metadataList []*nativemetadata.MetadataSche
   components := &nativeiterate.OpenApi_IComponents{
     Schemas: map[string]nativeiterate.JsonSchema{},
   }
+  components.ReserveSchemaNames(metadataList)
   generator := func(metadata *nativemetadata.MetadataSchema) nativeiterate.JsonSchema {
     return nativeiterate.Json_schema_station(nativeiterate.Json_schema_station_props{
       BlockNever: true,

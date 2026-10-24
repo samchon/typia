@@ -806,7 +806,7 @@ func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*s
     Components: components,
     Array:      props.Array,
   })
-  schemaList = randomProgrammer_array_schema_list(props.Array, components, schemaList)
+  schemaList = randomProgrammer_array_schema_list(components, schemaList)
   f := nativecontext.NodeFactoryOf(props.Context.Emit)
   output := make([]*shimast.Node, 0, len(schemaList))
   if props.Array.Type.Recursive {
@@ -1414,25 +1414,30 @@ func randomProgrammer_schema_without_items(schema nativeiterate.JsonSchema, emit
 }
 
 func randomProgrammer_array_schema_list(
-  array *schemametadata.MetadataArray,
   components *nativeiterate.OpenApi_IComponents,
   schemaList []nativeiterate.JsonSchema,
 ) []nativeiterate.JsonSchema {
-  if array == nil ||
-    array.Type == nil ||
-    array.Type.Recursive == false ||
-    components == nil ||
-    components.Schemas == nil {
+  if components == nil || components.Schemas == nil {
     return schemaList
   }
-  schema, ok := components.Schemas[array.Type.Name]
-  if ok == false || len(schema) == 0 {
-    return schemaList
+  output := make([]nativeiterate.JsonSchema, 0, len(schemaList))
+  for _, schema := range schemaList {
+    // The producer's reference identifies this use's component, which can
+    // differ from the underlying array type when schema tags are present.
+    ref, isReference := schema["$ref"].(string)
+    key, isLocal := strings.CutPrefix(ref, "#/components/schemas/")
+    target, exists := components.Schemas[key]
+    if !isReference || !isLocal || !exists || len(target) == 0 {
+      output = append(output, schema)
+      continue
+    }
+    if oneOf, ok := target["oneOf"].([]nativeiterate.JsonSchema); ok {
+      output = append(output, oneOf...)
+    } else {
+      output = append(output, target)
+    }
   }
-  if oneOf, ok := schema["oneOf"].([]nativeiterate.JsonSchema); ok {
-    return oneOf
-  }
-  return []nativeiterate.JsonSchema{schema}
+  return output
 }
 
 func randomProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
