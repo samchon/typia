@@ -33,8 +33,8 @@ catalogs:
       version: 0.34.1
   typescript:
     typescript:
-      specifier: 7.1.0-dev.20261020.3
-      version: 7.1.0-dev.20261020.3
+      specifier: 7.1.0-dev.20261022.1
+      version: 7.1.0-dev.20261022.1
   utils:
     '@nestia/e2e':
       specifier: ^14.0.3
@@ -67,7 +67,7 @@ importers:
         version: 6.0.2(@vue/compiler-sfc@3.5.33)(prettier@3.8.3)(svelte@5.55.4(@typescript-eslint/types@8.59.0))
       '@wrtnlabs/evidence':
         specifier: catalog:samchon
-        version: 0.2.1(ttsc@0.34.1(typescript@7.1.0-dev.20261020.3))(typescript@7.1.0-dev.20261020.3)
+        version: 0.2.1(ttsc@0.34.1(typescript@7.1.0-dev.20261022.1))(typescript@7.1.0-dev.20261022.1)
       bumpp:
         specifier: ^10.4.1
         version: 10.4.1
@@ -79,10 +79,10 @@ importers:
         version: 1.8.0(prettier@3.8.3)
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261022.1)
       typescript:
         specifier: catalog:typescript
-        version: 7.1.0-dev.20261020.3
+        version: 7.1.0-dev.20261022.1
 
   benchmark:
     dependencies:
@@ -200,10 +200,10 @@ importers:
         version: 1.2.1
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261022.1)
       typescript:
         specifier: catalog:typescript
-        version: 7.1.0-dev.20261020.3
+        version: 7.1.0-dev.20261022.1
       zod:
         specifier: ^3.19.1
         version: 3.25.76
@@ -212,7 +212,7 @@ importers:
     devDependencies:
       '@ttsc/unplugin':
         specifier: catalog:samchon
-        version: 0.34.1(ttsc@0.34.1(typescript@7.1.0-dev.20261020.3))
+        version: 0.34.1(ttsc@0.34.1(typescript@7.1.0-dev.20261025.1))
       tinyglobby:
         specifier: ^0.2.12
         version: 0.2.16
@@ -249,7 +249,7 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261025.1)
 
   packages/interface:
     devDependencies:
@@ -258,10 +258,10 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261022.1)
       typescript:
         specifier: catalog:typescript
-        version: 7.1.0-dev.20261020.3
+        version: 7.1.0-dev.20261022.1
 
   packages/jev:
     dependencies:
@@ -280,10 +280,10 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261022.1)
       typescript:
         specifier: catalog:typescript
-        version: 7.1.0-dev.20261020.3
+        version: 7.1.0-dev.20261022.1
 
   packages/langchain:
     dependencies:
@@ -311,10 +311,10 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261022.1)
       typescript:
         specifier: catalog:typescript
-        version: 7.1.0-dev.20261020.3
+        version: 7.1.0-dev.20261022.1
 
   packages/mcp:
     dependencies:
@@ -339,10 +339,10 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261022.1)
       typescript:
         specifier: catalog:typescript
-        version: 7.1.0-dev.20261020.3
+        version: 7.1.0-dev.20261022.1
 
   packages/typia:
     dependencies:
@@ -367,10 +367,10 @@ importers:
         version: 1.1.5
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261022.1)
       typescript:
         specifier: catalog:typescript
-        version: 7.1.0-dev.20261020.3
+        version: 7.1.0-dev.20261022.1
 
   packages/utils:
     dependencies:
@@ -389,10 +389,10 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261022.1)
       typescript:
         specifier: catalog:typescript
-        version: 7.1.0-dev.20261020.3
+        version: 7.1.0-dev.20261022.1
 
   packages/vercel:
     dependencies:
@@ -420,10 +420,10 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261022.1)
       typescript:
         specifier: catalog:typescript
-        version: 7.1.0-dev.20261020.3
+        version: 7.1.0-dev.20261022.1
 
   tests/debug:
     dependencies:
@@ -448,7 +448,7 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261025.1)
 
   tests/template:
     dependencies:
@@ -488,7 +488,7 @@ importers:
         version: 11.0.0
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261025.1)
 
   tests/test-error:
     dependencies:
@@ -504,7 +504,7 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261025.1)
 
   tests/test-interface:
     dependencies:
@@ -520,10 +520,10 @@ importers:
         version: 7.0.106(zod@4.4.3)
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261022.1)
       typescript:
         specifier: catalog:typescript
-        version: 7.1.0-dev.20261020.3
+        version: 7.1.0-dev.20261022.1
       typia:
         specifier: workspace:^
         version: link:../../packages/typia
@@ -560,7 +560,7 @@ importers:
         version: 7.0.106(zod@4.4.3)
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261025.1)
 
   tests/test-langchain:
     dependencies:
@@ -606,7 +606,7 @@ importers:
         version: link:../template
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261025.1)
 
   tests/test-mcp:
     dependencies:
@@ -640,7 +640,7 @@ importers:
         version: link:../template
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261025.1)
 
   tests/test-typia-automated:
     dependencies:
@@ -683,7 +683,7 @@ importers:
         version: 11.0.0
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261025.1)
 
   tests/test-typia-schema:
     dependencies:
@@ -726,7 +726,7 @@ importers:
         version: link:../template
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261025.1)
 
   tests/test-utils:
     dependencies:
@@ -766,7 +766,7 @@ importers:
         version: link:../template
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261025.1)
 
   tests/test-utils-automated:
     dependencies:
@@ -800,7 +800,7 @@ importers:
         version: 11.0.0
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261025.1)
 
   tests/test-vercel:
     dependencies:
@@ -843,7 +843,7 @@ importers:
         version: link:../template
       ttsc:
         specifier: catalog:samchon
-        version: 0.34.1(typescript@7.1.0-dev.20261020.3)
+        version: 0.34.1(typescript@7.1.0-dev.20261025.1)
 
   website:
     dependencies:
@@ -882,13 +882,13 @@ importers:
         version: 15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       nextra:
         specifier: ^4.6.0
-        version: 4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        version: 4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@7.1.0-dev.20261025.1)
       nextra-theme-blog:
         specifier: ^4.6.1
-        version: 4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nextra@4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nextra@4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@7.1.0-dev.20261025.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       nextra-theme-docs:
         specifier: ^4.6.0
-        version: 4.6.1(@types/react@18.3.29)(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nextra@4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(use-sync-external-store@1.6.0(react@18.3.1))
+        version: 4.6.1(@types/react@18.3.29)(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nextra@4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@7.1.0-dev.20261025.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(use-sync-external-store@1.6.0(react@18.3.1))
       path:
         specifier: ^0.12.7
         version: 0.12.7
@@ -952,13 +952,13 @@ importers:
         version: 5.0.10
       ts-loader:
         specifier: ^9.5.1
-        version: 9.6.0(loader-utils@2.0.4)(typescript@5.9.3)(webpack@5.107.2(postcss@8.5.10))
+        version: 9.6.0(loader-utils@2.0.4)(typescript@7.1.0-dev.20261025.1)(webpack@5.107.2(postcss@8.5.10))
       typedoc:
         specifier: ^0.28.9
-        version: 0.28.19(typescript@5.9.3)
+        version: 0.28.19(typescript@7.1.0-dev.20261025.1)
       typescript:
-        specifier: ~5.9.3
-        version: 5.9.3
+        specifier: ~7.1.0-dev.20261022.1
+        version: 7.1.0-dev.20261025.1
       write-file-webpack-plugin:
         specifier: ^4.5.1
         version: 4.5.1
@@ -2678,44 +2678,86 @@ packages:
     resolution: {integrity: sha512-nLzdsT1gdOgFxxxwrlNVUBzSNBEEHJ86bblmk4QAS6stfig7rcJzWKqCyxFy3YRRHXDWEkb2NralA1nOYkkm/A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@typescript/typescript-darwin-arm64@7.1.0-dev.20261020.3':
-    resolution: {integrity: sha512-3HPj6wcNK53jhzkyAecoMAYS/miYUiBYRe53lhaoAvA8Rv+9767IOJpgK97iqmNDB3zfccqL+kzmJMVdQqb6Uw==}
+  '@typescript/typescript-darwin-arm64@7.1.0-dev.20261022.1':
+    resolution: {integrity: sha512-RQ2ufZtTcQVJrEPU1r4SUtUEzkEk0nnXZr53qsL3ZGCQvqVDnclOn1QvMaaEUsr/j3H1hcQJ9Sh6/uX9RuuH5g==}
     engines: {node: '>=16.20.0'}
     cpu: [arm64]
     os: [darwin]
 
-  '@typescript/typescript-darwin-x64@7.1.0-dev.20261020.3':
-    resolution: {integrity: sha512-XX049UeVqKYf58GWOqnrr1qo7v+Hfd9PGdqDKT1HBIICuD2Gywb3RQ3K+o/z1uTthZ+DDPv0qVk6ZPV/oCDG2w==}
+  '@typescript/typescript-darwin-arm64@7.1.0-dev.20261025.1':
+    resolution: {integrity: sha512-96GC+RzKAJCWMv+VimlA395WKCx0zX4i8bf+D0D9jbFjm1fobtlgk+0xseTitjp042LEK++zaoMPwS/dQPF0HA==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@typescript/typescript-darwin-x64@7.1.0-dev.20261022.1':
+    resolution: {integrity: sha512-zVnPrIEIM5H2SRQPQ1VcxX5H19qAdJTcxpIBZM8f2bI1D/m+r5zbhQ76/0bmXSYKCWTAJH3/4f8DVQuW/p8liw==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [darwin]
 
-  '@typescript/typescript-linux-arm64@7.1.0-dev.20261020.3':
-    resolution: {integrity: sha512-9rqnULxiHqtqXYlI4EOyVzuTw96jDToN5AgkCfckFdamPOd9s8O5iiDOFgFxEjT7G+elzl1tQWX47204B+W7cg==}
+  '@typescript/typescript-darwin-x64@7.1.0-dev.20261025.1':
+    resolution: {integrity: sha512-22Q5WMVYQF7lUYALrYBf6QBRU3E+c0cIv3TfFAhy5JBy3bZpDlcPOMeODQmlkWReAbVz/e0A3GIAtGFI9jFdKw==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@typescript/typescript-linux-arm64@7.1.0-dev.20261022.1':
+    resolution: {integrity: sha512-I0R4vIQJ9Db9Mtsaq9f5bk9xKhsykCBjk/ylsuO7nQT186YnMaDJcudQRv09J+onsKTQWHJ43gVV7F8ZBbyqBQ==}
     engines: {node: '>=16.20.0'}
     cpu: [arm64]
     os: [linux]
 
-  '@typescript/typescript-linux-arm@7.1.0-dev.20261020.3':
-    resolution: {integrity: sha512-qW0ftlf7UInHpT7fhoo0tj5RDuKgHR3af8URt/GmGgDWhUDLOg2HpmZhdxbFVAemporD94TxXP4MPogihdG9jA==}
+  '@typescript/typescript-linux-arm64@7.1.0-dev.20261025.1':
+    resolution: {integrity: sha512-2BdOOV/xECjN1eAJX46YxwdPurAumon2/HNtoiRJM+xulGrvQ2Rj4d6gw/n9iafYVSjCmd2s/HZYVjk/FtwiXQ==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@typescript/typescript-linux-arm@7.1.0-dev.20261022.1':
+    resolution: {integrity: sha512-SUOJR+S7z4QBs7Q8MgMtMbX1s4jCNMCNvgyzphYWi+oh3xfSOwrbU25HNNFvYCGXB0pKEBx7UK8lk6z688G/Fg==}
     engines: {node: '>=16.20.0'}
     cpu: [arm]
     os: [linux]
 
-  '@typescript/typescript-linux-x64@7.1.0-dev.20261020.3':
-    resolution: {integrity: sha512-or8rNGx7euCMXKf/2pFI3xfU/BCq9+J07jp9wJ7S55y+v26wW64hzagJOoHnPM6VLWJDxPVaO0jj3FuAsVLz5Q==}
+  '@typescript/typescript-linux-arm@7.1.0-dev.20261025.1':
+    resolution: {integrity: sha512-DCCZMaPeqQgArleqpCWdlO732lni+oI8GOYRNrv/Hme1+jcJoOSt0DD/J4yq2/DeoT0o+uS4fHch8cql39tmVQ==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm]
+    os: [linux]
+
+  '@typescript/typescript-linux-x64@7.1.0-dev.20261022.1':
+    resolution: {integrity: sha512-B9Zl/AUvlB3s9UzSxYc1jZQ3ASgkLcA1QyyUnz8n90axgFCl5PBk5b/sMH2MJWZqNZOl8TcsRpzyAcAiVYPLdA==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [linux]
 
-  '@typescript/typescript-win32-arm64@7.1.0-dev.20261020.3':
-    resolution: {integrity: sha512-VuCfpb0xxVuiL/O3iz5NcXHNQk7axTkxJ5wSahGhCkjnB0lOBUIGDYixMDhevxhhtyLhmvNlhYkd9tYBa699jw==}
+  '@typescript/typescript-linux-x64@7.1.0-dev.20261025.1':
+    resolution: {integrity: sha512-AjeVVnlhxvTDJpjwNqfaf/246yHLu3Rn1xoPL9D8TvqlZX29KAjT4+MW6eCjmbxY+Uk0CbqITo3JuYg9sSU3HQ==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [linux]
+
+  '@typescript/typescript-win32-arm64@7.1.0-dev.20261022.1':
+    resolution: {integrity: sha512-AfMj9gUcizClesJxZzFykKWDz2UlHmJm1TK36y5KoWVQXEB/O0dxebUaFe7K+aJYOtqMY9fJaQHQlnIh/8SHLQ==}
     engines: {node: '>=16.20.0'}
     cpu: [arm64]
     os: [win32]
 
-  '@typescript/typescript-win32-x64@7.1.0-dev.20261020.3':
-    resolution: {integrity: sha512-wsVobafQ8j1+10Ltv+mSVYlwBdKcK5x2Q2AWU4fdupAO036Q4wgye1lj9cE6D28xp9H/2J45RKvYPElnrDHYnA==}
+  '@typescript/typescript-win32-arm64@7.1.0-dev.20261025.1':
+    resolution: {integrity: sha512-v1DS3qPx09olD+SXA7iZHJQw+7Ao3ZA4Chh77PMyBPaGFeFhZI5j06khaKrfxpQvXTDjeheNP/xflutJSd1C3A==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@typescript/typescript-win32-x64@7.1.0-dev.20261022.1':
+    resolution: {integrity: sha512-95M59Ja4eVWF6DXEeOYL5Vt3wxLsv5QarXQB/HK78pRCGwbgfWMfcfs6kl+63aS8QIfyCXDUNyg6J8GGnOEshg==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [win32]
+
+  '@typescript/typescript-win32-x64@7.1.0-dev.20261025.1':
+    resolution: {integrity: sha512-Bc6Vx5BxZox2eRtPX28fl7hfr26zQzoZ1giceqkFleSU/o1vd5p4po5J0YjMYGSdypm4Iu4xHLsAwmYfU2029A==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [win32]
@@ -6138,13 +6180,13 @@ packages:
     peerDependencies:
       typescript: 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x || 5.5.x || 5.6.x || 5.7.x || 5.8.x || 5.9.x || 6.0.x
 
-  typescript@5.9.3:
-    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
-    engines: {node: '>=14.17'}
+  typescript@7.1.0-dev.20261022.1:
+    resolution: {integrity: sha512-0fVIaaJTjhwgrjFjGHUducPEVaaDNB8DrnJP8nGm6oak/n/yZXAuXZ6+zG3sL8FytFXZFWlePYPLBbliPpER0Q==}
+    engines: {node: '>=16.20.0'}
     hasBin: true
 
-  typescript@7.1.0-dev.20261020.3:
-    resolution: {integrity: sha512-R+6IhSSxY+Um5JMXAOQNIN2BLzL/ufGFPKNWsrDBWgFAU9TIFW2dUkU9z6TbA+SJ/SHdZp1cgm+1bhMvyMZOlQ==}
+  typescript@7.1.0-dev.20261025.1:
+    resolution: {integrity: sha512-1u67ixKQjsR3byrtf++84tP4L5LIKKRbprWD6Qpom/KYSzENbnTlO30DQeQU7qxnN8DUH1XEz2gg+LvH1x1lGA==}
     engines: {node: '>=16.20.0'}
     hasBin: true
 
@@ -7831,12 +7873,12 @@ snapshots:
     dependencies:
       '@shikijs/types': 3.23.0
 
-  '@shikijs/twoslash@3.23.0(typescript@5.9.3)':
+  '@shikijs/twoslash@3.23.0(typescript@7.1.0-dev.20261025.1)':
     dependencies:
       '@shikijs/core': 3.23.0
       '@shikijs/types': 3.23.0
-      twoslash: 0.3.8(typescript@5.9.3)
-      typescript: 5.9.3
+      twoslash: 0.3.8(typescript@7.1.0-dev.20261025.1)
+      typescript: 7.1.0-dev.20261025.1
     transitivePeerDependencies:
       - supports-color
 
@@ -8068,9 +8110,9 @@ snapshots:
       semver: 7.8.5
       tgrid: 1.2.1
 
-  '@ttsc/unplugin@0.34.1(ttsc@0.34.1(typescript@7.1.0-dev.20261020.3))':
+  '@ttsc/unplugin@0.34.1(ttsc@0.34.1(typescript@7.1.0-dev.20261025.1))':
     dependencies:
-      ttsc: 0.34.1(typescript@7.1.0-dev.20261020.3)
+      ttsc: 0.34.1(typescript@7.1.0-dev.20261025.1)
       unplugin: 2.3.11
     optionalDependencies:
       fsevents: 2.3.3
@@ -8396,31 +8438,52 @@ snapshots:
   '@typescript-eslint/types@8.59.0':
     optional: true
 
-  '@typescript/typescript-darwin-arm64@7.1.0-dev.20261020.3':
+  '@typescript/typescript-darwin-arm64@7.1.0-dev.20261022.1':
     optional: true
 
-  '@typescript/typescript-darwin-x64@7.1.0-dev.20261020.3':
+  '@typescript/typescript-darwin-arm64@7.1.0-dev.20261025.1':
     optional: true
 
-  '@typescript/typescript-linux-arm64@7.1.0-dev.20261020.3':
+  '@typescript/typescript-darwin-x64@7.1.0-dev.20261022.1':
     optional: true
 
-  '@typescript/typescript-linux-arm@7.1.0-dev.20261020.3':
+  '@typescript/typescript-darwin-x64@7.1.0-dev.20261025.1':
     optional: true
 
-  '@typescript/typescript-linux-x64@7.1.0-dev.20261020.3':
+  '@typescript/typescript-linux-arm64@7.1.0-dev.20261022.1':
     optional: true
 
-  '@typescript/typescript-win32-arm64@7.1.0-dev.20261020.3':
+  '@typescript/typescript-linux-arm64@7.1.0-dev.20261025.1':
     optional: true
 
-  '@typescript/typescript-win32-x64@7.1.0-dev.20261020.3':
+  '@typescript/typescript-linux-arm@7.1.0-dev.20261022.1':
     optional: true
 
-  '@typescript/vfs@1.6.4(typescript@5.9.3)':
+  '@typescript/typescript-linux-arm@7.1.0-dev.20261025.1':
+    optional: true
+
+  '@typescript/typescript-linux-x64@7.1.0-dev.20261022.1':
+    optional: true
+
+  '@typescript/typescript-linux-x64@7.1.0-dev.20261025.1':
+    optional: true
+
+  '@typescript/typescript-win32-arm64@7.1.0-dev.20261022.1':
+    optional: true
+
+  '@typescript/typescript-win32-arm64@7.1.0-dev.20261025.1':
+    optional: true
+
+  '@typescript/typescript-win32-x64@7.1.0-dev.20261022.1':
+    optional: true
+
+  '@typescript/typescript-win32-x64@7.1.0-dev.20261025.1':
+    optional: true
+
+  '@typescript/vfs@1.6.4(typescript@7.1.0-dev.20261025.1)':
     dependencies:
       debug: 4.4.3
-      typescript: 5.9.3
+      typescript: 7.1.0-dev.20261025.1
     transitivePeerDependencies:
       - supports-color
 
@@ -8566,15 +8629,15 @@ snapshots:
 
   '@workflow/serde@4.1.0': {}
 
-  '@wrtnlabs/evidence@0.2.1(ttsc@0.34.1(typescript@7.1.0-dev.20261020.3))(typescript@7.1.0-dev.20261020.3)':
+  '@wrtnlabs/evidence@0.2.1(ttsc@0.34.1(typescript@7.1.0-dev.20261022.1))(typescript@7.1.0-dev.20261022.1)':
     dependencies:
       '@prisma/prisma-schema-wasm': 7.10.0-2.d0368e25c88e68caa4d283b5f2d88d1b76ed9356
       '@typia/interface': 14.0.6
       '@typia/utils': 14.0.6
       tstl: 3.0.0
-      ttsc: 0.34.1(typescript@7.1.0-dev.20261020.3)
-      typescript: 7.1.0-dev.20261020.3
-      typia: 14.0.6(ttsc@0.34.1(typescript@7.1.0-dev.20261020.3))
+      ttsc: 0.34.1(typescript@7.1.0-dev.20261022.1)
+      typescript: 7.1.0-dev.20261022.1
+      typia: 14.0.6(ttsc@0.34.1(typescript@7.1.0-dev.20261022.1))
       web-tree-sitter: 0.27.0
       yaml: 2.9.1
 
@@ -11289,23 +11352,23 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nextra-theme-blog@4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nextra@4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  nextra-theme-blog@4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nextra@4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@7.1.0-dev.20261025.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       next: 15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-themes: 0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-view-transitions: 0.3.5(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      nextra: 4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      nextra: 4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@7.1.0-dev.20261025.1)
       react: 18.3.1
       react-compiler-runtime: 19.1.0-rc.3(react@18.3.1)
       react-dom: 18.3.1(react@18.3.1)
 
-  nextra-theme-docs@4.6.1(@types/react@18.3.29)(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nextra@4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(use-sync-external-store@1.6.0(react@18.3.1)):
+  nextra-theme-docs@4.6.1(@types/react@18.3.29)(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nextra@4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@7.1.0-dev.20261025.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(use-sync-external-store@1.6.0(react@18.3.1)):
     dependencies:
       '@headlessui/react': 2.2.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
       next: 15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-themes: 0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      nextra: 4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      nextra: 4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@7.1.0-dev.20261025.1)
       react: 18.3.1
       react-compiler-runtime: 19.1.0-rc.3(react@18.3.1)
       react-dom: 18.3.1(react@18.3.1)
@@ -11317,13 +11380,13 @@ snapshots:
       - immer
       - use-sync-external-store
 
-  nextra@4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3):
+  nextra@4.6.1(next@15.5.18(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@7.1.0-dev.20261025.1):
     dependencies:
       '@formatjs/intl-localematcher': 0.6.2
       '@headlessui/react': 2.2.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mdx-js/mdx': 3.1.1
       '@napi-rs/simple-git': 0.1.22
-      '@shikijs/twoslash': 3.23.0(typescript@5.9.3)
+      '@shikijs/twoslash': 3.23.0(typescript@7.1.0-dev.20261025.1)
       '@theguild/remark-mermaid': 0.3.0(react@18.3.1)
       '@theguild/remark-npm2yarn': 0.3.3
       better-react-mathjax: 2.3.0(react@18.3.1)
@@ -12531,14 +12594,14 @@ snapshots:
 
   ts-dedent@2.2.0: {}
 
-  ts-loader@9.6.0(loader-utils@2.0.4)(typescript@5.9.3)(webpack@5.107.2(postcss@8.5.10)):
+  ts-loader@9.6.0(loader-utils@2.0.4)(typescript@7.1.0-dev.20261025.1)(webpack@5.107.2(postcss@8.5.10)):
     dependencies:
       chalk: 4.1.2
       enhanced-resolve: 5.22.1
       micromatch: 4.0.8
       semver: 7.7.4
       source-map: 0.7.6
-      typescript: 5.9.3
+      typescript: 7.1.0-dev.20261025.1
       webpack: 5.107.2(postcss@8.5.10)
     optionalDependencies:
       loader-utils: 2.0.4
@@ -12552,11 +12615,26 @@ snapshots:
 
   tstl@3.0.0: {}
 
-  ttsc@0.34.1(typescript@7.1.0-dev.20261020.3):
+  ttsc@0.34.1(typescript@7.1.0-dev.20261022.1):
     dependencies:
       acorn: 8.16.0
       cjs-module-lexer: 2.2.1
-      typescript: 7.1.0-dev.20261020.3
+      typescript: 7.1.0-dev.20261022.1
+    optionalDependencies:
+      '@ttsc/darwin-arm64': 0.34.1
+      '@ttsc/darwin-x64': 0.34.1
+      '@ttsc/linux-arm': 0.34.1
+      '@ttsc/linux-arm64': 0.34.1
+      '@ttsc/linux-x64': 0.34.1
+      '@ttsc/win32-arm64': 0.34.1
+      '@ttsc/win32-x64': 0.34.1
+      fsevents: 2.3.3
+
+  ttsc@0.34.1(typescript@7.1.0-dev.20261025.1):
+    dependencies:
+      acorn: 8.16.0
+      cjs-module-lexer: 2.2.1
+      typescript: 7.1.0-dev.20261025.1
     optionalDependencies:
       '@ttsc/darwin-arm64': 0.34.1
       '@ttsc/darwin-x64': 0.34.1
@@ -12569,11 +12647,11 @@ snapshots:
 
   twoslash-protocol@0.3.8: {}
 
-  twoslash@0.3.8(typescript@5.9.3):
+  twoslash@0.3.8(typescript@7.1.0-dev.20261025.1):
     dependencies:
-      '@typescript/vfs': 1.6.4(typescript@5.9.3)
+      '@typescript/vfs': 1.6.4(typescript@7.1.0-dev.20261025.1)
       twoslash-protocol: 0.3.8
-      typescript: 5.9.3
+      typescript: 7.1.0-dev.20261025.1
     transitivePeerDependencies:
       - supports-color
 
@@ -12588,34 +12666,42 @@ snapshots:
       media-typer: 1.1.0
       mime-types: 3.0.2
 
-  typedoc@0.28.19(typescript@5.9.3):
+  typedoc@0.28.19(typescript@7.1.0-dev.20261025.1):
     dependencies:
       '@gerrit0/mini-shiki': 3.23.0
       lunr: 2.3.9
       markdown-it: 14.2.0
       minimatch: 10.2.5
-      typescript: 5.9.3
+      typescript: 7.1.0-dev.20261025.1
       yaml: 2.8.3
 
-  typescript@5.9.3: {}
-
-  typescript@7.1.0-dev.20261020.3:
+  typescript@7.1.0-dev.20261022.1:
     optionalDependencies:
-      '@typescript/typescript-darwin-arm64': 7.1.0-dev.20261020.3
-      '@typescript/typescript-darwin-x64': 7.1.0-dev.20261020.3
-      '@typescript/typescript-linux-arm': 7.1.0-dev.20261020.3
-      '@typescript/typescript-linux-arm64': 7.1.0-dev.20261020.3
-      '@typescript/typescript-linux-x64': 7.1.0-dev.20261020.3
-      '@typescript/typescript-win32-arm64': 7.1.0-dev.20261020.3
-      '@typescript/typescript-win32-x64': 7.1.0-dev.20261020.3
+      '@typescript/typescript-darwin-arm64': 7.1.0-dev.20261022.1
+      '@typescript/typescript-darwin-x64': 7.1.0-dev.20261022.1
+      '@typescript/typescript-linux-arm': 7.1.0-dev.20261022.1
+      '@typescript/typescript-linux-arm64': 7.1.0-dev.20261022.1
+      '@typescript/typescript-linux-x64': 7.1.0-dev.20261022.1
+      '@typescript/typescript-win32-arm64': 7.1.0-dev.20261022.1
+      '@typescript/typescript-win32-x64': 7.1.0-dev.20261022.1
 
-  typia@14.0.6(ttsc@0.34.1(typescript@7.1.0-dev.20261020.3)):
+  typescript@7.1.0-dev.20261025.1:
+    optionalDependencies:
+      '@typescript/typescript-darwin-arm64': 7.1.0-dev.20261025.1
+      '@typescript/typescript-darwin-x64': 7.1.0-dev.20261025.1
+      '@typescript/typescript-linux-arm': 7.1.0-dev.20261025.1
+      '@typescript/typescript-linux-arm64': 7.1.0-dev.20261025.1
+      '@typescript/typescript-linux-x64': 7.1.0-dev.20261025.1
+      '@typescript/typescript-win32-arm64': 7.1.0-dev.20261025.1
+      '@typescript/typescript-win32-x64': 7.1.0-dev.20261025.1
+
+  typia@14.0.6(ttsc@0.34.1(typescript@7.1.0-dev.20261022.1)):
     dependencies:
       '@typia/interface': 14.0.6
       '@typia/utils': 14.0.6
       randexp: 0.5.3
     optionalDependencies:
-      ttsc: 0.34.1(typescript@7.1.0-dev.20261020.3)
+      ttsc: 0.34.1(typescript@7.1.0-dev.20261022.1)
 
   uc.micro@2.1.0: {}
 
