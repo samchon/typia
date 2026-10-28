@@ -27,7 +27,7 @@ catalogs:
     tgrid: ^1.2.1
   typescript:
     ts-node: ^10.9.2
-    typescript: 7.1.0-dev.20261020.3
+    typescript: 7.1.0-dev.20261024.1
   rolldown:
     rolldown: ^1.1.5
   utils:
