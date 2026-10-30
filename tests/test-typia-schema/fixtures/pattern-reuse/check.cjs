@@ -4,6 +4,7 @@ const vm = require("node:vm");
 const { createRequire } = require("node:module");
 const { pathToFileURL } = require("node:url");
 const path = require("node:path");
+const { parse } = require("acorn");
 
 const sku = "^[A-Z]{3}-[0-9]{4}$";
 const NativeRegExp = RegExp;
@@ -19,10 +20,11 @@ const countedRegExp = new Proxy(NativeRegExp, {
   },
 });
 
-function check(api) {
-  assert.equal(counts.get(sku), undefined, "factories must not construct unused patterns");
+function check(api, early = false) {
+  assert.equal(counts.get(sku), early ? 1 : undefined, "only an early call may construct a pattern before the module body");
   assert.equal(counts.get("["), undefined);
   const valid = { sku: "ABC-1234", title: "abc" };
+  assert.equal(api.factory({ ...valid, sku: "bad" }), false);
   for (let i = 0; i < 5; ++i) {
     assert.equal(api.factory(valid), true);
     assert.equal(api.direct(valid), true);
@@ -32,6 +34,21 @@ function check(api) {
     assert.equal(api.array([valid.sku]), true);
     assert.equal(api.keys({ [valid.sku]: 1 }), true);
     assert.equal(api.early(valid.sku), true);
+    assert.equal(api.template(valid.sku), true);
+    assert.equal(api.template("abc-1234"), false);
+    assert.equal(api.templateUnion(valid.sku), true);
+    assert.equal(api.templateUnion("ZBC-1234"), true);
+    assert.equal(api.templateUnion("Abc-1234"), false);
+    assert.equal(api.placeholder("sku:" + valid.sku), true);
+    assert.equal(api.placeholder("sku:abc-1234"), false);
+    assert.equal(api.placeholderUnion("left:" + valid.sku), true);
+    assert.equal(api.placeholderUnion("right:" + valid.sku), true);
+    assert.equal(api.placeholderUnion("left:abc-1234"), false);
+    assert.equal(api.placeholderUnion("right:abc-1234"), false);
+    assert.equal(api.backtracking("prefix" + valid.sku), true);
+    assert.equal(api.backtracking("prefixabc-1234"), false);
+    assert.equal(api.customTemplate("custom:allow"), true);
+    assert.equal(api.customTemplate("custom:deny"), false);
     assert.equal(api.factory({ ...valid, sku: "ABC-123" }), false);
     assert.equal(api.direct({ ...valid, sku: "abc-1234" }), false);
     assert.equal(api.validation({ ...valid, title: "ab" }).success, false);
@@ -49,18 +66,26 @@ function check(api) {
     assert.equal(api.escaped(character), true, JSON.stringify(character));
   assert.equal(api.escaped("x"), false);
   assert.equal(api.invalid(1), false);
+  assert.equal(api.invalidTemplate("other"), false);
   assert.equal(counts.get("["), undefined);
-  for (let i = 0; i < 2; ++i)
+  for (let i = 0; i < 2; ++i) {
     assert.throws(() => api.invalid("x"), (error) => error.name === "SyntaxError");
-  assert.equal(counts.get("["), 2, "failed construction is retried at the original check site");
+    assert.throws(() => api.invalidTemplate("bad:x"), (error) => error.name === "SyntaxError");
+  }
+  assert.equal(counts.get("["), 4, "failed construction is retried at the original check site");
   for (let i = 0; i < 3; ++i) assert.equal(api.stateful("x"), true);
-  assert.equal(counts.get("^x$"), 3, "custom flags retain per-call construction");
+  for (let i = 0; i < 3; ++i) assert.equal(api.statefulTemplate("stateful:x"), true);
+  assert.equal(api.statefulTemplate("stateful:y"), false);
+  assert.equal(counts.get("^x$"), 7, "custom flags retain per-call construction");
   assert.equal(api.custom("allow"), true);
   assert.equal(api.custom("deny"), false);
   assert.equal(counts.get("^deny$"), undefined);
 }
 
 async function main() {
+  const ecmaVersion = Number(process.argv[2].slice(2));
+  for (const [file, sourceType] of [["index.cjs", "script"], ["index.mjs", "module"], ["index-cycle.mjs", "module"], ["cycle-runner.mjs", "module"]])
+    parse(fs.readFileSync(path.resolve("out", file), "utf8"), { ecmaVersion, sourceType });
   const file = path.resolve("out/index.cjs");
   const module = { exports: {} };
   const context = vm.createContext({
@@ -88,6 +113,9 @@ async function main() {
   try {
     const api = await import(pathToFileURL(path.resolve("out/index.mjs")).href);
     check(api);
+    counts = new Map();
+    const cyclic = await import(pathToFileURL(path.resolve("out/index-cycle.mjs")).href);
+    check(cyclic, true);
   } finally {
     globalThis.RegExp = NativeRegExp;
   }

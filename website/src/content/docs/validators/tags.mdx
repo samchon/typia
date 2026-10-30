@@ -168,7 +168,7 @@ On a `bigint`, `Type<"int64">` accepts `-(2n ** 63n)` through `2n ** 63n - 1n` a
 
 `MinLength` and `MaxLength` count characters, which is what the `minLength` and `maxLength` keywords they emit mean — not the UTF-16 code units `String.prototype.length` returns. One emoji is one character even though its `.length` is `2`, and a flag or a ZWJ sequence counts each of its code points.
 
-Length checks use UTF-16 bounds to skip counting when those bounds already prove the result; ambiguous inputs still count code points. Standard `Pattern` checks, including the `@pattern` spelling, reuse each flag-free regular expression within the generated file after its first successful check. Construction stays lazy, so an invalid expression still throws when its string check is reached. Custom tag validation expressions keep their authored behavior.
+Length checks use UTF-16 bounds to skip counting when those bounds already prove the result; ambiguous inputs still count code points. Standard `Pattern` checks, including the `@pattern` spelling, reuse each flag-free regular expression within the generated file after its first successful construction. Construction stays lazy, so an invalid expression still throws when its string check is reached. Custom tag expressions outside the standard pattern form keep their authored behavior.
 
 `Format` accepts: `byte`, `password`, `regex`, `uuid`, `email`, `hostname`, `idn-email`, `idn-hostname`, `iri`, `iri-reference`, `ipv4`, `ipv6`, `uri`, `uri-reference`, `uri-template`, `url`, `date-time`, `date`, `time`, `duration`, `json-pointer`, `relative-json-pointer`.
 

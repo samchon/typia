@@ -31,9 +31,17 @@ export const validation = typia.createValidate<Order>();
 export const documented = typia.createIs<Documented>();
 export const array = typia.createIs<Sku[]>();
 export const keys = typia.createIs<Record<Sku, number>>();
+export const template = typia.createIs<`${string}-${number}` & Sku>();
+export const templateUnion = typia.createIs<(`A${string}` & Sku) | (`Z${string}` & Sku)>();
+export const placeholder = typia.createIs<`sku:${Sku}`>();
+export const placeholderUnion = typia.createIs<`left:${Sku}` | `right:${Sku}`>();
+export const backtracking = typia.createIs<`${string & tags.MinLength<1>}${Sku}`>();
+export const customTemplate = typia.createIs<`custom:${Custom}`>();
+export const statefulTemplate = typia.createIs<`stateful:${Stateful}`>();
 export const empty = typia.createIs<string & tags.Pattern<"">>();
 export const escaped = typia.createIs<string & tags.Pattern<'^[\\\\/"\n\r\u2028\u2029]+$'>>();
 export const invalid = typia.createIs<string & tags.Pattern<"[">>();
+export const invalidTemplate = typia.createIs<`bad:${string & tags.Pattern<"[">}`>();
 export const stateful = typia.createIs<Stateful>();
 export const custom = typia.createIs<Custom>();
 

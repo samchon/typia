@@ -26,6 +26,7 @@
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
     "@typia/template": "workspace:^",
+    "acorn": "catalog:utils",
     "ttsc": "catalog:samchon"
   },
   "dependencies": {

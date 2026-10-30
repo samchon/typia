@@ -1,7 +1,5 @@
 import test from "node:test";
 
-import { test_string_length_utf16_bounds } from "./features/typia/test_string_length_utf16_bounds";
-
 import { test_automated_primitive_equal_to_oracle } from "./features/automated_oracles/test_automated_primitive_equal_to_oracle";
 import { test_automated_resolved_equal_to_async_oracle } from "./features/automated_oracles/test_automated_resolved_equal_to_async_oracle";
 import { test_automated_resolved_equal_to_oracle } from "./features/automated_oracles/test_automated_resolved_equal_to_oracle";
@@ -302,6 +300,7 @@ import { test_map_util_take } from "./features/test_map_util_take";
 import { test_singleton_lifecycle } from "./features/test_singleton_lifecycle";
 import { test_total_comparison_shape } from "./features/test_total_comparison_shape";
 import { test_transform_descriptor_host_inputs } from "./features/transform/test_transform_descriptor_host_inputs";
+import { test_string_length_utf16_bounds } from "./features/typia/test_string_length_utf16_bounds";
 
 test("MapUtil.take preserves map membership", test_map_util_take);
 
