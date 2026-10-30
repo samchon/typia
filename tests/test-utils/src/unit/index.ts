@@ -1,5 +1,7 @@
 import test from "node:test";
 
+import { test_string_length_utf16_bounds } from "./features/typia/test_string_length_utf16_bounds";
+
 import { test_automated_primitive_equal_to_oracle } from "./features/automated_oracles/test_automated_primitive_equal_to_oracle";
 import { test_automated_resolved_equal_to_async_oracle } from "./features/automated_oracles/test_automated_resolved_equal_to_async_oracle";
 import { test_automated_resolved_equal_to_oracle } from "./features/automated_oracles/test_automated_resolved_equal_to_oracle";
@@ -1074,3 +1076,5 @@ test(
   test_transform_descriptor_host_inputs.name,
   test_transform_descriptor_host_inputs,
 );
+
+test(test_string_length_utf16_bounds.name, test_string_length_utf16_bounds);

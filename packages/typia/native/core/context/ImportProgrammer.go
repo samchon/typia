@@ -9,7 +9,7 @@ import (
 )
 
 // ImportProgrammer collects the imports that generated code needs and builds the
-// references to them.
+// references to them. It also collects lazily initialized pattern slots.
 //
 // In its default mode references are plain identifiers and ToStatements writes
 // named, default and namespace imports. After SetEmitContext, every file becomes
@@ -25,6 +25,8 @@ type ImportProgrammer struct {
   assets_  map[string]*importProgrammer_asset
   order_   []string
   options_ ImportProgrammer_IOptions
+  patterns_ map[string]*shimast.Node
+  patternOrder_ []string
   // emit_ switches import emission to AST-integration mode. When set, imports
   // become namespace imports created by emit_.Factory, and every reference is a
   // member access on a cloned unique name so tsgo's module transform owns the
@@ -146,6 +148,7 @@ func NewImportProgrammer(options ...ImportProgrammer_IOptions) *ImportProgrammer
     assets_:  map[string]*importProgrammer_asset{},
     order_:   []string{},
     options_: opt,
+    patterns_: map[string]*shimast.Node{},
   }
 }
 
@@ -332,11 +335,11 @@ func (p *ImportProgrammer) GetInternalText(name string) string {
   return alias
 }
 
-// ToStatements returns the import statements for everything requested. Files are
+// ToStatements returns the import statements for everything requested. Pattern slots follow the imports. Files are
 // ordered by rank, with the internal helper files grouped by kind, and by first
 // use within a rank.
 //
-// @evidence contracts/common.md#principled-implementation Files are stable-sorted by a rank that groups internal helpers by kind and keeps insertion order within a rank, then emitted as one namespace import with optional constants in emit mode, or as namespace, default and named imports in the legacy mode, where a type-only default gets the type keyword.
+// @evidence contracts/common.md#principled-implementation Files are stable-sorted by a rank that groups internal helpers by kind and keeps insertion order within a rank, then emitted as one namespace import with optional constants in emit mode, or as namespace, default and named imports in the legacy mode, where a type-only default gets the type keyword. Pattern slots follow as uninitialized var declarations in first-use order.
 // @evidence contracts/common.md#clear-and-simple-design One method with the two mode branches and the rank helper.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The ranking is a fixed table and the order is deterministic.
 // @evidence contracts/common.md#meaningful-documentation The doc states the order and the two forms.
@@ -447,6 +450,13 @@ func (p *ImportProgrammer) ToStatements() []*shimast.Node {
         nil,
       ))
     }
+  }
+  for _, source := range p.patternOrder_ {
+    statements = append(statements, f.NewVariableStatement(nil,
+      f.NewVariableDeclarationList(f.NewNodeList([]*shimast.Node{
+        f.NewVariableDeclaration(p.patterns_[source].Clone(f), nil, nil, nil),
+      }), shimast.NodeFlagsNone),
+    ))
   }
   return statements
 }
