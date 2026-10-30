@@ -9,7 +9,7 @@ import (
 )
 
 // ImportProgrammer collects the imports that generated code needs and builds the
-// references to them.
+// references to them. It also collects lazily initialized pattern slots.
 //
 // In its default mode references are plain identifiers and ToStatements writes
 // named, default and namespace imports. After SetEmitContext, every file becomes
@@ -17,14 +17,16 @@ import (
 // name, so the compiler's module transform binds them. It is not safe for
 // concurrent use.
 //
-// @evidence contracts/common.md#principled-implementation Requests are recorded per file with their insertion order and each file is emitted once, either as named, default and namespace imports in the legacy mode or as one namespace import with member accesses on a generated unique name in emit-context mode, so the compiler's module transform decides the final CommonJS aliasing. Internal helpers are always imported from the typia package's internal folder under prefixed aliases.
+// @evidence contracts/common.md#principled-implementation Requests are recorded per file with their insertion order and each file is emitted once, either as named, default and namespace imports in the legacy mode or as one namespace import with member accesses on a generated unique name in emit-context mode, so the compiler's module transform decides the final CommonJS aliasing. Internal helpers use typia's internal folder. Static pattern sources share file-local lazy slots only when the compiler can allocate collision-safe names.
 // @evidence contracts/common.md#clear-and-simple-design One type with private asset records and helpers for module identifiers, ranks, member construction and aliases; the two emission modes share the recording code.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Ordering uses a rank table over internal helper names and first use, not special-casing of a consumer. It is not safe for concurrent use, which the doc states.
 // @evidence contracts/common.md#meaningful-documentation The doc describes both modes and the concurrency limit, and the field comment explains emit mode.
 type ImportProgrammer struct {
-  assets_  map[string]*importProgrammer_asset
-  order_   []string
-  options_ ImportProgrammer_IOptions
+  assets_       map[string]*importProgrammer_asset
+  order_        []string
+  options_      ImportProgrammer_IOptions
+  patterns_     map[string]*shimast.Node
+  patternOrder_ []string
   // emit_ switches import emission to AST-integration mode. When set, imports
   // become namespace imports created by emit_.Factory, and every reference is a
   // member access on a cloned unique name so tsgo's module transform owns the
@@ -332,14 +334,15 @@ func (p *ImportProgrammer) GetInternalText(name string) string {
   return alias
 }
 
-// ToStatements returns the import statements for everything requested. Files are
-// ordered by rank, with the internal helper files grouped by kind, and by first
-// use within a rank.
+// ToStatements returns the requested imports followed by lazy pattern slots.
+// Import files are ordered by rank, with internal helpers grouped by kind, and
+// by first use within a rank.
 //
-// @evidence contracts/common.md#principled-implementation Files are stable-sorted by a rank that groups internal helpers by kind and keeps insertion order within a rank, then emitted as one namespace import with optional constants in emit mode, or as namespace, default and named imports in the legacy mode, where a type-only default gets the type keyword.
+// @evidence contracts/common.md#principled-implementation Files are stable-sorted by a rank that groups internal helpers by kind and keeps insertion order within a rank, then emitted as one namespace import with optional constants in emit mode, or as namespace, default and named imports in the legacy mode, where a type-only default gets the type keyword. Pattern slots follow as uninitialized var declarations in first-use order.
 // @evidence contracts/common.md#clear-and-simple-design One method with the two mode branches and the rank helper.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The ranking is a fixed table and the order is deterministic.
 // @evidence contracts/common.md#meaningful-documentation The doc states the order and the two forms.
+// @evidence contracts/performance.md#efficient-algorithms Sorting A import assets costs O(A log A); pattern declarations follow in one O(P) first-use walk. Output allocation is proportional to the declarations that must be emitted, without scanning authored input strings or allocating a runtime lookup table.
 func (p *ImportProgrammer) ToStatements() []*shimast.Node {
   f := NodeFactoryOf(p.emit_)
   statements := []*shimast.Node{}
@@ -447,6 +450,13 @@ func (p *ImportProgrammer) ToStatements() []*shimast.Node {
         nil,
       ))
     }
+  }
+  for _, source := range p.patternOrder_ {
+    statements = append(statements, f.NewVariableStatement(nil,
+      f.NewVariableDeclarationList(f.NewNodeList([]*shimast.Node{
+        f.NewVariableDeclaration(p.patterns_[source].Clone(f), nil, nil, nil),
+      }), shimast.NodeFlagsNone),
+    ))
   }
   return statements
 }

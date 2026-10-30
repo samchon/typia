@@ -4,7 +4,7 @@
     {
       "name": "maintained TypeScript production declarations",
       "type": "typescript",
-      "files": ["src/**/*.ts"],
+      "files": ["src/**/*.ts", "!src/internal/_stringLengthGte.ts", "!src/internal/_stringLengthLte.ts"],
       "symbol": ["type", "function"],
       "reference": {
         "type": "markdown",
@@ -17,7 +17,7 @@
     {
       "name": "maintained native Go production declarations",
       "type": "go",
-      "files": ["native/**/*.go", "!native/**/*_test.go"],
+      "files": ["native/**/*.go", "!native/**/*_test.go", "!native/core/context/ImportProgrammerPattern.go", "!native/core/context/ImportProgrammer.go"],
       "symbol": ["type", "function"],
       "reference": {
         "type": "markdown",
@@ -52,6 +52,41 @@
         "symbol": "h2",
         "checklist": true
       }
+    },
+    {
+      "name": "runtime string-length bounds",
+      "type": "typescript",
+      "files": ["src/internal/_stringLengthGte.ts", "src/internal/_stringLengthLte.ts"],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": ["contracts/common.md", "contracts/performance.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "generated pattern reuse",
+      "type": "go",
+      "files": ["native/core/context/ImportProgrammer.go", "native/core/context/ImportProgrammerPattern.go"],
+      "symbol": ["type", "function"],
+      "reference": [
+        {
+          "type": "markdown",
+          "root": "../../.agents/skills",
+          "files": ["contracts/common.md"],
+          "symbol": "h2",
+          "checklist": true
+        },
+        {
+          "type": "markdown",
+          "root": "../../.agents/skills",
+          "files": ["contracts/performance.md"],
+          "symbol": "h2",
+          "checklist": false
+        }
+      ]
     }
   ]
 }

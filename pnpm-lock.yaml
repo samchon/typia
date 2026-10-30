@@ -45,6 +45,9 @@ catalogs:
     '@types/uuid':
       specifier: ^11.0.0
       version: 11.0.0
+    acorn:
+      specifier: 8.16.0
+      version: 8.16.0
     openai:
       specifier: ^6.16.0
       version: 6.34.0
@@ -724,6 +727,9 @@ importers:
       '@typia/template':
         specifier: workspace:^
         version: link:../template
+      acorn:
+        specifier: catalog:utils
+        version: 8.16.0
       ttsc:
         specifier: catalog:samchon
         version: 0.34.1(typescript@7.1.0-dev.20261020.3)

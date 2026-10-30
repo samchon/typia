@@ -1,0 +1,52 @@
+import typia, { tags } from "typia";
+
+type Sku = string & tags.Pattern<"^[A-Z]{3}-[0-9]{4}$">;
+interface Order {
+  sku: Sku;
+  title: string & tags.MinLength<3> & tags.MaxLength<200>;
+}
+interface Documented {
+  /** @pattern ^[A-Z]{3}-[0-9]{4}$ */
+  sku: string;
+}
+type Stateful = string & tags.TagBase<{
+  target: "string";
+  kind: "pattern";
+  value: "^x$";
+  validate: 'RegExp("^x$", "g").test($input)';
+}>;
+type Custom = string & tags.TagBase<{
+  target: "string";
+  kind: "pattern";
+  value: "^deny$";
+  validate: '$input === "allow"';
+}>;
+
+// Deliberately collide with the generated name's base.
+export const __typia_transform_pattern = 42;
+export const factory = typia.createIs<Order>();
+export const direct = (input: unknown) => typia.is<Order>(input);
+export const assertion = typia.createAssert<Order>();
+export const validation = typia.createValidate<Order>();
+export const documented = typia.createIs<Documented>();
+export const array = typia.createIs<Sku[]>();
+export const keys = typia.createIs<Record<Sku, number>>();
+export const template = typia.createIs<`${string}-${number}` & Sku>();
+export const templateUnion = typia.createIs<(`A${string}` & Sku) | (`Z${string}` & Sku)>();
+export const placeholder = typia.createIs<`sku:${Sku}`>();
+export const placeholderUnion = typia.createIs<`left:${Sku}` | `right:${Sku}`>();
+export const backtracking = typia.createIs<`${string & tags.MinLength<1>}${Sku}`>();
+export const customTemplate = typia.createIs<`custom:${Custom}`>();
+export const statefulTemplate = typia.createIs<`stateful:${Stateful}`>();
+export const empty = typia.createIs<string & tags.Pattern<"">>();
+export const escaped = typia.createIs<string & tags.Pattern<'^[\\\\/"\n\r\u2028\u2029]+$'>>();
+export const invalid = typia.createIs<string & tags.Pattern<"[">>();
+export const invalidTemplate = typia.createIs<`bad:${string & tags.Pattern<"[">}`>();
+export const stateful = typia.createIs<Stateful>();
+export const custom = typia.createIs<Custom>();
+
+// A function declaration can be invoked by a circular dependency before the
+// module body initializes ordinary let/const declarations.
+export function early(input: unknown): boolean {
+  return typia.is<Sku>(input);
+}

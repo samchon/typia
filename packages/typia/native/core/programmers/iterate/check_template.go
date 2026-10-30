@@ -30,7 +30,7 @@ type Check_templateProps struct {
 // guard plus one `RegExp(...).test` per template, with the type tags inlined
 // into the member when several templates are neighbors.
 //
-// @evidence contracts/common.md#principled-implementation It builds the check entry of template literal types: a string guard plus one `RegExp(...).test` per template, with the type tags inlined into the member when several templates are neighbors.
+// @evidence contracts/common.md#principled-implementation It builds the check entry of template literal types: a string guard plus one structural regex per template. Whole-string and captured-placeholder tag conditions use the common string-tag lowering, including backtracking and union members, so standard Pattern tags share the file cache without changing structural matching.
 // @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
@@ -125,7 +125,7 @@ func check_template_type_tags(props Check_templateProps, tpl *nativemetadata.Met
     for _, tag := range tags {
       conditions = append(conditions, nativehelpers.ICheckEntry_ICondition{
         Expected:   tpl.GetBaseName() + " & " + tag.Name,
-        Expression: check_string_transpile(props.Context, tag.Validate)(props.Input),
+        Expression: check_string_transpile(props.Context, tag)(props.Input),
       })
     }
     for _, tag := range row {
@@ -253,7 +253,7 @@ func check_template_value_conditions(props Check_templateProps, base string, ato
       for _, tag := range check_string_filter_validate(row) {
         conditions = append(conditions, nativehelpers.ICheckEntry_ICondition{
           Expected:   base + " & " + tag.Name,
-          Expression: check_string_transpile(props.Context, tag.Validate)(input),
+          Expression: check_string_transpile(props.Context, tag)(input),
         })
       }
       for _, tag := range row {
@@ -611,7 +611,7 @@ func check_template_inline_tags(props Check_templateProps, tpl *nativemetadata.M
     tags := check_string_filter_validate(row)
     expressions := make([]*shimast.Node, 0, len(tags))
     for _, tag := range tags {
-      expressions = append(expressions, check_string_transpile(props.Context, tag.Validate)(props.Input))
+      expressions = append(expressions, check_string_transpile(props.Context, tag)(props.Input))
     }
     for _, tag := range row {
       if condition := check_exclude_condition("string", tag, props.Input, props.Emit); condition != nil {

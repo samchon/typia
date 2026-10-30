@@ -300,6 +300,7 @@ import { test_map_util_take } from "./features/test_map_util_take";
 import { test_singleton_lifecycle } from "./features/test_singleton_lifecycle";
 import { test_total_comparison_shape } from "./features/test_total_comparison_shape";
 import { test_transform_descriptor_host_inputs } from "./features/transform/test_transform_descriptor_host_inputs";
+import { test_string_length_utf16_bounds } from "./features/typia/test_string_length_utf16_bounds";
 
 test("MapUtil.take preserves map membership", test_map_util_take);
 
@@ -1074,3 +1075,5 @@ test(
   test_transform_descriptor_host_inputs.name,
   test_transform_descriptor_host_inputs,
 );
+
+test(test_string_length_utf16_bounds.name, test_string_length_utf16_bounds);
