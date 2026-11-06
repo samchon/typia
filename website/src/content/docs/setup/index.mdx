@@ -10,11 +10,11 @@ typia is a compile-time transformer, so your build has to run through the TypeSc
 
 > [!NOTE]
 >
-> Projects pinned to typia 12 and TypeScript below 7 use the [legacy TypeScript setup](/docs/setup/legacy). The rest of this page is the current typia 13 and TypeScript 7 setup.
+> Projects pinned to typia 12 and TypeScript below 7 use the [legacy TypeScript setup](/docs/setup/legacy). The rest of this page covers the current typia release and TypeScript 7.
 
 > [!IMPORTANT]
 >
-> typia's native transform requires [`ttsc`](https://github.com/samchon/ttsc) **0.34.1 or newer**. It supports both TypeScript 7.0 and 7.1; ttsc selects the compiler target from your installed TypeScript version. Version 0.34.1 fixes a TypeScript 7.1 resolution check that could reject unchanged local ambient modules during builds.
+> typia's native transform requires [`ttsc`](https://github.com/samchon/ttsc) **0.36.2 or newer**. It supports both TypeScript 7.0 and 7.1; ttsc selects the compiler target from your installed TypeScript version. Version 0.36.2 negotiates the native emit-input observations used for checked `ttsx` result reuse.
 
 ## Install
 
@@ -44,6 +44,14 @@ bun add -d ttsc typescript
 ```
   </Tabs.Tab>
 </Tabs>
+
+### Native build cache
+
+ttsc builds typia's native plugin from Go source on first use, using its bundled Go toolchain; you do not need a separate Go installation. A company policy that prohibits executing Go still applies to that cold build. The compiled plugin is specific to the installed compiler, ttsc and plugin source, so its cached executable is reused only when those build inputs match.
+
+Persist `node_modules/.cache/ttsc/plugins` across CI jobs to avoid repeating the native build. Persist `node_modules/.cache/ttsc/go-build` as an optional accelerator for builds whose plugin identity changes. Restore these directories after dependency installation, use a cache key containing the runner OS, architecture and lockfile hash, and do not persist temporary `ttsx` run directories. A monorepo shares the cache under its workspace root. The [ttsc build cache guide](https://ttsc.dev/docs/ttsc/cache/) contains GitHub Actions and Docker examples, cache-root overrides and verification commands.
+
+The native plugin cache and checked application results are separate. Typia supplies ttsc with the actual compiler/configuration/resolution observations, linked-hook input reports and compiler-owned output provenance needed to decide whether an unchanged `ttsx` result can be reused. Missing or incomplete proof retains a fresh build. Other selected plugins must also support their negotiated observation protocols; typia's support does not grant completeness to a separate aggregate host such as nestia. See [ttsx checked-result reuse](https://ttsc.dev/docs/ttsc/execute/).
 
 Keep the TypeScript project strict:
 

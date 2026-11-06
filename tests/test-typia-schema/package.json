@@ -23,6 +23,8 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
+    "@ttsc/evidence": "catalog:samchon",
+    "@ttsc/lint": "catalog:samchon",
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
     "@typia/template": "workspace:^",

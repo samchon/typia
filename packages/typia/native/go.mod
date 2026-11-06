@@ -2,9 +2,8 @@ module github.com/samchon/typia/packages/typia/native
 
 go 1.26
 
-// Build-time floor: the version-neutral Symbol and path APIs consumed by
-// this plugin exist only in ttsc >= 0.34.0. That floor is enforced
-// through typia's package.json `ttsc` peerDependency, not here: ttsc builds
+// The supported ttsc floor (>= 0.36.2, including negotiated emit observations)
+// is enforced through typia's package.json peerDependency, not here: ttsc builds
 // this plugin from source on the user's machine and its buildSourcePlugin
 // generates `replace github.com/samchon/ttsc/packages/ttsc v0.0.0 =>
 // <installed ttsc root>`, so the require below must stay v0.0.0 or the
