@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.3.0",
-    "ttsc": "^0.36.2",
+    "ttsc": "^0.36.3",
     "typescript": "^7.0.2",
     "typia": "file:../tarballs/typia.tgz"
   }

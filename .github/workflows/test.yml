@@ -110,10 +110,10 @@ jobs:
             private: true,
             dependencies: {
               typia: packed("typia"),
-              ttsc: "0.36.2",
+              ttsc: "0.36.3",
               typescript: "7.1.0-dev.20261020.3",
-              "@ttsc/lint": "0.36.2",
-              "@ttsc/evidence": "0.36.2",
+              "@ttsc/lint": "0.36.3",
+              "@ttsc/evidence": "0.36.3",
               "@types/node": "25.3.0"
             },
             pnpm: { overrides: {
