@@ -21,7 +21,7 @@ import path from "node:path";
  * @evidence contracts/testing.md#distinguishing-cases Cold/warm, type-only and linked-source edits, config/plugin/package/external-document edits, semantic TS2322 and lint failure/recovery, corrupt storage and bypass retain named verdicts. Adjacent validator inputs distinguish stale transformation; the dependency's class-field option makes incorrect entry-option reuse observable. The packed CI additionally selects the published old producer and requires two fresh successful launches without observation opt-in.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor runs this E2E case through the canonical schema workspace start command on TypeScript 7.0 and 7.1. Its child launches cross the actual installed CLI/native producer/runtime boundary; portable channel details belong to the native unit cases.
  * @evidence contracts/e2e.md#necessary-boundary Persistent reuse across launcher lifetimes, composed lint/Evidence observations and actual source-linked runtime identity require the installed process protocol rather than a fake cache or an in-process observation encoder.
- * @evidence contracts/e2e.md#shared-execution One fixture, linked package, content-keyed native artifact and stable trace/cache environment serve all transitions. The public cache-path report selects the caller's Go accelerator for shared native object work while completed runtime results remain private and cold. The old-producer compatibility pair shares the installed consumer; only selecting a different compiler or producer needs another installation/build.
+ * @evidence contracts/e2e.md#shared-execution One fixture, linked package, content-keyed native artifact and stable trace/cache environment serve all transitions. The public cache-path report shares the caller's Go objects. Windows first prepares native executables through ttsc --noEmit because their first execution can change ctime and correctly refuse a result spanning that identity change; completed runtime storage must remain absent before the cold application launch. The old-producer pair shares the installed consumer; only a compiler/producer change needs another installation/build.
  * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Synchronous children finish before mutation. The test-owned root contains sources, private results and traces; its junction is unlinked before cleanup. A timeout or signal retains the fixture because descendant closure is unproved. The caller retains its shared Go cache. Trace identity and environment remain constant across cold/warm runs; inherited runtime protocol variables and NODE_OPTIONS preloads are cleared together for independent child discovery.
  * @evidence contracts/e2e.md#preserved-coverage This new runtime case adds cross-process admission and invalidation assertions; the companion native unit cases retain generation proof, incompleteness, noEmit and private-channel failure coverage.
  */
@@ -141,6 +141,22 @@ export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
       !path.isAbsolute(relative)
     );
   };
+  const invoke = (file: string, args: string[]) => {
+    const result = spawnSync(process.execPath, [file, ...args], {
+      cwd: root,
+      encoding: "utf8",
+      timeout: 1_200_000,
+      env,
+    });
+    if (result.error || result.signal !== null) {
+      retain = true;
+      throw new Error(
+        `Runtime actor closure unproved; fixture retained at ${root}`,
+        { cause: result.error ?? result.signal },
+      );
+    }
+    return result;
+  };
   const run = (
     label: string,
     expected: unknown[],
@@ -149,23 +165,7 @@ export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
     args: string[] = [],
     diagnostic = /no-debugger/,
   ): void => {
-    const result = spawnSync(
-      process.execPath,
-      [launcher, ...args, "src/index.ts"],
-      {
-        cwd: root,
-        encoding: "utf8",
-        timeout: 1_200_000,
-        env,
-      },
-    );
-    if (result.error || result.signal !== null) {
-      retain = true;
-      throw new Error(
-        `Runtime actor closure unproved; fixture retained at ${root}`,
-        { cause: result.error ?? result.signal },
-      );
-    }
+    const result = invoke(launcher, [...args, "src/index.ts"]);
     const events = records();
     check(label, () => {
       assert.equal(result.status === 0, success, result.stdout + result.stderr);
@@ -296,6 +296,18 @@ export const value = observed;
       link,
       process.platform === "win32" ? "junction" : "dir",
     );
+    if (process.platform === "win32") {
+      // Native executable identity may settle on first execution. Prepare that
+      // layer without populating the application's completed-result cache.
+      const prepared = invoke(path.join(path.dirname(launcher), "ttsc.js"), [
+        "--noEmit",
+        "-p",
+        "tsconfig.json",
+      ]);
+      assert.equal(prepared.status, 0, prepared.stdout + prepared.stderr);
+      assert.equal(fs.existsSync(path.join(cache, "runtime-builds")), false);
+      records();
+    }
     run("cold", [true, false, 7]);
     run("warm", [true, false, 7], true);
     if (!expectReuse) {
