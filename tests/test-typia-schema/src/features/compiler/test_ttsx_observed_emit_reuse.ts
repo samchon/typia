@@ -22,7 +22,7 @@ import path from "node:path";
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor runs this E2E case through the canonical schema workspace start command on TypeScript 7.0 and 7.1. Its child launches cross the actual installed CLI/native producer/runtime boundary; portable channel details belong to the native unit cases.
  * @evidence contracts/e2e.md#necessary-boundary Persistent reuse across launcher lifetimes, composed lint/Evidence observations and actual source-linked runtime identity require the installed process protocol rather than a fake cache or an in-process observation encoder.
  * @evidence contracts/e2e.md#shared-execution One fixture, linked package, content-keyed native artifact and stable trace/cache environment serve all transitions. The public cache-path report selects the caller's Go accelerator for shared native object work while completed runtime results remain private and cold. The old-producer compatibility pair shares the installed consumer; only selecting a different compiler or producer needs another installation/build.
- * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Synchronous children finish before mutation. The test-owned root contains sources, private results and traces; its junction is unlinked before cleanup. A timeout or signal retains the fixture because descendant closure is unproved. The caller retains its shared Go cache. Trace identity and environment remain constant across cold/warm runs, and inherited runtime protocol variables are cleared for independent child discovery.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Synchronous children finish before mutation. The test-owned root contains sources, private results and traces; its junction is unlinked before cleanup. A timeout or signal retains the fixture because descendant closure is unproved. The caller retains its shared Go cache. Trace identity and environment remain constant across cold/warm runs; inherited runtime protocol variables and NODE_OPTIONS preloads are cleared together for independent child discovery.
  * @evidence contracts/e2e.md#preserved-coverage This new runtime case adds cross-process admission and invalidation assertions; the companion native unit cases retain generation proof, incompleteness, noEmit and private-channel failure coverage.
  */
 export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
@@ -87,7 +87,9 @@ export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
   };
   const env: NodeJS.ProcessEnv = { ...process.env };
   // An enclosing ttsx invocation may carry a private emitted-output manifest.
-  // Child launches must discover this authored project independently.
+  // Its NODE_OPTIONS also carries runtime preloads whose received/given record
+  // belongs to that invocation. Clear both for this fixture's independent runs.
+  delete env.NODE_OPTIONS;
   for (const key of Object.keys(env))
     if (key.startsWith("TTSC_") || key.startsWith("TTSX_")) delete env[key];
   env.TTSC_CACHE_DIR = cache;
