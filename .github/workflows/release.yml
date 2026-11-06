@@ -111,14 +111,10 @@ jobs:
       # ttsc master can select a different Go plugin interface than the locked
       # @ttsc/wasm package used by the website.
       - name: Checkout ttsc sibling
-        run: |
-          TTSC_VERSION="$(node -p "require('./website/node_modules/@ttsc/wasm/package.json').version")"
-          test -n "${TTSC_VERSION}"
-          git clone --branch "v${TTSC_VERSION}" --depth 1 https://github.com/samchon/ttsc.git ../ttsc
+        run: node scripts/checkout-ttsc.cjs
 
-      # `package:tgz` builds every package to `lib/` before packing them.
       - name: Build Packages
-        run: pnpm run package:tgz
+        run: pnpm run build
       - name: Website Build
         working-directory: website
         run: pnpm run build

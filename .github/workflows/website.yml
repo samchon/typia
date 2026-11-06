@@ -7,11 +7,11 @@ on:
       - .github/workflows/website.yml
       - 'config/**'
       - 'examples/**'
-      - 'experiments/tarballs/**'
       - 'packages/**'
       - 'website/**'
       - 'website/package.json'
       - 'package.json'
+      - 'scripts/**'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
   pull_request:
@@ -20,11 +20,11 @@ on:
       - .github/workflows/website.yml
       - 'config/**'
       - 'examples/**'
-      - 'experiments/tarballs/**'
       - 'packages/**'
       - 'website/**'
       - 'website/package.json'
       - 'package.json'
+      - 'scripts/**'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
 jobs:
@@ -49,10 +49,7 @@ jobs:
       # go.work file (packages/typia/native/go.work). Match that checkout to the
       # installed @ttsc/wasm package so its Go host and browser API cannot drift.
       - name: Checkout ttsc sibling
-        run: |
-          TTSC_VERSION="$(node -p "require('./website/node_modules/@ttsc/wasm/package.json').version")"
-          test -n "${TTSC_VERSION}"
-          git clone --branch "v${TTSC_VERSION}" --depth 1 https://github.com/samchon/ttsc.git ../ttsc
+        run: node scripts/checkout-ttsc.cjs
 
       # ttsc compiles the typia Go plugin on first use into
       # node_modules/.cache/ttsc, keyed by content (plugin source + ttsc/tsgo
@@ -67,12 +64,9 @@ jobs:
           key: ttsc-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'packages/typia/native/**') }}
           restore-keys: ttsc-cache-${{ runner.os }}-
 
-      # `pnpm run package:tgz` first compiles every package to `lib/` (read by
-      # the website's runtime pack, build/pack-typia-runtime.js), then stages
-      # the tarballs that `website/compiler-dependencies` still installs to
-      # feed embed-typescript's Monaco type pack.
+      # Workspace dependencies supply both the runtime and Monaco type packs.
       - name: Packages
-        run: pnpm run package:tgz
+        run: pnpm run build
 
       - name: Test Playground Compiler
         working-directory: website

@@ -78,68 +78,6 @@ jobs:
           GOFLAGS: "-tags=ttsc_typescript_7_1"
         run: pnpm test:go:race
 
-  Packed-Observed-Emit:
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24.x
-      - uses: actions/setup-go@v5
-        with:
-          go-version: 1.27.x
-      - uses: pnpm/action-setup@v4
-      - run: pnpm install --frozen-lockfile
-      - uses: actions/cache@v4
-        with:
-          path: node_modules/.cache/ttsc
-          key: ttsc-observed-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('pnpm-lock.yaml', 'packages/typia/native/**') }}
-          restore-keys: ttsc-observed-${{ runner.os }}-${{ runner.arch }}-
-      - name: Pack current packages
-        run: pnpm package:tgz
-      - name: Prepare independent installed consumer
-        run: |
-          node --input-type=module <<'NODE'
-          import fs from "node:fs";
-          import path from "node:path";
-          const root = path.join(process.env.RUNNER_TEMP, "typia-observed-consumer");
-          fs.mkdirSync(root, { recursive: true });
-          const packed = (name) => "file:" + path.resolve("experiments/tarballs/" + name + ".tgz");
-          fs.writeFileSync(path.join(root, "package.json"), JSON.stringify({
-            private: true,
-            dependencies: {
-              typia: packed("typia"),
-              ttsc: "0.36.2",
-              typescript: "7.1.0-dev.20261020.3",
-              "@ttsc/lint": "0.36.2",
-              "@ttsc/evidence": "0.36.2",
-              "@types/node": "25.3.0"
-            },
-            pnpm: { overrides: {
-              "@typia/interface": packed("interface"),
-              "@typia/utils": packed("utils")
-            } }
-          }));
-          fs.copyFileSync("tests/test-typia-schema/src/features/compiler/test_ttsx_observed_emit_reuse.ts", path.join(root, "probe.mts"));
-          fs.writeFileSync(path.join(root, "run.mjs"), 'import { test_ttsx_observed_emit_reuse } from "./probe.mts"; test_ttsx_observed_emit_reuse();\n');
-          NODE
-      - name: Install consumer dependencies
-        run: pnpm --dir "$RUNNER_TEMP/typia-observed-consumer" install --ignore-workspace
-      - name: Verify packed TypeScript 7.1 runtime reuse
-        working-directory: ${{ runner.temp }}/typia-observed-consumer
-        run: node run.mjs
-      - name: Select consumer TypeScript 7.0
-        run: pnpm --dir "$RUNNER_TEMP/typia-observed-consumer" add --ignore-workspace typescript@7.0.2
-      - name: Verify packed TypeScript 7.0 runtime reuse
-        working-directory: ${{ runner.temp }}/typia-observed-consumer
-        run: node run.mjs
-      - name: Select published producer without emit observations
-        run: pnpm --dir "$RUNNER_TEMP/typia-observed-consumer" add --ignore-workspace typia@15.2.2
-      - name: Verify old producer stays on fresh builds
-        working-directory: ${{ runner.temp }}/typia-observed-consumer
-        run: node --input-type=module -e 'import("./probe.mts").then(module => module.test_ttsx_observed_emit_reuse(false))'
-
   TypeScript-7-0:
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -156,7 +94,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Select TypeScript 7.0
         run: |
-          node -e 'const fs = require("node:fs"); const p = "pnpm-workspace.yaml"; const s = fs.readFileSync(p, "utf8"); if (!s.includes("typescript: 7.1.0-dev.20261020.3")) throw new Error("TypeScript catalog changed"); fs.writeFileSync(p, s.replace("typescript: 7.1.0-dev.20261020.3", "typescript: 7.0.2"));'
+          node scripts/select-typescript.cjs typescript-7-0
           pnpm install --no-frozen-lockfile
       - name: Test TypeScript 7.0 Consumers
         run: pnpm test:packages

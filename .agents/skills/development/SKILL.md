@@ -34,7 +34,8 @@ These four are never acceptable; choosing any one means the approach is already 
 - Respect package boundaries. The shared native transform lives under `packages/typia/native`; don't fork a second transform into an adapter package or reintroduce a TypeScript-side transformer.
 - Keep package detection installation-safe. Resolve the target package root, as `packages/typia/src/transform.ts` does with `require.resolve("typia/package.json")`; workspace path substrings and hard-coded fixture names fail for npm consumers.
 - Use the workspace catalogs. `pnpm-workspace.yaml` owns `samchon`, `typescript`, `rolldown`, and `utils`; the ttsc family, Evidence, tstl and tgrid use `catalog:samchon`, and internal package references use `workspace:^`.
-- Keep local outputs local. Do not commit `.env` files or the `.tgz` artifacts generated under `experiments/tarballs/`.
+- Keep workflow YAML declarative. Put executable JavaScript and other embedded source in maintained scripts, and invoke those scripts from workflow steps. Dependency versions, including compatibility targets, belong in `pnpm-workspace.yaml` catalogs; scripts read those catalogs or the installed packages they resolve. Never duplicate dependency versions or rewrite manifests with version-string substitutions in a workflow.
+- Keep local outputs local. Do not commit `.env` files or generated `.tgz` artifacts.
 - Preserve the public contract in `.agents/skills/project/SKILL.md`. Renaming or removing `typia.*`, `@typia/interface` types, or the plugin descriptor shape is a deliberate product change, not incidental cleanup.
 - When public behavior changes, update the matching page under `website/src/content/docs/**` in the same change. Follow `.agents/skills/documentation/SKILL.md`.
 - Run `pnpm format` only in the final pre-merge cleanup after implementation and CI repairs are complete, not before each commit or push. Commit its integrated result and require green CI on that final head before merging. If later edits require formatting, return to this final cleanup gate. Parallel issue-campaign implementation batches defer the repository-wide formatter to their dedicated Post-Campaign Cleanup pull request.
@@ -127,8 +128,8 @@ Select the owning package and relevant named cases, including their negative twi
 - **One TypeScript concern:** use the owning workspace's case filter, such as `pnpm --filter ./tests/test-typia-schema start --include <case>`. If its runner cannot select cases, use a focused executable probe and leave the whole workspace run to CI.
 - **One package:** `pnpm --filter ./packages/<name> build`.
 - **Transform, descriptor, or shared package:** run the affected regressions locally; GitHub CI runs `pnpm test`, broad package compilation and the supported compiler/platform matrix.
-- **Packaging:** run root `pnpm package:tgz`, then inspect or smoke-test a clean install. It builds every package and verifies the published entry points before packing (`pnpm pack` alone no longer builds; the manifests carry no `prepack`). Tarballs are generated under `experiments/tarballs/`; do not commit or hand-edit them.
-- **Website or guide changes:** reproduce the fresh CI prerequisites: place a ttsc checkout at `../ttsc`, run root `pnpm install` and `pnpm package:tgz`, then run `pnpm build` inside `website/`. The compiler-dependencies package installs the staged tarballs, and the playground Wasm build resolves the sibling ttsc Go modules.
+- **Packaging:** run `pnpm package:prepare` before packing an affected package into a task-owned temporary directory. It builds the packages and verifies their published entry points; `pnpm pack` alone does not build because manifests carry no `prepack`. Do not commit or hand-edit generated tarballs.
+- **Website or guide changes:** reproduce the fresh CI prerequisites: place a matching ttsc checkout at `../ttsc`, run root `pnpm install` and `pnpm build`, then run `pnpm build` inside `website/`. The website consumes workspace packages directly, and the playground Wasm build resolves the sibling ttsc Go modules.
 
 Verification shape depends on the change type:
 

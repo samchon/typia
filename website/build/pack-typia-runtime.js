@@ -11,7 +11,7 @@
 // every Execute throws "require(...) is not available in the sandbox".
 //
 // Mirrors ttsc.dev's `website/build/pack-typia-runtime.cjs`. Source roots are
-// `website/node_modules/` — the typia install (from experiments/tarballs/) whose
+// `website/node_modules/` — the workspace typia dependency whose
 // SOURCE build/typia-pack.js packs, so the runtime JS matches the compiled JS.
 //
 // Output shape: { [packageRelativePath]: jsCode }, e.g.

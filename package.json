@@ -20,7 +20,6 @@
     "package:latest": "pnpm run package:prepare && pnpm --filter=./packages/* -r publish --tag latest",
     "package:next": "pnpm run package:prepare && pnpm --filter=./packages/* -r publish --tag next",
     "package:rc": "pnpm run package:prepare && pnpm --filter=./packages/* -r publish --tag rc",
-    "package:tgz": "pnpm run package:prepare && node experiments/tarballs",
     "release": "bumpp -r",
     "evidence": "node scripts/check-evidence.cjs",
     "evidence:packages": "pnpm --filter=./packages/* --fail-if-no-match -r --no-bail --workspace-concurrency=1 run evidence",
@@ -79,6 +78,7 @@
     "prettier": "^3.8.1",
     "prettier-plugin-jsdoc": "^1.8.0",
     "ttsc": "catalog:samchon",
-    "typescript": "catalog:typescript"
+    "typescript": "catalog:typescript",
+    "yaml": "catalog:utils"
   }
 }

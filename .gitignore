@@ -10,7 +10,6 @@ node_modules/
 tests/test-typia-ttsc/fixtures/*/build/output/
 
 package-lock.json
-!experiments/setup/package-lock.json
 
 *.env
 *.log

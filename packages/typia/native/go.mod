@@ -2,7 +2,7 @@ module github.com/samchon/typia/packages/typia/native
 
 go 1.26
 
-// The supported ttsc floor (>= 0.36.2, including negotiated emit observations)
+// The supported ttsc floor (>= 0.36.3, including negotiated emit observations)
 // is enforced through typia's package.json peerDependency, not here: ttsc builds
 // this plugin from source on the user's machine and its buildSourcePlugin
 // generates `replace github.com/samchon/ttsc/packages/ttsc v0.0.0 =>
