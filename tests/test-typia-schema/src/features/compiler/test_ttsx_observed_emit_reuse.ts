@@ -17,8 +17,8 @@ import path from "node:path";
  * 4. Reject diagnostics and damaged storage before recovering a fresh result.
  *
  * @evidence contracts/testing.md#behavioral-verification Independent installed ttsx launches execute the transformed validator and linked dependency. Product trace records distinguish recorded and reused results and identify native emit/check processes; warm reuse must start neither producer. Input transitions, diagnostics and corrupted documents must run fresh.
- * @evidence contracts/testing.md#independent-expectations Authored number/string Shape declarations determine positive and negative validator verdicts. Literal dependency values and original source filenames determine runtime identity; actual process-attempt events establish producer execution independently of cache-file timestamps.
- * @evidence contracts/testing.md#distinguishing-cases Cold/warm, type-only and linked-source edits, config/plugin/package/external-document edits, lint failure and recovery, corrupt storage and bypass retain named verdicts. Adjacent validator inputs distinguish stale transformation. The packed CI additionally selects the published old producer and requires two fresh successful launches without observation opt-in.
+ * @evidence contracts/testing.md#independent-expectations Authored number/string Shape declarations determine positive and negative validator verdicts. An inherited setter must receive the dependency's literal field value under its assignment semantics, and original source filenames determine runtime identity; actual process-attempt events establish producer execution independently of cache-file timestamps.
+ * @evidence contracts/testing.md#distinguishing-cases Cold/warm, type-only and linked-source edits, config/plugin/package/external-document edits, semantic TS2322 and lint failure/recovery, corrupt storage and bypass retain named verdicts. Adjacent validator inputs distinguish stale transformation; the dependency's class-field option makes incorrect entry-option reuse observable. The packed CI additionally selects the published old producer and requires two fresh successful launches without observation opt-in.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor runs this E2E case through the canonical schema workspace start command on TypeScript 7.0 and 7.1. Its child launches cross the actual installed CLI/native producer/runtime boundary; portable channel details belong to the native unit cases.
  * @evidence contracts/e2e.md#necessary-boundary Persistent reuse across launcher lifetimes, composed lint/Evidence observations and actual source-linked runtime identity require the installed process protocol rather than a fake cache or an in-process observation encoder.
  * @evidence contracts/e2e.md#shared-execution One fixture, linked package, content-keyed native artifact and stable trace/cache environment serve all transitions. The public cache-path report selects the caller's Go accelerator for shared native object work while completed runtime results remain private and cold. The old-producer compatibility pair shares the installed consumer; only selecting a different compiler or producer needs another installation/build.
@@ -120,6 +120,7 @@ export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
     warm = false,
     success = true,
     args: string[] = [],
+    diagnostic = /no-debugger/,
   ): void => {
     const result = spawnSync(
       process.execPath,
@@ -177,7 +178,7 @@ export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
           false,
           "failed input reused success",
         );
-        assert.match(result.stdout + result.stderr, /no-debugger/);
+        assert.match(result.stdout + result.stderr, diagnostic);
       }
     });
   };
@@ -221,10 +222,9 @@ export default { plugins: { evidence }, rules: {
 `,
     );
     write("contract.md", "# Contract\n\n## Value\n\nThe value is retained.\n");
-    write(
-      "src/check.ts",
-      "/** @evidence contract.md#value Returns the declared value. */\nexport function value(): number { return 1; }\n",
-    );
+    const checkedSource =
+      "/** @evidence contract.md#value Returns the declared value. */\nexport function value(): number { return 1; }\n";
+    write("src/check.ts", checkedSource);
     write("src/shape.ts", "export interface Shape { id: number }\n");
     write(
       "src/index.ts",
@@ -244,16 +244,25 @@ console.log(JSON.stringify([check({ id: 7 }), check({ id: "7" }), value, __filen
     });
     json("packages/model/tsconfig.json", {
       compilerOptions: {
-        module: "commonjs",
-        moduleResolution: "node",
-        ignoreDeprecations: "6.0",
+        module: "node16",
+        moduleResolution: "node16",
         target: "es2022",
+        useDefineForClassFields: false,
         strict: true,
         skipLibCheck: true,
       },
       include: ["src"],
     });
-    write("packages/model/src/index.ts", "export const value = 7;\n");
+    // Assign semantics invoke the inherited setter. Reusing the entry's
+    // ES2022 define semantics instead would silently leave observed at zero.
+    const modelSource = (value: number): string => `let observed = 0;
+class Base {}
+Object.defineProperty(Base.prototype, "value", { set(value: number) { observed = value; } });
+class Model extends Base { value = ${value}; }
+new Model();
+export const value = observed;
+`;
+    write("packages/model/src/index.ts", modelSource(7));
     fs.mkdirSync(path.dirname(link), { recursive: true });
     fs.symlinkSync(
       path.join(root, "packages/model"),
@@ -272,7 +281,7 @@ console.log(JSON.stringify([check({ id: 7 }), check({ id: "7" }), value, __filen
     }
     write("src/shape.ts", "export interface Shape { id: string }\n");
     run("type-only invalidation", [false, true, 7]);
-    write("packages/model/src/index.ts", "export const value = 11;\n");
+    write("packages/model/src/index.ts", modelSource(11));
     run("linked source invalidation", [false, true, 11]);
     write(
       "contract.md",
@@ -297,6 +306,10 @@ console.log(JSON.stringify([check({ id: 7 }), check({ id: "7" }), value, __filen
       dependencies: { typia: "*" },
     });
     run("package invalidation", [false, true, 11]);
+    write("src/check.ts", checkedSource.replace("(): number", "(): string"));
+    run("semantic failure", [], false, false, [], /TS2322/);
+    write("src/check.ts", checkedSource);
+    run("semantic recovery", [false, true, 11], true);
     write("src/invalid.ts", "debugger; export {};\n");
     run("lint failure", [], false, false);
     fs.unlinkSync(path.join(root, "src/invalid.ts"));
