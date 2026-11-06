@@ -69,7 +69,7 @@ Read the [testing contracts](../contracts/testing.md) for every test and the [E2
 
 - **Public and contract tests:** keep black-box and exported-API coverage under `packages/typia/test/**`, mirroring the native concern where practical. These tests import the native module through `packages/typia/test/go.mod` and run with `pnpm test:go:public`.
 - **Colocated native tests:** keep same-package implementation, command, transform, and emitter coverage beside the Go source as `packages/typia/native/**/*_test.go`. Untagged cases run with `pnpm test:go:native`.
-- **Native-internal tagged tests:** use `//go:build typia_native_internal` only when the case requires internal-only coverage. Root `pnpm test:go` does not enable that tag; run `go -C packages/typia/test test -tags typia_native_internal ../native/...` when tagged coverage is relevant.
+- **Native-internal tagged tests:** use `//go:build typia_native_internal` only when the case requires internal-only coverage. Root `pnpm test:go` does not enable that tag; select the owning package and cases locally, and let GitHub CI run the complete tagged tree under the [validation policy](#validation).
 
 Use one `Test*` function per test file and mirror a nearby test's package, fixture, and cleanup pattern. Command-level transform regressions belong near `packages/typia/native/cmd/ttsc-typia`; public contract probes belong under `packages/typia/test`.
 
@@ -118,13 +118,15 @@ This is not a validator-only rule. The same happy-path bias hides serializer cor
 
 ## Validation
 
-Run the narrowest command that proves the change first, then a broader command when shared behavior, the transform, packaging, or documentation changed. Report any command that could not be run.
+Run only change-scoped partial tests locally. GitHub CI owns full test suites and supported-environment matrices, including root `pnpm test`, all-workspace test runs, and complete public or native Go trees. Do not reproduce those suites locally, in disposable checkouts, or through a set of partial commands that together recreates the full run. A shared transform change requires broad CI coverage, not permission to run broad tests locally.
 
-- **One public Go concern:** `pnpm test:go:public`.
-- **One native Go concern:** `pnpm test:go:native`; add the tagged command from [Go tests](#go-tests) when the changed path has `typia_native_internal` coverage.
-- **One TypeScript workspace:** `pnpm --filter ./tests/<name> start`.
+Select the owning package and relevant named cases, including their negative twins and boundaries. Record the exact local command and the CI job/SHA that supplies the remaining required coverage. Pending, unavailable or failed CI remains a pending or failed gate; local partial tests never substitute for it. This policy also applies to reviews, campaigns, mutation probes and integration gates while ordinary campaign CI is suspended. Report every verification that could not run.
+
+- **One public Go concern:** `go -C packages/typia/test test ./<owning-package> -run '<relevant Test names>'`.
+- **One native Go concern:** `go -C packages/typia/test test ../native/<owning-package> -run '<relevant Test names>'`; add `-tags typia_native_internal` when the selected cases require it.
+- **One TypeScript concern:** use the owning workspace's case filter, such as `pnpm --filter ./tests/test-typia-schema start --include <case>`. If its runner cannot select cases, use a focused executable probe and leave the whole workspace run to CI.
 - **One package:** `pnpm --filter ./packages/<name> build`.
-- **Transform, descriptor, or shared package:** `pnpm test`; use `pnpm build` as the broader package compilation gate.
+- **Transform, descriptor, or shared package:** run the affected regressions locally; GitHub CI runs `pnpm test`, broad package compilation and the supported compiler/platform matrix.
 - **Packaging:** run root `pnpm package:tgz`, then inspect or smoke-test a clean install. It builds every package and verifies the published entry points before packing (`pnpm pack` alone no longer builds; the manifests carry no `prepack`). Tarballs are generated under `experiments/tarballs/`; do not commit or hand-edit them.
 - **Website or guide changes:** reproduce the fresh CI prerequisites: place a ttsc checkout at `../ttsc`, run root `pnpm install` and `pnpm package:tgz`, then run `pnpm build` inside `website/`. The compiler-dependencies package installs the staged tarballs, and the playground Wasm build resolves the sibling ttsc Go modules.
 
@@ -132,7 +134,7 @@ Verification shape depends on the change type:
 
 - **Bug fix:** name the failing case and the expected behavior; run a repro that fails before the fix and passes after.
 - **Feature:** name the observable behavior; exercise it end-to-end.
-- **Refactor:** name what should stay unchanged; rely on the existing test suite or a behavior-locking probe.
+- **Refactor:** name what should stay unchanged; select relevant existing tests or a behavior-locking probe locally, and rely on CI for the full suite.
 - **Review:** name concrete risks, missing tests, or regressions.
 
 ## Change Integrity
