@@ -12,7 +12,6 @@
     "build:examples": "cd ../examples && pnpm run build",
     "build:pagefind": "pagefind --site .next/server/app --output-path out/_pagefind",
     "build:sitemap": "node build/sitemap",
-    "build:tgz": "node build/tgz",
     "build:typedoc": "node build/typedoc",
     "deploy": "node build/deploy",
     "dev": "npm run build:compiler && npm run build:examples && next dev",

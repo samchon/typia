@@ -5,6 +5,7 @@ packages:
   - 'packages/*'
   - 'tests/*'
   - 'website'
+  - 'website/compiler-dependencies'
 overrides:
   # nextra 4.6 (the website's docs theme) breaks on zod 4.4.x with
   # "Invalid input: expected nonoptional". Pin the 4.x line to 4.1.12 — the
@@ -30,9 +31,12 @@ catalogs:
   typescript:
     ts-node: ^10.9.2
     typescript: 7.1.0-dev.20261020.3
+  typescript-7-0:
+    typescript: 7.0.2
   rolldown:
     rolldown: ^1.1.5
   utils:
+    yaml: ^2.9.1
     acorn: 8.16.0
     '@nestia/e2e': ^14.0.3
     '@types/node': ^25.3.0

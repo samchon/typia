@@ -7,7 +7,7 @@
 // emit has nothing portable to write, so TypeScript reports TS2742 (TS2883
 // since TypeScript 7); with it, the emit writes `typia.<Name>`.
 //
-// `experiments/declaration` is the guard. See samchon/typia#2359.
+// See samchon/typia#2359.
 export type {
   // validate
   AssertionGuard,

@@ -18,14 +18,14 @@ import path from "node:path";
  *
  * @evidence contracts/testing.md#behavioral-verification Independent installed ttsx launches execute the transformed validator and linked dependency. Product traces distinguish recorded/reused results and identify every native check/emit plus plain emitting compilers in the authored fixture; warm reuse must start none. External workspace descriptor preparation belongs to ttsc's control plane, not the application's checked emit. Input transitions, diagnostics and corrupted documents must run fresh.
  * @evidence contracts/testing.md#independent-expectations Authored number/string Shape declarations determine positive and negative validator verdicts. An inherited setter must receive the dependency's literal field value under its assignment semantics, and original source filenames determine runtime identity; actual process-attempt events establish producer execution independently of cache-file timestamps.
- * @evidence contracts/testing.md#distinguishing-cases Cold/warm, type-only and linked-source edits, config/plugin/package/external-document edits, semantic TS2322 and lint failure/recovery, corrupt storage and bypass retain named verdicts. Adjacent validator inputs distinguish stale transformation; the dependency's class-field option makes incorrect entry-option reuse observable. The packed CI additionally selects the published old producer and requires two fresh successful launches without observation opt-in.
+ * @evidence contracts/testing.md#distinguishing-cases Cold/warm, type-only and linked-source edits, config/plugin/package/external-document edits, semantic TS2322 and lint failure/recovery, corrupt storage and bypass retain named verdicts. Adjacent validator inputs distinguish stale transformation; the dependency's class-field option makes incorrect entry-option reuse observable.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor runs this E2E case through the canonical schema workspace start command on TypeScript 7.0 and 7.1. Its child launches cross the actual installed CLI/native producer/runtime boundary; portable channel details belong to the native unit cases.
  * @evidence contracts/e2e.md#necessary-boundary Persistent reuse across launcher lifetimes, composed lint/Evidence observations and actual source-linked runtime identity require the installed process protocol rather than a fake cache or an in-process observation encoder.
- * @evidence contracts/e2e.md#shared-execution One fixture, linked package, content-keyed native artifact and stable trace/cache environment serve all transitions. The public cache-path report shares the caller's Go objects while completed runtime storage and native artifacts start cold. The old-producer pair shares the installed consumer; only a compiler/producer change needs another installation/build.
+ * @evidence contracts/e2e.md#shared-execution One fixture, linked package, content-keyed native artifact and stable trace/cache environment serve all transitions. The public cache-path report shares the caller's Go objects while completed runtime storage and native artifacts start cold.
  * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Synchronous children finish before mutation. The test-owned root contains sources, private results and traces; its junction is unlinked before cleanup. A timeout or signal retains the fixture because descendant closure is unproved. The caller retains its shared Go cache. Trace identity and environment remain constant across cold/warm runs; inherited runtime protocol variables and NODE_OPTIONS preloads are cleared together for independent child discovery.
  * @evidence contracts/e2e.md#preserved-coverage This new runtime case adds cross-process admission and invalidation assertions; the companion native unit cases retain generation proof, incompleteness, noEmit and private-channel failure coverage.
  */
-export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
+export const test_ttsx_observed_emit_reuse = (): void => {
   const requireFrom = createRequire(path.join(process.cwd(), "package.json"));
   const launcher = path.join(
     path.dirname(requireFrom.resolve("ttsc/package.json")),
@@ -175,7 +175,7 @@ export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
           ...expected,
           path.join(root, "src/index.ts"),
         ]);
-        if (warm && expectReuse) {
+        if (warm) {
           assert.equal(
             outcome(events, "reused"),
             true,
@@ -192,12 +192,6 @@ export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
             true,
             "fresh build did not start a native producer",
           );
-          if (!expectReuse)
-            assert.equal(
-              outcome(events, "reused"),
-              false,
-              "old producer authorized unproved reuse",
-            );
         }
       } else {
         assert.equal(
@@ -298,14 +292,6 @@ export const value = observed;
     );
     run("cold", [true, false, 7]);
     run("warm", [true, false, 7], true);
-    if (!expectReuse) {
-      if (failures.length)
-        throw new AggregateError(
-          failures,
-          "old producer compatibility failures",
-        );
-      return;
-    }
     write("src/shape.ts", "export interface Shape { id: string }\n");
     run("type-only invalidation", [false, true, 7]);
     write("packages/model/src/index.ts", modelSource(11));

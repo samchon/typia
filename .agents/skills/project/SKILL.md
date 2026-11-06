@@ -42,7 +42,7 @@ The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transfo
 - `tests/debug`: `@typia/debug`, a one-off `ttsx` runner for ad-hoc local repros.
 - `benchmark/`: `@typia/benchmark`, performance generators with archived results under `benchmark/results/**`. See `.agents/skills/benchmark/SKILL.md`.
 - `website/src/content/docs/**`: user-facing MDX guides published at https://typia.io/docs. See `.agents/skills/documentation/SKILL.md`.
-- `examples/`, `experiments/`, `scripts/`, `config/`: example sources, tarball staging, repo utilities, and shared build configuration.
+- `examples/`, `scripts/`, `config/`: example sources, repo utilities, and shared build configuration.
 
 ## Commands
 
@@ -60,4 +60,4 @@ pnpm test
 
 `pnpm evidence` checks every enrolled production owner, test feature function, and root tooling configuration without building or generating test matrices. Every enrolled `tests/*/evidence.config.json` selects exactly `src/features/**/test_*.ts` with `symbol: "function"`; unit populations, types, runners and support declarations are outside this selection while their ordinary execution remains intact. `pnpm evidence:packages` and `pnpm evidence:tests` check their enrolled workspace populations separately. The template and both automated test workspaces are not enrolled; their ordinary generation and test commands retain their behavioral coverage.
 
-Release-time commands (most contributors skip these): `pnpm package:rc`, `pnpm package:next`, `pnpm package:latest`, and `pnpm release`. `pnpm package:tgz` stages local tarballs in `experiments/tarballs/` for offline testing. See `.agents/skills/pull-request/SKILL.md` for the remote delivery flow.
+Release-time commands (most contributors skip these): `pnpm package:rc`, `pnpm package:next`, `pnpm package:latest`, and `pnpm release`. See `.agents/skills/pull-request/SKILL.md` for the remote delivery flow.

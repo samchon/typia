@@ -9,12 +9,9 @@
 //
 // As a side effect we also patch `website/src/raw/external.json` (produced by
 // the preceding `embed-typescript external` step in build/compiler.js).
-// The local tarballs in `experiments/tarballs/` only contain placeholder
-// `package.json` files, so embed-typescript produces broken entries with no
-// `types` field and zero source files for typia and friends — that's why the
-// Monaco editor in the playground shows no autocomplete or type errors for
-// `import typia from "typia"`. We replace those entries with the same
-// source-based map we use for the wasm worker, just under `node_modules/`.
+// Monaco and the wasm compiler must resolve the same source declarations.
+// Replace the workspace dependencies' declaration entries with the same
+// source-based map used by the wasm worker, under `node_modules/`.
 //
 // Important: we DO NOT stage the unpacked .ts files inside `public/compiler/`.
 // Next.js's TypeScript checker would otherwise pick them up and fail with

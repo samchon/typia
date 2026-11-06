@@ -132,7 +132,7 @@ After merge:
 1. Verify GitHub records the pull request as merged into the intended target and every linked issue has the correct final state. Reopen any issue the squash merge closed without a surviving fix, and comment that the merge closed it mechanically.
 2. Confirm the checkout has no unpushed or uncommitted work worth preserving.
 3. Switch back to `master`, pull with `git pull --ff-only`, and delete the local topic branch.
-4. Preserve compact command evidence and result hashes in the campaign knowledge base, then remove every disposable mutable root the cycle created: disposable mutation checkouts, `GOCACHE`, `GOTMPDIR`, `TTSC_CACHE_DIR`, generated-output roots, tarballs under `experiments/tarballs/`, and clean-consumer install roots. Confirm no live process uses a path before deleting it, delete only the exact proven path, and verify it is absent.
+4. Preserve compact command evidence and result hashes in the campaign knowledge base, then remove every disposable mutable root the cycle created: disposable mutation checkouts, `GOCACHE`, `GOTMPDIR`, `TTSC_CACHE_DIR`, generated-output roots, task-owned tarballs, and clean-consumer install roots. Confirm no live process uses a path before deleting it, delete only the exact proven path, and verify it is absent.
 5. Never bulk-delete a shared temporary directory, a shared ttsc cache directory, an installed toolchain, or an asset whose ownership is uncertain.
 
 Formatting belongs to the unified cycle pull request, so a separate post-campaign formatting pull request is not part of this solo workflow.

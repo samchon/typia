@@ -39,7 +39,6 @@ typia/
 ├── examples/              # Example source used by docs and playground flows
 ├── benchmark/             # Benchmark generators and result archives
 ├── website/               # Documentation site and playground app
-├── experiments/           # Local tarball and experiment flows
 ├── scripts/               # Repository utility scripts
 └── config/                # Shared build configuration
 ```
@@ -58,7 +57,6 @@ Root scripts:
 ```bash
 pnpm run build
 pnpm run test
-pnpm run package:tgz
 ```
 
 Important caveats:
@@ -67,7 +65,7 @@ Important caveats:
 - `pnpm run test` runs the `start` script of `tests/test-*`
 - some package-local strongest paths are **not** covered by the root `test`
 - `tests/template` is a workspace package used by automated suites
-- `website` has its own install/build pipeline and consumes local tarballs from `experiments/tarballs`
+- `website` consumes local packages through pnpm workspace references, including its compiler dependencies
 
 Recommended contributor workflow:
 
@@ -80,7 +78,6 @@ pnpm run test
 If you touch one of these areas, run its local path too:
 
 - `website`: `cd website && npm install && npm run build`
-- tarball-dependent flows: `pnpm run package:tgz`
 
 ## Working In Packages
 
