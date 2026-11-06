@@ -20,13 +20,12 @@ import (
   nativetransform "github.com/samchon/typia/packages/typia/native/transform"
 )
 
-// runBuild validates and transactionally emits a project with typia's native
-// transform. Optional private result paths expose the loaded generation's input
+// runBuild stages a project's emit until typia's transformation succeeds.
+// Optional private result paths expose the loaded generation's input
 // observations and the compiler's provenance for successfully published scripts.
 // Failed builds still report observations; buffered or discarded output never
 // acquires provenance. Without the private flags, ordinary command behavior is
 // unchanged.
-//
 func runBuild(args []string) (status int) {
   fs := flag.NewFlagSet("build", flag.ContinueOnError)
   fs.SetOutput(stderr)
@@ -103,27 +102,27 @@ func runBuild(args []string) (status int) {
       return 2
     }
   }
-  loadProgram := func(options driver.LoadProgramOptions, diagnose bool) (*driver.Program, int) {
+  loadProgram := func(options driver.LoadProgramOptions, diagnose bool) int {
     options.SemanticConfigPath = os.Getenv(driver.SemanticConfigPathEnv)
     loaded, diags, err := driver.LoadProgram(cwd, *tsconfigPath, options)
     prog = loaded
     if err != nil {
       fmt.Fprintf(stderr, "ttsc-typia build: %v\n", err)
-      return nil, 2
+      return 2
     }
     if len(diags) > 0 {
       driver.WritePrettyDiagnostics(stderr, diags, cwd)
-      return nil, 2
+      return 2
     }
     if diagnose {
       if diags := prog.Diagnostics(); len(diags) > 0 {
         driver.WritePrettyDiagnostics(stderr, diags, cwd)
-        return nil, 2
+        return 2
       }
     }
-    return prog, 0
+    return 0
   }
-  _, code := loadProgram(driver.LoadProgramOptions{
+  code := loadProgram(driver.LoadProgramOptions{
     ForceEmit:   *emit,
     ForceNoEmit: *noEmit,
     OutDir:      *outDir,
@@ -139,7 +138,7 @@ func runBuild(args []string) (status int) {
     // project's diagnostics; diagnosing the private reload would reject valid
     // analysis-only options such as allowImportingTsExtensions.
     prog.Close()
-    _, code = loadProgram(driver.LoadProgramOptions{
+    code = loadProgram(driver.LoadProgramOptions{
       ForceEmit: true,
       OutDir:    *outDir,
     }, false)

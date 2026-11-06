@@ -134,6 +134,11 @@ jobs:
       - name: Verify packed TypeScript 7.0 runtime reuse
         working-directory: ${{ runner.temp }}/typia-observed-consumer
         run: node run.mjs
+      - name: Select published producer without emit observations
+        run: pnpm --dir "$RUNNER_TEMP/typia-observed-consumer" add --ignore-workspace typia@15.2.2
+      - name: Verify old producer stays on fresh builds
+        working-directory: ${{ runner.temp }}/typia-observed-consumer
+        run: node --input-type=module -e 'import("./probe.mts").then(module => module.test_ttsx_observed_emit_reuse(false))'
 
   TypeScript-7-0:
     runs-on: ubuntu-latest

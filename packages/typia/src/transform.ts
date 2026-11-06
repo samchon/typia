@@ -11,9 +11,9 @@ import type { ITtscPlugin, ITtscPluginFactoryContext } from "ttsc";
  * `native/cmd/ttsc-typia`; the transform itself is not written in TypeScript.
  * No file is read outside the module graph. Ttsc records the package
  * resolution, so an empty hostInputHashes declaration permits safe descriptor
- * replay.
- * The native build host supplies generation-owned input observations and
- * compiler-owned output provenance for ttsc's checked runtime reuse protocol.
+ * replay. The native build host supplies generation-owned input observations
+ * and compiler-owned output provenance for ttsc's checked runtime reuse
+ * protocol.
  *
  * @param context Plugin factory context of ttsc
  *
