@@ -81,6 +81,9 @@ func TestBuildEmitObservations(t *testing.T) {
       t.Errorf("lost configuration ancestor %s: %v", name, result.Graph.Configs)
     }
   }
+  if !slices.Equal(result.Graph.Configs, []string{"tsconfig.json", "base.json"}) {
+    t.Fatalf("private wrapper replaced authored config ancestry: %v", result.Graph.Configs)
+  }
   packageProof := false
   for name := range result.Graph.InputObservations {
     if strings.HasSuffix(name, "node_modules/typia/package.json") {

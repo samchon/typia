@@ -212,7 +212,7 @@ export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
     write(
       "lint.config.ts",
       `import { evidence } from "@ttsc/evidence";
-export default { files: ["src/**"], plugins: { evidence }, rules: {
+export default { plugins: { evidence }, rules: {
   "no-debugger": "error", "evidence/graph": ["error", { claims: [{
     type: "typescript", files: ["src/check.ts"], symbol: "function",
     reference: { type: "markdown", files: ["contract.md"], symbol: "h2", checklist: true }
