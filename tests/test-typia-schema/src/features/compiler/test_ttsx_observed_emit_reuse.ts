@@ -16,7 +16,7 @@ import path from "node:path";
  * 3. Change types, source, configs, package metadata and external evidence input.
  * 4. Reject diagnostics and damaged storage before recovering a fresh result.
  *
- * @evidence contracts/testing.md#behavioral-verification Independent installed ttsx launches execute the transformed validator and linked dependency. Product trace records distinguish recorded and reused results and identify native emit/check processes; warm reuse must start neither producer. Input transitions, diagnostics and corrupted documents must run fresh.
+ * @evidence contracts/testing.md#behavioral-verification Independent installed ttsx launches execute the transformed validator and linked dependency. Product traces distinguish recorded/reused results and identify every native check/emit plus plain emitting compilers in the authored fixture; warm reuse must start none. External workspace descriptor preparation belongs to ttsc's control plane, not the application's checked emit. Input transitions, diagnostics and corrupted documents must run fresh.
  * @evidence contracts/testing.md#independent-expectations Authored number/string Shape declarations determine positive and negative validator verdicts. An inherited setter must receive the dependency's literal field value under its assignment semantics, and original source filenames determine runtime identity; actual process-attempt events establish producer execution independently of cache-file timestamps.
  * @evidence contracts/testing.md#distinguishing-cases Cold/warm, type-only and linked-source edits, config/plugin/package/external-document edits, semantic TS2322 and lint failure/recovery, corrupt storage and bypass retain named verdicts. Adjacent validator inputs distinguish stale transformation; the dependency's class-field option makes incorrect entry-option reuse observable. The packed CI additionally selects the published old producer and requires two fresh successful launches without observation opt-in.
  * @evidence contracts/testing.md#execution-ownership DynamicExecutor runs this E2E case through the canonical schema workspace start command on TypeScript 7.0 and 7.1. Its child launches cross the actual installed CLI/native producer/runtime boundary; portable channel details belong to the native unit cases.
@@ -67,6 +67,7 @@ export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
   type Trace = {
     event: string;
     argv?: string[];
+    cwd?: string;
     data?: { phase?: string; outcome?: string };
   };
   const offsets = new Map<string, number>();
@@ -89,9 +90,15 @@ export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
   // An enclosing ttsx invocation may carry a private emitted-output manifest.
   // Its NODE_OPTIONS also carries runtime preloads whose received/given record
   // belongs to that invocation. Clear both for this fixture's independent runs.
-  delete env.NODE_OPTIONS;
-  for (const key of Object.keys(env))
-    if (key.startsWith("TTSC_") || key.startsWith("TTSX_")) delete env[key];
+  for (const key of Object.keys(env)) {
+    const name = process.platform === "win32" ? key.toUpperCase() : key;
+    if (
+      name === "NODE_OPTIONS" ||
+      name.startsWith("TTSC_") ||
+      name.startsWith("TTSX_")
+    )
+      delete env[key];
+  }
   env.TTSC_CACHE_DIR = cache;
   env.TTSC_E2E_TRACE = trace;
   // Completed results remain private and cold; Go compilation objects can be
@@ -103,19 +110,37 @@ export const test_ttsx_observed_emit_reuse = (expectReuse = true): void => {
         event.data?.phase === "runtime-build-cache" &&
         event.data.outcome === name,
     );
-  const producer = (event: Trace): boolean =>
-    event.event === "process-attempt" &&
-    !event.argv?.includes("--showConfig") &&
-    !event.argv?.includes("--listFilesOnly") &&
-    (event.argv?.some(
-      (arg) =>
-        arg === "--listEmittedFiles" ||
-        arg === "--emit-provenance-json" ||
-        arg.startsWith("--emit-provenance-json=") ||
-        arg === "--check-observations-json" ||
-        arg.startsWith("--check-observations-json="),
-    ) ??
-      false);
+  const producer = (event: Trace): boolean => {
+    if (
+      event.event !== "process-attempt" ||
+      event.argv?.includes("--showConfig") ||
+      event.argv?.includes("--listFilesOnly")
+    )
+      return false;
+    if (
+      event.argv?.some(
+        (arg) =>
+          arg === "--emit" ||
+          arg === "--emit-observations-json" ||
+          arg.startsWith("--emit-observations-json=") ||
+          arg === "--emit-provenance-json" ||
+          arg.startsWith("--emit-provenance-json=") ||
+          arg === "--check-observations-json" ||
+          arg.startsWith("--check-observations-json="),
+      )
+    )
+      return true;
+    // A workspace descriptor may itself need compilation outside this authored
+    // application. Count plain compilers for the entry and linked model, while
+    // native protocol calls above remain observable regardless of their cwd.
+    if (!event.cwd || !event.argv?.includes("--listEmittedFiles")) return false;
+    const relative = path.relative(root, event.cwd);
+    return (
+      relative !== ".." &&
+      !relative.startsWith(`..${path.sep}`) &&
+      !path.isAbsolute(relative)
+    );
+  };
   const run = (
     label: string,
     expected: unknown[],
