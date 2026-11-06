@@ -14,7 +14,6 @@ public/blog/rss.xml
 public/compiler/
 public/robots.txt
 public/sitemap*.xml
-src/raw/
 tsconfig.tsbuildinfo
 typedoc-json/
 

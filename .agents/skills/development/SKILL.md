@@ -129,7 +129,7 @@ Select the owning package and relevant named cases, including their negative twi
 - **One package:** `pnpm --filter ./packages/<name> build`.
 - **Transform, descriptor, or shared package:** run the affected regressions locally; GitHub CI runs `pnpm test`, broad package compilation and the supported compiler/platform matrix.
 - **Packaging:** run `pnpm package:prepare` before packing an affected package into a task-owned temporary directory. It builds the packages and verifies their published entry points; `pnpm pack` alone does not build because manifests carry no `prepack`. Do not commit or hand-edit generated tarballs.
-- **Website or guide changes:** reproduce the fresh CI prerequisites: place a matching ttsc checkout at `../ttsc`, run root `pnpm install` and `pnpm build`, then run `pnpm build` inside `website/`. Root installation wires `website/compiler-dependencies` through workspace references, and the playground Wasm build resolves the sibling ttsc Go modules.
+- **Website or guide changes:** reproduce the fresh CI prerequisites: place a matching ttsc checkout at `../ttsc`, run root `pnpm install` and `pnpm build`, then run `pnpm build` inside `website/`. The website consumes workspace packages directly, and the playground Wasm build resolves the sibling ttsc Go modules.
 
 Verification shape depends on the change type:
 

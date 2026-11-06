@@ -23,17 +23,6 @@ fs.writeFileSync(
 //-------------------------------------------------------
 
 //-------------------------------------------------------
-console.log(" Building compiler dependencies");
-//-------------------------------------------------------
-const input = "--input compiler-dependencies";
-const output = "--output src/raw/external.json";
-cp.execSync(`npx embed-typescript external ${input} ${output}`, {
-  stdio: "ignore",
-  cwd: path.resolve(__dirname, ".."),
-});
-//-------------------------------------------------------
-
-//-------------------------------------------------------
 console.log(" Packing typia sources for the wasm worker");
 //-------------------------------------------------------
 require("./typia-pack");

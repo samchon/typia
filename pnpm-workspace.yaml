@@ -5,7 +5,6 @@ packages:
   - 'packages/*'
   - 'tests/*'
   - 'website'
-  - 'website/compiler-dependencies'
 overrides:
   # nextra 4.6 (the website's docs theme) breaks on zod 4.4.x with
   # "Invalid input: expected nonoptional". Pin the 4.x line to 4.1.12 — the

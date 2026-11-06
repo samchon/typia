@@ -24,4 +24,6 @@ function selectTypescript(catalog) {
   fs.writeFileSync(file, document.toString());
 }
 
-selectTypescript(process.argv[2]);
+module.exports = { selectTypescript };
+
+if (require.main === module) selectTypescript(process.argv[2]);

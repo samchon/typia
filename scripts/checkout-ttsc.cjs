@@ -15,17 +15,30 @@ const path = require("node:path");
 function checkoutTtsc() {
   const root = path.resolve(__dirname, "..");
   const { version } = JSON.parse(
-    fs.readFileSync(path.join(root, "website/node_modules/@ttsc/wasm/package.json"), "utf8"),
+    fs.readFileSync(
+      path.join(root, "website/node_modules/@ttsc/wasm/package.json"),
+      "utf8",
+    ),
   );
   if (typeof version !== "string" || !version.trim())
     throw new Error("Installed @ttsc/wasm has no version");
   const result = spawnSync(
     "git",
-    ["clone", "--branch", `v${version}`, "--depth", "1", "https://github.com/samchon/ttsc.git", path.resolve(root, "../ttsc")],
+    [
+      "clone",
+      "--branch",
+      `v${version}`,
+      "--depth",
+      "1",
+      "https://github.com/samchon/ttsc.git",
+      path.resolve(root, "../ttsc"),
+    ],
     { cwd: root, stdio: "inherit", windowsHide: true },
   );
   if (result.error) throw result.error;
   process.exitCode = result.status ?? 1;
 }
 
-checkoutTtsc();
+module.exports = { checkoutTtsc };
+
+if (require.main === module) checkoutTtsc();

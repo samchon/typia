@@ -62,22 +62,22 @@ pnpm run test
 Important caveats:
 
 - `pnpm run build` builds `packages/*`
-- `pnpm run test` runs the `start` script of `tests/test-*`
+- `pnpm run test` runs all TypeScript workspaces and both Go trees in GitHub CI; locally, select only the cases affected by the change
 - some package-local strongest paths are **not** covered by the root `test`
 - `tests/template` is a workspace package used by automated suites
-- `website` consumes local packages through pnpm workspace references, including its compiler dependencies
+- `website` consumes local packages through pnpm workspace references
 
 Recommended contributor workflow:
 
 ```bash
 pnpm install
 pnpm run build
-pnpm run test
+pnpm --filter ./tests/test-typia-schema start --include <case>
 ```
 
 If you touch one of these areas, run its local path too:
 
-- `website`: `cd website && npm install && npm run build`
+- `website`: install and build packages from the root, then run `pnpm --dir website build`
 
 ## Working In Packages
 
