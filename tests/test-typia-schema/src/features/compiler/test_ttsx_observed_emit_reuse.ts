@@ -1,0 +1,166 @@
+import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import fs from "node:fs";
+import { createRequire } from "node:module";
+import path from "node:path";
+
+/**
+ * Verifies checked ttsx reuse with typia, lint and an Evidence contributor.
+ *
+ * Native input JSON alone cannot prove that a later independent runtime launch
+ * skips producers or that source-linked packages retain their original identity.
+ *
+ * 1. Author one source-linked package and an entry using a type-only validator.
+ * 2. Compare cold and warm launches using the installed compiler's process trace.
+ * 3. Change types, source, configs, package metadata and external evidence input.
+ * 4. Reject diagnostics and damaged storage before recovering a fresh result.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Independent installed ttsx launches execute the transformed validator and linked dependency. Product trace records distinguish recorded and reused results and identify native emit/check processes; warm reuse must start neither producer. Input transitions, diagnostics and corrupted documents must run fresh.
+ * @evidence contracts/testing.md#independent-expectations Authored number/string Shape declarations determine positive and negative validator verdicts. Literal dependency values and original source filenames determine runtime identity; actual process-attempt events establish producer execution independently of cache-file timestamps.
+ * @evidence contracts/testing.md#distinguishing-cases Cold/warm, type-only and linked-source edits, config/plugin/package/external-document edits, lint failure and recovery, corrupt storage and bypass retain named verdicts. Adjacent validator inputs distinguish a stale transform from a fresh successful one.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor runs this E2E case through the canonical schema workspace start command on TypeScript 7.0 and 7.1. Its child launches cross the actual installed CLI/native producer/runtime boundary; portable channel details belong to the native unit cases.
+ * @evidence contracts/e2e.md#necessary-boundary Persistent reuse across launcher lifetimes, composed lint/Evidence observations and actual source-linked runtime identity require the installed process protocol rather than a fake cache or an in-process observation encoder.
+ * @evidence contracts/e2e.md#shared-execution One fixture, linked package, content-keyed native artifact and stable trace/cache environment serve all transitions. Only input changes that must invalidate the completed result start another compiler generation; no dependency install or host build is repeated per assertion.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each synchronous child exits before mutation. One test-owned root holds source, caches and traces, and its junction is unlinked before recursive cleanup; finally releases the fixture on success and failure. Trace identity and environment remain constant across cold and warm runs.
+ * @evidence contracts/e2e.md#preserved-coverage This new runtime case adds cross-process admission and invalidation assertions; the companion native unit cases retain generation proof, incompleteness, noEmit and private-channel failure coverage.
+ */
+export const test_ttsx_observed_emit_reuse = (): void => {
+  const root = fs.mkdtempSync(path.join(process.cwd(), ".observed-emit-"));
+  const cache = path.join(root, "cache/ttsc");
+  const trace = path.join(root, "trace");
+  const link = path.join(root, "node_modules/@fixture/model");
+  const requireFrom = createRequire(path.join(process.cwd(), "package.json"));
+  const launcher = path.join(
+    path.dirname(requireFrom.resolve("ttsc/package.json")),
+    "lib/launcher/ttsx.js",
+  );
+  const write = (name: string, text: string): void => {
+    const file = path.join(root, name);
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    fs.writeFileSync(file, text);
+  };
+  const json = (name: string, value: unknown): void =>
+    write(name, JSON.stringify(value));
+  const failures: Error[] = [];
+  const check = (label: string, task: () => void): void => {
+    try {
+      task();
+    } catch (error) {
+      failures.push(new Error(label, { cause: error }));
+    }
+  };
+  type Trace = {
+    event: string;
+    argv?: string[];
+    data?: { phase?: string; outcome?: string };
+  };
+  const offsets = new Map<string, number>();
+  const records = (): Trace[] => {
+    const events: Trace[] = [];
+    for (const name of fs.readdirSync(trace)) {
+      if (!name.endsWith(".jsonl")) continue;
+      const lines = fs.readFileSync(path.join(trace, name), "utf8").trim().split("\n");
+      const before = offsets.get(name) ?? 0;
+      offsets.set(name, lines.length);
+      for (const line of lines.slice(before)) if (line) events.push(JSON.parse(line));
+    }
+    return events;
+  };
+  const env = { ...process.env, TTSC_CACHE_DIR: cache, TTSC_E2E_TRACE: trace };
+  // An enclosing ttsx invocation may carry a private emitted-output manifest.
+  // Child launches must discover this authored project independently.
+  for (const key of Object.keys(env))
+    if (key.startsWith("TTSC_") && key !== "TTSC_CACHE_DIR" && key !== "TTSC_E2E_TRACE")
+      delete (env as Record<string, string | undefined>)[key];
+  const outcome = (events: Trace[], name: string): boolean =>
+    events.some((event) => event.data?.phase === "runtime-build-cache" && event.data.outcome === name);
+  const producer = (event: Trace): boolean =>
+    event.event === "process-attempt" &&
+    (event.argv?.some((arg) =>
+      arg === "--emit-provenance-json" || arg.startsWith("--emit-provenance-json=") ||
+      arg === "--check-observations-json" || arg.startsWith("--check-observations-json="),
+    ) ?? false);
+  const run = (label: string, expected: unknown[], warm = false, success = true, args: string[] = []): void => {
+    const result = spawnSync(process.execPath, [launcher, ...args, "src/index.ts"], {
+      cwd: root,
+      encoding: "utf8",
+      timeout: 1_200_000,
+      env,
+    });
+    if (result.error) throw result.error;
+    const events = records();
+    check(label, () => {
+      assert.equal(result.status === 0, success, result.stdout + result.stderr);
+      if (success) {
+        const line = result.stdout.trim().split("\n").at(-1)!;
+        assert.deepEqual(JSON.parse(line), [...expected, path.join(root, "src/index.ts")]);
+        if (warm) {
+          assert.equal(outcome(events, "reused"), true, "no completed-result hit");
+          assert.equal(events.some(producer), false, "warm hit started a native producer");
+        } else assert.equal(events.some(producer), true, "invalidation did not start a native producer");
+      } else {
+        assert.equal(outcome(events, "reused"), false, "failed input reused success");
+        assert.match(result.stdout + result.stderr, /no-debugger/);
+      }
+    });
+  };
+  try {
+    fs.mkdirSync(trace, { recursive: true });
+    json("package.json", { name: "observed-entry", private: true, type: "commonjs", dependencies: { typia: "*", "@ttsc/lint": "*", "@fixture/model": "file:packages/model" } });
+    const config = { extends: "./base.json", compilerOptions: { module: "nodenext", moduleResolution: "nodenext", target: "es2022", strict: true, skipLibCheck: true, outDir: "dist", plugins: [{ transform: "@ttsc/lint" }] }, include: ["src"] };
+    json("tsconfig.json", config);
+    json("base.json", { compilerOptions: { strict: true } });
+    write("lint.config.ts", `import { evidence } from "@ttsc/evidence";
+export default { files: ["src/**"], plugins: { evidence }, rules: {
+  "no-debugger": "error", "evidence/graph": ["error", { claims: [{
+    type: "typescript", files: ["src/check.ts"], symbol: "function",
+    reference: { type: "markdown", files: ["contract.md"], symbol: "h2", checklist: true }
+  }] }]
+} };
+`);
+    write("contract.md", "# Contract\n\n## Value\n\nThe value is retained.\n");
+    write("src/check.ts", "/** @evidence contract.md#value Returns the declared value. */\nexport function value(): number { return 1; }\n");
+    write("src/shape.ts", "export interface Shape { id: number }\n");
+    write("src/index.ts", `import typia from "typia";
+import type { Shape } from "./shape";
+import { value } from "@fixture/model";
+const check = typia.createIs<Shape>();
+console.log(JSON.stringify([check({ id: 7 }), check({ id: "7" }), value, __filename]));
+`);
+    json("packages/model/package.json", { name: "@fixture/model", version: "1.0.0", type: "commonjs", exports: "./src/index.ts", dependencies: { typia: "*" } });
+    json("packages/model/tsconfig.json", { compilerOptions: { module: "commonjs", moduleResolution: "node", ignoreDeprecations: "6.0", target: "es2022", strict: true, skipLibCheck: true }, include: ["src"] });
+    write("packages/model/src/index.ts", "export const value = 7;\n");
+    fs.mkdirSync(path.dirname(link), { recursive: true });
+    fs.symlinkSync(path.join(root, "packages/model"), link, process.platform === "win32" ? "junction" : "dir");
+    run("cold", [true, false, 7]);
+    run("warm", [true, false, 7], true);
+    write("src/shape.ts", "export interface Shape { id: string }\n");
+    run("type-only invalidation", [false, true, 7]);
+    write("packages/model/src/index.ts", "export const value = 11;\n");
+    run("linked source invalidation", [false, true, 11]);
+    write("contract.md", "# Contract\n\n## Value\n\nThe value is retained with updated guidance.\n");
+    run("external evidence invalidation", [false, true, 11]);
+    json("base.json", { compilerOptions: { strict: true, noFallthroughCasesInSwitch: true } });
+    run("config ancestor invalidation", [false, true, 11]);
+    config.compilerOptions.plugins.push({ transform: "typia/lib/transform", finite: true } as typeof config.compilerOptions.plugins[number]);
+    json("tsconfig.json", config);
+    run("plugin options invalidation", [false, true, 11]);
+    json("packages/model/package.json", { name: "@fixture/model", version: "1.0.1", type: "commonjs", exports: "./src/index.ts", dependencies: { typia: "*" } });
+    run("package invalidation", [false, true, 11]);
+    write("src/invalid.ts", "debugger; export {};\n");
+    run("lint failure", [], false, false);
+    fs.unlinkSync(path.join(root, "src/invalid.ts"));
+    run("recovery", [false, true, 11], true);
+    const documents = path.join(cache, "runtime-builds");
+    const entries = fs.existsSync(documents) ? fs.readdirSync(documents).filter((name) => name.endsWith(".json")) : [];
+    check("persistent documents", () => assert.ok(entries.length > 0));
+    for (const name of entries) fs.writeFileSync(path.join(documents, name), "damaged document");
+    run("damaged cache", [false, true, 11]);
+    run("warm after repair", [false, true, 11], true);
+    run("explicit bypass", [false, true, 11], false, true, ["--no-cache"]);
+    if (failures.length) throw new AggregateError(failures, "observed ttsx reuse failures");
+  } finally {
+    if (fs.existsSync(link)) fs.unlinkSync(link);
+    fs.rmSync(root, { recursive: true });
+  }
+};

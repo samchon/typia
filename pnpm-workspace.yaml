@@ -18,10 +18,12 @@ catalogs:
     # on its exact matching ttsc, and website.yml clones the ttsc sibling at
     # the installed @ttsc/wasm version to build the browser-playground host
     # that website/compiler/cmd/playground implements.
-    ttsc: &ttsc ^0.34.1
+    ttsc: &ttsc ^0.36.2
     '@ttsc/unplugin': *ttsc
     '@ttsc/playground': *ttsc
     '@ttsc/wasm': *ttsc
+    '@ttsc/lint': *ttsc
+    '@ttsc/evidence': *ttsc
     '@wrtnlabs/evidence': ^0.2.1
     tstl: ^3.0.0
     tgrid: ^1.2.1

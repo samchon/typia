@@ -20,7 +20,14 @@ import (
   nativetransform "github.com/samchon/typia/packages/typia/native/transform"
 )
 
-func runBuild(args []string) int {
+// runBuild validates and transactionally emits a project with typia's native
+// transform. Optional private result paths expose the loaded generation's input
+// observations and the compiler's provenance for successfully published scripts.
+// Failed builds still report observations; buffered or discarded output never
+// acquires provenance. Without the private flags, ordinary command behavior is
+// unchanged.
+//
+func runBuild(args []string) (status int) {
   fs := flag.NewFlagSet("build", flag.ContinueOnError)
   fs.SetOutput(stderr)
   tsconfigPath := fs.String("tsconfig", "tsconfig.json", "path to tsconfig.json")
@@ -33,9 +40,42 @@ func runBuild(args []string) int {
   manifestPath := fs.String("manifest", "", "write emitted file list as JSON")
   rewriteMode := fs.String("rewrite-mode", "typia", "native rewrite backend id")
   pluginsJSON := fs.String("plugins-json", "", "ordered ttsc plugin payload")
+  observationsPath := fs.String("emit-observations-json", "", "private absolute build input result path")
+  provenancePath := fs.String("emit-provenance-json", "", "private absolute emit provenance result path")
   if err := fs.Parse(args); err != nil {
     return 2
   }
+  for _, path := range []string{*observationsPath, *provenancePath} {
+    if path != "" && !filepath.IsAbs(path) {
+      fmt.Fprintln(stderr, "ttsc-typia build: private result path must be absolute")
+      return 2
+    }
+  }
+  var prog *driver.Program
+  snapshot := func() map[string][]string { return map[string][]string{} }
+  defer func() {
+    // Publish while the checker and generation-owned input ledger are live.
+    // Even a failed load has an explicit incomplete observation envelope.
+    if *observationsPath != "" {
+      if err := driver.WriteCheckObservationsJSON(*observationsPath, prog); err != nil {
+        fmt.Fprintf(stderr, "ttsc-typia build: emit observations write failed: %v\n", err)
+        if status == 0 {
+          status = 3
+        }
+      }
+    }
+    if *provenancePath != "" {
+      if err := driver.WriteEmitProvenanceJSON(*provenancePath, snapshot()); err != nil {
+        fmt.Fprintf(stderr, "ttsc-typia build: provenance write failed: %v\n", err)
+        if status == 0 {
+          status = 3
+        }
+      }
+    }
+    if prog != nil {
+      prog.Close()
+    }
+  }()
   if *emit && *noEmit {
     fmt.Fprintln(stderr, "ttsc-typia build: --emit and --noEmit are mutually exclusive")
     return 2
@@ -64,28 +104,26 @@ func runBuild(args []string) int {
     }
   }
   loadProgram := func(options driver.LoadProgramOptions, diagnose bool) (*driver.Program, int) {
-    prog, diags, err := driver.LoadProgram(cwd, *tsconfigPath, options)
+    options.SemanticConfigPath = os.Getenv(driver.SemanticConfigPathEnv)
+    loaded, diags, err := driver.LoadProgram(cwd, *tsconfigPath, options)
+    prog = loaded
     if err != nil {
       fmt.Fprintf(stderr, "ttsc-typia build: %v\n", err)
       return nil, 2
     }
     if len(diags) > 0 {
-      if prog != nil {
-        prog.Close()
-      }
       driver.WritePrettyDiagnostics(stderr, diags, cwd)
       return nil, 2
     }
     if diagnose {
       if diags := prog.Diagnostics(); len(diags) > 0 {
-        prog.Close()
         driver.WritePrettyDiagnostics(stderr, diags, cwd)
         return nil, 2
       }
     }
     return prog, 0
   }
-  prog, code := loadProgram(driver.LoadProgramOptions{
+  _, code := loadProgram(driver.LoadProgramOptions{
     ForceEmit:   *emit,
     ForceNoEmit: *noEmit,
     OutDir:      *outDir,
@@ -101,7 +139,7 @@ func runBuild(args []string) int {
     // project's diagnostics; diagnosing the private reload would reject valid
     // analysis-only options such as allowImportingTsExtensions.
     prog.Close()
-    prog, code = loadProgram(driver.LoadProgramOptions{
+    _, code = loadProgram(driver.LoadProgramOptions{
       ForceEmit: true,
       OutDir:    *outDir,
     }, false)
@@ -109,7 +147,6 @@ func runBuild(args []string) int {
       return code
     }
   }
-  defer prog.Close()
   registerTypiaDefaultLibraryClassifier(prog)
   defer schemametadata.MetadataDefaultLibrary_release(prog.Checker)
 
@@ -136,11 +173,22 @@ func runBuild(args []string) int {
   }
   emitted := []string{}
   pending := []buildPendingOutput{}
+  publish := shimcompiler.WriteFile(func(name shimtspath.RootedFilePath, text string, _ *shimcompiler.WriteFileData) error {
+    return driver.DefaultWriteFile(string(name), text)
+  })
+  if shouldEmit && *provenancePath != "" {
+    recordedWrite, recordedSnapshot, err := prog.NewEmitProvenanceRecorder(publish)
+    if err != nil {
+      fmt.Fprintf(stderr, "ttsc-typia build: provenance failed: %v\n", err)
+      return 3
+    }
+    publish, snapshot = recordedWrite, recordedSnapshot
+  }
   writeFile := shimcompiler.WriteFile(func(name shimtspath.RootedFilePath, text string, data *shimcompiler.WriteFileData) error {
     fileName := string(name)
     if shouldEmit {
       emitted = append(emitted, fileName)
-      pending = append(pending, buildPendingOutput{FileName: fileName, Text: text})
+      pending = append(pending, buildPendingOutput{FileName: fileName, Text: text, Data: data})
     }
     return nil
   })
@@ -158,7 +206,7 @@ func runBuild(args []string) int {
   }
   if shouldEmit {
     for _, output := range pending {
-      if err := driver.DefaultWriteFile(output.FileName, output.Text); err != nil {
+      if err := publish(shimtspath.RootedFilePath(output.FileName), output.Text, output.Data); err != nil {
         fmt.Fprintf(stderr, "ttsc-typia build: emit write failed: %v\n", err)
         return 3
       }
@@ -195,6 +243,7 @@ func runBuild(args []string) int {
 type buildPendingOutput struct {
   FileName string
   Text     string
+  Data     *shimcompiler.WriteFileData
 }
 
 type typiaTransformDiagnostic struct {
