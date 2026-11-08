@@ -60,7 +60,7 @@ type NotationJoiner_ArrayProps struct {
 func (notationJoinerNamespace) Object(props NotationJoiner_ObjectProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Emit)
   if len(props.Entries) == 0 {
-    return f.NewIdentifier("{}")
+    return f.NewObjectLiteralExpression(f.NewNodeList(nil), false)
   }
 
   regular := []IExpressionEntry{}
