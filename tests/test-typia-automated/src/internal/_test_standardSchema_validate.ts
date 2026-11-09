@@ -13,7 +13,7 @@ import typia from "typia";
  * 1. Assert the successful result preserves both its static and runtime value.
  * 2. Apply every fixture spoiler and compare exact sorted issue paths.
  *
- * @evidence contracts/testing.md#behavioral-verification The supplied ~standard validator must return a clean value with original identity and a statically assignable SuccessResult. Every spoiler must yield issues whose reconstructed sorted paths equal the entire expected multiset; native assertEquals checks the failed record.
+ * @evidence contracts/testing.md#behavioral-verification The supplied ~standard validator must return a clean value with original identity and a statically assignable SuccessResult. Every spoiler must yield issues whose reconstructed sorted paths equal the entire expected multiset; native assertEquals checks the complete failed record using typia's actual string/number path domain, narrower than the foreign standard's symbol-capable domain.
  * @evidence contracts/testing.md#independent-expectations Spoiler-authored paths are independent of reported issues. issuePath reconstructs index, identifier and quoted accessors from Standard Schema segments, sharing NamingConvention for variable names. The native record-shape check is correlated with the producer.
  * @evidence contracts/testing.md#distinguishing-cases Clean value identity contrasts with each declared invalid mutation. Exact issue count and path multiplicity detect omissions or substitutions. The synchronous typia Standard Schema implementation is the supported callback; async foreign validators are not exercised.
  * @evidence contracts/testing.md#execution-ownership Generated standardSchema.createValidate entries are discovered by TestServant. This helper owns local issuePath reconstruction and diagnostic comparisons.
@@ -45,7 +45,9 @@ export const _test_standardSchema_validate =
           `Bug on typia.createValidate["~standard"].validate(): failed to detect error on the ${name} type.`,
         );
 
-      typia.assertEquals(valid);
+      // Generated typia paths have string/number keys. The foreign standard
+      // also permits symbols, which typia does not expose as data positions.
+      typia.assertEquals<ITypiaFailureResult>(valid);
       expected.sort();
       const issues = [...valid.issues];
       const actual: string[] = issues.map(issuePath).sort();
@@ -70,6 +72,17 @@ export const _test_standardSchema_validate =
 interface ISpoiled {
   expected: string[];
   actual: string[];
+}
+
+interface ITypiaFailureResult {
+  readonly issues: readonly {
+    readonly message: string;
+    readonly path?: readonly (
+      | string
+      | number
+      | { readonly key: string | number }
+    )[];
+  }[];
 }
 
 const issuePath = (issue: StandardSchemaV1.Issue): string =>

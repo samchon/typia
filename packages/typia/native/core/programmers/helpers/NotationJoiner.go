@@ -133,7 +133,7 @@ func (notationJoinerNamespace) Object(props NotationJoiner_ObjectProps) *shimast
                 output,
                 sources,
                 key,
-                entry.Expression,
+                cloneJoiner_dynamic_value(entry, props.Emit),
                 props.DynamicRename(),
               }),
               shimast.NodeFlagsNone,

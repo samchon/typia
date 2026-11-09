@@ -143,7 +143,7 @@ func (cloneJoinerNamespace) Object(props CloneJoiner_ObjectProps) *shimast.Node 
               f.NewElementAccessExpression(output, nil, key, shimast.NodeFlagsNone),
               nil,
               f.NewToken(shimast.KindEqualsToken),
-              entry.Expression,
+              cloneJoiner_dynamic_value(entry, props.Emit),
             ),
           ),
           f.NewContinueStatement(nil),
@@ -179,6 +179,19 @@ func (cloneJoinerNamespace) Object(props CloneJoiner_ObjectProps) *shimast.Node 
       f.NewReturnStatement(output),
     }),
     false,
+  )
+}
+
+// Index-signature validation can admit a present undefined value. Preserve it
+// without passing it to a decoder that expects the declared value type.
+func cloneJoiner_dynamic_value(entry IExpressionEntry, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.NodeFactoryOf(emit)
+  return nativefactories.ExpressionFactory.Conditional(
+    f.NewBinaryExpression(nil, entry.Input, nil, f.NewToken(shimast.KindExclamationEqualsEqualsToken),
+      f.NewVoidExpression(f.NewNumericLiteral("0", shimast.TokenFlagsNone))),
+    entry.Expression,
+    entry.Input,
+    emit,
   )
 }
 

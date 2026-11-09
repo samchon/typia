@@ -28,6 +28,8 @@ All three approaches share two problems:
 
 typia removes both. It is a **compile-time transformer**: it reads your TypeScript type at build time and writes the runtime code for you. The TypeScript type is the only source of truth.
 
+Value positions typed as `symbol` or `unique symbol` are unsupported and produce a compile-time diagnostic, including inside unions and optional properties. Symbol-keyed phantom brands remain outside the data shape.
+
 ## Three approaches
 
 The example below is the same data model — a BBS article with files — written for `class-validator`, `ajv`, and typia. Look at the highlighted `files` property in each.

@@ -42,15 +42,23 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
   }
 
   commit := props.Components.Clone()
+  types := props.Type.Types()
   fakeErrors := []MetadataFactory_IError{}
-  children := make([]*schemametadata.MetadataSchema, 0, len(props.Type.Types()))
-  for _, typ := range props.Type.Types() {
+  type failedTrial struct {
+    child      *schemametadata.MetadataSchema
+    start, end int
+  }
+  var failed []failedTrial
+  children := make([]*schemametadata.MetadataSchema, 0, len(types))
+  nonObjectBase := false
+  for _, typ := range types {
+    start := len(fakeErrors)
     options := props.Options
     options.Absorb = true
     options.Functional = false
     explore := props.Explore
     explore.Aliased = false
-    children = append(children, Explore_metadata(Explore_metadata_IProps{
+    child := Explore_metadata(Explore_metadata_IProps{
       Options:     options,
       Checker:     props.Checker,
       Components:  props.Components,
@@ -60,7 +68,29 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
       Intersected: false,
       NoCache:     true,
       Prunable:    true,
-    }))
+    })
+    children = append(children, child)
+    if len(fakeErrors) > start {
+      failed = append(failed, failedTrial{child, start, len(fakeErrors)})
+    }
+    nonObjectBase = nonObjectBase || len(child.Atomics)+len(child.Constants)+len(child.Templates)+
+      len(child.Arrays)+len(child.Tuples)+len(child.Natives)+len(child.Sets)+len(child.Maps) != 0
+  }
+  // Optional fields can be phantom constraints on a non-object data base.
+  // The same fields are real data on an object, including one with a type
+  // tag or a call signature.
+  if nonObjectBase && len(failed) != 0 {
+    kept := fakeErrors[:0]
+    for _, trial := range failed {
+      phantom := iterate_metadata_intersection_is_removable_brand(trial.child) &&
+        !iterate_metadata_intersection_is_type_tag(trial.child.Objects[0].Type)
+      for _, err := range fakeErrors[trial.start:trial.end] {
+        if !phantom || len(err.Messages) != 1 || err.Messages[0] != unsupportedSymbolValue {
+          kept = append(kept, err)
+        }
+      }
+    }
+    fakeErrors = kept
   }
 
   escape := func(out bool) bool {
