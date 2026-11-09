@@ -73,7 +73,7 @@ type CloneJoiner_ArrayProps struct {
 func (cloneJoinerNamespace) Object(props CloneJoiner_ObjectProps) *shimast.Node {
   f := nativecontext.NodeFactoryOf(props.Emit)
   if len(props.Entries) == 0 {
-    return f.NewIdentifier("{}")
+    return f.NewObjectLiteralExpression(f.NewNodeList(nil), false)
   }
 
   regular := []IExpressionEntry{}
