@@ -143,7 +143,7 @@ func (classifyJoinerNamespace) Object(props ClassifyJoiner_ObjectProps) *shimast
               f.NewElementAccessExpression(output, nil, key, shimast.NodeFlagsNone),
               nil,
               f.NewToken(shimast.KindEqualsToken),
-              entry.Expression,
+              cloneJoiner_dynamic_value(entry, props.Emit),
             )),
             f.NewContinueStatement(nil),
           }),

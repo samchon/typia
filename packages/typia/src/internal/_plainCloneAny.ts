@@ -7,8 +7,8 @@ import { Resolved } from "@typia/interface";
  * files, boxed primitives and plain objects are rebuilt. Functions become
  * undefined; object properties with undefined results are omitted, while
  * arrays, sets and maps retain them. Weak collections throw. Cycles are not
- * tracked, and ordinary objects may invoke their own valueOf or property
- * getters.
+ * tracked, and ordinary objects may invoke a callable valueOf or property
+ * getters. A missing or non-callable valueOf is ordinary data.
  *
  * @evidence contracts/common.md#principled-implementation The clone walks the value and rebuilds arrays, sets, maps, boxed primitives, dates, regular expressions, typed arrays, buffers, data views, blobs, files and plain objects, turns functions into undefined, omits object properties whose cloned values are undefined while retaining such array/set/map results, and throws for weak collections. Native recognition checks intrinsic prototype accessors with `Reflect.apply` rather than trusting a supplied string tag or own getter; native clones use those captured accessors for their internal data. The ordinary-object branch invokes valueOf and clones its replacement when different, otherwise rebuilding enumerable own entries. Cycles are not tracked, so a cyclic value does not terminate.
  * @evidence contracts/common.md#clear-and-simple-design One entry function over a recognition function, a native cloner and a buffer range copier; the accessor captures are module-level constants because they are looked up once from the prototypes.
@@ -108,8 +108,11 @@ const cloneMain = (value: any): any => {
       else if (value instanceof WeakSet || value instanceof WeakMap)
         throw new Error("WeakSet and WeakMap are not supported");
       else {
-        const primitive: unknown = value.valueOf();
-        if (primitive !== value) return cloneMain(primitive);
+        const valueOf: unknown = value.valueOf;
+        if (typeof valueOf === "function") {
+          const primitive: unknown = Reflect.apply(valueOf, value, []);
+          if (primitive !== value) return cloneMain(primitive);
+        }
         return Object.fromEntries(
           Object.entries(value)
             .map(([k, v]) => [k, cloneMain(v)])

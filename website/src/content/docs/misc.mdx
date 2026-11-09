@@ -36,6 +36,8 @@ const result = typia.plain.validateClone<User>(input); // IValidation<User>
 const checked = typia.plain.assertClone<User>(input); // throws if invalid
 ```
 
+Cloning accepts null-prototype dictionaries at `any` and `unknown` positions. A non-callable `valueOf` is treated as data. When index-signature validation accepts a present `undefined` value, reconstruction preserves that entry.
+
 The pairing rule is the same as elsewhere:
 
 - `plain.isClone<T>` = [`is<T>`](/docs/validators/is) + `clone<T>`
