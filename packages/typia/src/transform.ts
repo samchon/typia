@@ -13,7 +13,9 @@ import type { ITtscPlugin, ITtscPluginFactoryContext } from "ttsc";
  * resolution, so an empty hostInputHashes declaration permits safe descriptor
  * replay. The native build host supplies generation-owned input observations
  * and compiler-owned output provenance for ttsc's checked runtime reuse
- * protocol.
+ * protocol. Its only variable reads outside ttsc's own namespace go through the
+ * program's recorded `Env`, so it declares `environmentInputs` and ttsc keys
+ * its outputs by the variables it read instead of the whole environment.
  *
  * @param context Plugin factory context of ttsc
  *
@@ -41,6 +43,7 @@ export function createTtscPlugin(
     capabilities: {
       emitObservations: true,
       emitProvenance: true,
+      environmentInputs: true,
     },
   };
 }
