@@ -18,8 +18,8 @@ import (
 //
 // 1. Transform one annotated declaration with the variable set to js and no
 //    --output: the annotation is gone.
-// 2. Unset the variable: the annotation stays.
-// 3. Set it to js again with --output ts: the annotation stays.
+// 2. Keep the variable at js and pass --output ts: the annotation stays.
+// 3. Unset the variable: the annotation stays.
 //
 // @evidence contracts/testing.md#behavioral-verification The real transform command runs over a real program; the printed declaration shows which output kind ran.
 // @evidence contracts/testing.md#independent-expectations TypeScript output keeps the authored `: number` annotation and JavaScript output drops it, independently of typia's rewriting.
