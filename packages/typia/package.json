@@ -36,7 +36,7 @@
     "randexp": "^0.5.3"
   },
   "peerDependencies": {
-    "ttsc": ">=0.36.3"
+    "ttsc": ">=0.37.0"
   },
   "peerDependenciesMeta": {
     "ttsc": {

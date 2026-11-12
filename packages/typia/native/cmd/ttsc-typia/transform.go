@@ -41,7 +41,7 @@ func runTransform(args []string) int {
   cwdOverride := fs.String("cwd", "", "override the working directory")
   out := fs.String("out", "", "write single-file output to PATH instead of stdout")
   rewriteMode := fs.String("rewrite-mode", "typia", "native rewrite backend id")
-  output := fs.String("output", defaultTransformOutput(), "single-file output kind: js or ts")
+  output := fs.String("output", "", "single-file output kind: js or ts (default: TYPIA_TTSC_TRANSFORM_OUTPUT, else ts)")
   pluginsJSON := fs.String("plugins-json", "", "ordered ttsc plugin payload")
   if err := fs.Parse(args); err != nil {
     return 2
@@ -50,7 +50,7 @@ func runTransform(args []string) int {
     fmt.Fprintf(stderr, "ttsc-typia transform: unknown --rewrite-mode value %q\n", *rewriteMode)
     return 2
   }
-  if *output != "js" && *output != "ts" {
+  if *output != "" && *output != "js" && *output != "ts" {
     fmt.Fprintf(stderr, "ttsc-typia transform: unknown --output value %q\n", *output)
     return 2
   }
@@ -119,8 +119,12 @@ func runTransform(args []string) int {
     fmt.Fprintf(stderr, "ttsc-typia transform: source file is not in program: %s\n", absFile)
     return 2
   }
+  kind := *output
+  if kind == "" {
+    kind = defaultTransformOutput(prog)
+  }
   return runTransformSingle(cwd, *out, &transformDiags, func() (string, int) {
-    if *output == "js" {
+    if kind == "js" {
       return transformSingleToJavaScript(prog, typiaTransform, target)
     }
     return transformFileToTypeScript(prog, typiaTransform, target), 0
@@ -377,8 +381,13 @@ func writeSingleOutput(text, outPath string) int {
   return 0
 }
 
-func defaultTransformOutput() string {
-  if os.Getenv("TYPIA_TTSC_TRANSFORM_OUTPUT") == "js" {
+// defaultTransformOutput is the single-file output kind when --output is not
+// given: `TYPIA_TTSC_TRANSFORM_OUTPUT=js` selects JavaScript, anything else
+// TypeScript. It is read through the program, which records the read as an
+// input of this generation, so a host that reuses this output under another
+// value sees the change; os.Getenv was recorded by nothing (samchon/ttsc#1852).
+func defaultTransformOutput(prog *driver.Program) string {
+  if value, _ := prog.Env("TYPIA_TTSC_TRANSFORM_OUTPUT"); value == "js" {
     return "js"
   }
   return "ts"
