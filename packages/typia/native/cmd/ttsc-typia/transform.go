@@ -25,7 +25,7 @@ import (
 // runTransform is the source-to-source host that drives the ttsc transform
 // stage. Unlike `build` (which emits .js), it returns
 // transformed TypeScript: typia's per-file node transformer runs in an
-// EmitContext and the result SourceFile is printed back as TS (no JS script
+// EmitContext and a changed SourceFile is printed back as TS (no JS script
 // transformers), so injected namespace imports stay as ES imports the caller
 // can type-strip per file. With no --file it emits a JSON envelope of every
 // project source keyed by its cwd-relative path; with --file it prints one file.
@@ -181,8 +181,8 @@ func runTransformSingle(
 }
 
 // runTransformProject publishes every non-declaration project source as
-// TypeScript, printed with a source map where typia changed it and as its
-// authored text where it did not, and encodes the JSON envelope the ttsc host
+// TypeScript, printed with a source map where it was changed and as its
+// authored text where it was not, and encodes the JSON envelope the ttsc host
 // expects. Alongside the sources it reports two invalidation channels the ttsc
 // consumer registers with the bundler so persistent caches and watch mode
 // invalidate generated validators soundly:
@@ -306,9 +306,17 @@ func runTransformProject(
 // lines that no longer match the file on disk; a host that ignores input maps,
 // such as Bun's `onLoad`, loses breakpoints in every module (samchon/typia#2557).
 //
-// A file typia changed is printed with a version 3 map that carries its
-// original text as `sourcesContent`, so the consumer can check the map against
-// the text it was handed before composing it.
+// The parsed text is the authored text only while nothing else rewrote the
+// file. A linked ProgramPlugin edits the tree in place without replacing the
+// SourceFile, and a linked source preamble is inserted into the parsed text,
+// so under either the file is printed like a changed one.
+//
+// A printed file carries a version 3 map back to the authored text, with that
+// text as `sourcesContent`, so the consumer can check the map against the text
+// it was handed before composing it. The driver moves a preamble-bearing map
+// off the preamble; a map it cannot correct is dropped rather than published
+// pointing at the wrong lines, and a printed text equal to the authored text
+// needs no map.
 func transformFileToTypeScript(
   prog *driver.Program,
   typiaTransform driver.PluginTransform,
@@ -319,16 +327,21 @@ func transformFileToTypeScript(
   if next := typiaTransform(ec, result); next != nil {
     result = next
   }
-  if result == sf {
+  if result == sf && prog.SourcePreamble == "" && !prog.HasLinkedProgramPlugins() {
     return sf.Text(), ""
   }
   shimast.SetParentInChildrenUnset(result.AsNode())
-  return shimprinter.EmitSourceFileWithSourceMap(
+  text, sourceMap := shimprinter.EmitSourceFileWithSourceMap(
     shimprinter.PrinterOptions{NewLine: prog.TSProgram.Options().NewLine, InlineSources: true},
     shimprinter.PrintHandlers{},
     ec,
     result,
   )
+  authored, corrected, ok := prog.AuthoredSourceMap(sf, sourceMap)
+  if !ok || text == authored {
+    return text, ""
+  }
+  return text, corrected
 }
 
 // transformSingleToJavaScript emits a single file's JS through the full node-path
@@ -422,9 +435,9 @@ func defaultTransformOutput(prog *driver.Program) string {
 type transformProjectOutput struct {
   Diagnostics []transformCompilerDiagnostic `json:"diagnostics,omitempty"`
   TypeScript  map[string]string             `json:"typescript"`
-  // SourceMaps maps each TypeScript key typia changed to a version 3 map from
-  // the published text back to the authored text, keyed like TypeScript. A file
-  // typia left alone is published as its authored text and has no entry.
+  // SourceMaps maps each printed TypeScript key whose text differs from the
+  // authored text to a version 3 map back to that text, keyed like TypeScript.
+  // A file published as its authored text has no entry.
   SourceMaps map[string]json.RawMessage `json:"sourceMaps,omitempty"`
   // Graph is the host-owned reference graph of the loaded program produced by
   // the ttsc driver SDK (driver.NewTransformGraph): direct resolved reference
