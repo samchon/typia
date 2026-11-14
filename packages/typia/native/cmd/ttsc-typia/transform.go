@@ -127,7 +127,8 @@ func runTransform(args []string) int {
     if kind == "js" {
       return transformSingleToJavaScript(prog, typiaTransform, target)
     }
-    return transformFileToTypeScript(prog, typiaTransform, target), 0
+    text, _ := transformFileToTypeScript(prog, typiaTransform, target)
+    return text, 0
   })
 }
 
@@ -179,11 +180,12 @@ func runTransformSingle(
   return writeSingleOutput(text, outPath)
 }
 
-// runTransformProject prints every non-declaration project source as transformed
-// TypeScript and encodes the JSON envelope the ttsc host expects. Alongside the
-// transformed sources it reports two invalidation channels the ttsc consumer
-// registers with the bundler so persistent caches and watch mode invalidate
-// generated validators soundly:
+// runTransformProject publishes every non-declaration project source as
+// TypeScript, printed with a source map where typia changed it and as its
+// authored text where it did not, and encodes the JSON envelope the ttsc host
+// expects. Alongside the sources it reports two invalidation channels the ttsc
+// consumer registers with the bundler so persistent caches and watch mode
+// invalidate generated validators soundly:
 //
 //   - `graph`, the host-owned reference graph of the loaded program (direct
 //     resolved edges, ambient globals, tsconfig extends chain) computed by the
@@ -260,7 +262,14 @@ func runTransformProject(
       continue
     }
     collector.Begin(key)
-    out.TypeScript[key] = transformFileToTypeScript(prog, typiaTransform, sf)
+    text, sourceMap := transformFileToTypeScript(prog, typiaTransform, sf)
+    out.TypeScript[key] = text
+    if sourceMap != "" {
+      if out.SourceMaps == nil {
+        out.SourceMaps = map[string]json.RawMessage{}
+      }
+      out.SourceMaps[key] = json.RawMessage(sourceMap)
+    }
     collector.End()
   }
   out.Dependencies = collector.ToJSON()
@@ -285,24 +294,41 @@ func runTransformProject(
 }
 
 // transformFileToTypeScript runs typia's node transformer on one source file in
-// a fresh EmitContext and prints the result as TypeScript. It deliberately skips
-// the JS script transformers (type-erase, module-transform): the caller wants TS.
+// a fresh EmitContext and returns the file's TypeScript with a source map back
+// to the authored text. It deliberately skips the JS script transformers
+// (type-erase, module-transform): the caller wants TS.
+//
+// A file typia left alone comes back as the parsed text itself, with no map.
+// The transformer rebuilds a node only when it replaces something beneath it,
+// so the original SourceFile coming back means nothing was replaced. Printing
+// it anyway would hand the consumer the author's code in the printer's
+// formatting, which a bundler then takes as a changed module and serves with
+// lines that no longer match the file on disk; a host that ignores input maps,
+// such as Bun's `onLoad`, loses breakpoints in every module (samchon/typia#2557).
+//
+// A file typia changed is printed with a version 3 map that carries its
+// original text as `sourcesContent`, so the consumer can check the map against
+// the text it was handed before composing it.
 func transformFileToTypeScript(
   prog *driver.Program,
   typiaTransform driver.PluginTransform,
   sf *shimast.SourceFile,
-) string {
-  options := prog.TSProgram.Options()
+) (string, string) {
   ec := shimprinter.NewEmitContext()
   result := sf
   if next := typiaTransform(ec, result); next != nil {
     result = next
   }
+  if result == sf {
+    return sf.Text(), ""
+  }
   shimast.SetParentInChildrenUnset(result.AsNode())
-  writer := shimprinter.NewTextWriter(options.NewLine.GetNewLineCharacter(), 0)
-  printer := shimprinter.NewPrinter(shimprinter.PrinterOptions{NewLine: options.NewLine}, shimprinter.PrintHandlers{}, ec)
-  printer.Write(result.AsNode(), result, writer, nil)
-  return writer.String()
+  return shimprinter.EmitSourceFileWithSourceMap(
+    shimprinter.PrinterOptions{NewLine: prog.TSProgram.Options().NewLine, InlineSources: true},
+    shimprinter.PrintHandlers{},
+    ec,
+    result,
+  )
 }
 
 // transformSingleToJavaScript emits a single file's JS through the full node-path
@@ -396,6 +422,10 @@ func defaultTransformOutput(prog *driver.Program) string {
 type transformProjectOutput struct {
   Diagnostics []transformCompilerDiagnostic `json:"diagnostics,omitempty"`
   TypeScript  map[string]string             `json:"typescript"`
+  // SourceMaps maps each TypeScript key typia changed to a version 3 map from
+  // the published text back to the authored text, keyed like TypeScript. A file
+  // typia left alone is published as its authored text and has no entry.
+  SourceMaps map[string]json.RawMessage `json:"sourceMaps,omitempty"`
   // Graph is the host-owned reference graph of the loaded program produced by
   // the ttsc driver SDK (driver.NewTransformGraph): direct resolved reference
   // edges, ambient global-scope files, and the tsconfig extends chain, keyed
