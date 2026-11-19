@@ -15,6 +15,7 @@ export function is<T>(input: unknown): input is T; // returns boolean
 export function assert<T>(input: unknown): T; // throws TypeGuardError
 export function assertGuard<T>(input: unknown): asserts input is T;
 export function validate<T>(input: unknown): IValidation<T>; // detailed
+export function shallow<T, N extends number = 2>(input: unknown): input is T; // depth-limited is()
 
 // JSON FUNCTIONS
 export namespace json {
@@ -138,8 +139,8 @@ Check out the document in the [website](https://typia.io/docs/):
 - Runtime Validators
   - [`assert()` function](https://typia.io/docs/validators/assert/)
   - [`is()` function](https://typia.io/docs/validators/is/)
+  - [`shallow()` function](https://typia.io/docs/validators/shallow/)
   - [`validate()` function](https://typia.io/docs/validators/validate/)
-  - [Functional Module](https://typia.io/docs/validators/functional)
   - [Special Tags](https://typia.io/docs/validators/tags/)
 - Enhanced JSON
   - [JSON Schema](https://typia.io/docs/json/schema/)
@@ -149,6 +150,8 @@ Check out the document in the [website](https://typia.io/docs/):
   - [`application()` function](https://typia.io/docs/llm/application/)
   - [`structuredOutput()` function](https://typia.io/docs/llm/structuredOutput/)
   - [`evaluation()` function](https://typia.io/docs/llm/evaluation/)
+  - [`parameters()` function](https://typia.io/docs/llm/parameters/)
+  - [`schema()` function](https://typia.io/docs/llm/schema/)
   - [`HttpLlm` module](https://typia.io/docs/llm/http/)
   - [`LlmJson` module](https://typia.io/docs/llm/json/)
 - Protocol Buffer
@@ -157,16 +160,18 @@ Check out the document in the [website](https://typia.io/docs/):
   - [`encode()` functions](https://typia.io/docs/protobuf/encode/)
 - [Random Generator](https://typia.io/docs/random/)
 - [Miscellaneous](https://typia.io/docs/misc/)
+  - [Functional Module](https://typia.io/docs/misc/#functional)
 
 ### 🔗 Appendix
 
-- [API Documents](https://typia.io/api)
 - Utilization Cases
   - [MCP](https://typia.io/docs/utilization/mcp/)
   - [Vercel AI SDK](https://typia.io/docs/utilization/vercel/)
+  - [Jev](https://typia.io/docs/utilization/jev/)
   - [LangChain](https://typia.io/docs/utilization/langchain/)
   - [NestJS](https://typia.io/docs/utilization/nestjs/)
   - [tRPC](https://typia.io/docs/utilization/trpc/)
+  - [Hono](https://typia.io/docs/utilization/hono/)
 - [⇲ Benchmark Result](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz)
 - [⇲ `dev.to` Articles](https://dev.to/samchon/series/22474)
 
