@@ -16,9 +16,8 @@ import type { ITtscPlugin, ITtscPluginFactoryContext } from "ttsc";
  * protocol. Its only variable reads outside ttsc's own namespace go through the
  * program's recorded `Env`, so it declares `environmentInputs` and ttsc keys
  * its outputs by the variables it read instead of the whole environment. The
- * host also answers `check-serve`, so it declares `residentCheck` and a
- * `ttsc --noEmit --watch` keeps one typia process and its program across
- * saves.
+ * host also answers `check-serve`, so it declares `residentCheck` and a `ttsc
+ * --noEmit --watch` keeps one typia process and its program across saves.
  *
  * @param context Plugin factory context of ttsc
  *

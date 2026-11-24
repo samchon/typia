@@ -7,7 +7,7 @@ import path from "node:path";
 /**
  * Verifies `ttsc --noEmit --watch` keeps one resident typia host across saves.
  *
- * typia's descriptor declares `residentCheck`, so the installed launcher starts
+ * Typia's descriptor declares `residentCheck`, so the installed launcher starts
  * typia's analysis `check` as `check-serve` and keeps it between cycles. The
  * native unit cases drive check-serve in process; only the installed launcher
  * shows that the capability and the command reach each other.
@@ -15,7 +15,8 @@ import path from "node:path";
  * 1. Start the installed launcher in no-emit watch over a typia project.
  * 2. Save a compatible edit, an invalid typia call and the fix.
  * 3. Require every reply from one typia process, with one Program load and one
- *    more incremental update per save, and the typia diagnostic on the failure.
+ *    more incremental update per save, and the typia diagnostic on the
+ *    failure.
  *
  * @evidence contracts/testing.md#behavioral-verification The installed launcher's own resident replies must come from one typia process whose Program is loaded once and updated once per save, and the failing save must print typia's transform diagnostic; a host restarted per cycle, a reload per save or a lost diagnostic fails an assertion.
  * @evidence contracts/testing.md#independent-expectations The resident check protocol fixes the counters (one load, one update per compatible edit, a stable pid); the authored generic typia.is call must fail at src/main.ts:3:9 and its fix must pass.
