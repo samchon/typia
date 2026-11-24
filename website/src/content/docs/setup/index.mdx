@@ -14,7 +14,7 @@ typia is a compile-time transformer, so your build has to run through the TypeSc
 
 > [!IMPORTANT]
 >
-> typia's native transform requires [`ttsc`](https://github.com/samchon/ttsc) **0.37.0 or newer**. It supports both TypeScript 7.0 and 7.1; ttsc selects the compiler target from your installed TypeScript version. Version 0.37.0 keys typia's cached outputs by the environment variables the transform actually reads, so a warm `ttsx` run keeps reusing them across unrelated environment changes.
+> typia's native transform requires [`ttsc`](https://github.com/samchon/ttsc) **0.38.0 or newer**. It supports both TypeScript 7.0 and 7.1; ttsc selects the compiler target from your installed TypeScript version. ttsc keys typia's cached outputs by the environment variables the transform actually reads, so a warm `ttsx` run keeps reusing them across unrelated environment changes. Since 0.38.0, `ttsc --noEmit --watch` keeps one typia process between saves and updates its program only for the files you changed. A project that also links a plugin rewriting source in place, such as `@ttsc/paths` or `@ttsc/strip`, reloads that program on each save instead.
 
 ## Install
 
