@@ -45,6 +45,8 @@ func run(args []string) int {
     return runTransform(args[1:])
   case "check":
     return runBuild(append([]string{"--noEmit"}, args[1:]...))
+  case "check-serve":
+    return runCheckServe(os.Stdin, stdout, args[1:])
   case "-p", "--project":
     if len(args) < 2 {
       fmt.Fprintln(stderr, "ttsc-typia: -p/--project requires a path argument")
@@ -79,6 +81,7 @@ Usage:
 Commands:
   build         Compile every .ts in a project and emit typia-rewritten .js.
   check         Run the analyzer without emitting.
+  check-serve   Answer check requests over stdin/stdout from one resident program.
   transform     Emit a single file's typia-rewritten JS.
   demo          Run a backend smoke path.
   version       Print version, build info, and platform.
