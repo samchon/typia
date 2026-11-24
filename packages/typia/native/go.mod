@@ -2,7 +2,8 @@ module github.com/samchon/typia/packages/typia/native
 
 go 1.26
 
-// The supported ttsc floor (>= 0.37.0, including recorded environment inputs)
+// The supported ttsc floor (>= 0.38.0, including driver.NewSessionFromProgram
+// and Session.Contains for the resident check-serve command)
 // is enforced through typia's package.json peerDependency, not here: ttsc builds
 // this plugin from source on the user's machine and its buildSourcePlugin
 // generates `replace github.com/samchon/ttsc/packages/ttsc v0.0.0 =>
