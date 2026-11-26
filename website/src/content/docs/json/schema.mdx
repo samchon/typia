@@ -27,9 +27,9 @@ In `json.application`, each parameter's `required` flag follows its selected Typ
 
 For the LLM-specific shape (with `$defs`, `additionalProperties: false`, strict mode, …), use [`typia.llm.parameters`](/docs/llm/parameters) or [`typia.llm.application`](/docs/llm/application) instead.
 
-`Version` selects the JSON Schema dialect:
+`Version` selects the target OpenAPI version:
 
-- **`"3.1"` (default)** — OpenAPI 3.1, which is JSON Schema 2020-12. Supports tuples, pattern properties, `null` as a primitive.
+- **`"3.1"` (default)** — OpenAPI 3.1. Its default Schema Object dialect builds on JSON Schema 2020-12 and supports tuples, pattern properties, and `null` as a primitive.
 - **`"3.0"`** — OpenAPI 3.0 / Swagger compatibility. No tuples, no pattern properties.
 
 Stick with `"3.1"` unless a downstream consumer demands the older dialect.
@@ -49,7 +49,7 @@ const schemas = typia.json.schemas<[User]>();
 // → an IJsonSchemaCollection with `User` under components.schemas
 ```
 
-The output is a plain object. Use it directly with typia and `@typia/utils`, hand it to `ajv` when your JSON Schema consumer accepts typia's emended shape, or save it to disk for tooling that wants schemas at rest.
+The output is a plain object. Typia and `@typia/utils` consume it directly. For a JSON Schema validator, convert the root schema and its components to the target format first.
 
 When index-signature values are combined into a schema, their template-literal alternatives remain in the resulting value union.
 
@@ -71,6 +71,8 @@ const components = OpenApiConverter.downgradeComponents(
 
 // Use components.schemas in an OpenAPI 3.1 document or plugin option.
 ```
+
+For a single `json.schema<T>()` unit, convert `unit.components` first, then pass `unit.schema` to `OpenApiConverter.downgradeSchema` with the original components, the converted components as `downgraded`, and `version: "3.1"`. Register referenced schemas with the validator under their component reference names before compiling the root. The converted schema objects omit undefined keywords. A declared singular `example` remains an OpenAPI annotation and needs keyword registration in strict Ajv.
 
 This matters for schema-level `examples`: typia keeps `tags.Examples<T>` as named examples in the emended schema, while OpenAPI 3.1's Schema Object uses JSON Schema's array-shaped `examples` keyword. The converter drops the names and emits the raw OpenAPI form.
 

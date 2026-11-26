@@ -788,6 +788,9 @@ importers:
       '@typia/template':
         specifier: workspace:^
         version: link:../template
+      ajv:
+        specifier: ^8.12.0
+        version: 8.18.0
       ttsc:
         specifier: catalog:samchon
         version: 0.38.0(typescript@7.1.0-dev.20261020.3)
