@@ -220,6 +220,7 @@ import { test_json_schema_downgrade_v30_enum } from "./features/openapi/test_jso
 import { test_json_schema_downgrade_v30_example } from "./features/openapi/test_json_schema_downgrade_v30_example";
 import { test_json_schema_downgrade_v30_examples } from "./features/openapi/test_json_schema_downgrade_v30_examples";
 import { test_json_schema_downgrade_v30_nullable } from "./features/openapi/test_json_schema_downgrade_v30_nullable";
+import { test_json_schema_downgrade_v31_absent_keywords } from "./features/openapi/test_json_schema_downgrade_v31_absent_keywords";
 import { test_json_schema_downgrade_v31_enum } from "./features/openapi/test_json_schema_downgrade_v31_enum";
 import { test_json_schema_downgrade_v31_example } from "./features/openapi/test_json_schema_downgrade_v31_example";
 import { test_json_schema_downgrade_v31_examples } from "./features/openapi/test_json_schema_downgrade_v31_examples";
@@ -785,6 +786,10 @@ test(
   test_json_schema_downgrade_v30_nullable,
 );
 
+test(
+  test_json_schema_downgrade_v31_absent_keywords.name,
+  test_json_schema_downgrade_v31_absent_keywords,
+);
 test(
   test_json_schema_downgrade_v31_enum.name,
   test_json_schema_downgrade_v31_enum,

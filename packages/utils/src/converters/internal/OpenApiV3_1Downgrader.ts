@@ -284,14 +284,15 @@ export namespace OpenApiV3_1Downgrader {
   };
 
   /**
-   * Downgrade one emended schema to 3.1.
+   * Downgrade one emended schema to 3.1. Omit undefined keywords so a consumer
+   * inspecting the object sees the same keywords as in its JSON.
    *
    * @param collection Original and downgraded components
    *
    * @returns Function that converts an emended schema to a 3.1 schema
    *
    * @evidence contracts/common.md#principled-implementation Members of a `oneOf` are flattened into one union, null and constants are written in their 3.1 forms, strings get their base64 encoding, and tuples and objects recurse, with a discriminator kept only while the union kept one member per branch.
-   * @evidence contracts/common.md#clear-and-simple-design One recursive function with a small examples helper.
+   * @evidence contracts/common.md#clear-and-simple-design The recursive conversion owns schema nodes. Only their immediate keyword entries are filtered, so example and extension payloads keep their values.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Rewrites follow the 3.1 dialect and no keyword is invented.
    * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
    */
@@ -400,20 +401,25 @@ export namespace OpenApiV3_1Downgrader {
         }
       };
       visit(input);
-      return {
-        ...(union.length === 0
-          ? { type: undefined }
-          : union.length === 1
-            ? { ...union[0] }
-            : {
-                oneOf: union,
-                ...(preserveDiscriminator && discriminator !== undefined
-                  ? { discriminator }
-                  : {}),
-              }),
+      return omitUndefinedKeywords({
+        ...(union.length <= 1
+          ? union[0]
+          : {
+              oneOf: union.map(omitUndefinedKeywords),
+              ...(preserveDiscriminator && discriminator !== undefined
+                ? { discriminator }
+                : {}),
+            }),
         ...attribute,
-      };
+      });
     };
+
+  const omitUndefinedKeywords = (
+    schema: OpenApiV3_1.IJsonSchema,
+  ): OpenApiV3_1.IJsonSchema =>
+    Object.fromEntries(
+      Object.entries(schema).filter(([, value]) => value !== undefined),
+    );
 
   const downgradeSchemaExamples = (
     examples: OpenApi.IJsonSchema["examples"],
