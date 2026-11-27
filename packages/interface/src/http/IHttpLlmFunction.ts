@@ -23,7 +23,14 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
  */
 export interface IHttpLlmFunction extends ILlmFunction {
   /** HTTP method of the endpoint. */
-  method: "head" | "get" | "post" | "put" | "patch" | "delete" | "query";
+  method: 
+    | "head"
+    | "get"
+    | "post"
+    | "put"
+    | "patch"
+    | "delete"
+    | "query";
 
   /** Path of the endpoint. */
   path: string;
